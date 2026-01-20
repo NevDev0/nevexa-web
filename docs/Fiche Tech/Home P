@@ -1,0 +1,54 @@
+## Couche 2 — Section 1 (Hero) : Rythme & Composition — Spec technique
+
+### Rôle UX (rythme)
+- Section **dense / impact** (entrée de page)
+- Contenu **légèrement remonté** (évite l’effet “mur 100vh”)
+- Doit laisser sentir que la page continue (scroll hint indirect)
+
+### Hauteur / Layout
+- Hauteur cible : `min-h-[90vh]` (pas 100vh)
+- Conteneur contenu :
+  - `flex flex-col items-center justify-center`
+  - Padding horizontal : `px-6`
+  - Padding vertical :
+    - `pt-24` (remonte le bloc)
+    - `pb-16` (respiration, mais pas trop)
+
+### Typographie (échelle)
+- H1 :
+  - `text-3xl sm:text-4xl`
+  - `font-semibold`
+  - `leading-snug`
+  - `mb-3`
+- Subtitle (H2 visuel, mais rôle “tagline”) :
+  - `text-sm sm:text-base`
+  - `text-neutral-300`
+  - `leading-relaxed`
+  - `mb-8`
+
+### CTA (stack)
+- Wrapper :
+  - `w-full max-w-xs`
+  - `flex flex-col gap-3`
+- Primary (Individuals) :
+  - `rounded-full bg-white text-black`
+  - `px-4 py-3`
+  - `text-sm font-semibold`
+- Secondary (Professionals) :
+  - `rounded-full border border-white/70 bg-transparent text-white`
+  - `px-4 py-3`
+  - `text-sm font-semibold`
+
+### Overlay (fond)
+- 1 seule couche (pas double overlay) :
+  - `bg-gradient-to-b from-black/80 via-black/20 to-black/90`
+
+  - Indicateur de scroll:
+    - Texte: `Scroll`, `text-xs`, `tracking-wide`, `text-white/50`
+    - Position: `absolute bottom-6 left-1/2 -translate-x-1/2`
+    - Animation prévue: micro fade loop très lent (Framer Motion) mais optionnelle selon dépendances
+
+### Règles de cohérence à respecter
+- Ne pas modifier le routing (`/b2c`, `/b2b`)
+- Ne pas ajouter d’éléments décoratifs / animations
+- Ne pas changer la copy

@@ -24,3 +24,28 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+@keyframes nevexa-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.nevexa-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: nevexa-marquee 34s linear infinite;
+  will-change: transform;
+}
+
+.nevexa-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nevexa-marquee-track {
+    animation: none;
+  }
+}
