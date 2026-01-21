@@ -4,20 +4,23 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="w-full bg-black px-4 pb-8 pt-1 text-white">
+    <footer className="w-full bg-black px-4 pb-8 text-white">
       <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-4 border-t border-white/10 pt-6 text-xs text-neutral-400 md:flex-row md:justify-between md:gap-0">
         {/* Logo */}
         <div className="flex items-center">
           <img
             src="/logo/nevexa-vertical-white.svg"
-            alt="Nevexa"
-            className="h-10 w-auto opacity-80 mb-2"
+            alt="Nevexa Cars"
+            className="h-10 w-auto opacity-80"
             draggable={false}
           />
         </div>
 
-        {/* Links */}
-        <div className="flex items-center gap-4">
+        {/* Navigation */}
+        <nav
+          className="flex items-center gap-4"
+          aria-label="Footer navigation"
+        >
           <Link
             href="/legal-notice"
             className="transition-colors hover:text-neutral-200"
@@ -30,7 +33,7 @@ export default function Footer() {
           >
             Contact
           </Link>
-        </div>
+        </nav>
 
         {/* Copyright */}
         <div className="text-[11px] text-neutral-500">

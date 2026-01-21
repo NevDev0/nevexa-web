@@ -36,7 +36,7 @@ const NEVEXA_DARK_RED = "#5A0F14";
 
 export default function ChoosePath() {
   return (
-    <section className="w-full bg-black px-4 pt-18 pb-16 text-white">
+    <section className="w-full bg-black px-4 pt-16 pb-16 text-white">
       <div className="mx-auto w-full max-w-6xl">
         {/* Header */}
 <div className="mb-6 flex flex-col items-center text-center">
@@ -45,7 +45,7 @@ export default function ChoosePath() {
   </p>
 
   {/* underline dark red (discret, signature) */}
-  <div className="mt-2 h-px w-8 bg-[#5A0F14]" />
+  <div className="mt-2 mb-2 h-px w-8 bg-[#5A0F14]" />
 </div>
 
         {/* Cards: mobile = 1 col, desktop = 3 cols */}
@@ -60,7 +60,7 @@ export default function ChoosePath() {
                   "relative overflow-hidden rounded-2xl bg-white/5 p-5",
                   "border",
                   isEarly
-                    ? "border-[color:var(--nevexa-dark-red)]/70"
+                    ? "border-[color:var(--nevexa-dark-red)]/90"
                     : "border-white/10 hover:border-[color:var(--nevexa-dark-red)]",
                   "transition-colors duration-200 ease-out",
                 ].join(" ")}

@@ -68,23 +68,30 @@ export const choosePathCopy = {
 // Section 5 — Delivery Options
 export const deliveryOptionsCopy = {
   label: "Delivery options",
+  intro:
+    "Two ways to receive your vehicle. Choose the setup that matches how you handle arrival on the ground.",
   options: [
     {
       id: "port-to-port",
       title: "Port-to-Port",
-      description: "Delivery to the destination port.",
+      description:
+        "We ship your vehicle from Canada to the main port in your country. You or your local agent handle customs and pickup.",
     },
     {
       id: "door-to-door",
       title: "Door-to-Door",
-      description: "Delivery directly to your address.",
+      description:
+        "We coordinate shipping, port handling and last-mile delivery to your address with vetted local partners, where available.",
     },
   ],
 };
 
+
+
 // Section 6 — Real Results (meta texte, les items restent dans results.json)
 export const realResultsCopy = {
   label: "Real results",
+  intro: "A few real operations we’ve already handled between Canada and Africa.",
   // Les images + légendes viennent de src/data/results.json
 };
 
@@ -100,7 +107,32 @@ export const finalCtaCopy = {
   whatsappNumber: "+14374842769",
 };
 
-// Section 8 — Footer
+// Section 8 — Join Us
+export const joinUsCopy = {
+  label: "Join us",
+  intro:
+    "Follow Nevexa across our official channels for updates and new arrivals.",
+  channels: [
+    {
+      id: "facebook",
+      name: "Facebook",
+      url: "#", // TODO
+    },
+    {
+      id: "instagram",
+      name: "Instagram",
+      url: "#", // TODO
+    },
+    {
+      id: "linkedin",
+      name: "LinkedIn",
+      url: "#", // TODO
+    },
+  ],
+};
+
+
+// Section 9 — Footer
 export const footerCopy = {
   legalNoticeLabel: "Legal Notice",
   contactLabel: "Contact",

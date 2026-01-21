@@ -106,22 +106,153 @@ Sections:
 
 - All homepage sections are static (no backend logic)
 
-- Section 5 (Delivery Options):
-  - Informational only (no selection, no CTA)
-  - 2 delivery modes: Port-to-Port, Door-to-Door
-  - Same visual hierarchy as Section 4 title
+-## Section 5 — Delivery Options  
+Status: **LOCKED (Couche 2)**
 
-- Section 6 (Real Results):
-  - Mobile: horizontal swipeable carousel (scroll-snap)
-  - Desktop: grid layout (≤ 3 items)
-  - Data source abstracted (mock file, API-ready)
-  - Images handled via next/image
+### Objective
+Explain Nevexa delivery modes clearly and professionally, without marketing pressure or visual noise.
 
-  - Section 7 (Final CTA):
-  - Single CTA: "Speak with a Nevexa advisor"
-  - No forms, no inputs, no backend logic
-  - Mobile: bottom sheet interaction
-  - Desktop: centered modal
-  - Contact options: Email (mailto) and WhatsApp (direct link)
-  - Overlay + explicit close button for dismissal
+### Structure (validated)
+- Header: DELIVERY OPTIONS
+- Signature underline (#5A0F14)
+- Two delivery modes:
+  - Port-to-Port  
+    - Micro-tag: “Most common setup”
+    - Description focused on port delivery responsibility split
+  - Door-to-Door  
+    - Micro-tag: “Turnkey where available”
+    - Description focused on end-to-end coordination
+
+### Design rules
+- Two clean cards, neutral dark background
+- Light borders, no heavy contrast
+- Placeholder visuals kept intentionally
+- Red (#5A0F14) used only as accent (underline / micro-tags)
+- No decorative animations
+
+### Notes
+- Icons / images planned for Couche 3 only
+- Copy is validated and must not be changed without strategic reason
+
+---
+
+## Section 6 — Real Results  
+Status: **LOCKED (Couche 2)**
+
+### Objective
+Provide credibility through real operations without exaggeration or sales language.
+
+### Structure (validated)
+- Header: REAL RESULTS
+- Signature underline (#5A0F14)
+- Intro copy:
+  “A few real operations we’ve already handled between Canada and Africa.”
+
+### Content rules
+- Fixed order of items:
+  1. Inspection — Canada
+  2. Shipping — Canada to Africa
+  3. Client delivery — Africa (B2C)
+- Images currently used are placeholders only
+- Micro-tags optional, informational only (Inspection / Shipping / B2C)
+
+### Technical notes
+- Simple grid layout (1 col mobile / 3 cols desktop)
+- Section can be toggled ON/OFF via boolean
+- Intended to remain hidden until real proof is available if needed
+
+---
+
+## Section 7 — Final CTA (Contact)  
+Status: **LOCKED (Couche 2)**
+
+### Objective
+Enable immediate human contact with zero friction and zero form.
+
+### Structure (validated)
+- Label: CONTACT
+- Signature underline (#5A0F14)
+- Title: “Speak with a Nevexa advisor”
+- Supporting text explaining no forms / no waiting
+- Primary CTA (white pill button)
+
+### Behavior
+- CTA opens:
+  - Modal (desktop)
+  - Bottom sheet (mobile)
+
+### Modal content
+- Title: “Choose how you’d like to connect”
+- Two equal options:
+  - Email
+  - WhatsApp
+- No channel visually prioritized
+
+### UX rules
+- Instant interaction
+- No forms
+- No redirection before user choice
+- Modal closable via overlay or close button
+
+---
+
+## Section 8 — Join Us  
+Status: **LOCKED (Couche 2)**
+
+### Objective
+Present Nevexa’s official social presence in an institutional, non-marketing way.
+
+### Inspiration
+- Ferrari (mobile)
+- Editorial, typographic, minimal
+
+### Structure (validated)
+- Fine separator line above the section
+- Header: JOIN US
+- Signature underline (#5A0F14)
+- Short intro text
+- Vertical list of official channels:
+  - Facebook
+  - Instagram
+  - LinkedIn
+
+### Design rules
+- No cards
+- No buttons
+- CTA = icon + label
+- Fine icons (non-glyph, non-heavy)
+- Uppercase typography with wide tracking
+- Tight vertical spacing
+- No decorative effects
+
+---
+
+## Section 9 — Footer  
+Status: **LOCKED (Couche 2)**
+
+### Objective
+Close the site in a clean, institutional, non-marketing manner.
+
+### Structure (validated)
+- Fine top border (white/10)
+- Nevexa logo (discrete opacity)
+- Navigation:
+  - Legal Notice
+  - Contact
+- Copyright:
+  © {year} Nevexa. All rights reserved.
+
+### Technical / semantic notes
+- Navigation wrapped in <nav> with aria-label
+- Minimal typography
+- No additional content or calls to action
+
+---
+
+## Global rule — Sections 5 → 9
+
+- All sections are locked at Couche 2
+- No visual polish, animations, or imagery upgrades without explicit transition to Couche 3
+- Copy, structure, and hierarchy must remain unchanged unless a strategic decision is validated
+- Couche 3 will focus on imagery, micro-polish, and optional motion only after full homepage freeze
 

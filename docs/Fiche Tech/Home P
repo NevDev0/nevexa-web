@@ -1,54 +1,198 @@
-## Couche 2 — Section 1 (Hero) : Rythme & Composition — Spec technique
+/* =========================================================
+   NEVEXA — DESIGN TOKENS
+   TYPOGRAPHIE / ESPACEMENTS / RYTHME
+   SOURCE OF TRUTH — COUCHE 2 (LOCKED)
+   ========================================================= */
 
-### Rôle UX (rythme)
-- Section **dense / impact** (entrée de page)
-- Contenu **légèrement remonté** (évite l’effet “mur 100vh”)
-- Doit laisser sentir que la page continue (scroll hint indirect)
 
-### Hauteur / Layout
-- Hauteur cible : `min-h-[90vh]` (pas 100vh)
-- Conteneur contenu :
-  - `flex flex-col items-center justify-center`
-  - Padding horizontal : `px-6`
-  - Padding vertical :
-    - `pt-24` (remonte le bloc)
-    - `pb-16` (respiration, mais pas trop)
+/* ---------------------------------------------------------
+   TYPOGRAPHIE — ÉCHELLE GLOBALE
+   --------------------------------------------------------- */
 
-### Typographie (échelle)
-- H1 :
-  - `text-3xl sm:text-4xl`
-  - `font-semibold`
-  - `leading-snug`
-  - `mb-3`
-- Subtitle (H2 visuel, mais rôle “tagline”) :
-  - `text-sm sm:text-base`
-  - `text-neutral-300`
-  - `leading-relaxed`
-  - `mb-8`
+/*
+H1 — Hero only
+- Taille :
+  - mobile : text-3xl
+  - sm+    : text-4xl
+- Poids : semibold
+- Line-height : snug
+- Usage :
+  - UNIQUEMENT Hero
+  - Jamais ailleurs sur le site
+*/
 
-### CTA (stack)
-- Wrapper :
-  - `w-full max-w-xs`
-  - `flex flex-col gap-3`
-- Primary (Individuals) :
-  - `rounded-full bg-white text-black`
-  - `px-4 py-3`
-  - `text-sm font-semibold`
-- Secondary (Professionals) :
-  - `rounded-full border border-white/70 bg-transparent text-white`
-  - `px-4 py-3`
-  - `text-sm font-semibold`
+ /*
+H2 — Titres de section principaux
+- Taille :
+  - mobile : text-2xl
+  - sm+    : text-3xl
+- Poids : semibold
+- Line-height : snug
+- Usage :
+  - Section 2 (How Nevexa operates)
+  - Futures sections équivalentes (importance forte)
+*/
 
-### Overlay (fond)
-- 1 seule couche (pas double overlay) :
-  - `bg-gradient-to-b from-black/80 via-black/20 to-black/90`
+ /*
+SECTION LABEL / EYEBROW (ex: Brands, Choose your path)
+- Taille : text-sm
+- Poids : semibold
+- Case : uppercase
+- Tracking : large
+- Couleur : gris clair
+- Usage :
+  - Sections légères
+  - Headers non dominants
+*/
 
-  - Indicateur de scroll:
-    - Texte: `Scroll`, `text-xs`, `tracking-wide`, `text-white/50`
-    - Position: `absolute bottom-6 left-1/2 -translate-x-1/2`
-    - Animation prévue: micro fade loop très lent (Framer Motion) mais optionnelle selon dépendances
+ /*
+CARD TITLE
+- Taille : text-lg
+- Poids : semibold
+- Couleur : blanc
+- Usage :
+  - Titles dans cards (Choose Path, etc.)
+*/
 
-### Règles de cohérence à respecter
-- Ne pas modifier le routing (`/b2c`, `/b2b`)
-- Ne pas ajouter d’éléments décoratifs / animations
-- Ne pas changer la copy
+ /*
+BODY / SUPPORT TEXT
+- Taille :
+  - mobile : text-sm
+  - sm+    : text-base
+- Couleur :
+  - blanc ou gris clair selon hiérarchie
+- Line-height : relaxed
+*/
+
+ /*
+LEGAL / META TEXT
+- Taille : très petite (≈ 9px)
+- Style : italic / tracking léger
+- Couleur : gris foncé
+- Usage :
+  - legal notes
+  - disclaimers
+*/
+
+
+/* ---------------------------------------------------------
+   ESPACEMENTS — RYTHME VERTICAL
+   --------------------------------------------------------- */
+
+/*
+SECTION DENSE (Hero)
+- Padding top : élevé (contenu remonté)
+- Padding bottom : modéré
+- Rôle :
+  - impact
+  - tension visuelle
+*/
+
+ /*
+SECTION STANDARD (Process, Choose Path)
+- Padding top : moyen
+- Padding bottom : moyen
+- Rôle :
+  - lisibilité
+  - stabilité
+*/
+
+ /*
+SECTION LÉGÈRE (Brands)
+- Padding top : moyen
+- Padding bottom : réduit
+- Rôle :
+  - respiration
+  - transition
+*/
+
+ /*
+ESPACEMENT ENTRE ÉLÉMENTS INTERNES
+- Petit : titres ↔ underline
+- Moyen : titre ↔ contenu
+- Large : blocs distincts (ex: trust line ↔ steps)
+*/
+
+
+/* ---------------------------------------------------------
+   CTA — RÈGLES GLOBALES
+   --------------------------------------------------------- */
+
+/*
+FORME
+- Toujours pill (arrondi complet)
+
+TAILLE
+- Hauteur moyenne (jamais massive)
+- Texte : text-sm / font-semibold
+
+COULEURS
+- CTA PRINCIPAUX :
+  - fond blanc
+  - texte noir
+- CTA SECONDAIRES :
+  - outline blanc
+  - texte blanc
+
+INTERDICTIONS
+- Aucun CTA rouge plein
+- Le rouge n’est JAMAIS une couleur d’action
+*/
+
+
+/* ---------------------------------------------------------
+   COULEURS — RÈGLES D’USAGE
+   --------------------------------------------------------- */
+
+/*
+NOIR
+- Fond principal
+- Support du contraste premium
+
+BLANC
+- Texte principal
+- CTA
+- Éléments de lisibilité
+
+ROUGE FONCÉ (#5A0F14) — LOCKED
+- Accent UNIQUEMENT
+- Usages autorisés :
+  - underline
+  - bordures (hover ou état spécial)
+  - éléments de signal (Early Access)
+- Interdictions :
+  - fond de CTA
+  - texte principal
+*/
+
+
+/* ---------------------------------------------------------
+   ANIMATIONS — RÈGLES
+   --------------------------------------------------------- */
+
+/*
+PHILOSOPHIE
+- Aucune animation décorative
+- Animation = fonction UX
+
+AUTORISÉ
+- Micro fade
+- Transitions lentes
+- Hover subtil
+
+INTERDIT
+- Scale agressif
+- Glow
+- Bounce
+- Animations “marketing”
+*/
+
+
+/* ---------------------------------------------------------
+   RÈGLE D’OR
+   --------------------------------------------------------- */
+
+/*
+Si un élément attire l’attention sans raison UX claire,
+il doit être supprimé ou atténué.
+*/
