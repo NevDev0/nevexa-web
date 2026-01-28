@@ -8,7 +8,7 @@ export default function Brands() {
     <section className="w-full bg-black px-6 pt-10 pb-14 text-white">
       {/* Title */}
       <div className="mb-6 text-center">
-        <h2 className="text-sm font-semibold uppercase tracking-wider text-neutral-300">
+        <h2 className="text-base font-semibold uppercase tracking-wider text-neutral-300">
           {brandsCopy.title}
         </h2>
       </div>

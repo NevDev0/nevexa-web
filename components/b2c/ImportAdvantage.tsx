@@ -7,7 +7,7 @@ export default function ImportAdvantage() {
       <div className="mx-auto max-w-2xl">
         {/* Section Title */}
         <div className="mb-2 text-center">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.22em] text-neutral-300">
+          <h2 className="text-base font-semibold uppercase tracking-[0.18em] text-neutral-300">
             {importAdvantageCopy.title}
           </h2>
         </div>

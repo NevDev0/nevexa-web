@@ -39,7 +39,7 @@ export default function BrandModelGallery() {
       <div className="mx-auto w-full max-w-6xl">
         {/* Section Title */}
         <div className="mb-10 text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-neutral-300">
+          <p className="text-base font-semibold uppercase tracking-[0.18em] text-neutral-300">
             Inspirational Catalog
           </p>
           {/* Underline accent (#5A0F14) */}

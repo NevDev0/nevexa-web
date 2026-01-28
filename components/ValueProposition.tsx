@@ -6,7 +6,7 @@ export default function ValueProposition() {
       <div className="mx-auto max-w-md">
         {/* Titre */}
         <div className="mb-2 text-center">
-          <h2 className="text-2xl font-semibold leading-snug sm:text-3xl">
+          <h2 className="text-base font-semibold uppercase tracking-[0.16em] text-neutral-200">
             {valuePropsCopy.title}
           </h2>
         </div>
@@ -14,7 +14,7 @@ export default function ValueProposition() {
 
         {/* Trust line — EDGE marketing */}
         <div className="mb-10 flex flex-col items-center text-center">
-          <p className="text-sm font-semibold tracking-wide text-white sm:text-base">
+          <p className="text-sm font-semibold -wide text-white sm:text-base">
             {valuePropsCopy.trustLine}
           </p>
 

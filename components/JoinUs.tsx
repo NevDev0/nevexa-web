@@ -14,7 +14,7 @@ export default function JoinUs() {
 
         {/* Header */}
         <div className="mb-8 text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.30em] text-neutral-300">
+          <p className="text-base font-semibold uppercase tracking-[0.30em] text-neutral-300">
             {label}
           </p>
           <div className="mx-auto mt-2 h-px w-10 bg-[#5A0F14]" />

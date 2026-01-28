@@ -15,7 +15,7 @@ export default function FAQ() {
       <div className="mx-auto max-w-3xl">
         {/* Section Title */}
         <div className="mb-2 text-center">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-neutral-300">
+          <h2 className="text-base font-semibold uppercase tracking-[0.16em] text-neutral-300">
             {faqCopy.title}
           </h2>
         </div>

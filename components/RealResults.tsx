@@ -15,7 +15,7 @@ export default function RealResults() {
       <div className="mx-auto w-full max-w-6xl">
         {/* Header */}
         <div className="mb-10 text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.30em] text-neutral-300">
+          <p className="text-base font-semibold uppercase tracking-[0.30em] text-neutral-300">
             {label}
           </p>
 

@@ -40,7 +40,7 @@ export default function ChoosePath() {
       <div className="mx-auto w-full max-w-6xl">
         {/* Header */}
 <div className="mb-6 flex flex-col items-center text-center">
-  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-neutral-300">
+  <p className="text-base font-semibold uppercase tracking-[0.18em] text-neutral-300">
     Choose your path
   </p>
 

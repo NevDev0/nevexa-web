@@ -2,11 +2,9 @@
 
 import { useState, MouseEvent } from "react";
 import Link from "next/link";
+import { contactCTAB2B } from "@/content/b2b.en";
 
-const EMAIL = "contact@nevexacars.com"; // TODO: update with real address
-const WHATSAPP_URL = "https://wa.me/14374842769"; // TODO: update with real number
-
-export default function FinalCTA() {
+export default function ContactCTAB2B() {
   const [isOpen, setIsOpen] = useState(false);
 
   const open = () => setIsOpen(true);
@@ -19,24 +17,23 @@ export default function FinalCTA() {
 
   return (
     <>
-      <section className="w-full bg-black px-4 py-13 text-white">
+      <section className="w-full bg-black px-4 py-16 text-white sm:px-6">
         <div className="mx-auto w-full max-w-3xl text-center">
           {/* Label */}
-          <p className="text-base font-semibold uppercase tracking-[0.30em] text-neutral-300">
-            Contact
+          <p className="text-base font-semibold uppercase tracking-[0.18em] text-neutral-200">
+            {contactCTAB2B.label}
           </p>
           {/* Underline accent (#5A0F14) */}
-          <div className="mx-auto mt-2 mb-6 h-px w-10 bg-[#5A0F14]" />
+          <div className="mx-auto mt-2 mb-6 h-px w-18 bg-[#5A0F14]" />
 
           {/* Titre principal */}
           <h2 className="mb-4 text-2xl font-semibold text-white sm:text-3xl">
-            Speak with a Nevexa advisor
+            {contactCTAB2B.title}
           </h2>
 
           {/* Sous-texte */}
-          <p className="mb-8 text-sm text-neutral-400">
-            No forms. No waiting. Choose how you want to connect and we’ll take
-            it from there.
+          <p className="mb-8 text-sm text-neutral-400 sm:text-base">
+            {contactCTAB2B.subtitle}
           </p>
 
           {/* CTA principal */}
@@ -45,7 +42,7 @@ export default function FinalCTA() {
             onClick={open}
             className="inline-flex h-12 w-full items-center justify-center rounded-xl bg-white text-sm font-semibold text-black transition-colors hover:bg-white/90 md:w-auto md:px-8"
           >
-            Speak with a Nevexa advisor
+            {contactCTAB2B.ctaLabel}
           </button>
         </div>
       </section>
@@ -65,7 +62,7 @@ export default function FinalCTA() {
             {/* Header modal */}
             <div className="mb-4 flex items-center justify-between">
               <h3 className="text-sm font-semibold uppercase tracking-[0.20em] text-neutral-300">
-                Choose how you&apos;d like to connect
+                {contactCTAB2B.modalTitle}
               </h3>
               <button
                 type="button"
@@ -77,12 +74,12 @@ export default function FinalCTA() {
               </button>
             </div>
 
-            {/* Options */}
+            {/* Options — EMAIL FIRST (B2B priority) */}
             <div className="flex flex-col gap-3 md:flex-row">
-              {/* Email */}
+              {/* Email — PRIORITAIRE B2B */}
               <Link
-                href={`mailto:${EMAIL}?subject=${encodeURIComponent(
-                  "New inquiry — Nevexa website"
+                href={`mailto:${contactCTAB2B.email.address}?subject=${encodeURIComponent(
+                  "B2B Inquiry — Nevexa"
                 )}`}
                 className="flex flex-1 items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white transition-colors hover:bg-white/10"
               >
@@ -100,16 +97,16 @@ export default function FinalCTA() {
                   </svg>
                 </span>
                 <div className="flex flex-col">
-                  <span className="font-semibold">Email</span>
+                  <span className="font-semibold">{contactCTAB2B.email.label}</span>
                   <span className="text-xs text-neutral-400">
-                    Open your default mail client
+                    {contactCTAB2B.email.description}
                   </span>
                 </div>
               </Link>
 
-              {/* WhatsApp */}
+              {/* WhatsApp — SECONDAIRE B2B */}
               <Link
-                href={WHATSAPP_URL}
+                href={contactCTAB2B.whatsapp.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex flex-1 items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white transition-colors hover:bg-white/10"
@@ -128,9 +125,9 @@ export default function FinalCTA() {
                   </svg>
                 </span>
                 <div className="flex flex-col">
-                  <span className="font-semibold">WhatsApp</span>
+                  <span className="font-semibold">{contactCTAB2B.whatsapp.label}</span>
                   <span className="text-xs text-neutral-400">
-                    Open chat in WhatsApp
+                    {contactCTAB2B.whatsapp.description}
                   </span>
                 </div>
               </Link>
