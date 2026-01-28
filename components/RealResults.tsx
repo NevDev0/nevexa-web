@@ -20,7 +20,7 @@ export default function RealResults() {
           </p>
 
           {/* Underline accent (#5A0F14) */}
-          <div className="mx-auto mt-2 h-px w-10 bg-[#5A0F14]" />
+          <div className="mx-auto mt-2 mb-6 h-px w-14 bg-[#5A0F14]" />
 
           {intro && (
             <p className="mx-auto mt-4 max-w-md text-sm text-neutral-300 sm:text-base">

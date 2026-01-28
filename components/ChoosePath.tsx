@@ -45,7 +45,7 @@ export default function ChoosePath() {
   </p>
 
   {/* underline dark red (discret, signature) */}
-  <div className="mt-2 mb-2 h-px w-8 bg-[#5A0F14]" />
+  <div className="mx-auto mt-2 mb-4 h-px w-16 bg-[#5A0F14]" />
 </div>
 
         {/* Cards: mobile = 1 col, desktop = 3 cols */}

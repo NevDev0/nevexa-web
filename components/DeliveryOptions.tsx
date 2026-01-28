@@ -14,7 +14,7 @@ export default function DeliveryOptions() {
           </p>
 
           {/* Underline accent (#5A0F14) */}
-          <div className="mx-auto mt-2 h-px w-10 bg-[#5A0F14]" />
+          <div className="mx-auto mt-2 mb-6 h-px w-18 bg-[#5A0F14]" />
 
           {/* Intro text */}
           {intro && (

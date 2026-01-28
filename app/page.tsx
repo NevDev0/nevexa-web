@@ -1,5 +1,5 @@
-// app/page.tsx
 import Hero from "../components/Hero";
+import WhyImport from "../components/WhyImport"; // ← AJOUTE CETTE LIGNE
 import ValueProposition from "../components/ValueProposition";
 import Brands from "../components/Brands";
 import ChoosePath from "../components/ChoosePath";
@@ -9,12 +9,13 @@ import FinalCTA from "../components/FinalCTA";
 import JoinUs from "../components/JoinUs";
 import Footer from "../components/Footer";
 
-const SHOW_REAL_RESULTS = true; // <- ON/OFF ici
+const SHOW_REAL_RESULTS = true;
 
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-black text-white">
       <Hero />
+      <WhyImport /> {/* ← AJOUTE CETTE LIGNE */}
       <ValueProposition />
       <Brands />
       <ChoosePath />

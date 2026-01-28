@@ -196,3 +196,103 @@ INTERDIT
 Si un élément attire l’attention sans raison UX claire,
 il doit être supprimé ou atténué.
 */
+
+/*
+MICRO-TAGS (context / labels)
+- Taille : text-[11px]
+- Style : uppercase
+- Tracking : large (ex: tracking-[0.22em] à [0.25em])
+- Couleur :
+  - context neutre : text-neutral-500
+  - peut monter à text-neutral-400 si besoin de lisibilité
+- Usage :
+  - Contexte d’une carte (B2C — Nigeria, Inspection — Canada…)
+  - Micro-explications type “Most common setup”, “Turnkey where available”
+- Rôle :
+  - Donner du contexte en 1 ligne
+  - Ne doit JAMAIS dominer le titre ou la phrase principale
+*/
+
+/*
+UNDERLINE SIGNATURE (accent #5A0F14)
+- Hauteur : h-px
+- Largeur : w-10 (centré)
+- Couleur : bg-[#5A0F14]
+- Usage :
+  - Sous les labels de section (“Delivery options”, “Real results”, “Contact”, “Join us”…)
+  - Signale un header de section important
+*/
+
+ /*
+SECTION SEPARATOR (line)
+- Hauteur : h-px
+- Largeur : full dans le container (w-full max-w-6xl)
+- Couleur : bg-white/10 ou border-white/10
+- Usage :
+  - Séparer 2 zones à fort contraste (ex: Final CTA ↔ Join Us, Join Us ↔ Footer)
+  - Jamais décoratif seul : toujours lié à une transition de rôle
+*/
+
+/*
+MODAL / BOTTOM SHEET — PATTERN GLOBAL
+OVERLAY
+- Couleur : bg-black/60
+- Effet : backdrop-blur-sm
+- Rôle : focus sans dramatisation
+
+CONTAINER MOBILE (bottom sheet)
+- Position : aligné en bas (items-end)
+- Border radius : rounded-t-3xl
+- Fond : bg-neutral-950
+- Padding : px-4 pb-6 pt-5
+
+CONTAINER DESKTOP (modal centré)
+- Max-width : md:max-w-md
+- Border radius : md:rounded-2xl
+- Même fond et paddings que mobile
+
+HEADER MODAL
+- Titre : text-sm, uppercase, tracking-[0.22em], text-neutral-300
+- Close button : h-8 w-8, rounded-full, border-white/10, hover:bg-white/5
+
+RÈGLE :
+- Aucune animation agressive
+- Pas de fond rouge
+- Le contenu prime sur le contenant
+*/
+
+/*
+SOCIAL CHANNEL ROW (Join Us)
+- Layout :
+  - Mobile : ligne horizontale, icon left + label
+  - Espacement : space-y-4 entre lignes
+- Icon :
+  - Taille container : h-8 w-8
+  - Couleur : text-neutral-200
+  - Style : outline fin (strokeWidth ≈ 1.5 pour Instagram)
+  - Hover : légère opacity (hover:opacity-80)
+- Label :
+  - Taille : text-sm
+  - Style : font-semibold, uppercase
+  - Tracking : large (ex: tracking-[0.25em])
+  - Couleur : text-neutral-200
+- Pas de cards, pas de background dédié
+- CTA = icône (et non un bouton)
+*/
+
+/*
+MAPPING (Homepage — indicatif)
+- SECTION DENSE (Hero) :
+  - ex: pt-24 pb-16
+- SECTION STANDARD (Process, Delivery, Real results, Final CTA) :
+  - ex: py-16
+- SECTION LÉGÈRE (Brands, Join Us) :
+  - ex: pt-12 pb-10 ou py-12 avec contenu plus minimal
+*/
+
+/*
+CTA (EXTENSION)
+- S’applique aussi aux pages B2C / B2B / Contact :
+  - Tous les CTA d’action business suivent les mêmes règles
+  - Aucune exception locale
+*/

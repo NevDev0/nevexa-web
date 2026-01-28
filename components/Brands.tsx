@@ -13,7 +13,7 @@ export default function Brands() {
         </h2>
       </div>
       {/* Underline accent (#5A0F14) */}
-      <div className="mx-auto -mt-4 mb-6 h-px w-10 bg-[#5A0F14]" />
+      <div className="mx-auto -mt-4 mb-10 h-px w-14 bg-[#5A0F14]" />
 
       {/* Marquee */}
       <div className="relative mb-4 overflow-hidden">

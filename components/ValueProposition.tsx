@@ -2,7 +2,7 @@ import { valuePropsCopy } from "../content/en";
 
 export default function ValueProposition() {
   return (
-    <section className="w-full bg-black px-6 pt-16 pb-16 text-white">
+    <section className="w-full bg-black px-6 pt-14 pb-16 text-white">
       <div className="mx-auto max-w-md">
         {/* Titre */}
         <div className="mb-2 text-center">
@@ -10,6 +10,7 @@ export default function ValueProposition() {
             {valuePropsCopy.title}
           </h2>
         </div>
+        
 
         {/* Trust line — EDGE marketing */}
         <div className="mb-10 flex flex-col items-center text-center">
@@ -18,11 +19,11 @@ export default function ValueProposition() {
           </p>
 
           {/* Underline dark red */}
-          <div className="mt-2 h-[2px] w-16 rounded-full bg-[#5A0F14]" />
+          <div className="mx-auto mt-2 mb-4 h-px w-22 bg-[#5A0F14]" />
         </div>
 
         {/* Grille 2×2 mobile, 4×1 desktop */}
-        <div className="grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
           {valuePropsCopy.items.map((item) => (
             <div
               key={item.id}

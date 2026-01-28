@@ -5,6 +5,29 @@ export const heroCopy = {
   ctaProfessionals: "Professionals",
 };
 
+// Section 2 — Why Import from Canada
+export const whyImportCopy = {
+  title: "Why import from Canada?",
+  intro: "The Canadian vehicle market offers unique advantages for those seeking recent, high-quality vehicles.",
+  arguments: [
+    {
+      id: "recent-models",
+      title: "Access to Recent Models Only",
+      description: "Nevexa sources exclusively 2021-2026 vehicles from official dealerships. Every vehicle meets modern safety and technology standards, with no older inventory or salvage titles.",
+    },
+    {
+      id: "competitive-pricing",
+      title: "Competitive Pricing",
+      description: "Canadian market prices often provide better value compared to local markups, especially for recent premium models where supply is limited.",
+    },
+    {
+      id: "verified-history",
+      title: "Verified Recent History",
+      description: "Recent vehicles mean shorter ownership history to verify. Clean titles, accurate low mileage, with CARFAX and AutoCheck reports included for transparency.",
+    },
+  ],
+};
+
 export const valuePropsCopy = {
   title: "How Nevexa operates",
   trustLine: "Official dealerships only. No auctions.",
@@ -78,20 +101,18 @@ export const deliveryOptionsCopy = {
         "We ship your vehicle from Canada to the main port in your country. You or your local agent handle customs and pickup.",
     },
     {
-      id: "door-to-door",
-      title: "Door-to-Door",
+      id: "port-to-door",
+      title: "Port-to-Door",
       description:
         "We coordinate shipping, port handling and last-mile delivery to your address with vetted local partners, where available.",
     },
   ],
 };
 
-
-
 // Section 6 — Real Results (meta texte, les items restent dans results.json)
 export const realResultsCopy = {
   label: "Real results",
-  intro: "A few real operations we’ve already handled between Canada and Africa.",
+  intro: "A few real operations we've already handled between Canada and Africa.",
   // Les images + légendes viennent de src/data/results.json
 };
 
@@ -100,7 +121,7 @@ export const finalCtaCopy = {
   label: "Contact",
   title: "Speak with a Nevexa advisor",
   subtitle:
-    "No forms. No waiting. Choose how you want to connect and we’ll take it from there.",
+    "No forms. No waiting. Choose how you want to connect and we'll take it from there.",
   ctaLabel: "Speak with a Nevexa advisor",
   email: "contact@nevexacars.com",
   emailSubject: "New inquiry — Nevexa website",
@@ -121,16 +142,15 @@ export const joinUsCopy = {
     {
       id: "instagram",
       name: "Instagram",
-      url: "#", // TODO
+      url: "https://www.instagram.com/nevexacars/",
     },
     {
       id: "linkedin",
       name: "LinkedIn",
-      url: "#", // TODO
+      url: "https://www.linkedin.com/in/nevexa-cars/",
     },
   ],
 };
-
 
 // Section 9 — Footer
 export const footerCopy = {
