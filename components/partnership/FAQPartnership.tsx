@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { whatOthersWontTellYou } from "@/content/b2b.en";
+import { faqPartnershipCopy } from "@/content/partnership.en";
 
-export default function WhatOthersWontTellYou() {
+export default function FAQPartnership() {
   const [activeSlide, setActiveSlide] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
 
@@ -27,42 +27,31 @@ export default function WhatOthersWontTellYou() {
     <section className="w-full bg-black px-4 py-16 sm:px-6">
       <div className="mx-auto max-w-6xl">
         {/* Section Title + Underline */}
-        <div className="mb-6 text-center">
+        <div className="mb-12 text-center">
           <h2 className="text-base font-semibold uppercase tracking-[0.18em] text-neutral-200">
-            {whatOthersWontTellYou.title}
+            {faqPartnershipCopy.title}
           </h2>
-          <div className="mx-auto mt-2 mb-4 h-px w-18 bg-[#5A0F14]" />
+          <div className="mx-auto mt-2 h-px w-18 bg-[#5A0F14]" />
         </div>
 
-        {/* Intro — Brutal tagline */}
-        <p className="mb-8 text-center text-base leading-relaxed text-neutral-300 sm:text-lg">
-          {whatOthersWontTellYou.intro}
-        </p>
-
         {/* Carousel Container */}
-        <div
-          ref={carouselRef}
-          className="carousel-container mb-6 px-2"
-        >
-          {whatOthersWontTellYou.arguments.map((argument) => (
-            <div
-              key={argument.id}
-              className="carousel-item"
-            >
-              <div className="h-full rounded-lg border border-white/10 bg-neutral-900 p-6">
-                {/* Icon Placeholder */}
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full border-2 border-white/20 text-xs font-bold text-white">
-                  {argument.iconPlaceholder}
+        <div ref={carouselRef} className="carousel-container mb-6 px-2">
+          {faqPartnershipCopy.questions.map((item, index) => (
+            <div key={item.id} className="carousel-item">
+              <div className="h-full rounded-lg border border-white/10 bg-neutral-900 p-5 sm:p-6">
+                {/* Question Number Badge */}
+                <div className="mb-3 flex h-8 w-8 items-center justify-center rounded-full border-2 border-[#5A0F14] bg-[#5A0F14]/20 text-sm font-bold text-[#5A0F14]">
+                  {index + 1}
                 </div>
 
-                {/* Title */}
-                <h3 className="mb-3 text-lg font-semibold text-white sm:text-xl">
-                  {argument.title}
+                {/* Question */}
+                <h3 className="mb-3 text-base font-semibold leading-snug text-white sm:text-lg">
+                  {item.question}
                 </h3>
 
-                {/* Text (3-4 phrases) */}
-                <p className="text-sm leading-relaxed text-neutral-400 sm:text-base">
-                  {argument.text}
+                {/* Answer */}
+                <p className="text-sm leading-relaxed text-neutral-300">
+                  {item.answer}
                 </p>
               </div>
             </div>
@@ -71,7 +60,7 @@ export default function WhatOthersWontTellYou() {
 
         {/* Indicators (Dots) */}
         <div className="flex items-center justify-center gap-2">
-          {whatOthersWontTellYou.arguments.map((_, index) => (
+          {faqPartnershipCopy.questions.map((_, index) => (
             <button
               key={index}
               onClick={() => {
@@ -84,15 +73,12 @@ export default function WhatOthersWontTellYou() {
                 });
               }}
               className={`h-2 rounded-full transition-all ${
-                activeSlide === index
-                  ? "w-8 bg-[#5A0F14]"
-                  : "w-2 bg-white/30"
+                activeSlide === index ? "w-8 bg-[#5A0F14]" : "w-2 bg-white/30"
               }`}
-              aria-label={`Go to slide ${index + 1}`}
+              aria-label={`Go to question ${index + 1}`}
             />
           ))}
         </div>
-        
       </div>
     </section>
   );

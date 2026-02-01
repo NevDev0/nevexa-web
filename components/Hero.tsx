@@ -56,7 +56,7 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/20 to-black/90" />
 
       {/* Contenu principal */}
-      <div className="relative z-10 flex min-h-[90vh] flex-col items-center justify-center px-6 pt-24 pb-16 text-center">
+      <div className="relative z-10 flex min-h-[80vh] flex-col items-center justify-center px-6 pt-24 pb-16 text-center">
         <div className="max-w-md">
           <h1 className="mb-3 text-3xl font-semibold leading-snug sm:text-4xl sm:leading-snug">
             {heroCopy.title}
@@ -86,20 +86,7 @@ export default function Hero() {
           </div>
         </div>
       </div>
-
-      {/* Indicateur de scroll — Option B */}
-      <motion.div
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 text-xs tracking-wide text-white/50"
-        initial={{ opacity: 0.35 }}
-        animate={{ opacity: [0.35, 0.6, 0.35] }}
-        transition={{
-          duration: 4,
-          ease: "easeInOut",
-          repeat: Infinity,
-        }}
-      >
-        Scroll
-      </motion.div>
+      
     </section>
   );
 }

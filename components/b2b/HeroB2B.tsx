@@ -9,7 +9,7 @@ export default function HeroB2B() {
       <div className="absolute inset-0 bg-black" />
 
       {/* Content wrapper — same structure as B2C Hero */}
-      <div className="relative z-10 flex min-h-[90vh] flex-col items-center justify-center px-6 pb-16 pt-24 text-center">
+      <div className="relative z-10 flex min-h-[80vh] flex-col items-center justify-center px-6 pb-16 pt-24 text-center">
         <div className="max-w-md">
           {/* H1 — North American Vehicles. No Middleman. No Surprises. */}
           <h1 className="mb-3 text-3xl font-semibold leading-snug text-white sm:text-4xl sm:leading-snug">
@@ -37,10 +37,7 @@ export default function HeroB2B() {
         </div>
       </div>
 
-      {/* Scroll hint — outside content wrapper, absolute to section */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-xs tracking-wide text-white/50">
-        Scroll
-      </div>
+
     </section>
   );
 }

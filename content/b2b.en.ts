@@ -190,7 +190,7 @@ export const b2bHeroCopy = {
       {
         id: 4,
         question: "How long does delivery take?",
-        answer: "4-8 weeks on average, depending on sourcing complexity and destination port.",
+        answer: "6-9 weeks on average, depending on sourcing complexity and destination port.",
       },
       {
         id: 5,
@@ -215,7 +215,7 @@ export const b2bHeroCopy = {
     label: "Contact",
     title: "Ready to discuss your fleet needs?",
     subtitle: "Contact us via email for detailed proposals, or WhatsApp for quick questions.",
-    ctaLabel: "Speak with a Nevexa advisor",
+    ctaLabel: "Get in touch",
     modalTitle: "Choose your preferred contact method",
     email: {
       address: "contact@nevexacars.com", // TODO: update with real address

@@ -122,7 +122,7 @@ export const finalCtaCopy = {
   title: "Speak with a Nevexa advisor",
   subtitle:
     "No forms. No waiting. Choose how you want to connect and we'll take it from there.",
-  ctaLabel: "Speak with a Nevexa advisor",
+  ctaLabel: "Get in touch",
   email: "contact@nevexacars.com",
   emailSubject: "New inquiry — Nevexa website",
   whatsappNumber: "+14374842769",

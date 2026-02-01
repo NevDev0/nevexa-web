@@ -251,7 +251,7 @@ export const faqCopy = {
     {
       id: 6,
       question: "Do you deliver to my country?",
-      answer: "We currently ship to West African countries including Ivory Coast, Senegal, Benin, Togo, and Ghana. Contact us to confirm availability for your specific destination and discuss delivery options.",
+      answer: "We currently ship to West African countries including Nigeria, Ivory Coast, Senegal, Benin, Togo, and Ghana. Contact us to confirm availability for your specific destination and discuss delivery options.",
     },
   ],
 };

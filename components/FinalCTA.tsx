@@ -45,7 +45,7 @@ export default function FinalCTA() {
             onClick={open}
             className="inline-flex h-12 w-full items-center justify-center rounded-xl bg-white text-sm font-semibold text-black transition-colors hover:bg-white/90 md:w-auto md:px-8"
           >
-            Speak with a Nevexa advisor
+            Get in touch
           </button>
         </div>
       </section>

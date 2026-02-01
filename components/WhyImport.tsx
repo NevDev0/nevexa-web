@@ -2,10 +2,10 @@ import { whyImportCopy } from "@/content/en";
 
 export default function WhyImport() {
   return (
-    <section id="why-import" className="w-full bg-black px-6 py-16 text-white">
+    <section id="why-import" className="w-full bg-black px-6 py-10 text-white">
       <div className="mx-auto max-w-6xl">
         {/* Section Title */}
-        <div className="mb-2 text-center">
+        <div className="mb-3 text-center">
           <h2 className="text-base font-semibold uppercase tracking-[0.16em] text-neutral-200">
             {whyImportCopy.title}
           </h2>
