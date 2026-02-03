@@ -4,7 +4,7 @@ import { tripartiteModelCopy } from "@/content/financing.en";
 
 export default function TripartiteModel() {
   return (
-    <section className="w-full bg-black px-6 py-14 text-white">
+    <section className="w-full bg-black px-6 py-12 text-white">
       <div className="mx-auto max-w-6xl">
         {/* Section Title */}
         <div className="mb-3 text-center">

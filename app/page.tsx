@@ -6,10 +6,9 @@ import ChoosePath from "../components/ChoosePath";
 import DeliveryOptions from "../components/DeliveryOptions";
 import RealResults from "../components/RealResults";
 import FinalCTA from "../components/FinalCTA";
-import JoinUs from "../components/JoinUs";
 import Footer from "../components/Footer";
 
-const SHOW_REAL_RESULTS = true;
+const SHOW_REAL_RESULTS = false;
 
 export default function HomePage() {
   return (
@@ -22,7 +21,6 @@ export default function HomePage() {
       <DeliveryOptions />
       {SHOW_REAL_RESULTS && <RealResults />}
       <FinalCTA />
-      <JoinUs />
       <Footer />
     </main>
   );

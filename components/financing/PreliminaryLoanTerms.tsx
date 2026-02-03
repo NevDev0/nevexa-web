@@ -4,11 +4,11 @@ import { preliminaryLoanTermsCopy } from "@/content/financing.en";
 
 export default function PreliminaryLoanTerms() {
   return (
-    <section className="w-full bg-black px-6 py-14 text-white">
+    <section className="w-full bg-[#F2F2F2] px-6 py-12 text-white">
       <div className="mx-auto max-w-4xl">
         {/* Section Title */}
         <div className="mb-3 text-center">
-          <h2 className="text-base font-semibold uppercase tracking-[0.16em] text-neutral-200">
+          <h2 className="text-base font-semibold uppercase tracking-[0.16em] text-black">
             {preliminaryLoanTermsCopy.title}
           </h2>
         </div>
@@ -19,15 +19,15 @@ export default function PreliminaryLoanTerms() {
         </div>
 
         {/* Subtitle */}
-        <p className="mb-12 text-center text-sm italic text-neutral-500">
+        <p className="mb-8 text-center text-sm italic text-neutral-800">
           {preliminaryLoanTermsCopy.subtitle}
         </p>
 
         {/* BLOC 1 : LOAN TERMS OVERVIEW (format tabulaire) */}
-        <div className="mb-8 overflow-hidden rounded-lg border border-white/10">
+        <div className="mb-2 overflow-hidden rounded-lg border border-white/10">
           {/* Header du bloc */}
-          <div className="border-b border-white/10 bg-neutral-900 px-6 py-3">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-neutral-400">
+          <div className="border-b border-white/10 bg-neutral-800 px-6 py-3">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-neutral-100">
               Loan Terms Overview
             </h3>
           </div>
@@ -36,26 +36,26 @@ export default function PreliminaryLoanTerms() {
           <div className="divide-y divide-white/5 bg-neutral-950">
             {/* Duration */}
             <div className="px-6 py-4">
-              <div className="mb-2 text-sm font-medium text-neutral-400">
+              <div className="mb-2 text-sm font-medium text-neutral-300">
                 Duration
               </div>
               <div className="mb-2 text-lg font-semibold text-white">
                 12 to 48 months
               </div>
-              <div className="text-sm text-neutral-500">
+              <div className="text-sm text-neutral-400">
                 → Depending on vehicle value and borrower profile
               </div>
             </div>
 
             {/* Down Payment */}
             <div className="px-6 py-4">
-              <div className="mb-2 text-sm font-medium text-neutral-400">
+              <div className="mb-2 text-sm font-medium text-neutral-300">
                 Down Payment
               </div>
               <div className="mb-2 text-lg font-semibold text-white">
                 20-30% minimum
               </div>
-              <div className="space-y-1 text-sm text-neutral-500">
+              <div className="space-y-1 text-sm text-neutral-400">
                 <div>→ Minimum 20-30% of vehicle value required upfront</div>
                 <div>→ Remainder financed through banking partner</div>
               </div>
@@ -63,13 +63,13 @@ export default function PreliminaryLoanTerms() {
 
             {/* Interest Rates */}
             <div className="px-6 py-4">
-              <div className="mb-2 text-sm font-medium text-neutral-400">
+              <div className="mb-2 text-sm font-medium text-neutral-300">
                 Interest Rates
               </div>
               <div className="mb-2 text-lg font-semibold text-white">
                 8-18% APR
               </div>
-              <div className="space-y-1 text-sm text-neutral-500">
+              <div className="space-y-1 text-sm text-neutral-400">
                 <div>→ Annual percentage rate (indicative)</div>
                 <div>→ Final rate determined by banking partner after credit assessment</div>
                 <div>→ Rates vary by country, creditworthiness, and market conditions</div>
@@ -79,10 +79,10 @@ export default function PreliminaryLoanTerms() {
         </div>
 
         {/* BLOC 2 : MONTHLY PAYMENT EXAMPLE (card stylisée - garde l'original) */}
-        <div className="mb-8 overflow-hidden rounded-lg border border-white/10">
+        <div className="mb-2 overflow-hidden rounded-lg border border-white/10">
           {/* Header */}
-          <div className="border-b border-white/10 bg-neutral-900 px-6 py-3">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-neutral-400">
+          <div className="border-b border-white/10 bg-neutral-800 px-6 py-3">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-neutral-100">
               Monthly Payment Example
             </h3>
           </div>
@@ -91,35 +91,35 @@ export default function PreliminaryLoanTerms() {
           <div className="bg-neutral-950 p-6">
             {/* Calcul détaillé */}
             <div className="mb-4 space-y-2 rounded border border-white/5 bg-black/30 p-4 font-mono text-sm">
-              <div className="flex justify-between text-neutral-400">
+              <div className="flex justify-between text-neutral-300">
                 <span>Vehicle:</span>
                 <span className="text-white">
                   {preliminaryLoanTermsCopy.terms[3].calculation?.vehicle}
                 </span>
               </div>
-              <div className="flex justify-between text-neutral-400">
+              <div className="flex justify-between text-neutral-300">
                 <span>Down payment:</span>
                 <span className="text-white">
                   {preliminaryLoanTermsCopy.terms[3].calculation?.downPayment}{" "}
-                  <span className="text-xs text-neutral-500">
+                  <span className="text-xs text-neutral-300">
                     ({preliminaryLoanTermsCopy.terms[3].calculation?.downPaymentPercent})
                   </span>
                 </span>
               </div>
               <div className="my-2 h-px bg-white/10" />
-              <div className="flex justify-between text-neutral-400">
+              <div className="flex justify-between text-neutral-300">
                 <span>Loan amount:</span>
                 <span className="text-white">
                   {preliminaryLoanTermsCopy.terms[3].calculation?.loanAmount}
                 </span>
               </div>
-              <div className="flex justify-between text-neutral-400">
+              <div className="flex justify-between text-neutral-300">
                 <span>Term:</span>
                 <span className="text-white">
                   {preliminaryLoanTermsCopy.terms[3].calculation?.term}
                 </span>
               </div>
-              <div className="flex justify-between text-neutral-400">
+              <div className="flex justify-between text-neutral-300">
                 <span>Interest rate:</span>
                 <span className="text-white">
                   {preliminaryLoanTermsCopy.terms[3].calculation?.interestRate}
@@ -129,7 +129,7 @@ export default function PreliminaryLoanTerms() {
 
             {/* Résultat final */}
             <div className="flex items-center gap-3 rounded border border-[#5A0F14]/30 bg-[#5A0F14]/10 p-4">
-              <span className="text-sm font-medium text-neutral-400">
+              <span className="text-sm font-medium text-neutral-300">
                 Estimated monthly payment:
               </span>
               <span className="text-2xl font-semibold text-white">
@@ -140,10 +140,10 @@ export default function PreliminaryLoanTerms() {
         </div>
 
         {/* BLOC 3 : ELIGIBILITY CRITERIA */}
-        <div className="mb-8 overflow-hidden rounded-lg border border-white/10">
+        <div className="mb-6 overflow-hidden rounded-lg border border-white/10">
           {/* Header */}
-          <div className="border-b border-white/10 bg-neutral-900 px-6 py-3">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-neutral-400">
+          <div className="border-b border-white/10 bg-neutral-800 px-6 py-3">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-neutral-100">
               Eligibility Criteria (Preliminary)
             </h3>
           </div>
@@ -154,7 +154,7 @@ export default function PreliminaryLoanTerms() {
               {preliminaryLoanTermsCopy.terms[4].details?.map((detail, i) => (
                 <li
                   key={i}
-                  className="flex items-start gap-2 text-sm leading-relaxed text-neutral-400"
+                  className="flex items-start gap-2 text-sm leading-relaxed text-neutral-300"
                 >
                   <span className="-mt-0.5 text-[#5A0F14]">→</span>
                   <span>{detail}</span>
@@ -192,7 +192,7 @@ export default function PreliminaryLoanTerms() {
               <h4 className="mb-2 text-sm font-semibold uppercase tracking-wider text-[#5A0F14]">
                 Important Disclaimer
               </h4>
-              <p className="text-sm leading-relaxed text-neutral-400">
+              <p className="text-sm font-semibold text-neutral-900">
                 {preliminaryLoanTermsCopy.disclaimer}
               </p>
             </div>

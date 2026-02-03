@@ -3,54 +3,136 @@
 import { useState, MouseEvent } from "react";
 import Link from "next/link";
 
-const EMAIL = "contact@nevexacars.com"; // TODO: update with real address
-const WHATSAPP_URL = "https://wa.me/14374842769"; // TODO: update with real number
+const EMAIL = "contact@nevexacars.com";
+const WHATSAPP_URL = "https://wa.me/14374842769";
 
-export default function FinalCTA() {
+// Social links (anciennement dans JoinUs)
+const SOCIALS = [
+  {
+    id: "facebook",
+    name: "Facebook",
+    url: "#", // TODO
+    icon: (
+      <svg viewBox="0 0 24 24" className="h-6 w-6" fill="currentColor">
+        <path d="M22.675 0h-21.35C.597 0 0 .597 0 1.326v21.348C0 23.403.597 24 1.326 24H12.82v-9.294H9.692V11.01h3.128V8.309c0-3.1 1.894-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24h-1.918c-1.504 0-1.796.715-1.796 1.763v2.313h3.587l-.467 3.696h-3.12V24h6.116C23.403 24 24 23.403 24 22.674V1.326C24 .597 23.403 0 22.675 0Z" />
+      </svg>
+    ),
+  },
+  {
+    id: "instagram",
+    name: "Instagram",
+    url: "https://www.instagram.com/nevexacars/",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        className="h-6 w-14"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      >
+        <rect x="3" y="3" width="18" height="18" rx="5" />
+        <circle cx="12" cy="12" r="4" />
+        <circle cx="17" cy="7" r="0.75" fill="currentColor" />
+      </svg>
+    ),
+  },
+  {
+    id: "linkedin",
+    name: "LinkedIn",
+    url: "https://www.linkedin.com/in/nevexa-cars/",
+    icon: (
+      <svg viewBox="0 0 24 24" className="h-6 w-6" fill="currentColor">
+        <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5ZM0 8h5v16H0V8Zm7.5 0h4.8v2.2h.1c.7-1.3 2.4-2.7 5-2.7 5.3 0 6.3 3.5 6.3 8.1V24h-5v-7.8c0-1.9 0-4.4-2.7-4.4-2.7 0-3.1 2.1-3.1 4.2V24h-5V8Z" />
+      </svg>
+    ),
+  },
+];
+
+export default function Contact() {
   const [isOpen, setIsOpen] = useState(false);
 
   const open = () => setIsOpen(true);
   const close = () => setIsOpen(false);
 
-  // Empêche le clic dans le panneau de fermer via l'overlay
   const stopPropagation = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
   };
 
   return (
     <>
-      <section className="w-full bg-black px-4 py-13 text-white">
-        <div className="mx-auto w-full max-w-3xl text-center">
-          {/* Label */}
-          <p className="text-base font-semibold uppercase tracking-[0.30em] text-neutral-300">
-            Contact
-          </p>
+      <section className="w-full bg-black px-6 py-16 text-white">
+        <div className="mx-auto w-full max-w-3xl">
+          {/* Logo Nevexa en haut */}
+          <div className="mb-12 flex justify-center">
+            <img
+              src="/logo/nevexa-vertical-white.svg"
+              alt="Nevexa"
+              className="h-16 w-auto opacity-90"
+              draggable={false}
+            />
+          </div>
+
+          {/* Section Title */}
+          <div className="mb-3 text-center">
+            <h2 className="text-xl font-bold uppercase tracking-[0.12em] sm:text-2xl">
+              Contact
+            </h2>
+          </div>
+
           {/* Underline accent (#5A0F14) */}
-          <div className="mx-auto mt-2 mb-6 h-px w-10 bg-[#5A0F14]" />
+          <div className="mb-8 flex justify-center">
+            <div className="h-px w-20 bg-[#5A0F14]" />
+          </div>
 
           {/* Titre principal */}
-          <h2 className="mb-4 text-2xl font-semibold text-white sm:text-3xl">
+          <h3 className="mb-4 text-center text-2xl font-semibold text-white sm:text-3xl">
             Speak with a Nevexa advisor
-          </h2>
+          </h3>
 
           {/* Sous-texte */}
-          <p className="mb-8 text-sm text-neutral-400">
-            No forms. No waiting. Choose how you want to connect and we’ll take
+          <p className="mb-8 text-center text-sm text-neutral-400 sm:text-base">
+            No forms. No waiting. Choose how you want to connect and we'll take
             it from there.
           </p>
 
           {/* CTA principal */}
-          <button
-            type="button"
-            onClick={open}
-            className="inline-flex h-12 w-full items-center justify-center rounded-xl bg-white text-sm font-semibold text-black transition-colors hover:bg-white/90 md:w-auto md:px-8"
-          >
-            Get in touch
-          </button>
+          <div className="mb-12 flex justify-center">
+            <button
+              type="button"
+              onClick={open}
+              className="inline-flex h-12 w-full items-center justify-center rounded-full bg-white px-8 text-sm font-semibold text-black transition-colors hover:bg-white/90 md:w-auto"
+            >
+              Get in touch
+            </button>
+          </div>
+
+          {/* Separator */}
+          <div className="my-10 h-px w-full bg-white/10" />
+
+          {/* Social Links (intégrés) */}
+          <div className="text-center">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-wider text-neutral-400">
+              Follow us
+            </p>
+            <div className="flex justify-center gap-6">
+              {SOCIALS.map((social) => (
+                <a
+                  key={social.id}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.name}
+                  className="text-white transition-opacity hover:opacity-70"
+                >
+                  {social.icon}
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Modal / Bottom sheet */}
+      {/* Modal / Bottom sheet (inchangé) */}
       {isOpen && (
         <div
           className="fixed inset-0 z-40 flex items-end justify-center bg-black/60 backdrop-blur-sm md:items-center"
@@ -86,7 +168,6 @@ export default function FinalCTA() {
                 )}`}
                 className="flex flex-1 items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white transition-colors hover:bg-white/10"
               >
-                {/* Icône enveloppe */}
                 <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15">
                   <svg
                     aria-hidden="true"
@@ -114,7 +195,6 @@ export default function FinalCTA() {
                 rel="noopener noreferrer"
                 className="flex flex-1 items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white transition-colors hover:bg-white/10"
               >
-                {/* Icône WhatsApp */}
                 <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15">
                   <svg
                     aria-hidden="true"

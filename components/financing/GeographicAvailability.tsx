@@ -4,11 +4,11 @@ import { geographicAvailabilityCopy } from "@/content/financing.en";
 
 export default function GeographicAvailability() {
   return (
-    <section className="w-full bg-black px-6 py-12 text-white">
+    <section className="w-full bg-[#F2F2F2] px-6 py-12 text-white">
       <div className="mx-auto max-w-3xl">
         {/* Section Title */}
         <div className="mb-3 text-center">
-          <h2 className="text-base font-semibold uppercase tracking-[0.16em] text-neutral-200">
+          <h2 className="text-base font-semibold uppercase tracking-[0.16em] text-neutral-900">
             {geographicAvailabilityCopy.title}
           </h2>
         </div>
@@ -29,14 +29,14 @@ export default function GeographicAvailability() {
                 
                 {/* Ligne verticale (pas sur le dernier élément) */}
                 {index < geographicAvailabilityCopy.phases.length - 1 && (
-                  <div className="mt-1 h-full w-px bg-white/10" />
+                  <div className="mt-1 h-full w-px bg-black/80" />
                 )}
               </div>
 
               {/* Contenu de la phase */}
               <div className="flex-1 pb-6">
                 {/* Label de la phase */}
-                <h3 className="mb-2 text-base font-semibold text-white">
+                <h3 className="mb-2 text-base font-semibold text-neutral-800">
                   {phase.label}
                 </h3>
 
@@ -45,7 +45,7 @@ export default function GeographicAvailability() {
                   {phase.details.map((detail, i) => (
                     <li
                       key={i}
-                      className="flex items-start gap-2 text-sm leading-relaxed text-neutral-400"
+                      className="flex items-start gap-2 text-sm font-semibold text-neutral-900"
                     >
                       <span className="-mt-0.5 text-[#5A0F14]">→</span>
                       <span>{detail}</span>
@@ -59,7 +59,7 @@ export default function GeographicAvailability() {
 
         {/* Message "Not in your country" intégré */}
         <div className="mt-4 rounded border border-white/10 bg-white/5 p-4">
-          <p className="text-sm leading-relaxed text-neutral-400">
+          <p className="text-sm leading-relaxed text-neutral-800">
             {geographicAvailabilityCopy.notInCountry}
           </p>
         </div>

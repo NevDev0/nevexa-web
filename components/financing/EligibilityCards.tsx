@@ -51,7 +51,7 @@ export default function EligibilityCards() {
       <div className="mx-auto max-w-6xl">
         {/* Section Title */}
         <div className="mb-3 text-center">
-          <h2 className="text-base font-semibold uppercase tracking-[0.16em] text-neutral-200">
+          <h2 className="text-base font-semibold uppercase tracking-[0.16em] text-neutral-300">
             {eligibilityCardsCopy.title}
           </h2>
         </div>

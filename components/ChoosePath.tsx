@@ -1,108 +1,70 @@
+"use client";
+
 import Link from "next/link";
-
-type PathCard = {
-  id: "b2c" | "b2b" | "finance";
-  title: string;
-  cta: string;
-  href: string;
-  status: "active" | "early";
-};
-
-const PATHS: PathCard[] = [
-  {
-    id: "b2c",
-    title: "Individuals",
-    cta: "Find my vehicle",
-    href: "/b2c",
-    status: "active",
-  },
-  {
-    id: "b2b",
-    title: "Professionals",
-    cta: "Discover our offer",
-    href: "/b2b",
-    status: "active",
-  },
-  {
-    id: "finance",
-    title: "Financing",
-    cta: "Learn more",
-    href: "/finance-early-access",
-    status: "early",
-  },
-];
-
-const NEVEXA_DARK_RED = "#5A0F14";
+import { choosePathCopy } from "@/content/en";
 
 export default function ChoosePath() {
   return (
-    <section className="w-full bg-black px-4 pt-16 pb-16 text-white">
-      <div className="mx-auto w-full max-w-6xl">
-        {/* Header */}
-<div className="mb-6 flex flex-col items-center text-center">
-  <p className="text-base font-semibold uppercase tracking-[0.18em] text-neutral-300">
-    Choose your path
-  </p>
+    <section className="relative w-full bg-black px-6 pb-24 pt-16 text-white">
+      {/* Gradient de transition en bas (noir → transparent) */}
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-[#F2F2F2]" />
+      
+      <div className="relative z-10 mx-auto max-w-6xl">
+        {/* Section Title */}
+        <div className="mb-3 text-center">
+          <h2 className="text-xl font-bold uppercase tracking-[0.12em] sm:text-2xl">
+            {choosePathCopy.label}
+          </h2>
+        </div>
 
-  {/* underline dark red (discret, signature) */}
-  <div className="mx-auto mt-2 mb-4 h-px w-16 bg-[#5A0F14]" />
-</div>
+        {/* Underline accent (#5A0F14) */}
+        <div className="mb-12 flex justify-center">
+          <div className="h-px w-20 bg-[#5A0F14]" />
+        </div>
 
-        {/* Cards: mobile = 1 col, desktop = 3 cols */}
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-          {PATHS.map((card) => {
-            const isEarly = card.status === "early";
-
-            return (
+        {/* Cards Grid - Mobile: 1 col, Desktop: 3 cols */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          {choosePathCopy.cards.map((card) => (
+            <Link
+              key={card.id}
+              href={card.href}
+              className="group relative block h-72 overflow-hidden rounded-lg transition-transform duration-300 hover:scale-[1.02]"
+            >
+              {/* Background Image */}
               <div
-                key={card.id}
-                className={[
-                  "relative overflow-hidden rounded-2xl bg-white/5 p-5",
-                  "border",
-                  isEarly
-                    ? "border-[color:var(--nevexa-dark-red)]/90"
-                    : "border-white/10 hover:border-[color:var(--nevexa-dark-red)]",
-                  "transition-colors duration-200 ease-out",
-                ].join(" ")}
-                style={
-                  {
-                    ["--nevexa-dark-red" as any]: NEVEXA_DARK_RED,
-                  } as React.CSSProperties
-                }
-              >
-                {/* Badge EARLY ACCESS pour Financement */}
-                {isEarly && (
-                  <div className="absolute right-4 top-4 rounded-full bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#5A0F14]">
-                    Early Access
-                  </div>
-                )}
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                style={{
+                  backgroundImage: `url(${card.image})`,
+                }}
+              />
 
-                {/* Placeholder visuel (perf > images pour l’instant) */}
-                <div className="mb-5 h-28 w-full rounded-xl border border-white/10 bg-gradient-to-b from-white/10 to-transparent" />
+              {/* Overlay Gradient (bottom dark) */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent transition-opacity duration-300 group-hover:from-black/80" />
 
-                <div className="flex flex-col gap-3">
-                  <h3 className="text-lg font-semibold text-white">
-                    {card.title}
-                  </h3>
+              {/* Badge EARLY ACCESS (top-right) */}
+              {card.badge && (
+                <div className="absolute right-4 top-4 z-10 rounded-full bg-[#5A0F14] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-lg">
+                  {card.badge}
+                </div>
+              )}
 
-                  <Link
-                    href={card.href}
-                    className={[
-                      "inline-flex h-11 w-full items-center justify-center rounded-full text-sm font-semibold",
-                      "transition-colors duration-200 ease-out",
-                      isEarly
-                        ? "border border-[#5A0F14]/70 bg-transparent text-[white] hover:bg-[#5A0F14]/10"
-                        : "bg-neutral-100 text-black hover:bg-white"
+              {/* Content (bottom-left) */}
+              <div className="absolute bottom-0 left-0 right-0 z-10 p-6">
+                {/* Title */}
+                <h3 className="mb-3 text-2xl font-bold text-white">
+                  {card.title}
+                </h3>
 
-                    ].join(" ")}
-                    aria-label={`${card.title} — ${card.cta}`}
-                  >
-                    {card.cta}
-                  </Link>
+                {/* CTA Button */}
+                <div className="inline-flex items-center gap-2 rounded-full border-2 border-white bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 group-hover:bg-white group-hover:text-black">
+                  {card.ctaLabel}
+                  <span className="transition-transform duration-300 group-hover:translate-x-1">
+                    →
+                  </span>
                 </div>
               </div>
-            );
-          })}
+            </Link>
+          ))}
         </div>
       </div>
     </section>

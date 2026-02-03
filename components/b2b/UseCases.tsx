@@ -55,7 +55,7 @@ export default function UseCases() {
               <p className="mb-2 text-sm font-semibold text-neutral-300">
                 {activeContent.needTitle}
               </p>
-              <p className="text-sm leading-relaxed text-neutral-400 sm:text-base">
+              <p className="text-sm leading-relaxed text-neutral-300 sm:text-base">
                 "{activeContent.needText}"
               </p>
             </div>
@@ -69,24 +69,14 @@ export default function UseCases() {
                 {activeContent.valuePoints.map((point, index) => (
                   <li
                     key={index}
-                    className="text-sm leading-relaxed text-neutral-400 sm:text-base"
+                    className="text-sm leading-relaxed text-neutral-300 sm:text-base"
                   >
                     - {point}
                   </li>
                 ))}
               </ul>
             </div>
-
-            {/* Volume idéal */}
-            <div>
-              <p className="mb-2 text-sm font-semibold text-neutral-300">
-                {activeContent.volumeTitle}
-              </p>
-              <p className="text-sm leading-relaxed text-neutral-400 sm:text-base">
-                {activeContent.volumeText}
-              </p>
             </div>
-          </div>
         )}
       </div>
     </section>

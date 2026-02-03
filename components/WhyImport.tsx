@@ -1,42 +1,94 @@
+"use client";
+
+import { useState } from "react";
 import { whyImportCopy } from "@/content/en";
 
 export default function WhyImport() {
+  // State: quel accordion est ouvert? (null = tous fermés)
+  const [openId, setOpenId] = useState<string | null>(null);
+
+  const toggleAccordion = (id: string) => {
+    setOpenId(openId === id ? null : id);
+  };
+
   return (
-    <section id="why-import" className="w-full bg-black px-6 py-10 text-white">
-      <div className="mx-auto max-w-6xl">
-        {/* Section Title */}
+    <section 
+      id="why-import" 
+      className="w-full bg-[#F2F2F2] px-6 py-16 text-black"
+    >
+      <div className="mx-auto max-w-4xl">
+        {/* Section Title - PLUS IMPOSANT */}
         <div className="mb-3 text-center">
-          <h2 className="text-base font-semibold uppercase tracking-[0.16em] text-neutral-200">
+          <h2 className="text-xl font-bold uppercase tracking-[0.12em] sm:text-2xl">
             {whyImportCopy.title}
           </h2>
         </div>
 
         {/* Underline accent (#5A0F14) */}
-        <div className="mb-6 flex flex-col items-center">
-          <div className="mx-auto -mt-1 mb-6 h-px w-18 bg-[#5A0F14]" />
+        <div className="mb-8 flex justify-center">
+          <div className="h-px w-20 bg-[#5A0F14]" />
         </div>
 
-        {/* Intro */}
-        <p className="mx-auto mb-12 max-w-2xl text-center text-sm leading-relaxed text-neutral-300 sm:text-base">
+        {/* Intro courte - PLUS VISIBLE */}
+        <p className="mb-8 text-center text-lg font-medium text-neutral-800 sm:text-xl">
           {whyImportCopy.intro}
         </p>
 
-        {/* Grid 3 Arguments (1 col mobile / 3 cols desktop) */}
-        <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-3">
-          {whyImportCopy.arguments.map((arg) => (
-            <div key={arg.id} className="flex flex-col">
-              {/* Title */}
-              <h3 className="mb-3 text-lg font-semibold text-white">
-                {arg.title}
-              </h3>
+        {/* Accordions */}
+        <div className="space-y-0">
+          {whyImportCopy.accordions.map((accordion, index) => {
+            const isOpen = openId === accordion.id;
+            const isLast = index === whyImportCopy.accordions.length - 1;
 
-              {/* Description */}
-              <p className="text-sm leading-relaxed text-neutral-400">
-                {arg.description}
-              </p>
-            </div>
-          ))}
+            return (
+              <div key={accordion.id}>
+                {/* Accordion Header (cliquable) - PLUS BOLD */}
+                <button
+                  onClick={() => toggleAccordion(accordion.id)}
+                  className="flex w-full items-center justify-between py-6 text-left transition-colors hover:text-[#5A0F14]"
+                  aria-expanded={isOpen}
+                >
+                  <span className="text-lg font-semibold sm:text-xl">
+                    {accordion.title}
+                  </span>
+                  
+                  {/* Icône +/− avec rotation */}
+                  <span 
+                    className="text-3xl font-light transition-transform duration-300"
+                    style={{
+                      transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)',
+                    }}
+                  >
+                    +
+                  </span>
+                </button>
+
+                {/* Accordion Content (expandable) */}
+                <div
+                  className="overflow-hidden transition-all duration-300 ease-in-out"
+                  style={{
+                    maxHeight: isOpen ? '500px' : '0px',
+                    opacity: isOpen ? 1 : 0,
+                  }}
+                >
+                  <div className="pb-6 pr-12">
+                    <p className="text-base leading-relaxed text-neutral-700">
+                      {accordion.content}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Divider (sauf pour le dernier item) */}
+                {!isLast && (
+                  <div className="h-px bg-neutral-200" />
+                )}
+              </div>
+            );
+          })}
         </div>
+
+        {/* Divider final (ferme la section proprement) */}
+        <div className="mt-0 h-px bg-neutral-200" />
       </div>
     </section>
   );

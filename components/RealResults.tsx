@@ -11,7 +11,7 @@ export default function RealResults() {
   const { label, intro } = realResultsCopy;
 
   return (
-    <section className="w-full bg-black px-4 py-16 text-white">
+    <section className="w-full bg-black px-4 py-12 text-white">
       <div className="mx-auto w-full max-w-6xl">
         {/* Header */}
         <div className="mb-10 text-center">

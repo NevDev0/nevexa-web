@@ -4,7 +4,7 @@ import { roleAndLimitsCopy } from "@/content/partnership.en";
 
 export default function RoleAndLimits() {
   return (
-    <section className="w-full bg-black px-6 py-12 text-white">
+    <section className="w-full bg-black px-6 py-16 text-white">
       <div className="mx-auto max-w-4xl">
         {/* Section Title */}
         <div className="mb-3 text-center">
@@ -16,6 +16,13 @@ export default function RoleAndLimits() {
         {/* Underline accent rouge */}
         <div className="mb-8 flex flex-col items-center">
           <div className="mx-auto -mt-1 h-px w-18 bg-[#5A0F14]" />
+        </div>
+
+        {/* Pre-Warning brutal */}
+        <div className="mb-8 rounded-lg border border-[#5A0F14] bg-[#5A0F14]/10 p-4 text-center">
+          <p className="text-sm font-medium text-[#5A0F14]">
+            {roleAndLimitsCopy.preWarning}
+          </p>
         </div>
 
         {/* Bloc tabulaire — AS A NEVEXA PARTNER */}

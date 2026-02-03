@@ -11,11 +11,11 @@ export default function FAQ() {
   };
 
   return (
-    <section className="w-full bg-black px-6 py-16 text-white">
+    <section className="w-full bg-[#F2F2F2] px-6 py-12 text-white">
       <div className="mx-auto max-w-3xl">
         {/* Section Title */}
         <div className="mb-2 text-center">
-          <h2 className="text-base font-semibold uppercase tracking-[0.16em] text-neutral-300">
+          <h2 className="text-base font-semibold uppercase tracking-[0.16em] text-neutral-900">
             {faqCopy.title}
           </h2>
         </div>
@@ -26,7 +26,7 @@ export default function FAQ() {
         </div>
 
         {/* FAQ Accordion */}
-        <div className="space-y-4">
+        <div className="space-y-0">
           {faqCopy.questions.map((item) => (
             <div
               key={item.id}
@@ -49,7 +49,7 @@ export default function FAQ() {
               {/* Answer (expanded) */}
               {openId === item.id && (
                 <div className="border-t border-white/10 px-5 py-4">
-                  <p className="text-sm leading-relaxed text-neutral-400 sm:text-base">
+                  <p className="text-sm leading-relaxed text-neutral-100 sm:text-base">
                     {item.answer}
                   </p>
                 </div>

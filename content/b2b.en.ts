@@ -92,50 +92,7 @@ export const b2bHeroCopy = {
       },
     ],
   };
-  
-  // Section 4 — Pricing Framework
-  export const pricingFramework = {
-    title: "Pricing Framework",
-    tiers: [
-      {
-        id: 1,
-        name: "Unit",
-        iconPlaceholder: "UN",
-        volume: "1-5 Vehicles",
-        features: [
-          "Standard sourcing",
-          "Fixed fees",
-          "Standard support",
-        ],
-        idealFor: "Ideal for small businesses",
-      },
-      {
-        id: 2,
-        name: "Fleet",
-        iconPlaceholder: "FL",
-        volume: "5-20 Vehicles",
-        features: [
-          "Priority sourcing",
-          "Degressive fees",
-          "Account Manager",
-        ],
-        idealFor: "Ideal for NGOs/Fleets",
-      },
-      {
-        id: 3,
-        name: "Partner",
-        iconPlaceholder: "PT",
-        volume: "20+ Vehicles",
-        features: [
-          "Dedicated sourcing",
-          "Negotiated rates",
-          "24/7 Support",
-        ],
-        idealFor: "Ideal for Resellers",
-      },
-    ],
-  };
-  
+
   // Section 5 — What Others Won't Tell You
   export const whatOthersWontTellYou = {
     title: "What Others Won't Tell You",

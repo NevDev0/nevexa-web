@@ -24,7 +24,7 @@ export default function WhatOthersWontTellYou() {
   }, []);
 
   return (
-    <section className="w-full bg-black px-4 py-16 sm:px-6">
+    <section className="w-full bg-black px-4 py-8 sm:px-6">
       <div className="mx-auto max-w-6xl">
         {/* Section Title + Underline */}
         <div className="mb-6 text-center">

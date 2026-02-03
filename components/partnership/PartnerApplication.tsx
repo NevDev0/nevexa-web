@@ -236,7 +236,7 @@ export default function PartnerApplication() {
         <div className="flex justify-center md:hidden">
           <button
             onClick={() => setIsModalOpen(true)}
-            className="flex items-center gap-2 rounded-lg border border-white/20 bg-neutral-900 px-6 py-3 text-sm font-semibold uppercase tracking-wider text-white transition-all duration-300 hover:border-white/40"
+            className="flex items-center gap-2 rounded-lg border border-white/20 bg-neutral-900 px-6 py-4 text-sm font-semibold uppercase tracking-wider text-white transition-all duration-300 hover:border-white/40"
           >
             <span>📝</span>
             <span>Submit Application</span>

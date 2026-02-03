@@ -1,93 +1,148 @@
 @import "tailwindcss";
 
 :root {
---background: #ffffff;
---foreground: #171717;
+  --background: #ffffff;
+  --foreground: #171717;
 }
 
 @theme inline {
---color-background: var(--background);
---color-foreground: var(--foreground);
---font-sans: var(--font-geist-sans);
---font-mono: var(--font-geist-mono);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
-:root {
---background: #0a0a0a;
---foreground: #ededed;
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
   }
 }
 
 body {
-background: var(--background);
-color: var(--foreground);
-font-family: Arial, Helvetica, sans-serif;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
 }
+
+/* ========================================
+   BRANDS MARQUEE - ANIMATION PRINCIPALE
+   ======================================== */
 
 @keyframes nevexa-marquee {
   from {
-transform: translateX(0);
+    transform: translateX(0);
   }
   to {
-transform: translateX(-50%);
+    transform: translateX(-50%);
   }
 }
 
 .nevexa-marquee-track {
-display: flex;
-width: max-content;
-animation: nevexa-marquee 34s linear infinite;
-will-change: transform;
+  display: flex;
+  width: max-content;
+  animation: nevexa-marquee 24s linear infinite;
+  will-change: transform;
 }
 
 .nevexa-marquee-track:hover {
-animation-play-state: paused;
+  animation-play-state: paused;
 }
 
-@media (prefers-reduced-motion: reduce) {
-.nevexa-marquee-track {
-animation: none;
+/* ========================================
+   EFFET SPOTLIGHT - SCALE AU CENTRE
+   ======================================== */
+
+@keyframes brand-spotlight-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
   }
 }
 
+/* Appliquer l'animation spotlight au wrapper interne */
+.nevexa-brand-spotlight {
+  animation: brand-spotlight-pulse 3s ease-in-out infinite;
+}
+
+/* Stagger delays pour chaque card */
+.nevexa-marquee-track > div:nth-child(1) .nevexa-brand-spotlight { animation-delay: 0s; }
+.nevexa-marquee-track > div:nth-child(2) .nevexa-brand-spotlight { animation-delay: 0.27s; }
+.nevexa-marquee-track > div:nth-child(3) .nevexa-brand-spotlight { animation-delay: 0.54s; }
+.nevexa-marquee-track > div:nth-child(4) .nevexa-brand-spotlight { animation-delay: 0.81s; }
+.nevexa-marquee-track > div:nth-child(5) .nevexa-brand-spotlight { animation-delay: 1.08s; }
+.nevexa-marquee-track > div:nth-child(6) .nevexa-brand-spotlight { animation-delay: 1.35s; }
+.nevexa-marquee-track > div:nth-child(7) .nevexa-brand-spotlight { animation-delay: 1.62s; }
+.nevexa-marquee-track > div:nth-child(8) .nevexa-brand-spotlight { animation-delay: 1.89s; }
+.nevexa-marquee-track > div:nth-child(9) .nevexa-brand-spotlight { animation-delay: 2.16s; }
+.nevexa-marquee-track > div:nth-child(10) .nevexa-brand-spotlight { animation-delay: 2.43s; }
+.nevexa-marquee-track > div:nth-child(11) .nevexa-brand-spotlight { animation-delay: 2.7s; }
+
+/* Loop 2 */
+.nevexa-marquee-track > div:nth-child(12) .nevexa-brand-spotlight { animation-delay: 0s; }
+.nevexa-marquee-track > div:nth-child(13) .nevexa-brand-spotlight { animation-delay: 0.27s; }
+.nevexa-marquee-track > div:nth-child(14) .nevexa-brand-spotlight { animation-delay: 0.54s; }
+.nevexa-marquee-track > div:nth-child(15) .nevexa-brand-spotlight { animation-delay: 0.81s; }
+.nevexa-marquee-track > div:nth-child(16) .nevexa-brand-spotlight { animation-delay: 1.08s; }
+.nevexa-marquee-track > div:nth-child(17) .nevexa-brand-spotlight { animation-delay: 1.35s; }
+.nevexa-marquee-track > div:nth-child(18) .nevexa-brand-spotlight { animation-delay: 1.62s; }
+.nevexa-marquee-track > div:nth-child(19) .nevexa-brand-spotlight { animation-delay: 1.89s; }
+.nevexa-marquee-track > div:nth-child(20) .nevexa-brand-spotlight { animation-delay: 2.16s; }
+.nevexa-marquee-track > div:nth-child(21) .nevexa-brand-spotlight { animation-delay: 2.43s; }
+.nevexa-marquee-track > div:nth-child(22) .nevexa-brand-spotlight { animation-delay: 2.7s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .nevexa-brand-spotlight {
+    animation: none;
+  }
+}
+
+/* ========================================
+   SCROLLBAR HIDE
+   ======================================== */
+
 .scrollbar-hide::-webkit-scrollbar {
-display: none;
+  display: none;
 }
 
 .scrollbar-hide {
--ms-overflow-style: none;
-scrollbar-width: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-/* Carousel Snap Scroll */
+/* ========================================
+   CAROUSEL SNAP SCROLL
+   ======================================== */
+
 .carousel-container {
-display: flex;
-overflow-x: auto;
-scroll-snap-type: x mandatory;
-scroll-behavior: smooth;
--webkit-overflow-scrolling: touch;
-gap: 1.5rem;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  gap: 1.5rem;
 }
 
 .carousel-container::-webkit-scrollbar {
-display: none;
+  display: none;
 }
 
 .carousel-item {
-flex: 0 0 90%;
-scroll-snap-align: start;
-scroll-snap-stop: always;
+  flex: 0 0 90%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 @media (min-width: 640px) {
-.carousel-item {
-flex: 0 0 calc(50% - 0.75rem);
+  .carousel-item {
+    flex: 0 0 calc(50% - 0.75rem);
   }
 }
 
 @media (min-width: 1024px) {
-.carousel-item {
-flex: 0 0 calc(33.333% - 1rem);
+  .carousel-item {
+    flex: 0 0 calc(33.333% - 1rem);
   }
 }

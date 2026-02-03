@@ -5,25 +5,28 @@ export const heroCopy = {
   ctaProfessionals: "Professionals",
 };
 
-// Section 2 — Why Import from Canada
+// Section 2 — Why Import from Canada (VERSION ACCORDION)
 export const whyImportCopy = {
   title: "Why import from Canada?",
-  intro: "The Canadian vehicle market offers unique advantages for those seeking recent, high-quality vehicles.",
-  arguments: [
+  // Phrase intro COURTE (toujours visible, pas dans accordion)
+  intro: "Better vehicles. Better process.",
+  
+  // Accordions (3 items)
+  accordions: [
     {
       id: "recent-models",
-      title: "Access to Recent Models Only",
-      description: "Nevexa sources exclusively 2021-2026 vehicles from official dealerships. Every vehicle meets modern safety and technology standards, with no older inventory or salvage titles.",
+      title: "Recent Models (2021-2026)", // Titre visible quand fermé
+      content: "Nevexa sources exclusively 2021-2026 vehicles from official dealerships. Every vehicle meets modern safety and technology standards, with no older inventory or salvage titles.",
     },
     {
       id: "competitive-pricing",
       title: "Competitive Pricing",
-      description: "Canadian market prices often provide better value compared to local markups, especially for recent premium models where supply is limited.",
+      content: "Canadian market prices often provide better value compared to local markups, especially for recent premium models where supply is limited.",
     },
     {
       id: "verified-history",
-      title: "Verified Recent History",
-      description: "Recent vehicles mean shorter ownership history to verify. Clean titles, accurate low mileage, with CARFAX and AutoCheck reports included for transparency.",
+      title: "Verified History",
+      content: "Recent vehicles mean shorter ownership history to verify. Clean titles, accurate low mileage, with CARFAX and AutoCheck reports included for transparency.",
     },
   ],
 };
@@ -31,11 +34,31 @@ export const whyImportCopy = {
 export const valuePropsCopy = {
   title: "How Nevexa operates",
   trustLine: "Official dealerships only. No auctions.",
-  items: [
-    { id: 1, label: "Sourcing" },
-    { id: 2, label: "Inspection" },
-    { id: 3, label: "Logistics" },
-    { id: 4, label: "Customs" },
+  steps: [
+    {
+      id: 1,
+      label: "Sourcing",
+      description: "Find and secure 2021-2026 vehicles from verified North American dealerships",
+      image: "/process/step-1-sourcing.jpg",
+    },
+    {
+      id: 2,
+      label: "Inspection",
+      description: "Complete pre-delivery inspection with CARFAX and AutoCheck reports",
+      image: "/process/step-2-inspection.jpg",
+    },
+    {
+      id: 3,
+      label: "Logistics",
+      description: "Professional shipping coordination from Canada to African ports",
+      image: "/process/step-3-logistics.jpg",
+    },
+    {
+      id: 4,
+      label: "Customs",
+      description: "Full documentation and customs clearance assistance",
+      image: "/process/step-4-customs.jpg",
+    },
   ],
 };
 
@@ -57,7 +80,7 @@ export const brandsCopy = {
   ],
 };
 
-// Section 4 — Choose Your Path
+// Section 4 — Choose Your Path (AVEC IMAGES)
 export const choosePathCopy = {
   label: "Choose your path",
   cards: [
@@ -65,25 +88,25 @@ export const choosePathCopy = {
       id: "b2c",
       title: "Individuals",
       badge: null,
-      description: "",
       ctaLabel: "Find my vehicle",
       href: "/b2c",
+      image: "/paths/individuals.jpg",
     },
     {
       id: "b2b",
       title: "Professionals",
       badge: null,
-      description: "",
       ctaLabel: "Discover our offer",
       href: "/b2b",
+      image: "/paths/professionals.jpg",
     },
     {
       id: "financing",
       title: "Financing",
       badge: "EARLY ACCESS",
-      description: "",
       ctaLabel: "Learn more",
       href: "/finance-early-access",
+      image: "/paths/financing.jpg",
     },
   ],
 };

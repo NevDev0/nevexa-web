@@ -6,20 +6,20 @@ export default function JoinUs() {
   if (!channels || channels.length === 0) return null;
 
   return (
-    <section className="w-full bg-black px-4 py-8 text-white">
+    <section className="w-full bg-[#F2F2F2] px-4 py-8 text-white">
       <div className="mx-auto w-full max-w-6xl">
         
         {/* Top separator (same logic as footer) */}
-<div className="mx-auto mb-10 h-px w-full max-w-6xl bg-white/10" />
+<div className="mx-auto mb-10 h-px w-full max-w-6xl bg-black" />
 
         {/* Header */}
         <div className="mb-8 text-center">
-          <p className="text-base font-semibold uppercase tracking-[0.30em] text-neutral-300">
+          <p className="text-base font-semibold uppercase tracking-[0.30em] text-black">
             {label}
           </p>
           <div className="mx-auto mt-2 h-px w-10 bg-[#5A0F14]" />
           {intro && (
-            <p className="mx-auto mt-4 max-w-md text-sm text-neutral-400 sm:text-base">
+            <p className="mx-auto mt-4 max-w-md text-sm text-neutral-800 sm:text-base">
               {intro}
             </p>
           )}
@@ -35,7 +35,7 @@ export default function JoinUs() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={channel.name}
-                className="mr-4 flex h-8 w-8 items-center justify-center text-neutral-200 transition-opacity hover:opacity-80"
+                className="mr-4 flex h-8 w-8 items-center justify-center text-neutral-900 transition-opacity hover:opacity-80"
               >
                 {channel.id === "facebook" && (
                   <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
@@ -66,7 +66,7 @@ export default function JoinUs() {
               </a>
 
               {/* Label */}
-              <span className="text-sm font-semibold uppercase tracking-[0.25em] text-neutral-200">
+              <span className="text-sm font-semibold uppercase tracking-[0.25em] text-neutral-900">
                 {channel.name}
               </span>
             </div>

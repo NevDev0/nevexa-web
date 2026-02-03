@@ -11,18 +11,18 @@ export default function FAQB2B() {
   };
 
   return (
-    <section className="w-full bg-black px-4 py-16 sm:px-6">
+    <section className="w-full bg-[#F2F2F2] px-4 py-12 sm:px-6">
       <div className="mx-auto max-w-3xl">
         {/* Section Title + Underline */}
-        <div className="mb-12 text-center">
-          <h2 className="text-base font-semibold uppercase tracking-[0.18em] text-neutral-200">
+        <div className="mb-8 text-center">
+          <h2 className="text-base font-semibold uppercase tracking-[0.18em] text-neutral-900">
             {faqB2B.title}
           </h2>
           <div className="mx-auto mt-2 mb-6 h-px w-18 bg-[#5A0F14]" />
         </div>
 
         {/* FAQ Accordion */}
-        <div className="space-y-4">
+        <div className="space-y-0">
           {faqB2B.questions.map((item) => (
             <div
               key={item.id}
@@ -44,7 +44,7 @@ export default function FAQB2B() {
               {/* Answer (conditional render) */}
               {openQuestion === item.id && (
                 <div className="border-t border-white/10 px-6 py-4">
-                  <p className="text-sm leading-relaxed text-neutral-400 sm:text-base">
+                  <p className="text-sm leading-relaxed text-neutral-100 sm:text-base">
                     {item.answer}
                   </p>
                 </div>
