@@ -41,7 +41,7 @@ body {
 .nevexa-marquee-track {
   display: flex;
   width: max-content;
-  animation: nevexa-marquee 24s linear infinite;
+  animation: nevexa-marquee 28s linear infinite;
   will-change: transform;
 }
 

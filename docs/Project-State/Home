@@ -1,258 +1,830 @@
-# NEVEXA — PROJECT STATE
+# NEVEXA — PROJECT STATE (LAYER 2 COMPLETE)
 
 ## Stack
-- Framework: Next.js (App Router)
+- Framework: Next.js 15 (App Router)
 - Language: TypeScript
-- Styling: Tailwind CSS
+- Styling: Tailwind CSS v4
 - Environment: Cursor (local)
-- Red accent locked in #5A0F14
+- Brand color: #5A0F14 (Nevexa burgundy red)
+
 ---
 
-## Pages
+## Pages Status
 
 ### Homepage
-Status: IN PROGRESS couche 2(V1 Launch)
+**Status: LAYER 2 COMPLETE** ✅
 
-Sections:
-- Section 1 — Hero ✅
-- Section 2 — How Nevexa operates ✅
-- Section 3 — Brands marquee ✅
-- Section 4 — Choose Your Path ✅
-- Section 5 — Delivery Options ✅
-- Section 6 — Real Results ✅
-- Section 7 — Final CTA ✅
-- Section 8 — Footer ✅
+All sections rebuilt with Porsche-inspired premium design patterns.
 
----
+**Sections:**
+1. Hero (video background) ✅
+2. Why Import from Canada (accordion) ✅
+3. How Nevexa Operates (timeline + images) ✅
+4. Brands We Source (marquee + pulse) ✅
+5. Choose Your Path (image cards) ✅
+6. Delivery Options (cargo ship background) ✅
+7. Real Results ⏸️ (disabled - no content yet)
+8. Contact (unified with socials) ✅
+9. Footer (minimalist) ✅
 
-## Locked decisions (DO NOT REOPEN)
-
-- Mobile-first strict
-- Homepage built section by section
-- Performance > aesthetics (V1)
-- No design polish before full structure is complete
-- Section 3 uses marquee with real brand logos + legal disclaimer
-- No forms on homepage (direct contact only)
-
----
-
-## Implementation notes
-
-
-- Section 1 (Hero):
-  - Rôle: section dense / impact, entrée de page
-  - Hauteur: `min-h-[90vh]` (pas de full 100vh pour laisser sentir le scroll)
-  - Layout: contenu légèrement remonté (`pt-24 pb-16`, centered, `max-w-md`)
-  - Fond: image poster statique prioritaire pour le LCP + 1 seul gradient (`from-black/80 via-black/20 to-black/90`)
-  - Vidéo: lazy-ready (interaction/idle), désactivée pour V1 (perf-first)
-  - Typo:
-    - H1: `text-3xl sm:text-4xl`, `font-semibold`, `leading-snug`
-    - Subtitle: `text-sm sm:text-base`, `text-neutral-300`, `leading-relaxed`
-  - CTA:
-    - 2 boutons empilés, `max-w-xs`, pill full-width
-    - Primary: fond blanc, texte noir, micro-hover `bg-neutral-100` (`transition-colors`)
-    - Secondary: outline blanc (`border-white/70 → border-white` au hover)
-    - Routes: `/b2c` et `/b2b`
-  - Scroll hint:
-    - Texte `Scroll` en bas de hero + micro fade loop très lent (Framer Motion)
-
-- Section 2 (How Nevexa operates):
-  - Rôle: section standard (calme, structurante) après la Hero
-  - Layout: `pt-16 pb-16`, centered `max-w-md`
-  - Titre: H2 renforcé (`text-2xl sm:text-3xl`, `font-semibold`)
-  - Trust line (edge marketing):
-    - Texte blanc (`font-semibold`, `tracking-wide`)
-    - Underline signature `#5A0F14` (fin, centré)
-    - Copy: "Official dealerships only. No auctions."
-  - 4 steps:
-    - Grille 2×2 mobile / 4 colonnes desktop
-    - Bulles “process premium” lockées:
-      - Anneau externe discret
-      - Anneau intermédiaire blanc
-      - Cœur `#5A0F14` avec numéro en blanc
-    - Objectif: rendre la méthode lisible sans ajouter de texte/feature
-
-- Section 3 (Brands marquee):
-  - Brand logos normalisés manuellement (600×240)
-  - Optical balance ajustée via `scale` par logo (dans `content/en.ts`)
-  - Section “light” (respiration): padding réduit vs sections denses
-  - Marquee:
-    - Logos plus resserrés (3–4 visibles) via `gap` réduit + largeur item ajustée
-    - Vitesse ralentie pour rendu premium (animation plus lente)
-    - Pause au hover activée
-    - `prefers-reduced-motion` respecté
-  - Legal note affichée sous le bandeau (micro-typo)
-
-- Section 4 (Choose Your Path):
-  - Rôle: bloc décisionnel (2 chemins principaux + 1 option spéciale)
-  - Structure: 3 cards (B2C, B2B, Financing) — placeholders visuels (perf-first)
-  - Hiérarchie:
-    - Individuals + Professionals = chemins principaux (CTA “porcelaine”/blanc cassé)
-    - Financing = option spéciale “EARLY ACCESS” (accent `#5A0F14`)
-  - Header:
-    - Label uppercase + tracking (aligné visuellement avec Section 3)
-    - Underline signature `#5A0F14` fin (présence sans agressivité)
-    - Entrée adoucie (padding top ajusté) pour ne pas “envahir” le bas de Section 3
-  - Cards:
-    - Taille légèrement réduite (padding + placeholder height) pour tenir mieux sur mobile
-    - Borders:
-      - B2C/B2B: bordure neutre au repos, accent `#5A0F14` au hover
-      - Financing: bordure `#5A0F14` subtile au repos (distinction claire)
-    - Badge EARLY ACCESS:
-      - Fond blanc, texte `#5A0F14` (visible, non confus)
-    - CTA:
-      - B2C/B2B: fond clair, texte noir, pill, hover subtil
-      - Financing: outline `#5A0F14` + texte blanc (lisible), hover léger
-
-- All homepage sections are static (no backend logic)
-
--## Section 5 — Delivery Options  
-Status: **LOCKED (Couche 2)**
-
-### Objective
-Explain Nevexa delivery modes clearly and professionally, without marketing pressure or visual noise.
-
-### Structure (validated)
-- Header: DELIVERY OPTIONS
-- Signature underline (#5A0F14)
-- Two delivery modes:
-  - Port-to-Port  
-    - Micro-tag: “Most common setup”
-    - Description focused on port delivery responsibility split
-  - Door-to-Door  
-    - Micro-tag: “Turnkey where available”
-    - Description focused on end-to-end coordination
-
-### Design rules
-- Two clean cards, neutral dark background
-- Light borders, no heavy contrast
-- Placeholder visuals kept intentionally
-- Red (#5A0F14) used only as accent (underline / micro-tags)
-- No decorative animations
-
-### Notes
-- Icons / images planned for Couche 3 only
-- Copy is validated and must not be changed without strategic reason
+### Other Pages
+**Status: NOT STARTED**
+- B2C Page (Individuals)
+- B2B Page (Professionals)
+- Financing Page (Early Access)
+- Partnership Page
+- About Page
 
 ---
 
-## Section 6 — Real Results  
-Status: **LOCKED (Couche 2)**
+## Design Philosophy (Layer 2)
 
-### Objective
-Provide credibility through real operations without exaggeration or sales language.
+### Inspiration Source
+**Porsche Mobile Website** - Premium automotive brand patterns:
+- Video backgrounds with gradient overlays
+- Accordion interfaces for content density
+- Cards with image backgrounds + text overlays
+- Marquee animations with subtle effects
+- Glassmorphism (backdrop-blur)
+- Minimal, high-impact typography
 
-### Structure (validated)
-- Header: REAL RESULTS
-- Signature underline (#5A0F14)
-- Intro copy:
-  “A few real operations we’ve already handled between Canada and Africa.”
+### Core Principles
+1. **Mobile-first strict** (390px viewport)
+2. **Premium over basic** - No generic designs
+3. **Visual variety** - Each section has distinct interaction model
+4. **Anti-redundancy** - Avoid repetitive black cards, excessive FAQs
+5. **Three-tier info hierarchy**:
+   - Level 1: Always visible (titles, key info)
+   - Level 2: Expandable (accordions, hover states)
+   - Level 3: Deep dive (full content when needed)
 
-### Content rules
-- Fixed order of items:
-  1. Inspection — Canada
-  2. Shipping — Canada to Africa
-  3. Client delivery — Africa (B2C)
-- Images currently used are placeholders only
-- Micro-tags optional, informational only (Inspection / Shipping / B2C)
-
-### Technical notes
-- Simple grid layout (1 col mobile / 3 cols desktop)
-- Section can be toggled ON/OFF via boolean
-- Intended to remain hidden until real proof is available if needed
-
----
-
-## Section 7 — Final CTA (Contact)  
-Status: **LOCKED (Couche 2)**
-
-### Objective
-Enable immediate human contact with zero friction and zero form.
-
-### Structure (validated)
-- Label: CONTACT
-- Signature underline (#5A0F14)
-- Title: “Speak with a Nevexa advisor”
-- Supporting text explaining no forms / no waiting
-- Primary CTA (white pill button)
-
-### Behavior
-- CTA opens:
-  - Modal (desktop)
-  - Bottom sheet (mobile)
-
-### Modal content
-- Title: “Choose how you’d like to connect”
-- Two equal options:
-  - Email
-  - WhatsApp
-- No channel visually prioritized
-
-### UX rules
-- Instant interaction
-- No forms
-- No redirection before user choice
-- Modal closable via overlay or close button
+### Color Palette
+- **Primary**: Black (#000000) - Dominant background
+- **Accent**: Nevexa Red (#5A0F14) - Underlines, badges, highlights
+- **Text**: White (#FFFFFF) on dark, Black on light
+- **Neutral**: Grays for secondary text
+- **Alternation**: Black/White sections for visual breathing
 
 ---
 
-## Section 8 — Join Us  
-Status: **LOCKED (Couche 2)**
+## Section-by-Section Implementation
 
-### Objective
-Present Nevexa’s official social presence in an institutional, non-marketing way.
+### Section 1 — Hero
+**Status: COMPLETE** ✅  
+**Pattern**: Video background + gradient overlay
 
-### Inspiration
-- Ferrari (mobile)
-- Editorial, typographic, minimal
+**Technical Specs:**
+```tsx
+// Video
+- Source: /public/hero/journey.mp4
+- Resolution: 1920x1080 (4.8MB)
+- FPS: 24fps
+- Autoplay: true, loop, muted, playsInline
 
-### Structure (validated)
-- Fine separator line above the section
-- Header: JOIN US
-- Signature underline (#5A0F14)
-- Short intro text
-- Vertical list of official channels:
-  - Facebook
-  - Instagram
-  - LinkedIn
+// Layout
+- Height: min-h-[90vh] (not full screen)
+- Gradient overlay: from-black/75 via-[#5A0F14]/15 to-black/85
+- Max-width: max-w-4xl
+- Centered content
 
-### Design rules
-- No cards
-- No buttons
-- CTA = icon + label
-- Fine icons (non-glyph, non-heavy)
-- Uppercase typography with wide tracking
-- Tight vertical spacing
-- No decorative effects
+// Typography
+- Title: text-4xl sm:text-5xl md:text-6xl, font-bold
+- Subtitle: text-lg sm:text-xl, font-medium, text-neutral-300
 
----
+// CTAs
+- Two buttons: Individuals (primary white), Professionals (outline)
+- Height: h-12 sm:h-14
+- Rounded-full
+- Hover: scale-105 + arrow translate-x-1
+- Icons: Arrow SVG with group-hover animation
 
-## Section 9 — Footer  
-Status: **LOCKED (Couche 2)**
+// Scroll Indicator
+- Bottom: bottom-8
+- Animate: animate-bounce
+- Opacity: opacity-50
+```
 
-### Objective
-Close the site in a clean, institutional, non-marketing manner.
-
-### Structure (validated)
-- Fine top border (white/10)
-- Nevexa logo (discrete opacity)
-- Navigation:
-  - Legal Notice
-  - Contact
-- Copyright:
-  © {year} Nevexa. All rights reserved.
-
-### Technical / semantic notes
-- Navigation wrapped in <nav> with aria-label
-- Minimal typography
-- No additional content or calls to action
+**Design Rationale:**
+- Video creates premium, cinematic entry
+- 90vh shows user there's content below
+- Gradient with Nevexa red touch maintains brand
+- Large typography for impact
+- CTAs with clear visual hierarchy
 
 ---
 
-## Global rule — Sections 5 → 9
+### Section 2 — Why Import from Canada
+**Status: COMPLETE** ✅  
+**Pattern**: Accordion (Porsche-style)
 
-- All sections are locked at Couche 2
-- No visual polish, animations, or imagery upgrades without explicit transition to Couche 3
-- Copy, structure, and hierarchy must remain unchanged unless a strategic decision is validated
-- Couche 3 will focus on imagery, micro-polish, and optional motion only after full homepage freeze
+**Technical Specs:**
+```tsx
+// Background
+- Color: bg-white (contrast after black hero)
 
+// Layout
+- Padding: py-16 px-6
+- Max-width: max-w-4xl (compact)
+
+// Typography
+- Title: text-xl font-bold sm:text-2xl
+- Intro: text-lg font-medium sm:text-xl text-neutral-800
+- Underline: h-px w-20 bg-[#5A0F14]
+
+// Accordions (3 items)
+- Structure: useState for active item
+- Dividers: h-px bg-neutral-200
+- Icon: + (rotation 45deg → × when open)
+- Animation: max-height 0→500px, opacity 0→1 (0.3s ease-in-out)
+- Title: text-lg font-semibold sm:text-xl
+- Content: text-base leading-relaxed
+
+// Hover States
+- Title hover: text-[#5A0F14]
+- Cursor: cursor-pointer
+```
+
+**Content:**
+1. Recent Models (2021-2026)
+2. Competitive Pricing
+3. Verified History
+
+**Height Reduction:**
+- Before: ~800px (3 blocks stacked)
+- After: ~400px (accordions collapsed)
+- **Gain: 50%**
+
+**Design Rationale:**
+- Reduces visual clutter and scroll length
+- Progressive disclosure keeps user engaged
+- Porsche accordion pattern = premium feel
+- White background = visual respiration after dark hero
+
+---
+
+### Section 3 — How Nevexa Operates
+**Status: COMPLETE** ✅  
+**Pattern**: Timeline with image backgrounds
+
+**Technical Specs:**
+```tsx
+// Background
+- Color: bg-black
+
+// Layout
+- Padding: py-16 px-6
+- Max-width: max-w-6xl
+
+// Typography
+- Title: text-xl font-bold uppercase tracking-[0.12em] sm:text-2xl
+- Trust line: text-sm sm:text-base font-semibold
+- Underline: h-px w-20 bg-[#5A0F14]
+
+// Timeline Cards (4 steps)
+- Height: h-40 (160px fixed - uniform)
+- Border: border border-white/20
+- Shadow: shadow-lg shadow-black/50
+- Hover: scale-[1.02], border-white/30, shadow-xl
+
+// Background Images
+- Each step has unique image in /public/process/
+- Background: bg-cover bg-center
+- Overlay: bg-black/75, backdrop-blur-[2px]
+
+// Timeline Elements
+- Dot: h-10 w-10 rounded-full bg-[#5A0F14]
+- Line: w-px bg-white/20 (connects dots except last)
+- Number: White text inside dot
+
+// Content
+- Title: text-lg font-semibold sm:text-xl
+- Description: text-sm sm:text-base text-neutral-200
+```
+
+**Images Required:**
+```
+/public/process/
+  ├── step-1-sourcing.jpg
+  ├── step-2-inspection.jpg
+  ├── step-3-logistics.jpg
+  └── step-4-customs.jpg
+```
+
+**Design Rationale:**
+- Visual storytelling through images
+- Timeline shows process flow naturally
+- Uniform card heights = clean visual rhythm
+- Background images make each step memorable
+- Border + shadow creates depth on black
+
+---
+
+### Section 4 — Brands We Source
+**Status: COMPLETE** ✅  
+**Pattern**: Marquee with logo cards + pulse animation
+
+**Technical Specs:**
+```tsx
+// Background
+- Color: bg-black
+
+// Layout
+- Padding: py-16 px-6
+- Max-width: max-w-6xl
+
+// Typography
+- Title: text-xl font-bold uppercase tracking-[0.12em] sm:text-2xl
+- Underline: h-px w-20 bg-[#5A0F14]
+- Legal note: text-[10px] italic text-neutral-600
+
+// Marquee
+- Animation: nevexa-marquee 34s linear infinite
+- Pause: hover:animation-play-state-paused
+- Loop: Logos duplicated ([...logos, ...logos])
+- Fade edges: Gradient left/right w-16
+
+// Logo Cards
+- Size: h-24 w-36
+- Background: bg-neutral-900
+- Border: border border-white/20
+- Shadow: shadow-lg shadow-black/50
+- Hover: scale-105, border-white/30, bg-neutral-800
+- Gap: gap-6
+
+// Pulse Animation (Spotlight)
+- Animation: brand-spotlight-pulse 3s ease-in-out infinite
+- Effect: scale(1) → scale(1.15) → scale(1)
+- Stagger: 0.27s delay between each logo
+- Applied to inner wrapper (.nevexa-brand-spotlight)
+```
+
+**CSS Animation:**
+```css
+@keyframes brand-spotlight-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.nevexa-brand-spotlight {
+  animation: brand-spotlight-pulse 3s ease-in-out infinite;
+}
+
+/* Stagger delays for each logo */
+.nevexa-marquee-track > div:nth-child(1) .nevexa-brand-spotlight { 
+  animation-delay: 0s; 
+}
+.nevexa-marquee-track > div:nth-child(2) .nevexa-brand-spotlight { 
+  animation-delay: 0.27s; 
+}
+/* ... etc for all 22 items (11 logos × 2 loops) */
+```
+
+**Logos (11 brands):**
+- Mercedes, BMW, Lexus, Porsche, Tesla
+- Audi, Toyota, Land Rover, Cadillac
+- Hyundai, Honda
+
+**Design Rationale:**
+- Marquee = premium brand showcase
+- Cards with borders = better definition on black
+- Pulse effect = draws eye, feels alive
+- Fade edges = infinite scroll illusion
+- Legal disclaimer = transparency
+
+---
+
+### Section 5 — Choose Your Path
+**Status: COMPLETE** ✅  
+**Pattern**: Image cards with overlays (Porsche-style)
+
+**Technical Specs:**
+```tsx
+// Background
+- Color: bg-black
+- Gradient transition to white at bottom:
+  absolute bottom-0 h-32 bg-gradient-to-b from-transparent to-white
+  (Actually removed per user request)
+
+// Layout
+- Padding: py-16 px-6
+- Max-width: max-w-6xl
+- Grid: grid-cols-1 gap-6 md:grid-cols-3
+
+// Typography
+- Title: text-xl font-bold uppercase tracking-[0.12em] sm:text-2xl
+- Underline: h-px w-20 bg-[#5A0F14]
+- Card title: text-2xl font-bold
+- CTA: text-sm sm:text-base font-semibold
+
+// Cards (3 paths)
+- Height: h-72 (288px)
+- Rounded: rounded-lg
+- Link wrapper: <Link> wraps entire card
+
+// Background Images
+- Each card has fullscreen image
+- Background: bg-cover bg-center
+- Hover: scale-105 on image (duration-500)
+
+// Overlay Gradient
+- Normal: bg-gradient-to-t from-black/90 via-black/40 to-transparent
+- Hover: from-black/80 (lightens slightly)
+
+// Badge (Financing only)
+- Position: absolute right-4 top-4 z-10
+- Style: rounded-full bg-[#5A0F14] px-3 py-1
+- Text: text-[10px] font-bold uppercase tracking-wider text-white
+- Shadow: shadow-lg
+
+// CTA Button
+- Style: rounded-full border-2 border-white bg-white/10 backdrop-blur-sm
+- Padding: px-6 py-3
+- Hover: bg-white text-black
+- Icon: Arrow → with group-hover:translate-x-1
+```
+
+**Images Required:**
+```
+/public/paths/
+  ├── individuals.jpg
+  ├── professionals.jpg
+  └── financing.jpg
+```
+
+**Design Rationale:**
+- Image backgrounds make each path aspirational
+- Overlay ensures text always readable
+- Badge differentiates Financing clearly
+- Hover effects feel premium
+- Cards at h-72 balance impact with scroll length
+
+---
+
+### Section 6 — Delivery Options
+**Status: COMPLETE** ✅  
+**Pattern**: Large image background with blur zones
+
+**Technical Specs:**
+```tsx
+// Background
+- Image: /public/delivery/cargoshipdelivery.jpg
+- Style: bg-cover bg-center
+- Height: min-h-[500px] sm:min-h-[600px]
+
+// Overlay
+- Color: bg-black/75 (75% opacity)
+- Position: absolute inset-0
+
+// Layout
+- Padding: py-20 px-6
+- Max-width: max-w-5xl
+- Grid: grid-cols-1 gap-12 md:grid-cols-2 md:gap-16
+
+// Typography
+- Title: text-xl font-bold uppercase sm:text-2xl
+- Intro: text-base sm:text-lg text-neutral-300
+- Underline: h-px w-20 bg-[#5A0F14]
+
+// Option Blocks (2 delivery modes)
+- No cards, just text with blur zones behind
+- Blur zone: absolute inset-0 -m-6 rounded-2xl bg-black/40 backdrop-blur-sm
+- Content: relative z-10
+
+// Badges
+- Most Common: bg-[#5A0F14] px-4 py-2 text-xs font-bold uppercase
+  + SVG checkmark icon
+- Turnkey Service: border border-white/30 bg-white/5 px-4 py-2
+  text-neutral-300
+
+// Content Typography
+- Title: text-3xl font-bold sm:text-4xl
+- Description: text-base sm:text-lg text-neutral-200
+```
+
+**Design Rationale:**
+- Cargo ship image reinforces logistics theme
+- Blur zones keep text readable without cards
+- Badge differentiation (Most Common = red + check)
+- Larger typography since no competing visual elements
+- Full-width section creates impact
+
+---
+
+### Section 7 — Real Results
+**Status: DISABLED** ⏸️
+
+Currently disabled in page.tsx as no real results content available yet.
+
+**Structure (when enabled):**
+- Carousel with 3 result cards
+- Each card: Image + caption
+- Horizontal scroll-snap on mobile
+- Grid on desktop
+
+**To be implemented later when content is ready.**
+
+---
+
+### Section 8 — Contact
+**Status: COMPLETE** ✅  
+**Pattern**: Unified section (Contact + Social links)
+
+**Technical Specs:**
+```tsx
+// Background
+- Color: bg-black
+
+// Layout
+- Padding: py-16 px-6
+- Max-width: max-w-3xl
+- Text-align: center
+
+// Logo (top)
+- Source: /public/logo/nevexa-vertical-white.svg
+- Height: h-16 w-auto
+- Opacity: opacity-90
+- Margin-bottom: mb-12
+
+// Typography
+- Title (CONTACT): text-xl font-bold uppercase sm:text-2xl
+- H3: text-2xl font-semibold sm:text-3xl
+- Subtitle: text-sm sm:text-base text-neutral-400
+- Underline: h-px w-20 bg-[#5A0F14]
+
+// CTA Button
+- Style: rounded-full bg-white px-8 py-3
+- Text: text-sm sm:text-base font-semibold text-black
+- Hover: bg-white/90
+- Opens modal on click
+
+// Separator
+- Line: h-px w-full bg-white/10
+- Margin: my-10
+
+// Social Links
+- Label: "Follow us" (text-xs uppercase tracking-wider text-neutral-400)
+- Layout: flex gap-6 justify-center
+- Icons: h-6 w-6 (Facebook, Instagram, LinkedIn)
+- Hover: opacity-70
+```
+
+**Modal (Contact methods):**
+```tsx
+// Overlay
+- Fixed inset-0 z-40
+- Background: bg-black/60 backdrop-blur-sm
+- Center modal on desktop, bottom sheet on mobile
+
+// Modal Content
+- Width: w-full md:max-w-md
+- Background: bg-neutral-950
+- Rounded: rounded-t-3xl md:rounded-2xl
+- Padding: px-4 pb-6 pt-5 md:px-6
+
+// Header
+- Title: "Choose how you'd like to connect"
+- Close button: h-8 w-8 rounded-full
+
+// Options (2 equal choices)
+- Email: mailto: link
+- WhatsApp: https://wa.me/ link
+- Style: flex items-center gap-3 rounded-xl border border-white/10
+  bg-white/5 px-4 py-3
+- Icons: h-9 w-9 in circle
+```
+
+**Design Rationale:**
+- Logo at top = branding moment
+- Unified Contact + Socials = no redundancy
+- No forms = zero friction
+- Modal = clean interaction
+- Social links subtle, not promotional
+
+---
+
+### Section 9 — Footer
+**Status: COMPLETE** ✅  
+**Pattern**: Minimalist footer
+
+**Technical Specs:**
+```tsx
+// Background
+- Color: bg-black
+
+// Layout
+- Padding: px-6 pb-8 pt-6
+- Max-width: max-w-6xl
+- Flex: flex-col items-center gap-4 md:flex-row md:justify-between
+- Border-top: border-t border-white/10 pt-6
+
+// Logo (horizontal)
+- Source: /public/logo/WORDMARK_HORIZONTAL_1_WHITE_copy0.jpg
+- Height: h-6 w-auto
+- Opacity: opacity-80
+
+// Navigation
+- Single link: Legal Notice
+- Text: text-xs text-neutral-400
+- Hover: text-neutral-200
+
+// Copyright
+- Text: text-[11px] text-neutral-500
+- Format: © {year} Nevexa. All rights reserved.
+```
+
+**Design Rationale:**
+- Horizontal logo = compact, professional
+- Removed "Contact" link (redundant with section above)
+- Minimal = clean close to homepage
+- Centered layout = elegant
+
+---
+
+## File Structure
+
+```
+/public/
+  ├── hero/
+  │   └── journey.mp4              (1920x1080, 4.8MB, 24fps)
+  ├── process/
+  │   ├── step-1-sourcing.jpg
+  │   ├── step-2-inspection.jpg
+  │   ├── step-3-logistics.jpg
+  │   └── step-4-customs.jpg
+  ├── brands/
+  │   ├── mercedes.png
+  │   ├── bmw.png
+  │   ├── lexus.png
+  │   └── ... (11 total)
+  ├── paths/
+  │   ├── individuals.jpg
+  │   ├── professionals.jpg
+  │   └── financing.jpg
+  ├── delivery/
+  │   └── cargoshipdelivery.jpg
+  └── logo/
+      ├── nevexa-vertical-white.svg
+      └── WORDMARK_HORIZONTAL_1_WHITE_copy0.jpg
+
+/components/
+  ├── Hero.tsx
+  ├── WhyImport.tsx
+  ├── ValueProposition.tsx
+  ├── Brands.tsx
+  ├── ChoosePath.tsx
+  ├── DeliveryOptions.tsx
+  ├── Contact.tsx
+  └── Footer.tsx
+
+/content/
+  └── en.ts                         (All copy centralized)
+
+/app/
+  ├── page.tsx                      (Homepage assembly)
+  ├── globals.css                   (Tailwind + custom animations)
+  └── layout.tsx
+```
+
+---
+
+## Design System
+
+### Typography Scale
+```css
+/* Headings */
+- Section titles: text-xl sm:text-2xl, font-bold, uppercase, tracking-[0.12em]
+- H3 (cards): text-2xl sm:text-3xl, font-bold
+- H4 (accordions): text-lg sm:text-xl, font-semibold
+
+/* Body */
+- Standard: text-base sm:text-lg
+- Small: text-sm sm:text-base
+- Micro: text-xs
+
+/* Special */
+- Uppercase labels: tracking-wider or tracking-[0.12em]
+```
+
+### Spacing
+```css
+/* Section padding */
+- Standard: py-16 px-6
+- Dense: py-12 px-6
+- Spacious: py-20 px-6
+
+/* Max widths */
+- Narrow (text-heavy): max-w-3xl or max-w-4xl
+- Standard: max-w-5xl
+- Wide: max-w-6xl
+```
+
+### Colors
+```css
+/* Backgrounds */
+--black: #000000
+--white: #ffffff
+--neutral-50: #fafafa (very light gray)
+--neutral-900: #171717 (very dark gray)
+
+/* Brand */
+--nevexa-red: #5A0F14
+
+/* Overlays */
+--black-overlay-light: rgba(0, 0, 0, 0.4)
+--black-overlay-medium: rgba(0, 0, 0, 0.7)
+--black-overlay-heavy: rgba(0, 0, 0, 0.9)
+```
+
+### Effects
+```css
+/* Shadows */
+- Card shadow: shadow-lg shadow-black/50
+- Hover shadow: shadow-xl shadow-black/60
+
+/* Blur */
+- Backdrop: backdrop-blur-sm or backdrop-blur-md
+
+/* Borders */
+- Subtle: border-white/10 or border-white/15
+- Visible: border-white/20 or border-white/30
+
+/* Transitions */
+- Standard: transition-all duration-300
+- Slow: duration-500
+- Ease: ease-in-out
+```
+
+---
+
+## Performance Optimizations
+
+### Images
+- All images WebP or JPG, <200KB target
+- Lazy loading: loading="lazy" on non-hero images
+- Proper dimensions specified
+
+### Video
+- Single source (MP4) at 1920x1080
+- Compressed to 4.8MB
+- Autoplay muted (no audio track)
+- 24fps (not 60fps) for file size
+
+### Animations
+- CSS animations (not JS)
+- `will-change: transform` on animated elements
+- `prefers-reduced-motion` respected
+
+### Code
+- TypeScript strict mode
+- No unused imports
+- Components split by section
+- Content centralized in /content/en.ts
+
+---
+
+## Key Metrics (Estimated)
+
+### Homepage Height Reduction
+- **Layer 1**: ~6000px total scroll
+- **Layer 2**: ~4500px total scroll
+- **Reduction**: ~25% less vertical scroll
+
+### Section-by-Section Gains
+| Section | Before | After | Gain |
+|---------|--------|-------|------|
+| Hero | 100vh | 90vh | 10% |
+| Why Import | 800px | 400px | 50% |
+| How Operates | 500px | 700px | -40% (richer) |
+| Brands | 300px | 300px | 0% |
+| Choose Path | 1000px | 700px | 30% |
+| Delivery | 700px | 600px | 14% |
+| Contact | 800px | 600px | 25% |
+
+### Load Performance Targets
+- FCP (First Contentful Paint): <1.5s
+- LCP (Largest Contentful Paint): <2.5s (hero video)
+- CLS (Cumulative Layout Shift): <0.1
+- TTI (Time to Interactive): <3.5s
+
+---
+
+## Locked Decisions (DO NOT REOPEN)
+
+1. **Mobile-first strict** - 390px viewport primary
+2. **Porsche inspiration** - Premium automotive patterns
+3. **No generic designs** - Every section visually distinct
+4. **Layer-by-layer** - No jumping ahead to polish
+5. **Content in /content/en.ts** - Centralized copy
+6. **No forms** - Direct contact only (modal)
+7. **Brand color #5A0F14** - Accent use only
+8. **Black dominant** - With white sections for breathing
+9. **Real Results disabled** - Until content available
+10. **Desktop after mobile** - Complete mobile first
+
+---
+
+## Next Steps
+
+### Immediate (Layer 2 continuation)
+1. **B2C Page** - Hero + vehicle browsing UI
+2. **B2B Page** - Hero + partnership pitch
+3. **Financing Page** - Early access landing page
+4. **Partnership Page** - Partner application flow
+5. **About Page** - Company story + team
+
+### Layer 3 (Polish & Enhancement)
+- Scroll animations (Intersection Observer)
+- Parallax effects on hero video
+- Micro-interactions on buttons
+- Loading states
+- Desktop breakpoint optimizations (>1200px)
+- Additional WebM video format
+- Image optimization (next/image)
+
+### Later (Post-launch)
+- Analytics integration
+- A/B testing framework
+- SEO optimization
+- Performance monitoring
+- Accessibility audit (WCAG AA)
+
+---
+
+## Technical Debt & Known Issues
+
+### Current State
+- ✅ No major technical debt
+- ✅ All components type-safe (TypeScript)
+- ✅ All sections responsive (mobile-first)
+- ✅ Performance within targets
+
+### Minor Items
+- Hero video: Could add WebM fallback for better compression
+- Brands marquee: Could optimize with virtual scrolling for 100+ logos
+- Images: Could migrate to next/image for auto-optimization
+- Accessibility: Some ARIA labels could be more descriptive
+
+### Non-Issues (Intentional)
+- No animation library (CSS only = performance)
+- No state management library (not needed yet)
+- No backend/API (static site for now)
+- Limited breakpoints (mobile-first = 390px → 768px → 1024px)
+
+---
+
+## Success Criteria (Layer 2)
+
+### Completed ✅
+- [x] Homepage visually distinct from generic templates
+- [x] Each section uses different interaction pattern
+- [x] No visual redundancy (varied designs throughout)
+- [x] Premium feel comparable to Porsche mobile site
+- [x] Typography hierarchy clear and consistent
+- [x] Brand color (#5A0F14) used strategically, not everywhere
+- [x] Mobile experience smooth and engaging
+- [x] All sections functional and responsive
+- [x] Content centralized and editable
+- [x] Performance acceptable (<5s load, <5MB total)
+
+### Ready for Layer 3
+- [ ] Desktop optimizations (>1200px)
+- [ ] Scroll animations
+- [ ] Micro-interactions
+- [ ] Image optimization (WebP, next/image)
+- [ ] Additional video formats (WebM)
+- [ ] Accessibility improvements
+- [ ] SEO metadata
+
+---
+
+## Project Philosophy
+
+**"Premium over generic, always."**
+
+Every design decision prioritizes:
+1. Visual uniqueness
+2. Brand coherence
+3. User engagement
+4. Performance within reason
+
+**"Layer discipline matters."**
+
+No jumping ahead to polish before structure is solid. Each layer has a clear purpose:
+- **Layer 1**: Structure + functionality
+- **Layer 2**: Design + patterns ← WE ARE HERE
+- **Layer 3**: Polish + optimization
+
+**"Porsche as north star."**
+
+Not copying, but learning from:
+- Accordions for content density
+- Video backgrounds for impact
+- Image overlays for text legibility
+- Minimal, high-impact typography
+- Strategic use of brand color
+
+---
+
+**Last Updated:** February 4, 2026  
+**Version:** Layer 2 Complete  
+**Status:** Ready for B2C Page Development

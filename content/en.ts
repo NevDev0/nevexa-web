@@ -77,6 +77,7 @@ export const brandsCopy = {
     { name: "Cadillac", src: "/brands/cadillac.png", scale: 1.4 },
     { name: "Hyundai", src: "/brands/hyundai.png", scale: 1.5 },
     { name: "Honda", src: "/brands/honda.png", scale: 1.65 },
+    { name: "Dodge", src: "/brands/dodge.png", scale: 2.1 },
   ],
 };
 
