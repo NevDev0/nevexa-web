@@ -1,140 +1,194 @@
 "use client";
 
-import { useState, MouseEvent } from "react";
-import Link from "next/link";
+import { useState, useEffect, useRef } from "react";
 import { contactCTAB2B } from "@/content/b2b.en";
 
 export default function ContactCTAB2B() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
-  const open = () => setIsOpen(true);
-  const close = () => setIsOpen(false);
+  useEffect(() => {
+    if (!sectionRef.current) return;
 
-  // Empêche le clic dans le panneau de fermer via l'overlay
-  const stopPropagation = (e: MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-  };
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(sectionRef.current);
+
+    return () => observer.disconnect();
+  }, []);
+
+  const channels = [
+    {
+      id: "email",
+      icon: "✉",
+      title: "Email",
+      tagline: "For fleet sourcing & partnerships",
+      action: contactCTAB2B.ctaPrimary,
+      href: "mailto:contact@nevexacars.com",
+    },
+    {
+      id: "whatsapp",
+      icon: "💬",
+      title: "WhatsApp",
+      tagline: "For urgent questions",
+      action: contactCTAB2B.ctaSecondary,
+      href: "https://wa.me/14374842769",
+    },
+  ];
 
   return (
-    <>
-      <section className="w-full bg-black px-4 py-16 text-white sm:px-6">
-        <div className="mx-auto w-full max-w-3xl text-center">
-          {/* Label */}
-          <p className="text-base font-semibold uppercase tracking-[0.18em] text-neutral-200">
-            {contactCTAB2B.label}
-          </p>
-          {/* Underline accent (#5A0F14) */}
-          <div className="mx-auto mt-2 mb-6 h-px w-18 bg-[#5A0F14]" />
-
-          {/* Titre principal */}
-          <h2 className="mb-4 text-2xl font-semibold text-white sm:text-3xl">
+    <section
+      ref={sectionRef}
+      className="relative w-full overflow-hidden bg-[#0E0F11] px-6 py-12 sm:py-20"
+    >
+      <div className="relative z-10 mx-auto max-w-5xl">
+        {/* Header */}
+        <div
+          className={`mb-4 text-center transition-all duration-700 ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+          }`}
+        >
+          <h2 className="mb-3 text-2xl font-bold tracking-tight sm:text-3xl">
             {contactCTAB2B.title}
           </h2>
-
-          {/* Sous-texte */}
-          <p className="mb-8 text-sm text-neutral-400 sm:text-base">
+          <div
+            className={`mx-auto mb-5 h-px bg-[#5A0F14] transition-all duration-700 ${
+              isVisible ? "w-18" : "w-0"
+            }`}
+            style={{ transitionDelay: "300ms" }}
+          />
+          <p className="text-[15px] leading-relaxed text-white/70">
             {contactCTAB2B.subtitle}
           </p>
-
-          {/* CTA principal */}
-          <button
-            type="button"
-            onClick={open}
-            className="inline-flex h-12 w-full items-center justify-center rounded-xl bg-white text-sm font-semibold text-black transition-colors hover:bg-white/90 md:w-auto md:px-8"
-          >
-            {contactCTAB2B.ctaLabel}
-          </button>
         </div>
-      </section>
 
-      {/* Modal / Bottom sheet */}
-      {isOpen && (
+        {/* Split Cards */}
+        <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
+          {channels.map((channel, index) => {
+            const isHovered = hoveredCard === channel.id;
+
+            return (
+              <div
+                key={channel.id}
+                onClick={() => setHoveredCard(channel.id)}
+                onMouseEnter={() => setHoveredCard(channel.id)}
+                onMouseLeave={() => setHoveredCard(null)}
+                className={`group relative cursor-pointer overflow-hidden rounded-lg bg-[#0a0a0a] p-4 transition-all ${
+                  isVisible
+                    ? "translate-y-0 opacity-100"
+                    : "translate-y-8 opacity-0"
+                } ${
+                  isHovered
+                    ? "scale-105 shadow-[0_20px_60px_rgba(90,15,20,0.3)]"
+                    : "scale-100"
+                }`}
+                style={{
+                  transitionDelay: isVisible ? `${400 + index * 150}ms` : "0ms",
+                  transitionDuration: isHovered ? "250ms" : "500ms",
+                }}
+              >
+                {/* Gradient border */}
+                <div
+                  className={`pointer-events-none absolute inset-0 rounded-lg p-px transition-all duration-300 ${
+                    isHovered ? "opacity-100" : "opacity-30"
+                  }`}
+                  style={{
+                    background:
+                      "linear-gradient(135deg, rgba(90,15,20,0.6), transparent 50%, rgba(90,15,20,0.3))",
+                    WebkitMask:
+                      "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+                    WebkitMaskComposite: "xor",
+                    maskComposite: "exclude",
+                  }}
+                />
+
+                {/* Content */}
+                <div className="relative z-10">
+                  {/* Icon badge */}
+                  <div
+                    className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full border-2 text-2xl transition-all duration-200 ${
+                      isHovered
+                        ? "scale-110 border-[#5A0F14] bg-[#5A0F14]/10"
+                        : "border-white/10 bg-white/5"
+                    }`}
+                  >
+                    {channel.icon}
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="mb-1.5 text-xl font-bold tracking-tight">
+                    {channel.title}
+                  </h3>
+
+                  {/* Tagline */}
+                  <p className="mb-5 text-sm leading-relaxed text-white/65">
+                    {channel.tagline}
+                  </p>
+
+                  {/* Button */}
+                  <a
+                    href={channel.href}
+                    className={`group/btn relative inline-flex items-center gap-2 overflow-hidden rounded-lg px-5 py-2.5 text-sm font-semibold transition-all duration-200 ${
+                      isHovered
+                        ? "bg-[#5A0F14] text-white"
+                        : "bg-white/5 text-white/75"
+                    }`}
+                  >
+                    <span className="relative z-10">{channel.action}</span>
+                    
+                    {/* Arrow */}
+                    <svg
+                      className={`relative z-10 h-4 w-4 transition-transform duration-200 ${
+                        isHovered ? "translate-x-1" : "translate-x-0"
+                      }`}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17 8l4 4m0 0l-4 4m4-4H3"
+                      />
+                    </svg>
+                  </a>
+                </div>
+
+                {/* Card glow */}
+                <div
+                  className={`pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(90,15,20,0.15),transparent_60%)] transition-opacity duration-250 ${
+                    isHovered ? "opacity-100" : "opacity-0"
+                  }`}
+                />
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Footer note */}
         <div
-          className="fixed inset-0 z-40 flex items-end justify-center bg-black/60 backdrop-blur-sm md:items-center"
-          onClick={close}
-          aria-modal="true"
-          role="dialog"
+          className={`mt-8 text-center transition-all duration-700 ${
+            isVisible
+              ? "translate-y-0 opacity-100"
+              : "translate-y-4 opacity-0"
+          }`}
+          style={{ transitionDelay: "800ms" }}
         >
-          <div
-            onClick={stopPropagation}
-            className="w-full rounded-t-3xl bg-neutral-950 px-4 pb-6 pt-5 shadow-xl md:max-w-md md:rounded-2xl md:px-6 md:pb-6 md:pt-5"
-          >
-            {/* Header modal */}
-            <div className="mb-4 flex items-center justify-between">
-              <h3 className="text-sm font-semibold uppercase tracking-[0.20em] text-neutral-300">
-                {contactCTAB2B.modalTitle}
-              </h3>
-              <button
-                type="button"
-                onClick={close}
-                className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 text-xs text-neutral-400 hover:bg-white/5"
-                aria-label="Close"
-              >
-                ✕
-              </button>
-            </div>
-
-            {/* Options — EMAIL FIRST (B2B priority) */}
-            <div className="flex flex-col gap-3 md:flex-row">
-              {/* Email — PRIORITAIRE B2B */}
-              <Link
-                href={`mailto:${contactCTAB2B.email.address}?subject=${encodeURIComponent(
-                  "B2B Inquiry — Nevexa"
-                )}`}
-                className="flex flex-1 items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white transition-colors hover:bg-white/10"
-              >
-                {/* Icône enveloppe */}
-                <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15">
-                  <svg
-                    aria-hidden="true"
-                    viewBox="0 0 24 24"
-                    className="h-4 w-4 text-neutral-200"
-                  >
-                    <path
-                      d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm0 2v.2l8 5 8-5V7H4Zm0 3.25V18h16v-7.75l-7.56 4.73a1 1 0 0 1-1.08 0L4 10.25Z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                </span>
-                <div className="flex flex-col">
-                  <span className="font-semibold">{contactCTAB2B.email.label}</span>
-                  <span className="text-xs text-neutral-400">
-                    {contactCTAB2B.email.description}
-                  </span>
-                </div>
-              </Link>
-
-              {/* WhatsApp — SECONDAIRE B2B */}
-              <Link
-                href={contactCTAB2B.whatsapp.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex flex-1 items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white transition-colors hover:bg-white/10"
-              >
-                {/* Icône WhatsApp */}
-                <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15">
-                  <svg
-                    aria-hidden="true"
-                    viewBox="0 0 32 32"
-                    className="h-4 w-4 text-neutral-200"
-                  >
-                    <path
-                      d="M16 3C9.383 3 4 8.383 4 15c0 2.054.551 4.022 1.6 5.77L4 29l8.434-1.566A11.84 11.84 0 0 0 16 27c6.617 0 12-5.383 12-12S22.617 3 16 3Zm0 2c5.534 0 10 4.466 10 10s-4.466 10-10 10a9.83 9.83 0 0 1-4.91-1.332l-.355-.207-4.99.926.955-4.834-.23-.373A9.77 9.77 0 0 1 6 15c0-5.534 4.466-10 10-10Zm-4.104 5.5a1.01 1.01 0 0 0-.74.356c-.192.225-.668.652-.668 1.586 0 .934.684 1.838.78 1.965.096.128 1.34 2.13 3.287 2.996 1.946.867 1.946.578 2.296.547.35-.03 1.126-.46 1.285-.905.16-.445.16-.826.114-.905-.046-.08-.178-.128-.373-.225-.195-.096-1.153-.57-1.332-.636-.178-.064-.308-.096-.437.097-.128.192-.502.635-.615.764-.113.128-.225.145-.42.048-.195-.096-.825-.304-1.572-.968-.58-.517-.97-1.155-1.083-1.35-.113-.192-.012-.296.084-.392.086-.085.195-.225.292-.337.097-.112.129-.192.194-.32.064-.128.032-.24-.017-.337-.048-.096-.426-1.03-.585-1.412-.145-.35-.29-.363-.42-.369Z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                </span>
-                <div className="flex flex-col">
-                  <span className="font-semibold">{contactCTAB2B.whatsapp.label}</span>
-                  <span className="text-xs text-neutral-400">
-                    {contactCTAB2B.whatsapp.description}
-                  </span>
-                </div>
-              </Link>
-            </div>
-          </div>
+          <p className="text-sm text-white/50">{contactCTAB2B.note}</p>
         </div>
-      )}
-    </>
+      </div>
+    </section>
   );
 }

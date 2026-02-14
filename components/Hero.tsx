@@ -5,7 +5,7 @@ import { heroCopy } from "../content/en";
 
 export default function Hero() {
   return (
-    <section className="relative flex min-h-[85vh] w-full items-center justify-center overflow-hidden bg-black">
+    <section className="relative flex min-h-[90vh] w-full items-center justify-center overflow-hidden bg-black">
       {/* Video Background */}
       <video
         autoPlay

@@ -4,53 +4,143 @@ import { useState } from "react";
 import { faqB2B } from "@/content/b2b.en";
 
 export default function FAQB2B() {
-  const [openQuestion, setOpenQuestion] = useState<number | null>(null);
+  const [openId, setOpenId] = useState<number | null>(null);
 
-  const toggleQuestion = (id: number) => {
-    setOpenQuestion(openQuestion === id ? null : id);
+  const toggle = (id: number) => {
+    setOpenId(openId === id ? null : id);
   };
 
   return (
-    <section className="w-full bg-[#F2F2F2] px-4 py-12 sm:px-6">
-      <div className="mx-auto max-w-3xl">
-        {/* Section Title + Underline */}
-        <div className="mb-8 text-center">
-          <h2 className="text-base font-semibold uppercase tracking-[0.18em] text-neutral-900">
+    <section className="relative w-full bg-[#F3EFEA] px-6 py-12 text-black sm:py-16">
+      {/* Gradient transition from dark section above */}
+     
+
+      <div className="relative z-10 mx-auto max-w-3xl">
+        {/* Header */}
+        <div className="mb-3 text-center">
+          <h2 className="text-xl font-bold uppercase tracking-[0.12em] sm:text-2xl">
             {faqB2B.title}
           </h2>
-          <div className="mx-auto mt-2 mb-6 h-px w-18 bg-[#5A0F14]" />
         </div>
 
-        {/* FAQ Accordion */}
-        <div className="space-y-0">
-          {faqB2B.questions.map((item) => (
-            <div
-              key={item.id}
-              className="rounded-lg border border-white/10 bg-neutral-900"
-            >
-              {/* Question Button */}
-              <button
-                onClick={() => toggleQuestion(item.id)}
-                className="flex w-full items-center justify-between px-6 py-4 text-left"
-              >
-                <span className="text-sm font-semibold text-white sm:text-base">
-                  {item.question}
-                </span>
-                <span className="ml-4 flex-shrink-0 text-xl text-white">
-                  {openQuestion === item.id ? "−" : "+"}
-                </span>
-              </button>
+        {/* Underline */}
+        <div className="mb-12 flex justify-center">
+          <div className="h-px w-12 bg-[#5A0F14]" />
+        </div>
 
-              {/* Answer (conditional render) */}
-              {openQuestion === item.id && (
-                <div className="border-t border-white/10 px-6 py-4">
-                  <p className="text-sm leading-relaxed text-neutral-100 sm:text-base">
-                    {item.answer}
-                  </p>
+        {/* FAQ List with Timeline */}
+        <div className="relative">
+          {/* Vertical timeline line */}
+          <div className="absolute left-[11px] top-8 bottom-8 w-px bg-black/8" />
+
+          {faqB2B.questions.map((item, index) => {
+            const isOpen = openId === item.id;
+            const isLast = index === faqB2B.questions.length - 1;
+
+            return (
+              <div
+                key={item.id}
+                className={`relative ${!isLast ? "mb-6" : ""}`}
+              >
+                {/* Timeline dot */}
+                <div className="absolute left-0 top-6 z-10">
+                  <div
+                    className={`h-6 w-6 rounded-full border-2 shadow-sm transition-all duration-400 ${
+                      isOpen
+                        ? "scale-110 border-[#5A0F14] bg-[#5A0F14] shadow-[0_0_12px_rgba(90,15,20,0.4)]"
+                        : "scale-100 border-black/20 bg-white"
+                    }`}
+                  >
+                    {/* Inner pulse when open */}
+                    {isOpen && (
+                      <div className="absolute inset-1 rounded-full bg-white/30" />
+                    )}
+                  </div>
                 </div>
-              )}
-            </div>
-          ))}
+
+                {/* Question card */}
+                <div
+                  className={`group relative ml-12 cursor-pointer overflow-hidden rounded-lg border bg-white transition-all duration-400 ${
+                    isOpen
+                      ? "border-[#5A0F14]/30 shadow-md"
+                      : "border-black/8 shadow-sm hover:-translate-y-0.5 hover:shadow-md"
+                  }`}
+                >
+                  {/* Question row */}
+                  <button
+                    onClick={() => toggle(item.id)}
+                    className="relative z-10 flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition-all duration-300"
+                    aria-expanded={isOpen}
+                  >
+                    <span
+                      className={`text-[15px] leading-snug tracking-wide transition-colors duration-300 ${
+                        isOpen
+                          ? "font-normal text-black"
+                          : "font-light text-black/90"
+                      }`}
+                    >
+                      {item.question}
+                    </span>
+
+                    {/* + → × icon */}
+                    <div
+                      className="relative h-6 w-6 flex-shrink-0 transition-transform duration-400"
+                      style={{
+                        transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
+                      }}
+                    >
+                      {/* Horizontal */}
+                      <span
+                        className={`absolute left-1/2 top-1/2 h-[1.5px] w-[14px] -translate-x-1/2 -translate-y-1/2 rounded-sm transition-colors duration-300 ${
+                          isOpen ? "bg-[#5A0F14]" : "bg-black/40"
+                        }`}
+                      />
+                      {/* Vertical */}
+                      <span
+                        className={`absolute left-1/2 top-1/2 h-[14px] w-[1.5px] -translate-x-1/2 -translate-y-1/2 rounded-sm transition-colors duration-300 ${
+                          isOpen ? "bg-[#5A0F14]" : "bg-black/40"
+                        }`}
+                      />
+                    </div>
+                  </button>
+
+                  {/* Answer — smooth height */}
+                  <div
+                    className="relative z-10 overflow-hidden transition-all duration-500"
+                    style={{ maxHeight: isOpen ? "400px" : "0px" }}
+                  >
+                    <div className="px-6 pb-6">
+                      <p className="text-[13px] font-light leading-relaxed tracking-wide text-black/80">
+                        {item.answer.split(" ").map((word, i) => (
+                          <span
+                            key={i}
+                            className="inline-block transition-all duration-300"
+                            style={{
+                              opacity: isOpen ? 1 : 0,
+                              transform: isOpen
+                                ? "translateY(0)"
+                                : "translateY(6px)",
+                              transitionDelay: isOpen
+                                ? `${Math.min(i * 20, 440)}ms`
+                                : "0ms",
+                            }}
+                          >
+                            {word}&nbsp;
+                          </span>
+                        ))}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Active burgundy bottom line */}
+                  <div
+                    className="absolute bottom-0 left-0 h-px bg-[#5A0F14] transition-all duration-500"
+                    style={{ width: isOpen ? "100%" : "0%" }}
+                  />
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

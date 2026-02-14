@@ -1,19 +1,18 @@
 "use client";
 
-import { useState, MouseEvent } from "react";
+import { useState, useEffect, useRef, MouseEvent } from "react";
 import Link from "next/link";
 
 const EMAIL = "contact@nevexacars.com";
 const WHATSAPP_URL = "https://wa.me/14374842769";
 
-// Social links (anciennement dans JoinUs)
 const SOCIALS = [
   {
     id: "facebook",
     name: "Facebook",
-    url: "#", // TODO
+    url: "#",
     icon: (
-      <svg viewBox="0 0 24 24" className="h-6 w-6" fill="currentColor">
+      <svg viewBox="0 0 24 24" className="h-8 w-8" fill="currentColor">
         <path d="M22.675 0h-21.35C.597 0 0 .597 0 1.326v21.348C0 23.403.597 24 1.326 24H12.82v-9.294H9.692V11.01h3.128V8.309c0-3.1 1.894-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24h-1.918c-1.504 0-1.796.715-1.796 1.763v2.313h3.587l-.467 3.696h-3.12V24h6.116C23.403 24 24 23.403 24 22.674V1.326C24 .597 23.403 0 22.675 0Z" />
       </svg>
     ),
@@ -23,13 +22,7 @@ const SOCIALS = [
     name: "Instagram",
     url: "https://www.instagram.com/nevexacars/",
     icon: (
-      <svg
-        viewBox="0 0 24 24"
-        className="h-6 w-14"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-      >
+      <svg viewBox="0 0 24 24" className="h-9 w-9" fill="none" stroke="currentColor" strokeWidth="1.5">
         <rect x="3" y="3" width="18" height="18" rx="5" />
         <circle cx="12" cy="12" r="4" />
         <circle cx="17" cy="7" r="0.75" fill="currentColor" />
@@ -41,7 +34,7 @@ const SOCIALS = [
     name: "LinkedIn",
     url: "https://www.linkedin.com/in/nevexa-cars/",
     icon: (
-      <svg viewBox="0 0 24 24" className="h-6 w-6" fill="currentColor">
+      <svg viewBox="0 0 24 24" className="h-8 w-8" fill="currentColor">
         <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5ZM0 8h5v16H0V8Zm7.5 0h4.8v2.2h.1c.7-1.3 2.4-2.7 5-2.7 5.3 0 6.3 3.5 6.3 8.1V24h-5v-7.8c0-1.9 0-4.4-2.7-4.4-2.7 0-3.1 2.1-3.1 4.2V24h-5V8Z" />
       </svg>
     ),
@@ -50,20 +43,39 @@ const SOCIALS = [
 
 export default function Contact() {
   const [isOpen, setIsOpen] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   const open = () => setIsOpen(true);
   const close = () => setIsOpen(false);
+  const stopPropagation = (e: MouseEvent<HTMLDivElement>) => e.stopPropagation();
 
-  const stopPropagation = (e: MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-  };
+  // Scroll reveal
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
-      <section className="w-full bg-black px-6 py-16 text-white">
+      <section ref={sectionRef} className="w-full bg-[#0E0F11] px-6 py-16 text-white">
         <div className="mx-auto w-full max-w-3xl">
-          {/* Logo Nevexa en haut */}
-          <div className="mb-12 flex justify-center">
+
+          {/* Logo */}
+          <div
+            className={`mb-12 flex justify-center transition-all duration-700 ${
+              visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+          >
             <img
               src="/logo/nevexa-vertical-white.svg"
               alt="Nevexa"
@@ -72,49 +84,77 @@ export default function Contact() {
             />
           </div>
 
-          {/* Section Title */}
-          <div className="mb-3 text-center">
+          {/* Title */}
+          <div
+            className={`mb-3 text-center transition-all duration-700 delay-100 ${
+              visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+          >
             <h2 className="text-xl font-bold uppercase tracking-[0.12em] sm:text-2xl">
               Contact
             </h2>
           </div>
 
-          {/* Underline accent (#5A0F14) */}
+          {/* Underline */}
           <div className="mb-8 flex justify-center">
-            <div className="h-px w-20 bg-[#5A0F14]" />
+            <div
+              className={`h-px bg-[#5A0F14] transition-all duration-700 delay-200 ${
+                visible ? "w-12" : "w-0"
+              }`}
+            />
           </div>
 
-          {/* Titre principal */}
-          <h3 className="mb-4 text-center text-2xl font-semibold text-white sm:text-3xl">
+          {/* Main headline */}
+          <h3
+            className={`mb-4 text-center text-2xl font-light tracking-wide text-white transition-all duration-700 delay-300 sm:text-3xl ${
+              visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+          >
             Speak with a Nevexa advisor
           </h3>
 
-          {/* Sous-texte */}
-          <p className="mb-8 text-center text-sm text-neutral-400 sm:text-base">
-            No forms. No waiting. Choose how you want to connect and we'll take
-            it from there.
+          {/* Subtext */}
+          <p
+            className={`mb-10 text-center text-sm font-light leading-relaxed text-neutral-400 transition-all duration-700 delay-[400ms] sm:text-base ${
+              visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+          >
+            No forms. No waiting. Choose how you want to connect
+            <br className="hidden sm:block" /> and we&apos;ll take it from there.
           </p>
 
-          {/* CTA principal */}
-          <div className="mb-12 flex justify-center">
+          {/* CTA */}
+          <div
+            className={`mb-12 flex justify-center transition-all duration-700 delay-500 ${
+              visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+          >
             <button
               type="button"
               onClick={open}
-              className="inline-flex h-12 w-full items-center justify-center rounded-full bg-white px-8 text-sm font-semibold text-black transition-colors hover:bg-white/90 md:w-auto"
+              className="inline-flex h-12 items-center justify-center rounded-full bg-white px-10 text-sm font-semibold text-black transition-all duration-300 hover:bg-white/90 hover:scale-[1.02]"
             >
               Get in touch
             </button>
           </div>
 
           {/* Separator */}
-          <div className="my-10 h-px w-full bg-white/10" />
+          <div
+            className={`h-px w-full bg-white/8 transition-all duration-700 delay-[600ms] ${
+              visible ? "opacity-100" : "opacity-0"
+            }`}
+          />
 
-          {/* Social Links (intégrés) */}
-          <div className="text-center">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-wider text-neutral-400">
+          {/* Socials */}
+          <div
+            className={`mt-10 text-center transition-all duration-700 delay-700 ${
+              visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+          >
+            <p className="mb-6 text-xs font-semibold uppercase tracking-wider text-neutral-500">
               Follow us
             </p>
-            <div className="flex justify-center gap-6">
+            <div className="flex justify-center gap-12">
               {SOCIALS.map((social) => (
                 <a
                   key={social.id}
@@ -122,17 +162,20 @@ export default function Contact() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.name}
-                  className="text-white transition-opacity hover:opacity-70"
+                  className="group flex h-11 w-11 items-center justify-center rounded-full border border-[#0E0F11] text-white transition-all duration-300 hover:scale-110 hover:border-white/30 hover:bg-white/5 hover:text-white"
                 >
-                  {social.icon}
+                  <span className="transition-transform duration-300 group-hover:scale-110">
+                    {social.icon}
+                  </span>
                 </a>
               ))}
             </div>
           </div>
+
         </div>
       </section>
 
-      {/* Modal / Bottom sheet (inchangé) */}
+      {/* Contact Choice Modal */}
       {isOpen && (
         <div
           className="fixed inset-0 z-40 flex items-end justify-center bg-black/60 backdrop-blur-sm md:items-center"
@@ -163,28 +206,17 @@ export default function Contact() {
             <div className="flex flex-col gap-3 md:flex-row">
               {/* Email */}
               <Link
-                href={`mailto:${EMAIL}?subject=${encodeURIComponent(
-                  "New inquiry — Nevexa website"
-                )}`}
+                href={`mailto:${EMAIL}?subject=${encodeURIComponent("New inquiry — Nevexa website")}`}
                 className="flex flex-1 items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white transition-colors hover:bg-white/10"
               >
                 <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15">
-                  <svg
-                    aria-hidden="true"
-                    viewBox="0 0 24 24"
-                    className="h-4 w-4 text-neutral-200"
-                  >
-                    <path
-                      d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm0 2v.2l8 5 8-5V7H4Zm0 3.25V18h16v-7.75l-7.56 4.73a1 1 0 0 1-1.08 0L4 10.25Z"
-                      fill="currentColor"
-                    />
+                  <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 text-neutral-200">
+                    <path d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm0 2v.2l8 5 8-5V7H4Zm0 3.25V18h16v-7.75l-7.56 4.73a1 1 0 0 1-1.08 0L4 10.25Z" fill="currentColor" />
                   </svg>
                 </span>
                 <div className="flex flex-col">
                   <span className="font-semibold">Email</span>
-                  <span className="text-xs text-neutral-400">
-                    Open your default mail client
-                  </span>
+                  <span className="text-xs text-neutral-400">Open your default mail client</span>
                 </div>
               </Link>
 
@@ -196,22 +228,13 @@ export default function Contact() {
                 className="flex flex-1 items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white transition-colors hover:bg-white/10"
               >
                 <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15">
-                  <svg
-                    aria-hidden="true"
-                    viewBox="0 0 32 32"
-                    className="h-4 w-4 text-neutral-200"
-                  >
-                    <path
-                      d="M16 3C9.383 3 4 8.383 4 15c0 2.054.551 4.022 1.6 5.77L4 29l8.434-1.566A11.84 11.84 0 0 0 16 27c6.617 0 12-5.383 12-12S22.617 3 16 3Zm0 2c5.534 0 10 4.466 10 10s-4.466 10-10 10a9.83 9.83 0 0 1-4.91-1.332l-.355-.207-4.99.926.955-4.834-.23-.373A9.77 9.77 0 0 1 6 15c0-5.534 4.466-10 10-10Zm-4.104 5.5a1.01 1.01 0 0 0-.74.356c-.192.225-.668.652-.668 1.586 0 .934.684 1.838.78 1.965.096.128 1.34 2.13 3.287 2.996 1.946.867 1.946.578 2.296.547.35-.03 1.126-.46 1.285-.905.16-.445.16-.826.114-.905-.046-.08-.178-.128-.373-.225-.195-.096-1.153-.57-1.332-.636-.178-.064-.308-.096-.437.097-.128.192-.502.635-.615.764-.113.128-.225.145-.42.048-.195-.096-.825-.304-1.572-.968-.58-.517-.97-1.155-1.083-1.35-.113-.192-.012-.296.084-.392.086-.085.195-.225.292-.337.097-.112.129-.192.194-.32.064-.128.032-.24-.017-.337-.048-.096-.426-1.03-.585-1.412-.145-.35-.29-.363-.42-.369Z"
-                      fill="currentColor"
-                    />
+                  <svg aria-hidden="true" viewBox="0 0 32 32" className="h-4 w-4 text-neutral-200">
+                    <path d="M16 3C9.383 3 4 8.383 4 15c0 2.054.551 4.022 1.6 5.77L4 29l8.434-1.566A11.84 11.84 0 0 0 16 27c6.617 0 12-5.383 12-12S22.617 3 16 3Zm0 2c5.534 0 10 4.466 10 10s-4.466 10-10 10a9.83 9.83 0 0 1-4.91-1.332l-.355-.207-4.99.926.955-4.834-.23-.373A9.77 9.77 0 0 1 6 15c0-5.534 4.466-10 10-10Zm-4.104 5.5a1.01 1.01 0 0 0-.74.356c-.192.225-.668.652-.668 1.586 0 .934.684 1.838.78 1.965.096.128 1.34 2.13 3.287 2.996 1.946.867 1.946.578 2.296.547.35-.03 1.126-.46 1.285-.905.16-.445.16-.826.114-.905-.046-.08-.178-.128-.373-.225-.195-.096-1.153-.57-1.332-.636-.178-.064-.308-.096-.437.097-.128.192-.502.635-.615.764-.113.128-.225.145-.42.048-.195-.096-.825-.304-1.572-.968-.58-.517-.97-1.155-1.083-1.35-.113-.192-.012-.296.084-.392.086-.085.195-.225.292-.337.097-.112.129-.192.194-.32.064-.128.032-.24-.017-.337-.048-.096-.426-1.03-.585-1.412-.145-.35-.29-.363-.42-.369Z" fill="currentColor" />
                   </svg>
                 </span>
                 <div className="flex flex-col">
                   <span className="font-semibold">WhatsApp</span>
-                  <span className="text-xs text-neutral-400">
-                    Open chat in WhatsApp
-                  </span>
+                  <span className="text-xs text-neutral-400">Open chat in WhatsApp</span>
                 </div>
               </Link>
             </div>

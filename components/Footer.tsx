@@ -5,7 +5,7 @@ export default function Footer() {
 
   return (
     <footer className="w-full bg-black px-6 pb-8 pt-6 text-white">
-      <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-4 border-t border-white/10 pt-6 text-xs text-neutral-400">
+      <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-4 border-t border-white/5 pt-6 text-xs text-neutral-400">
         {/* Logo Horizontal */}
         <div className="flex justify-center">
           <img

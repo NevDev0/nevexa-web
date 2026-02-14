@@ -106,7 +106,7 @@ export const choosePathCopy = {
       title: "Financing",
       badge: "EARLY ACCESS",
       ctaLabel: "Learn more",
-      href: "/finance-early-access",
+      href: "/financing",
       image: "/paths/financing.jpg",
     },
   ],

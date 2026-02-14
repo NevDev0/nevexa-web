@@ -146,3 +146,38 @@ body {
     flex: 0 0 calc(33.333% - 1rem);
   }
 }
+
+/* ========================================
+   FINANCING CARDS CAROUSEL - MOBILE SNAP
+   ======================================== */
+
+.financing-carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  gap: 1.5rem;
+  padding-bottom: 1rem;
+}
+
+.financing-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.financing-carousel {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.financing-card-item {
+  flex: 0 0 85vw;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
+
+@media (min-width: 640px) {
+  .financing-card-item {
+    flex: 0 0 calc(50% - 0.75rem);
+  }
+}

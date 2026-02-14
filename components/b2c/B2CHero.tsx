@@ -1,43 +1,131 @@
 "use client";
 
 import { b2cHeroCopy } from "@/content/b2c.en";
+import Image from "next/image";
 
-export default function Hero() {
+export default function B2CHero() {
+  const handleScrollToCatalog = () => {
+    const catalogSection = document.getElementById("catalog");
+    if (catalogSection) {
+      catalogSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleContactAdvisor = () => {
+    // TODO: Wire to contact modal or WhatsApp
+    console.log("Open contact modal");
+  };
+
   return (
-    <section className="relative w-full overflow-hidden bg-black">
-      {/* Black placeholder background — will be replaced with vehicle image in Couche 2 */}
-      <div className="absolute inset-0 bg-black" />
+    <div className="relative w-full">
+      {/* SECTION 1 — Background Image Zone (30vh) */}
+      <section className="relative h-[30vh] w-full overflow-hidden">
+        {/* Background Image - object-center pour même crop sur tous devices */}
+        <Image
+          src="/hero/b2c-hero-background.jpg"
+          alt="Premium automotive background"
+          fill
+          priority
+          className="object-cover object-center"
+          style={{ filter: "blur(1px)" }}
+        />
 
-      {/* Content wrapper — same structure as Homepage */}
-      <div className="relative z-10 flex min-h-[80vh] flex-col items-center justify-center px-6 pb-16 pt-24 text-center">
-        <div className="max-w-md">
-          {/* H1 — Premium 2021-2026 vehicles */}
-          <h1 className="mb-3 text-3xl font-semibold leading-snug text-white sm:text-4xl sm:leading-snug">
+        {/* Overlay gradient (comme Homepage) pour visibilité texte */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-transparent" />
+
+        {/* Text ABOVE vehicle - BLANC avec gradient derrière */}
+        <div className="absolute inset-x-0 top-[5vh] z-10 flex justify-center px-6">
+          <h1 className="text-center text-xl font-bold leading-tight text-white drop-shadow-2xl sm:text-2xl">
             {b2cHeroCopy.title}
           </h1>
+        </div>
+      </section>
 
-          {/* H2 — Subtitle */}
-          <p className="mb-8 text-sm leading-relaxed text-neutral-300 sm:text-base">
-            {b2cHeroCopy.subtitle}
-          </p>
+      {/* SECTION 2 — White Floor Zone (55vh) */}
+      <section className="relative h-[55vh] w-full bg-white">
+        {/* CTAs and content BELOW badge (badge is now separate) */}
+        <div className="absolute inset-x-0 bottom-10 flex flex-col items-center px-6">
+          <div className="w-full max-w-md space-y-14 text-center">
+            {/* CTAs */}
+            <div className="flex flex-col gap-4 w-full sm:w-auto">
+              {/* Primary CTA */}
+              <button
+                type="button"
+                onClick={handleScrollToCatalog}
+                className="group w-full rounded-full bg-black px-6 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 sm:w-auto"
+              >
+                <span className="flex items-center justify-center gap-2">
+                  {b2cHeroCopy.ctaPrimary}
+                  <svg
+                    className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2.5}
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </span>
+              </button>
 
-          {/* CTA — No hover in Couche 1 */}
-          <div className="mx-auto flex w-full max-w-xs flex-col">
-            <button
-              type="button"
-              onClick={() => {
-                // TODO: Wire to contact modal
-                console.log("Open contact modal");
-              }}
-              className="w-full rounded-full bg-white px-4 py-3 text-sm font-semibold text-black"
-            >
-              {b2cHeroCopy.ctaLabel}
-            </button>
+              {/* Secondary CTA */}
+              <button
+                type="button"
+                onClick={handleContactAdvisor}
+                className="group w-full rounded-full border-2 border-black bg-white px-6 py-2.5 text-sm font-semibold text-black shadow-sm transition-all duration-300 hover:bg-black hover:text-white sm:w-auto"
+              >
+                <span className="flex items-center justify-center gap-2">
+                  {b2cHeroCopy.ctaSecondary}
+                  <svg
+                    className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2.5}
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </div>
+
+            {/* Disclaimer */}
+            <p className="text-xs leading-relaxed text-neutral-700">
+              {b2cHeroCopy.disclaimer}
+            </p>
           </div>
         </div>
+      </section>
+
+      {/* BADGE — OUTSIDE section flow, positioned absolutely with FIXED spacing */}
+      <div className="absolute left-1/2 top-[calc(30vh+120px)] z-30 -translate-x-1/2 pointer-events-none">
+        <span className="inline-flex items-center rounded-full border border-neutral-300 bg-white px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-neutral-700 shadow-sm pointer-events-auto">
+          {b2cHeroCopy.badge}
+        </span>
       </div>
 
-
-    </section>
+      {/* VEHICLE — Positioned ON white floor (in white section) */}
+      <div className="absolute left-[55%] top-[30vh] z-20 w-[120%] -translate-x-1/2 -translate-y-1/2 sm:w-[70%] md:w-[65%] lg:w-[55%] pointer-events-none">
+        <Image
+          src="/hero/b2c-hero-escalade1.png"
+          alt="Premium luxury vehicle"
+          width={1200}
+          height={800}
+          priority
+          className="w-full h-auto object-contain"
+          style={{
+            filter: "drop-shadow(0 35px 70px rgba(0,0,0,0.5))",
+          }}
+        />
+      </div>
+    </div>
   );
 }

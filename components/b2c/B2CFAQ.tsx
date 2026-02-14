@@ -6,56 +6,130 @@ import { faqCopy } from "@/content/b2c.en";
 export default function FAQ() {
   const [openId, setOpenId] = useState<number | null>(null);
 
-  const toggleQuestion = (id: number) => {
+  const toggle = (id: number) => {
     setOpenId(openId === id ? null : id);
   };
 
   return (
-    <section className="w-full bg-[#F2F2F2] px-6 py-12 text-white">
+    <section className="w-full bg-[#111111] px-6 py-16 text-white">
       <div className="mx-auto max-w-3xl">
-        {/* Section Title */}
-        <div className="mb-2 text-center">
-          <h2 className="text-base font-semibold uppercase tracking-[0.16em] text-neutral-900">
+
+        {/* Header */}
+        <div className="mb-3 text-center">
+          <h2 className="text-xl font-bold uppercase tracking-[0.12em] sm:text-2xl">
             {faqCopy.title}
           </h2>
         </div>
 
-        {/* Underline accent (#5A0F14) */}
-        <div className="mb-8 flex flex-col items-center">
-          <div className="mx-auto mt-1 mb-4 h-px w-18 bg-[#5A0F14]" />
+        {/* Underline */}
+        <div className="mb-12 flex justify-center">
+          <div className="h-px w-12 bg-[#5A0F14]" />
         </div>
 
-        {/* FAQ Accordion */}
-        <div className="space-y-0">
-          {faqCopy.questions.map((item) => (
-            <div
-              key={item.id}
-              className="overflow-hidden rounded-lg border border-white/10 bg-neutral-900"
-            >
-              {/* Question Button */}
-              <button
-                onClick={() => toggleQuestion(item.id)}
-                className="flex w-full items-center justify-between px-5 py-4 text-left"
-                aria-expanded={openId === item.id}
-              >
-                <span className="text-base font-semibold text-white sm:text-lg">
-                  {item.question}
-                </span>
-                <span className="ml-4 flex-shrink-0 text-xl text-white">
-                  {openId === item.id ? "−" : "+"}
-                </span>
-              </button>
+        {/* FAQ List */}
+        <div>
+          {faqCopy.questions.map((item, index) => {
+            const isOpen = openId === item.id;
+            const num = String(index + 1).padStart(2, "0");
 
-              {/* Answer (expanded) */}
-              {openId === item.id && (
-                <div className="border-t border-white/10 px-5 py-4">
-                  <p className="text-sm leading-relaxed text-neutral-100 sm:text-base">
-                    {item.answer}
-                  </p>
+            return (
+              <div
+                key={item.id}
+                className={`relative overflow-hidden border-b border-white/7 ${
+                  index === 0 ? "border-t border-white/7" : ""
+                }`}
+              >
+                {/* Background number */}
+                <div
+                  className="pointer-events-none absolute right-0 top-1/2 -translate-y-0 select-none text-[100px] font-bold leading-none tracking-tighter transition-all duration-500"
+                  style={{
+                    color: isOpen
+                      ? "rgba(90,15,20,0.12)"
+                      : "rgba(255,255,255,0.03)",
+                    transform: isOpen
+                      ? "translateY(-55%) scale(1.05)"
+                      : "translateY(-50%) scale(1)",
+                  }}
+                >
+                  {num}
                 </div>
-              )}
-            </div>
-          ))}
+
+                {/* Question row */}
+                <button
+                  onClick={() => toggle(item.id)}
+                  className="relative z-10 flex w-full items-center justify-between gap-4 py-6 text-left"
+                  aria-expanded={isOpen}
+                >
+                  <span
+                    className="text-[15px] leading-snug tracking-wide transition-colors duration-300"
+                    style={{
+                      fontWeight: 300,
+                      color: isOpen
+                        ? "rgba(255,255,255,1)"
+                        : "rgba(255,255,255,0.75)",
+                    }}
+                  >
+                    {item.question}
+                  </span>
+
+                  {/* + → × icon */}
+                  <div
+                    className="relative h-6 w-6 flex-shrink-0 transition-transform duration-400"
+                    style={{ transform: isOpen ? "rotate(45deg)" : "rotate(0deg)" }}
+                  >
+                    {/* Horizontal */}
+                    <span
+                      className="absolute left-1/2 top-1/2 h-[1.5px] w-[14px] -translate-x-1/2 -translate-y-1/2 rounded-sm transition-colors duration-300"
+                      style={{ background: isOpen ? "#5A0F14" : "rgba(255,255,255,0.4)" }}
+                    />
+                    {/* Vertical */}
+                    <span
+                      className="absolute left-1/2 top-1/2 h-[14px] w-[1.5px] -translate-x-1/2 -translate-y-1/2 rounded-sm transition-colors duration-300"
+                      style={{ background: isOpen ? "#5A0F14" : "rgba(255,255,255,0.4)" }}
+                    />
+                  </div>
+                </button>
+
+                {/* Answer — smooth height */}
+                <div
+                  className="relative z-10 overflow-hidden transition-all duration-500"
+                  style={{ maxHeight: isOpen ? "400px" : "0px" }}
+                >
+                  <div className="pb-6">
+                    <p
+                      className="text-[13px] leading-relaxed tracking-wide"
+                      style={{
+                        fontWeight: 300,
+                        color: "rgba(255,255,255,0.45)",
+                      }}
+                    >
+                      {item.answer.split(" ").map((word, i) => (
+                        <span
+                          key={i}
+                          className="inline-block transition-all duration-300"
+                          style={{
+                            opacity: isOpen ? 1 : 0,
+                            transform: isOpen ? "translateY(0)" : "translateY(6px)",
+                            transitionDelay: isOpen
+                              ? `${Math.min(i * 20, 440)}ms`
+                              : "0ms",
+                          }}
+                        >
+                          {word}&nbsp;
+                        </span>
+                      ))}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Active burgundy line */}
+                <div
+                  className="absolute bottom-0 left-0 h-px bg-[#5A0F14] transition-all duration-500"
+                  style={{ width: isOpen ? "100%" : "0%" }}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

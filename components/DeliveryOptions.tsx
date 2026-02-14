@@ -6,7 +6,7 @@ export default function DeliveryOptions() {
   const { label, intro, options } = deliveryOptionsCopy;
 
   return (
-    <section className="relative min-h-[500px] w-full overflow-hidden px-6 py-20 text-white sm:min-h-[600px]">
+    <section className="relative min-h-[500px] w-full overflow-hidden px-6 py-16 text-white sm:min-h-[600px]">
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center"

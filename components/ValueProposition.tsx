@@ -63,7 +63,7 @@ export default function ValueProposition() {
                       <h3 className="mb-2 text-lg font-semibold sm:text-xl">
                         {step.label}
                       </h3>
-                      <p className="text-sm leading-relaxed text-neutral-300 sm:text-base">
+                      <p className="text-sm leading-relaxed text-neutral-200 sm:text-base">
                         {step.description}
                       </p>
                     </div>
