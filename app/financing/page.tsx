@@ -1,12 +1,12 @@
 import HeroFinancing from "@/components/financing/HeroFinancing";
 import TripartiteModel from "@/components/financing/TripartiteModel";
-import EligibilityCards from "@/components/financing/FinancingForEveryNeed";
+import FinancingForEveryNeed from "@/components/financing/FinancingForEveryNeed";
 import GeographicAvailability from "@/components/financing/GeographicAvailability";
 import WaitlistForm from "@/components/financing/WaitlistForm";
 import FAQFinancing from "@/components/financing/FAQFinancing";
-import JoinUs from "@/components/JoinUs";
+import FollowUs from "@/components/b2b/FollowUs"; 
 import Footer from "@/components/Footer";
-import FinancingForEveryNeed from "@/components/financing/FinancingForEveryNeed";
+
 
 export default function FinancingPage() {
   return (
@@ -15,9 +15,9 @@ export default function FinancingPage() {
       <TripartiteModel />
       <FinancingForEveryNeed />
       <GeographicAvailability />
-      <WaitlistForm />
       <FAQFinancing />
-      <JoinUs />
+      <WaitlistForm />
+      <FollowUs /> 
       <Footer />
     </main>
   );

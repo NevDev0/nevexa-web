@@ -28,7 +28,7 @@ export default function ChoosePath() {
             <Link
               key={card.id}
               href={card.href}
-              className="group relative block h-72 overflow-hidden rounded-lg transition-transform duration-300 hover:scale-[1.02]"
+              className="group relative block h-70 overflow-hidden rounded-lg transition-transform duration-300 hover:scale-[1.02]"
             >
               {/* Background Image */}
               <div

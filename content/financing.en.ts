@@ -182,7 +182,7 @@ export const geographicAvailabilityCopy = {
       x: { mobile: "42%", desktop: "42%" },
       y: { mobile: "42%", desktop: "41%" },
       year: "2027",
-      labelPosition: "right"
+      labelPosition: "top-right"
     },
     { 
       id: "senegal", 
@@ -206,21 +206,23 @@ export const geographicAvailabilityCopy = {
       x: { mobile: "27%", desktop: "25%" },
       y: { mobile: "45%", desktop: "45%" },
       year: "2028",
-      labelPosition: "bottom"
-    },
-    { 
-      id: "guinea", 
-      name: "Guinea", 
-      x: { mobile: "17%", desktop: "17%" },
-      y: { mobile: "39%", desktop: "39%" },
-      year: "2028",
       labelPosition: "bottom-left"
     },
+    { 
+      id: "cameroun", 
+      name: "Cameroun", 
+      x: { mobile: "47%", desktop: "46%" },
+      y: { mobile: "48%", desktop: "48%" },
+      year: "2028",
+      labelPosition: "bottom-right"
+    },
+ 
   ],
   
   legend: {
     firstMarket: "2027 — First market (Nigeria)",
-    expansion: "2028 — West Africa expansion"
+    expansion: "2028 — West Africa expansion",
+    additionalmarkets: "Additional markets: 2029 onwards"
   },
   
   cta: {
@@ -229,11 +231,53 @@ export const geographicAvailabilityCopy = {
   }
 };
 
+
 // ============================================
-// SECTION 5 — WAITLIST FORM
+// SECTION 5 — FAQ FINANCING
+// ============================================
+export const faqFinancingCopy = {
+  title: "Frequently Asked Questions",
+  
+  questions: [
+    {
+      id: 1,
+      question: "Is financing currently available?",
+      answer:
+        "No. Nevexa financing is under development with banking partners and is expected to launch in Q1 2027, starting with Nigeria.",
+    },
+    {
+      id: 2,
+      question: "Does Nevexa lend money?",
+      answer:
+        "No. Nevexa does not provide loans. Financing will be provided by licensed banking institutions in your country. Nevexa facilitates vehicle sourcing and delivery.",
+    },
+    {
+      id: 3,
+      question: "Does joining the waitlist guarantee financing approval?",
+      answer:
+        "No. The waitlist helps us gauge market interest and prioritize launch regions. Final loan approval will be determined by our banking partners based on individual credit assessment.",
+    },
+    {
+      id: 4,
+      question: "When will financing be available in my country?",
+      answer:
+        "We are launching first in Nigeria (Q1 2027), followed by West Africa (2027-2028). Join the waitlist to be notified when we expand to your region.",
+    },
+    {
+      id: 5,
+      question: "What happens to my data?",
+      answer:
+        "Your waitlist data is used solely to inform banking partners of market demand and to notify you when financing becomes available. We do not share your information with third parties without consent.",
+    },
+  ],
+};
+
+
+// ============================================
+// SECTION 6 — WAITLIST FORM
 // ============================================
 export const waitlistFormCopy = {
-  title: "Join the Priority Waitlist",
+  title: "Join the Waitlist",
   
   fields: {
     fullName: {
@@ -277,58 +321,9 @@ export const waitlistFormCopy = {
   
   submitButton: "Join Waitlist",
   
-  successMessage:
-    "Your registration is confirmed. You are now on the priority waitlist for Nevexa financing. We will notify you as soon as the program launches in your country.",
-};
-
-// ============================================
-// SECTION 6 — FAQ FINANCING
-// ============================================
-export const faqFinancingCopy = {
-  title: "Frequently Asked Questions",
-  
-  questions: [
-    {
-      id: 1,
-      question: "Is financing currently available?",
-      answer:
-        "No. Nevexa financing is under development with banking partners and is expected to launch in Q1 2027, starting with Nigeria.",
-    },
-    {
-      id: 2,
-      question: "Does Nevexa lend money?",
-      answer:
-        "No. Nevexa does not provide loans. Financing will be provided by licensed banking institutions in your country. Nevexa facilitates vehicle sourcing and delivery.",
-    },
-    {
-      id: 3,
-      question: "Does joining the waitlist guarantee financing approval?",
-      answer:
-        "No. The waitlist helps us gauge market interest and prioritize launch regions. Final loan approval will be determined by our banking partners based on individual credit assessment.",
-    },
-    {
-      id: 4,
-      question: "What information will banks require for approval?",
-      answer:
-        "Banking partners will typically require: proof of income (employment letter, bank statements), credit history, government-issued ID, and proof of residency. Specific requirements vary by country.",
-    },
-    {
-      id: 5,
-      question: "Can I specify which vehicle I want financed?",
-      answer:
-        "Not at this stage. The waitlist is for general interest. Vehicle selection and financing application will happen once the program launches.",
-    },
-    {
-      id: 6,
-      question: "When will financing be available in my country?",
-      answer:
-        "We are launching first in Nigeria (Q1 2027), followed by West Africa (2027-2028). Join the waitlist to be notified when we expand to your region.",
-    },
-    {
-      id: 7,
-      question: "What happens to my data?",
-      answer:
-        "Your waitlist data is used solely to inform banking partners of market demand and to notify you when financing becomes available. We do not share your information with third parties without consent.",
-    },
-  ],
+  successMessage: {
+    title: "You're on the Waitlist",
+    description: "We'll notify you when financing launches in your country.",
+    cta: "Explore Vehicles"
+  }
 };

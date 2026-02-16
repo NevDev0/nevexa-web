@@ -50,7 +50,7 @@ export default function GeographicAvailability() {
       setTimeout(() => setStep(3), 5500),   // Senegal
       setTimeout(() => setStep(4), 7000),   // Ghana
       setTimeout(() => setStep(5), 8500),   // Ivory Coast
-      setTimeout(() => setStep(6), 10000),  // Guinea
+      setTimeout(() => setStep(6), 10000),  // Cameroun
       setTimeout(() => setStep(7), 12000),  // Final message
     ];
 
@@ -62,9 +62,9 @@ export default function GeographicAvailability() {
     if (isMobile) {
       // MOBILE - Tous les markers
       if (countryId === "nigeria") {
-        return { dot: "h-2 w-2", ring: "h-4.5 w-4.5" }; // Nigeria mobile
+        return { dot: "h-2 w-2", ring: "h-4 w-4" }; // Nigeria mobile
       }
-      return { dot: "h-1.5 w-1.5", ring: "h-3.5 w-3.5" }; // Autres mobile
+      return { dot: "h-1.5 w-1.5", ring: "h-3 w-3" }; // Autres mobile
     } else {
       // DESKTOP - Tous les markers
       if (countryId === "nigeria") {
@@ -81,17 +81,17 @@ export default function GeographicAvailability() {
       bottom: "top-full mt-2",
       left: "right-full mr-1 top-1/2 -translate-y-1/2",
       right: "left-full ml-2 top-1/2 -translate-y-1/2",
-      "bottom-left": "top-full mt-0 right-2",
-      "top-left": "bottom-full mt-0 right-3",
+      "bottom-left": "top-full mt-0 right-2", "bottom-right": "top-full mt-0 left-2",
+      "top-right": "bottom-full mt-4 left-3",
     };
     return positions[position as keyof typeof positions] || positions.bottom;
   };
 
   return (
-    <section ref={sectionRef} className="relative w-full overflow-hidden bg-black px-6 py-16 text-white">
+    <section ref={sectionRef} className="relative w-full overflow-hidden bg-black px-6 py-12 text-white">
       <div className="relative z-10 mx-auto max-w-5xl">
         {/* Header */}
-        <div className="mb-12 text-center">
+        <div className="mb-6 text-center lg:mb-2">
           <h2 className="mb-4 text-2xl font-bold uppercase tracking-[0.12em] text-white sm:text-3xl">
             {geographicAvailabilityCopy.title}
           </h2>
@@ -116,7 +116,7 @@ export default function GeographicAvailability() {
                 className="object-contain"
                 style={{
                   filter: "invert(1) brightness(0.9)",
-                  opacity: 0.35,
+                  opacity: 0.40,
                 }}
               />
             </div>
@@ -192,23 +192,27 @@ export default function GeographicAvailability() {
               </div>
             )}
           </div>
-        </div>
 
-        {/* Legend */}
-        <div className="mx-auto mt-8 flex max-w-md flex-col gap-2 text-sm sm:text-base">
+        {/* Legend - Mobile: below map, Desktop: left side */}
+        <div className="mx-auto mt-5 flex w-full max-w-md flex-col gap-2 text-sm lg:ml-0 lg:-mt-55 lg:w-1/3 lg:max-w-none sm:text-base">
           <div className="flex items-center gap-3">
-            <div className="h-2.5 w-2.5 rounded-full bg-[#5A0F14] shadow-[0_0_10px_rgba(90,15,20,0.8)]" />
-            <span className="text-white/80">{geographicAvailabilityCopy.legend.firstMarket}</span>
+            <div className="h-2.5 w-2.5 flex-shrink-0 rounded-full bg-[#5A0F14] shadow-[0_0_10px_rgba(90,15,20,0.8)]" />
+            <span className="text-white/80 lg:text-white">{geographicAvailabilityCopy.legend.firstMarket}</span>
           </div>
           <div className="flex items-center gap-3">
-            <div className="h-2.5 w-2.5 rounded-full border-2 border-[#5A0F14] bg-transparent shadow-[0_0_10px_rgba(90,15,20,0.8)]" />
-            <span className="text-white/80">{geographicAvailabilityCopy.legend.expansion}</span>
+            <div className="h-2.5 w-2.5 flex-shrink-0 rounded-full border-2 border-[#5A0F14] bg-transparent shadow-[0_0_10px_rgba(90,15,20,0.8)]" />
+            <span className="text-white/80 lg:text-white">{geographicAvailabilityCopy.legend.expansion}</span>
+          </div>
+          <div className="flex items-center gap-3 lg:mb-16">
+            <div className="h-2.5 w-2.5 flex-shrink-0 rounded-full border-2 border-black bg-white shadow-[0_0_10px_rgba(90,15,20,0.8)]" />
+            <span className="text-white/80 lg:text-white">{geographicAvailabilityCopy.legend.additionalmarkets}</span>
           </div>
         </div>
+      </div>
 
         {/* CTA */}
-        <div className="mt-16 text-center">
-          <p className="mb-6 text-sm text-white/70 sm:text-base">
+        <div className="mt-12 text-center">
+          <p className="mb-10 text-sm text-white/70 sm:text-base">
             {geographicAvailabilityCopy.cta.text}
           </p>
           <a
@@ -218,7 +222,10 @@ export default function GeographicAvailability() {
             {geographicAvailabilityCopy.cta.button}
           </a>
         </div>
-      </div>
+      </div>  {/* ← Fermeture du max-w-5xl */}
+
+      {/* Gradient transition to FAQ section */}
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-80 bg-gradient-to-b via-black to-[#F3EFEA]/95" />
 
       <style jsx>{`
         @keyframes ripple {
