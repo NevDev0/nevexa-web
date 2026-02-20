@@ -1,12 +1,28 @@
 // B2B PAGE CONTENT — ENGLISH VERSION
 
+import { Subtitles } from "lucide-react";
+
 // Section 1 — Hero
 export const b2bHeroCopy = {
   title: "Built for business. Scaled for growth.",
   badge: "B2B Sourcing",
+  subtitle: "Dealership-sourced vehicles for resellers, NGOs, and corporate fleets.",
   ctaPrimary: "Discuss your needs",
   ctaSecondary: "View capabilities",
   disclaimer: "Minimum order volumes and payment terms vary by client type and destination.",
+};
+
+export const contactModalB2BCopy = {
+  heading: "Get in touch",
+  subheading: "Choose how you'd like to reach us",
+  email: {
+    label: "Email",
+    description: "Response within 24h on business days",
+  },
+  whatsapp: {
+    label: "WhatsApp",
+    description: "Direct line, same-day response",
+  },
 };
 
 // Section 2 — Built for Scale (NEW - replaces B2BCapabilities + UseCases)

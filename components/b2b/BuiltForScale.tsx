@@ -20,15 +20,16 @@ interface ProfileAnchor {
 
 export default function BuiltForScale() {
   const [activeProfile, setActiveProfile] = useState<string | null>("resellers");
-  const [isVisible, setIsVisible] = useState(false);
+  const [sectionVisible, setSectionVisible] = useState(false);
   const [profilesVisible, setProfilesVisible] = useState<string[]>([]);
-  
+
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const nodesRef = useRef<Node[]>([]);
   const animFrameRef = useRef<number>(0);
+  const isAnimatingRef = useRef<boolean>(false);
 
-  // Intersection Observer for entrance animations
+  // Intersection Observer for entrance animations + RAF pause
   useEffect(() => {
     if (!sectionRef.current) return;
 
@@ -36,16 +37,17 @@ export default function BuiltForScale() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setIsVisible(true);
-            
-            // Cascade profile visibility
+            setSectionVisible(true);
+            isAnimatingRef.current = true;
+
             builtForScaleCopy.profiles.forEach((profile, i) => {
               setTimeout(() => {
                 setProfilesVisible((prev) => [...prev, profile.id]);
               }, 200 + i * 120);
             });
-
-            observer.disconnect();
+          } else {
+            // Pause RAF when section not visible
+            isAnimatingRef.current = false;
           }
         });
       },
@@ -53,7 +55,6 @@ export default function BuiltForScale() {
     );
 
     observer.observe(sectionRef.current);
-
     return () => observer.disconnect();
   }, []);
 
@@ -96,7 +97,7 @@ export default function BuiltForScale() {
         const profileId = el.getAttribute("data-signal");
         const rect = el.getBoundingClientRect();
         const sectionRect = section.getBoundingClientRect();
-        
+
         anchors.push({
           x: rect.left - sectionRect.left + rect.width / 2,
           y: rect.top - sectionRect.top + rect.height / 2,
@@ -108,6 +109,12 @@ export default function BuiltForScale() {
     };
 
     const drawCanvas = (t: number) => {
+      // Pause animation when section not visible
+      if (!isAnimatingRef.current) {
+        animFrameRef.current = requestAnimationFrame(drawCanvas);
+        return;
+      }
+
       if (!ctx || !canvas) return;
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -116,7 +123,6 @@ export default function BuiltForScale() {
       const activeAnchor = anchors.find((a) => a.active);
       const nodes = nodesRef.current;
 
-      // Move nodes
       nodes.forEach((n) => {
         n.x += n.vx;
         n.y += n.vy;
@@ -124,7 +130,6 @@ export default function BuiltForScale() {
         if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
       });
 
-      // Draw connections between nearby nodes
       const maxDist = 100;
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
@@ -143,7 +148,6 @@ export default function BuiltForScale() {
         }
       }
 
-      // Draw nodes with burgundy boost near active anchor
       nodes.forEach((n) => {
         const pulse = 0.5 + 0.5 * Math.sin(t * 0.001 + n.phase);
         const baseAlpha = 0.12;
@@ -167,7 +171,6 @@ export default function BuiltForScale() {
         ctx.fill();
       });
 
-      // Draw subtle lines from active anchor to nearby nodes
       if (activeAnchor) {
         nodes.forEach((n) => {
           const dx = n.x - activeAnchor.x;
@@ -194,9 +197,7 @@ export default function BuiltForScale() {
 
     return () => {
       window.removeEventListener("resize", resizeCanvas);
-      if (animFrameRef.current) {
-        cancelAnimationFrame(animFrameRef.current);
-      }
+      if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
     };
   }, [activeProfile]);
 
@@ -206,6 +207,7 @@ export default function BuiltForScale() {
 
   return (
     <section
+      id="capabilities"
       ref={sectionRef}
       className="relative w-full overflow-hidden bg-[#0E0F11] px-6 py-12 sm:py-16"
     >
@@ -218,8 +220,8 @@ export default function BuiltForScale() {
       <div className="relative z-10 mx-auto max-w-3xl">
         {/* Header */}
         <div
-          className={`mb-10 text-center transition-all duration-700 ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
+          className={`mb-8 text-center transition-all duration-700 ${
+            sectionVisible ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
           }`}
         >
           <h2 className="mb-3 text-xl font-bold uppercase tracking-[0.12em] sm:text-2xl">
@@ -227,7 +229,7 @@ export default function BuiltForScale() {
           </h2>
           <div
             className={`mx-auto mb-4 h-px bg-[#5A0F14] transition-all duration-700 ${
-              isVisible ? "w-18" : "w-0"
+              sectionVisible ? "w-18" : "w-0"
             }`}
             style={{ transitionDelay: "200ms" }}
           />
@@ -240,7 +242,7 @@ export default function BuiltForScale() {
         <div className="flex flex-col gap-0.5">
           {builtForScaleCopy.profiles.map((profile, index) => {
             const isActive = activeProfile === profile.id;
-            const isVisible = profilesVisible.includes(profile.id);
+            const isCardVisible = profilesVisible.includes(profile.id); // ← fix shadowing
             const isDimmed = activeProfile && activeProfile !== profile.id;
 
             return (
@@ -248,12 +250,12 @@ export default function BuiltForScale() {
                 key={profile.id}
                 onClick={() => toggleProfile(profile.id)}
                 className={`relative cursor-pointer overflow-hidden rounded-sm border border-white/10 transition-all duration-500 ${
-                  isVisible ? "translate-x-0 opacity-100" : "-translate-x-4 opacity-0"
+                  isCardVisible ? "translate-x-0 opacity-100" : "-translate-x-4 opacity-0"
                 } ${isDimmed ? "scale-[0.98] opacity-35" : ""} ${
                   isActive ? "before:opacity-100" : "before:opacity-0"
                 } before:pointer-events-none before:absolute before:inset-0 before:bg-[radial-gradient(ellipse_at_0%_50%,rgba(90,15,20,0.06),transparent_70%)] before:transition-opacity before:duration-500`}
                 style={{
-                  transitionDelay: isVisible ? `${index * 80}ms` : "0ms",
+                  transitionDelay: isCardVisible ? `${index * 80}ms` : "0ms",
                 }}
               >
                 {/* Header (always visible) */}
@@ -273,14 +275,10 @@ export default function BuiltForScale() {
                     />
                     <div
                       className={`absolute inset-0 rounded-full border transition-all duration-400 ${
-                        isActive
-                          ? "animate-pulse border-[#5A0F14]/40"
-                          : "border-white/8"
+                        isActive ? "border-[#5A0F14]/40" : "border-white/8"
                       }`}
                       style={{
-                        animation: isActive
-                          ? "pulse-ring 2s ease-in-out infinite"
-                          : "none",
+                        animation: isActive ? "pulse-ring 2s ease-in-out infinite" : "none",
                       }}
                     />
                   </div>
@@ -345,7 +343,6 @@ export default function BuiltForScale() {
                   }`}
                 >
                   <div className="px-5 pb-6 pl-[4.375rem] pt-1">
-                    {/* Capabilities */}
                     <div className="flex flex-col gap-0">
                       {profile.capabilities.map((cap, i) => (
                         <div
@@ -356,9 +353,7 @@ export default function BuiltForScale() {
                               : "-translate-x-2.5 opacity-0"
                           }`}
                           style={{
-                            transitionDelay: isActive
-                              ? `${150 + i * 80}ms`
-                              : "0ms",
+                            transitionDelay: isActive ? `${150 + i * 80}ms` : "0ms",
                           }}
                         >
                           <div
@@ -367,9 +362,7 @@ export default function BuiltForScale() {
                             }`}
                             style={{
                               transformOrigin: "left",
-                              transitionDelay: isActive
-                                ? `${180 + i * 80}ms`
-                                : "0ms",
+                              transitionDelay: isActive ? `${180 + i * 80}ms` : "0ms",
                             }}
                           />
                           <div className="text-[13px] leading-relaxed text-white/70">
@@ -394,13 +387,9 @@ export default function BuiltForScale() {
                       </span>
                       <div className="relative h-0.5 flex-1 overflow-hidden rounded-sm bg-white/6">
                         <div
-                          className={`h-full rounded-sm bg-gradient-to-r from-[#5A0F14] to-[#5A0F14]/30 transition-all duration-1000 ${
-                            isActive ? "" : "w-0"
-                          }`}
+                          className="h-full rounded-sm bg-gradient-to-r from-[#5A0F14] to-[#5A0F14]/30 transition-all duration-1000"
                           style={{
-                            width: isActive
-                              ? `${profile.volume.percentage}%`
-                              : "0%",
+                            width: isActive ? `${profile.volume.percentage}%` : "0%",
                             transitionDelay: isActive ? "550ms" : "0ms",
                           }}
                         />
@@ -419,11 +408,11 @@ export default function BuiltForScale() {
         {/* Footer note */}
         <div
           className={`mt-10 text-center transition-opacity duration-600 ${
-            isVisible ? "opacity-100" : "opacity-0"
+            sectionVisible ? "opacity-100" : "opacity-0"
           }`}
           style={{ transitionDelay: "400ms" }}
         >
-          <p className="text-[11px] tracking-[0.06em] text-white/45">
+          <p className="text-[13px] tracking-[0.06em] text-white/55">
             {builtForScaleCopy.footerNote}
           </p>
         </div>
@@ -431,8 +420,7 @@ export default function BuiltForScale() {
 
       <style jsx>{`
         @keyframes pulse-ring {
-          0%,
-          100% {
+          0%, 100% {
             transform: scale(1);
             opacity: 1;
           }

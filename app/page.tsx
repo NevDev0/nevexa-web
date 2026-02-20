@@ -12,7 +12,7 @@ const SHOW_REAL_RESULTS = false;
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen w-full overflow-x-hidden bg-black text-white">
       <Hero />
       <WhyImport /> {/* ← AJOUTE CETTE LIGNE */}
       <ValueProposition />

@@ -10,7 +10,7 @@ export const financingHeroCopy = {
     earlyAccess: "Early Access",
     comingSoon: "Coming 2027",
   },
-  title: "Vehicle Financing — Coming 2027",
+  title: "Vehicle Financing Coming 2027",
   subtitle:
     "Nevexa is structuring vehicle financing with banking partners in Africa. Join the priority waitlist to be informed when we launch in your country.",
   clarification:
@@ -236,7 +236,7 @@ export const geographicAvailabilityCopy = {
 // SECTION 5 — FAQ FINANCING
 // ============================================
 export const faqFinancingCopy = {
-  title: "Frequently Asked Questions",
+  title: "Your Questions",
   
   questions: [
     {

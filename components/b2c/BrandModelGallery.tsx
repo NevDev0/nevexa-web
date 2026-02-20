@@ -102,7 +102,8 @@ export default function BrandModelGallery() {
   };
 
   return (
-    <section ref={sectionRef} className="w-full overflow-x-hidden bg-[#0E0F11] px-6 py-12 text-white">
+    // ── id="catalog" ajouté — permet au CTA hero "Explore catalog" de scroller ici ──
+    <section id="catalog" ref={sectionRef} className="w-full overflow-x-hidden bg-[#0E0F11] px-6 py-12 text-white">
       <div className="mx-auto max-w-4xl">
 
         {/* ── HEADER ── */}
@@ -157,7 +158,16 @@ export default function BrandModelGallery() {
           <div className="block lg:hidden">
             <div ref={carouselRef} className="carousel-container mb-4">
               {activeModels.map((model, idx) => (
-                <div key={model.id} className="carousel-item">
+                <div
+                  key={model.id}
+                  className="carousel-item"
+                  style={{
+                    // Opacity réduite sur les cards non-actives — effet peek premium
+                    // transition smooth pour ne pas être abrupte au scroll
+                    opacity: idx === carouselIndex ? 1 : 0.4,
+                    transition: "opacity 300ms ease-in-out",
+                  }}
+                >
                   <ModelCard
                     model={model}
                     activeBrand={activeBrand}
@@ -211,12 +221,12 @@ export default function BrandModelGallery() {
 
         {/* ── CUSTOM SOURCING CTA ── */}
         <div className={`mb-8 text-center transition-all duration-700 delay-500 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-          <p className="mb-4 text-sm text-neutral-500">
+          <p className="mb-4 text-sm text-neutral-400">
             {brandModelGallery.customSourcingCta.text}
           </p>
           <button
             onClick={() => handleContactModal("Custom Vehicle Sourcing Request")}
-            className="rounded-full border border-white/20 bg-transparent px-8 py-3 text-sm font-medium text-white/60 transition-all duration-300 hover:border-white/35 hover:bg-white/5 hover:text-white/90"
+            className="rounded-full border border-white/30 bg-transparent px-8 py-3 text-sm font-medium text-white/70 transition-all duration-300 hover:border-white/35 hover:bg-white/5 hover:text-white/90"
           >
             {brandModelGallery.customSourcingCta.buttonLabel}
           </button>
@@ -265,8 +275,9 @@ function ModelCard({ model, activeBrand, visible, index, onExplore }: ModelCardP
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 7;
-    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 7;
+    // Amplitude augmentée 7 → 10px pour un effet de profondeur plus perceptible
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 10;
+    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 10;
     setMousePos({ x, y });
   };
 
@@ -320,7 +331,7 @@ function ModelCard({ model, activeBrand, visible, index, onExplore }: ModelCardP
         )}
       </div>
 
-      {/* Category + Price — subtle row */}
+      {/* Category + Price */}
       <div className="mb-4 flex items-center justify-center gap-3">
         <span className="rounded-md border border-white/10 px-3 py-1 text-xs font-medium tracking-wide text-neutral-500">
           {model.category}
@@ -335,11 +346,11 @@ function ModelCard({ model, activeBrand, visible, index, onExplore }: ModelCardP
         {model.description}
       </p>
 
-      {/* CTA — w-auto premium */}
+      {/* CTA — w-full sur desktop pour cohérence visuelle dans la grille */}
       <div className="flex justify-center">
         <button
           disabled={!hasPhotos(model.exteriorCount, model.interiorCount)}
-          className="rounded-full bg-white px-8 py-3 text-sm font-semibold text-black transition-all duration-300 hover:scale-[1.03] hover:bg-neutral-100 disabled:opacity-40 disabled:hover:scale-100"
+          className="w-full rounded-full bg-white px-8 py-3 text-sm font-semibold text-black transition-all duration-300 hover:scale-[1.03] hover:bg-neutral-100 disabled:opacity-40 disabled:hover:scale-100"
         >
           Explore {model.displayName}
         </button>
@@ -390,7 +401,6 @@ function GalleryModal({ brand, model, onClose, onRequest }: GalleryModalProps) {
       </button>
 
       <div className="relative w-full max-w-5xl" onClick={e => e.stopPropagation()}>
-
         <div className="mb-2 text-center">
           <h2 className="mb-1 font-serif text-4xl italic text-white md:text-5xl">{model.displayName}</h2>
           <p className="text-sm text-neutral-400">{model.fullName}</p>

@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 
 export default function B2BPage() {
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen w-full overflow-x-hidden bg-black text-white">
       <HeroB2B />
       <BuiltForScale />
       <WhatOthersWontTellYou />

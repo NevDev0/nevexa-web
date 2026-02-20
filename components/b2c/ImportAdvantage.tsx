@@ -119,7 +119,8 @@ export default function ImportAdvantage() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full overflow-hidden bg-black px-6 py-16 text-white"
+      // py-20 au lieu de py-16 — plus de respiration top/bottom sur mobile
+      className="relative w-full overflow-hidden bg-black px-6 py-12 text-white"
     >
       {/* Particle canvas */}
       <canvas
@@ -129,13 +130,13 @@ export default function ImportAdvantage() {
 
       <div className="relative z-10 mx-auto max-w-4xl">
 
-        {/* Header */}
+        {/* Header — text-center explicite pour garantir centrage sur mobile */}
         <div
           className={`mb-3 text-center transition-all duration-700 ${
             visible ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
           }`}
         >
-          <h2 className="text-xl font-bold uppercase tracking-[0.12em] sm:text-2xl">
+          <h2 className="text-center text-xl font-bold uppercase tracking-[0.12em] sm:text-2xl">
             {importAdvantageCopy.title}
           </h2>
         </div>
@@ -169,10 +170,10 @@ export default function ImportAdvantage() {
           }`}
         >
           <span className="text-[10px] uppercase tracking-[0.14em] text-white/65">
-  {importAdvantageCopy.disclaimer.split("\n").map((line, i) => (
-    <span key={i} className="block">{line}</span>
-  ))}
-</span>
+            {importAdvantageCopy.disclaimer.split("\n").map((line, i) => (
+              <span key={i} className="block">{line}</span>
+            ))}
+          </span>
           <div className="flex items-center gap-2 rounded-full border border-white/55 px-3 py-1.5">
             <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#5A0F14]" />
             <span className="text-[10px] uppercase tracking-[0.10em] text-white/65">
@@ -232,24 +233,36 @@ function StatRow({ stat, count, visible, delay }: StatRowProps) {
             {count}
           </span>
           {stat.suffix && (
-            <span className="text-xl font-extralight text-[#5A0F14]">
+            // Espace ajouté avant le suffix via ml-1 pour séparer "6" de "–8 wks"
+            <span className="ml-1 text-xl font-extralight text-[#5A0F14]">
               {stat.suffix}
             </span>
           )}
         </div>
 
-        {/* Center dots */}
+        {/* Center dots
+            - Animation CSS pure via className .nevexa-dot
+            - Cascade via animation shorthand complet en inline style
+            - Pas de mix shorthand/non-shorthand pour éviter l'erreur React */}
         <div className="flex flex-col items-center gap-1 px-6 sm:px-10">
           {[0, 1, 2].map((j) => (
             <div
               key={j}
-              className="rounded-full bg-[#5A0F14] transition-all duration-300"
+              className="nevexa-dot rounded-full bg-[#5A0F14]"
               style={{
-                width: "3px",
-                height: "3px",
-                opacity: hovered ? 1 - j * 0.35 : [1, 0.4, 0.15][j],
-                transform: hovered ? `scale(${1.3 - j * 0.15})` : "scale(1)",
-                transitionDelay: `${j * 60}ms`,
+                width: "5px",
+                height: "5px",
+                // Shorthand complet — pas de animationDelay séparé
+                animation: hovered
+                  ? "none"
+                  : `nevexa-dot-pulse 1.8s ease-in-out ${j * 0.4}s infinite`,
+                ...(hovered
+                  ? {
+                      opacity: 1 - j * 0.35,
+                      transform: `scale(${1.3 - j * 0.15})`,
+                      transition: `transform 300ms ease ${j * 60}ms, opacity 300ms ease ${j * 60}ms`,
+                    }
+                  : {}),
               }}
             />
           ))}
@@ -268,8 +281,8 @@ function StatRow({ stat, count, visible, delay }: StatRowProps) {
         </div>
       </div>
 
-      {/* Progress bar */}
-      <div className="relative mt-3 h-px w-full overflow-hidden bg-white/4">
+      {/* Progress bar — fond bg-white/8 au lieu de bg-white/4 pour plus de visibilité */}
+      <div className="relative mt-3 h-px w-full overflow-hidden bg-white/8">
         <div
           className="absolute left-0 top-0 h-full bg-gradient-to-r from-[#5A0F14] to-[#5A0F14]/20 transition-all duration-1000"
           style={{

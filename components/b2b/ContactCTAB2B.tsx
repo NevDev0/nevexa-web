@@ -24,14 +24,21 @@ export default function ContactCTAB2B() {
     );
 
     observer.observe(sectionRef.current);
-
     return () => observer.disconnect();
   }, []);
 
   const channels = [
     {
       id: "email",
-      icon: "✉",
+      icon: (
+        <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor">
+          <path
+            d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm0 2v.2l8 5 8-5V7H4Zm0 3.25V18h16v-7.75l-7.56 4.73a1 1 0 0 1-1.08 0L4 10.25Z"
+            fill="currentColor"
+            stroke="none"
+          />
+        </svg>
+      ),
       title: "Email",
       tagline: "For fleet sourcing & partnerships",
       action: contactCTAB2B.ctaPrimary,
@@ -39,7 +46,11 @@ export default function ContactCTAB2B() {
     },
     {
       id: "whatsapp",
-      icon: "💬",
+      icon: (
+        <svg viewBox="0 0 32 32" className="h-5 w-5" fill="currentColor">
+          <path d="M16 3C9.383 3 4 8.383 4 15c0 2.054.551 4.022 1.6 5.77L4 29l8.434-1.566A11.84 11.84 0 0 0 16 27c6.617 0 12-5.383 12-12S22.617 3 16 3Zm0 2c5.534 0 10 4.466 10 10s-4.466 10-10 10a9.83 9.83 0 0 1-4.91-1.332l-.355-.207-4.99.926.955-4.834-.23-.373A9.77 9.77 0 0 1 6 15c0-5.534 4.466-10 10-10Zm-4.104 5.5a1.01 1.01 0 0 0-.74.356c-.192.225-.668.652-.668 1.586 0 .934.684 1.838.78 1.965.096.128 1.34 2.13 3.287 2.996 1.946.867 1.946.578 2.296.547.35-.03 1.126-.46 1.285-.905.16-.445.16-.826.114-.905-.046-.08-.178-.128-.373-.225-.195-.096-1.153-.57-1.332-.636-.178-.064-.308-.096-.437.097-.128.192-.502.635-.615.764-.113.128-.225.145-.42.048-.195-.096-.825-.304-1.572-.968-.58-.517-.97-1.155-1.083-1.35-.113-.192-.012-.296.084-.392.086-.085.195-.225.292-.337.097-.112.129-.192.194-.32.064-.128.032-.24-.017-.337-.048-.096-.426-1.03-.585-1.412-.145-.35-.29-.363-.42-.369Z" />
+        </svg>
+      ),
       title: "WhatsApp",
       tagline: "For urgent questions",
       action: contactCTAB2B.ctaSecondary,
@@ -73,7 +84,7 @@ export default function ContactCTAB2B() {
           </p>
         </div>
 
-        {/* Split Cards */}
+        {/* Cards */}
         <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
           {channels.map((channel, index) => {
             const isHovered = hoveredCard === channel.id;
@@ -81,26 +92,25 @@ export default function ContactCTAB2B() {
             return (
               <div
                 key={channel.id}
-                onClick={() => setHoveredCard(channel.id)}
                 onMouseEnter={() => setHoveredCard(channel.id)}
                 onMouseLeave={() => setHoveredCard(null)}
-                className={`group relative cursor-pointer overflow-hidden rounded-lg bg-[#0a0a0a] p-4 transition-all ${
+                className={`group relative overflow-hidden rounded-lg bg-[#0a0a0a] transition-all ${
                   isVisible
                     ? "translate-y-0 opacity-100"
                     : "translate-y-8 opacity-0"
                 } ${
                   isHovered
-                    ? "scale-105 shadow-[0_20px_60px_rgba(90,15,20,0.3)]"
-                    : "scale-100"
+                    ? "shadow-[0_20px_60px_rgba(90,15,20,0.3)]"
+                    : "shadow-none"
                 }`}
                 style={{
                   transitionDelay: isVisible ? `${400 + index * 150}ms` : "0ms",
-                  transitionDuration: isHovered ? "250ms" : "500ms",
+                  transitionDuration: "500ms",
                 }}
               >
                 {/* Gradient border */}
                 <div
-                  className={`pointer-events-none absolute inset-0 rounded-lg p-px transition-all duration-300 ${
+                  className={`pointer-events-none absolute inset-0 rounded-lg transition-all duration-300 ${
                     isHovered ? "opacity-100" : "opacity-30"
                   }`}
                   style={{
@@ -110,65 +120,65 @@ export default function ContactCTAB2B() {
                       "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
                     WebkitMaskComposite: "xor",
                     maskComposite: "exclude",
+                    padding: "1px",
                   }}
                 />
 
-                {/* Content */}
-                <div className="relative z-10">
-                  {/* Icon badge */}
+                {/* Horizontal layout on mobile, vertical on desktop */}
+                <div className="relative z-10 flex items-center gap-4 p-5 md:flex-col md:items-start md:p-6">
+                  {/* Icon */}
                   <div
-                    className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full border-2 text-2xl transition-all duration-200 ${
+                    className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 transition-all duration-300 ${
                       isHovered
-                        ? "scale-110 border-[#5A0F14] bg-[#5A0F14]/10"
-                        : "border-white/10 bg-white/5"
+                        ? "border-[#5A0F14] bg-[#5A0F14]/10 text-white"
+                        : "border-white/10 bg-white/5 text-white/60"
                     }`}
                   >
                     {channel.icon}
                   </div>
 
-                  {/* Title */}
-                  <h3 className="mb-1.5 text-xl font-bold tracking-tight">
-                    {channel.title}
-                  </h3>
+                  {/* Text + CTA */}
+                  <div className="flex flex-1 items-center justify-between gap-3 md:mt-3 md:w-full md:flex-col md:items-start md:gap-4">
+                    <div>
+                      <h3 className="text-base font-bold tracking-tight md:text-xl">
+                        {channel.title}
+                      </h3>
+                      <p className="text-xs leading-relaxed text-white/55 md:mt-1 md:text-sm">
+                        {channel.tagline}
+                      </p>
+                    </div>
 
-                  {/* Tagline */}
-                  <p className="mb-5 text-sm leading-relaxed text-white/65">
-                    {channel.tagline}
-                  </p>
-
-                  {/* Button */}
-                  <a
-                    href={channel.href}
-                    className={`group/btn relative inline-flex items-center gap-2 overflow-hidden rounded-lg px-5 py-2.5 text-sm font-semibold transition-all duration-200 ${
-                      isHovered
-                        ? "bg-[#5A0F14] text-white"
-                        : "bg-white/5 text-white/75"
-                    }`}
-                  >
-                    <span className="relative z-10">{channel.action}</span>
-                    
-                    {/* Arrow */}
-                    <svg
-                      className={`relative z-10 h-4 w-4 transition-transform duration-200 ${
-                        isHovered ? "translate-x-1" : "translate-x-0"
+                    <a
+                      href={channel.href}
+                      className={`inline-flex shrink-0 items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-200 ${
+                        isHovered
+                          ? "bg-[#5A0F14] text-white"
+                          : "bg-white/5 text-white/75"
                       }`}
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M17 8l4 4m0 0l-4 4m4-4H3"
-                      />
-                    </svg>
-                  </a>
+                      <span>{channel.action}</span>
+                      <svg
+                        className={`h-4 w-4 transition-transform duration-200 ${
+                          isHovered ? "translate-x-1" : "translate-x-0"
+                        }`}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M17 8l4 4m0 0l-4 4m4-4H3"
+                        />
+                      </svg>
+                    </a>
+                  </div>
                 </div>
 
                 {/* Card glow */}
                 <div
-                  className={`pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(90,15,20,0.15),transparent_60%)] transition-opacity duration-250 ${
+                  className={`pointer-events-none absolute inset-0 rounded-lg bg-[radial-gradient(circle_at_50%_0%,rgba(90,15,20,0.15),transparent_60%)] transition-opacity duration-250 ${
                     isHovered ? "opacity-100" : "opacity-0"
                   }`}
                 />
@@ -180,9 +190,7 @@ export default function ContactCTAB2B() {
         {/* Footer note */}
         <div
           className={`mt-8 text-center transition-all duration-700 ${
-            isVisible
-              ? "translate-y-0 opacity-100"
-              : "translate-y-4 opacity-0"
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
           }`}
           style={{ transitionDelay: "800ms" }}
         >

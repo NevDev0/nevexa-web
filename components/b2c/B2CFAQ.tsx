@@ -1,21 +1,42 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { faqCopy } from "@/content/b2c.en";
 
 export default function FAQ() {
   const [openId, setOpenId] = useState<number | null>(null);
+  const [visible, setVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // ─── INTERSECTION OBSERVER ───
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   const toggle = (id: number) => {
     setOpenId(openId === id ? null : id);
   };
 
   return (
-    <section className="w-full bg-[#111111] px-6 py-16 text-white">
+    <section ref={sectionRef} className="w-full bg-[#111111] px-6 py-12 text-white">
       <div className="mx-auto max-w-3xl">
 
         {/* Header */}
-        <div className="mb-3 text-center">
+        <div
+          className={`mb-3 text-center transition-all duration-700 ${
+            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
+          }`}
+        >
           <h2 className="text-xl font-bold uppercase tracking-[0.12em] sm:text-2xl">
             {faqCopy.title}
           </h2>
@@ -23,7 +44,11 @@ export default function FAQ() {
 
         {/* Underline */}
         <div className="mb-12 flex justify-center">
-          <div className="h-px w-12 bg-[#5A0F14]" />
+          <div
+            className={`h-px bg-[#5A0F14] transition-all duration-700 delay-100 ${
+              visible ? "w-12" : "w-0"
+            }`}
+          />
         </div>
 
         {/* FAQ List */}
@@ -35,17 +60,21 @@ export default function FAQ() {
             return (
               <div
                 key={item.id}
-                className={`relative overflow-hidden border-b border-white/7 ${
+                className={`relative overflow-hidden border-b border-white/7 transition-all duration-700 ${
                   index === 0 ? "border-t border-white/7" : ""
-                }`}
+                } ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+                style={{
+                  // Cascade : chaque row entre 100ms après la précédente
+                  transitionDelay: `${200 + index * 100}ms`,
+                }}
               >
-                {/* Background number */}
+                {/* Background number — assombri : 0.02 repos, 0.08 actif */}
                 <div
                   className="pointer-events-none absolute right-0 top-1/2 -translate-y-0 select-none text-[100px] font-bold leading-none tracking-tighter transition-all duration-500"
                   style={{
                     color: isOpen
-                      ? "rgba(90,15,20,0.12)"
-                      : "rgba(255,255,255,0.03)",
+                      ? "rgba(90,15,20,0.08)"   // Était 0.12 — légèrement assombri
+                      : "rgba(255,255,255,0.02)", // Était 0.03 — légèrement assombri
                     transform: isOpen
                       ? "translateY(-55%) scale(1.05)"
                       : "translateY(-50%) scale(1)",
@@ -111,7 +140,7 @@ export default function FAQ() {
                             opacity: isOpen ? 1 : 0,
                             transform: isOpen ? "translateY(0)" : "translateY(6px)",
                             transitionDelay: isOpen
-                              ? `${Math.min(i * 20, 440)}ms`
+                              ? `${Math.min(i * 10, 300)}ms` // Réduit 20ms → 10ms, cap 440 → 300ms
                               : "0ms",
                           }}
                         >

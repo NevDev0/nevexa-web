@@ -2,11 +2,11 @@
 
 // Section 1 — Hero
 export const b2cHeroCopy = {
-  title: "Premium vehicles, from Canada to Africa.",
-  badge: "2021-2026 Models Only",
+  title: "Your vehicle. No surprises.",
+  badge: "we import 2021-2026 Models Only",
   ctaPrimary: "Explore catalog",
   ctaSecondary: "Speak with advisor",
-  disclaimer: "Sample configurations shown. Availability and pricing vary by destination and model.",
+  disclaimer: "*Cadillac Escalade ESV 2026, V8*",
 };
 
 // Section 2 — Brand Model Gallery (Porsche-style)
@@ -175,7 +175,7 @@ export const brandModelGallery = {
         engineType: "Twin-Turbo V8",
         exteriorCount: 4,
         interiorCount: 4,
-        description: "The S-Class of SUVs with commanding luxury",
+        description: "The S-Class of SUVs",
       },
     ],
 
@@ -361,7 +361,7 @@ export const importAdvantageCopy = {
 
 // Section 4 — FAQ
 export const faqCopy = {
-  title: "Frequently Asked Questions",
+  title: "Your Questions",
   questions: [
     {
       id: 1,
@@ -395,3 +395,10 @@ export const faqCopy = {
     },
   ],
 };
+// Section 5 — Referral
+export const referralCopy = {
+    title: "Satisfied with Nevexa?",
+    description: "Introduce a friend looking for a premium vehicle. If they complete a purchase, you receive up to 1000 USD",
+    submitButton: "Submit referral",
+    successMessage: "Referral received. We'll reach out if they're interested.",
+  };

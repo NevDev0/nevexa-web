@@ -32,11 +32,11 @@ export default function ContactChoiceModal({
     >
       <div
         onClick={stopPropagation}
-        className="w-full rounded-t-3xl bg-neutral-950 px-4 pb-18 pt-5 shadow-xl md:max-w-md md:rounded-2xl md:px-6 md:pb-6 md:pt-5"
+        className="w-full rounded-t-3xl bg-neutral-950 px-4 pb-18 pt-5 shadow-xl md:max-w-lg md:rounded-2xl md:px-6 md:pb-6 md:pt-5"
       >
         {/* Header modal */}
         <div className="mb-4 flex items-center justify-between">
-          <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-neutral-300">
+          <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-neutral-300 md:text-xs">
             Choose how you&apos;d like to connect
           </h3>
           <button

@@ -7,10 +7,8 @@ export default function FinancingForEveryNeed() {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Intersection observer
   useEffect(() => {
     if (!sectionRef.current) return;
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -22,7 +20,6 @@ export default function FinancingForEveryNeed() {
       },
       { threshold: 0.2 }
     );
-
     observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
@@ -71,76 +68,69 @@ export default function FinancingForEveryNeed() {
         <div className="sm:hidden">
           <div className="financing-carousel">
             {financingProfilesCopy.profiles.map((profile, index) => (
-              <div key={profile.id} className="financing-card-item">
-                <ProfileCard profile={profile} index={index} />
-              </div>
+              <ProfileCard key={profile.id} profile={profile} index={index} />
             ))}
           </div>
-          
-          {/* Swipe Indicator */}
-          <div className="-mt-1 flex items-center justify-center gap-2 text-white/40">
-            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M15 18l-6-6 6-6" />
-            </svg>
-            <span className="text-xs uppercase tracking-wider">Swipe</span>
-            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M9 18l6-6-6-6" />
-            </svg>
+
+          {/* Swipe indicator — style mouse Hero */}
+          <div className="mt-4 flex flex-col items-center gap-1.5">
+            <div className="ffn-swipe-mouse relative h-6 w-10 rounded-full border border-white/20" style={{ borderRadius: "999px" }}>
+              <div className="ffn-swipe-dot absolute top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-white/50" style={{ left: "6px" }} />
+            </div>
           </div>
         </div>
 
         {/* Desktop: 2x2 Grid */}
         <div className="hidden grid-cols-2 gap-8 sm:grid lg:gap-10">
           {financingProfilesCopy.profiles.map((profile, index) => (
-            <div key={profile.id}>
-              <ProfileCard profile={profile} index={index} />
-            </div>
+            <ProfileCard key={profile.id} profile={profile} index={index} />
           ))}
         </div>
       </div>
-      
+
       <style jsx>{`
-        @keyframes fadeInUp {
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+        /* Swipe indicator — dot glisse horizontalement */
+        .ffn-swipe-dot {
+          animation: ffn-swipe-slide 2s ease-in-out infinite;
+        }
+        @keyframes ffn-swipe-slide {
+          0%   { opacity: 0; left: 6px; }
+          20%  { opacity: 1; }
+          80%  { opacity: 0; left: calc(100% - 12px); }
+          100% { opacity: 0; left: calc(100% - 12px); }
         }
       `}</style>
     </section>
   );
 }
 
-// ─── PROFILE CARD COMPONENT ───
+// ─── PROFILE CARD ───
 function ProfileCard({ profile, index }: { profile: any; index: number }) {
   return (
-    <div className="profile-card-container perspective-1000">
-      <div className="profile-card group relative cursor-pointer overflow-hidden rounded-[20px] border border-white/10 bg-gradient-to-br from-[#5A0F14]/12 via-[#141419]/80 to-[#0A0A0F]/90 p-10 backdrop-blur-md transition-all duration-500 hover:-translate-y-3 hover:border-[#5A0F14]/50 hover:shadow-[0_20px_60px_rgba(90,15,20,0.4),0_0_0_1px_rgba(90,15,20,0.2),inset_0_0_40px_rgba(90,15,20,0.1)]">
-        
+    <div className="financing-card-item">
+      <div className="profile-card group relative flex h-full flex-col cursor-pointer overflow-hidden rounded-[20px] border border-white/10 bg-gradient-to-br from-[#5A0F14]/12 via-[#141419]/80 to-[#0A0A0F]/90 p-10 backdrop-blur-md transition-all duration-500 hover:border-[#5A0F14]/50 hover:shadow-[0_20px_60px_rgba(90,15,20,0.4),0_0_0_1px_rgba(90,15,20,0.2),inset_0_0_40px_rgba(90,15,20,0.1)]">
+
         {/* Card Particles */}
         <div className="card-particles pointer-events-none absolute inset-0">
           <CardParticles />
         </div>
 
-        {/* Gradient Overlay */}
+        {/* Gradient Overlay on hover */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#5A0F14]/30 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
         {/* Content */}
-        <div className="relative z-10 -p-2">
-          {/* Icon Container */}
-          <div className="icon-container relative mx-auto mb-6 flex h-20 w-20 items-center justify-center">
-            {/* Rotating Glow Ring */}
+        <div className="relative z-10 flex flex-col flex-1">
+          {/* Icon — .icon-glow via globals.css (className → globals.css) */}
+          <div className="relative mx-auto mb-6 flex h-20 w-20 items-center justify-center">
             <div className="icon-glow absolute h-full w-full rounded-full border-2 border-transparent border-t-[#5A0F14] border-r-[#5A0F14]" />
-
-            {/* SVG Icon */}
             <div
-              className="relative z-10 transition-transform duration-400 group-hover:scale-110"
+              className="relative z-10 transition-transform duration-300 group-hover:scale-110"
               dangerouslySetInnerHTML={{ __html: profile.icon }}
             />
           </div>
 
           {/* Title */}
-          <h3 className="mb-4 text-center text-2xl font-bold text-white transition-all duration-300 group-hover:text-shadow-glow">
+          <h3 className="mb-4 text-center text-2xl font-bold text-white">
             {profile.title}
           </h3>
 
@@ -155,7 +145,7 @@ function ProfileCard({ profile, index }: { profile: any; index: number }) {
           </p>
 
           {/* Divider */}
-          <div className="divider mx-auto mb-5 h-0.5 w-12 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent transition-all duration-300 group-hover:w-20" />
+          <div className="mx-auto mb-5 h-0.5 w-12 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent transition-all duration-300 group-hover:w-20" />
 
           {/* Example */}
           <p className="mb-4 text-center text-sm text-white/65">
@@ -173,33 +163,9 @@ function ProfileCard({ profile, index }: { profile: any; index: number }) {
       <style jsx>{`
         .profile-card {
           transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-          transform: translateY(0);
         }
-
         .profile-card:hover {
           transform: translateY(-12px) rotateX(2deg);
-          box-shadow: 0 20px 60px rgba(90, 15, 20, 0.4),
-            0 0 0 1px rgba(90, 15, 20, 0.2),
-            inset 0 0 40px rgba(90, 15, 20, 0.1);
-          border-color: rgba(90, 15, 20, 0.5);
-        }
-
-        /* Icon Glow Ring */
-        .icon-glow {
-          animation: rotateGlow 3s linear infinite;
-        }
-
-        @keyframes rotateGlow {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
-
-        .text-shadow-glow {
-          text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
         }
       `}</style>
     </div>
@@ -239,15 +205,8 @@ function BackgroundParticles() {
       ))}
       <style jsx>{`
         @keyframes floatParticle {
-          0%,
-          100% {
-            transform: translateY(0) translateX(0);
-            opacity: 0.3;
-          }
-          50% {
-            transform: translateY(-30px) translateX(15px);
-            opacity: 0.8;
-          }
+          0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+          50%       { transform: translateY(-30px) translateX(15px); opacity: 0.8; }
         }
       `}</style>
     </>
@@ -257,13 +216,7 @@ function BackgroundParticles() {
 // ─── CARD PARTICLES ───
 function CardParticles() {
   const [particles, setParticles] = useState<
-    Array<{
-      id: number;
-      left: string;
-      top: string;
-      delay: string;
-      duration: string;
-    }>
+    Array<{ id: number; left: string; top: string; delay: string; duration: string }>
   >([]);
 
   useEffect(() => {
@@ -293,15 +246,8 @@ function CardParticles() {
       ))}
       <style jsx>{`
         @keyframes cardParticleFloat {
-          0%,
-          100% {
-            transform: translateY(0) scale(1);
-            opacity: 0.5;
-          }
-          50% {
-            transform: translateY(-20px) scale(1.5);
-            opacity: 1;
-          }
+          0%, 100% { transform: translateY(0) scale(1); opacity: 0.5; }
+          50%       { transform: translateY(-20px) scale(1.5); opacity: 1; }
         }
       `}</style>
     </>

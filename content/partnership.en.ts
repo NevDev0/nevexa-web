@@ -30,7 +30,6 @@ export const roleAndLimitsCopy = {
     ],
     cannotDo: [
       "DO NOT manage the commercial relationship",
-      "DO NOT contact the client after introduction",
       "DO NOT intervene in pricing or negotiations",
       "DO NOT represent Nevexa publicly without authorization",
     ],
@@ -46,9 +45,7 @@ export const roleAndLimitsCopy = {
       "Pays commission only after successful vehicle delivery",
     ],
   },
-  
-  warning:
-    "Any attempt to interfere with the client relationship after introduction will result in immediate exclusion from the partnership program.",
+
 };
 
 // ============================================

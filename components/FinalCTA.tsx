@@ -147,13 +147,11 @@ export default function Contact() {
 
           {/* Socials */}
           <div
-            className={`mt-10 text-center transition-all duration-700 delay-700 ${
+            className={`mt-8 -pb-2 text-center transition-all duration-700 delay-700 ${
               visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
-            <p className="mb-6 text-xs font-semibold uppercase tracking-wider text-neutral-500">
-              Follow us
-            </p>
+            
             <div className="flex justify-center gap-12">
               {SOCIALS.map((social) => (
                 <a
