@@ -4,6 +4,7 @@ import { b2cHeroCopy } from "@/content/b2c.en";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import ContactChoiceModal from "@/components/ContactChoiceModal";
+import NavBar from "@/components/NavBar";
 
 export default function B2CHero() {
   const [mounted, setMounted] = useState(false);
@@ -26,8 +27,12 @@ export default function B2CHero() {
 
   return (
     <div className="relative w-full">
+
+      {/* ── NAVBAR — superposé, ne ronge pas le hero ── */}
+      <NavBar />
+
       {/* SECTION 1 — Background Image Zone */}
-      <section className="relative h-[30svh] w-full overflow-hidden sm:h-[40svh]">
+      <section className="relative h-[35svh] w-full overflow-hidden sm:h-[40svh]">
         <Image
           src="/hero/b2c-hero2-background.jpg"
           alt="Premium automotive background"
@@ -38,7 +43,7 @@ export default function B2CHero() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-transparent" />
 
-        <div className="absolute inset-x-0 top-[5vh] z-10 flex justify-center px-6">
+        <div className="absolute inset-x-0 top-[10vh] z-10 flex justify-center px-6 md:top-[12vh]">
           <div
             className="absolute inset-0 -z-10 -m-8"
             style={{
@@ -65,13 +70,10 @@ export default function B2CHero() {
       </section>
 
       {/* SECTION 2 — White Floor Zone */}
-      {/* -mt-px : corrige le bug subpixel rendering sur mobile Safari/Chrome */}
-      {/* La jonction entre 2 sections avec backgrounds différents crée une ligne 1px sur écrans Retina */}
       <section
         className="relative h-[55svh] w-full -mt-px"
         style={{ background: "linear-gradient(to bottom, #f5f5f5, #ffffff)" }}
       >
-        {/* CTAs — bottom-6 au lieu de bottom-10, space-y-6 au lieu de space-y-14 */}
         <div className="absolute inset-x-0 bottom-6 flex flex-col items-center px-6">
           <div className="w-full max-w-md space-y-6 text-center">
             <div
@@ -123,10 +125,9 @@ export default function B2CHero() {
         </div>
       </section>
 
-      {/* BADGE — repositionné sous les CTAs avec copy plus clair */}
-      {/* Retiré du chevauchement voiture — maintenant dans la zone blanche au dessus des CTAs */}
+      {/* BADGE */}
       <div
-        className="absolute left-1/2 top-[calc(30svh+120px)] z-30 -translate-x-1/2 pointer-events-none sm:top-[calc(40svh+160px)]"
+        className="absolute left-1/2 top-[calc(35svh+120px)] z-30 -translate-x-1/2 pointer-events-none sm:top-[calc(40svh+160px)]"
         style={{
           opacity: mounted ? 1 : 0,
           transition: "opacity 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 400ms",
@@ -139,7 +140,7 @@ export default function B2CHero() {
 
       {/* VEHICLE */}
       <div
-        className="absolute left-[55%] top-[30svh] z-20 w-[120%] sm:top-[40svh] sm:w-[70%] md:w-[65%] lg:w-[55%] pointer-events-none"
+        className="absolute left-[55%] top-[35svh] z-20 w-[120%] sm:top-[40svh] sm:w-[70%] md:w-[65%] lg:w-[55%] pointer-events-none"
         style={{
           opacity: mounted ? 1 : 0,
           transform: mounted

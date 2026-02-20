@@ -12,87 +12,26 @@ export default function TheReality() {
       ([entry]) => {
         if (entry.isIntersecting) {
           setVisible(true);
+          observer.disconnect();
         }
       },
       { threshold: 0.3 }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+    const t = setTimeout(() => {
+      if (sectionRef.current) observer.observe(sectionRef.current);
+    }, 100);
 
-    return () => observer.disconnect();
+    return () => { clearTimeout(t); observer.disconnect(); };
   }, []);
-
-  // Helper function to highlight keywords in a paragraph
-  const renderTextWithHighlights = (text: string, highlights: string[], baseDelay: number = 0) => {
-    let currentText = text;
-    const parts: { text: string; highlighted: boolean }[] = [];
-    let lastIndex = 0;
-
-    // Sort highlights by position in text
-    const sortedHighlights = [...highlights].sort((a, b) => {
-      return currentText.indexOf(a) - currentText.indexOf(b);
-    });
-
-    sortedHighlights.forEach((keyword) => {
-      const index = currentText.indexOf(keyword, lastIndex);
-      if (index !== -1) {
-        // Add text before keyword
-        if (index > lastIndex) {
-          parts.push({
-            text: currentText.substring(lastIndex, index),
-            highlighted: false,
-          });
-        }
-        // Add highlighted keyword
-        parts.push({
-          text: keyword,
-          highlighted: true,
-        });
-        lastIndex = index + keyword.length;
-      }
-    });
-
-    // Add remaining text
-    if (lastIndex < currentText.length) {
-      parts.push({
-        text: currentText.substring(lastIndex),
-        highlighted: false,
-      });
-    }
-
-    return parts.map((part, i) =>
-      part.highlighted ? (
-        <span
-          key={i}
-          className={`inline-block transition-all duration-700 ${
-            visible ? "text-white" : "text-white/60"
-          }`}
-          style={{
-            transitionDelay: `${baseDelay + 300 + i * 200}ms`,
-            textShadow: visible ? "0 0 20px rgba(255,255,255,0.4)" : "none",
-            background: visible ? "rgba(90,15,20,0.35)" : "transparent",
-            padding: visible ? "2px 8px" : "0",
-            borderRadius: "6px",
-            boxShadow: visible ? "0 2px 12px rgba(90,15,20,0.3)" : "none",
-          }}
-        >
-          {part.text}
-        </span>
-      ) : (
-        <span key={i}>{part.text}</span>
-      )
-    );
-  };
 
   return (
     <section
       ref={sectionRef}
-      className="relative flex min-h-[50vh] w-full items-center justify-center overflow-hidden bg-black px-6 py-20 sm:min-h-[55vh] sm:py-24"
+      className="relative flex min-h-[50svh] w-full items-center justify-center overflow-hidden bg-black px-6 py-20 sm:min-h-[55svh] sm:py-24"
     >
-      
-      {/* Grain texture */}
+
+      {/* Grain */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
@@ -107,32 +46,47 @@ export default function TheReality() {
 
       {/* Content */}
       <div className="relative z-10 mx-auto w-full max-w-3xl text-center">
-        
-        {/* First paragraph */}
+
+        {/*
+          Signature animation TheReality : fade opacity seul (pas de translate)
+          Contraste avec Manifesto (translateX) et Hero (translateY)
+          Un seul highlight — "hidden damage" uniquement. Règle : rareté = valeur.
+        */}
+
+        {/* Paragraph 1 */}
         <p
-          className={`mb-8 text-[17px] leading-[2.0] text-white/80 transition-all duration-700 sm:mb-10 sm:text-[28px] sm:leading-[1.7] ${
-            visible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
-          }`}
+          className="mb-8 text-[18px] leading-[1.9] text-white/75 sm:mb-10 sm:text-[26px] sm:leading-[1.7]"
+          style={{
+            opacity: visible ? 1 : 0,
+            transition: "opacity 1000ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+            transitionDelay: "0ms",
+          }}
         >
-          {renderTextWithHighlights(
-            realityCopy.paragraphs[0].text,
-            realityCopy.paragraphs[0].highlights,
-            0
-          )}
+          Every year, thousands of West African buyers pay premium prices for vehicles with{" "}
+          <span
+            style={{
+              background: visible ? "rgba(90,15,20,0.4)" : "transparent",
+              padding: visible ? "2px 8px" : "0",
+              borderRadius: "6px",
+              transition: "background 700ms ease, padding 700ms ease",
+              transitionDelay: "600ms",
+            }}
+          >
+            hidden damage
+          </span>
+          . The resale system profits from information asymmetry.
         </p>
 
-        {/* Second paragraph (Nevexa conclusion) */}
+        {/* Paragraph 2 — delayed, bolder */}
         <p
-          className={`text-[17px] leading-[2.0] text-white/80 transition-all duration-700 sm:text-[28px] sm:leading-[1.7] ${
-            visible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
-          }`}
-          style={{ transitionDelay: "400ms" }}
+          className="text-[18px] font-semibold leading-[1.9] text-white sm:text-[26px] sm:leading-[1.7]"
+          style={{
+            opacity: visible ? 1 : 0,
+            transition: "opacity 1000ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+            transitionDelay: "500ms",
+          }}
         >
-          {renderTextWithHighlights(
-            realityCopy.paragraphs[1].text,
-            realityCopy.paragraphs[1].highlights,
-            400
-          )}
+          Nevexa was built to eliminate that abuse entirely.
         </p>
 
       </div>

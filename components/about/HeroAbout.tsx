@@ -11,49 +11,21 @@ export default function HeroAbout() {
     return () => clearTimeout(t);
   }, []);
 
-  // Helper to highlight specific words in statement
+  // Fix: split on "rigged" but keep surrounding punctuation clean
   const renderStatement = () => {
-    const text = aboutHeroCopy.statement;
-    const parts = text.split(/(rigged)/gi);
-    
+    // Split cleanly — avoid capturing the period
+    const parts = aboutHeroCopy.statement.split(/(rigged)/gi);
+
     return parts.map((part, i) =>
       part.toLowerCase() === "rigged" ? (
         <span
           key={i}
-          className="inline-block transition-all duration-700"
+          className="relative inline-block transition-all duration-700"
           style={{
-            background: visible ? "rgba(90,15,20,0.4)" : "transparent",
-            padding: visible ? "0 10px" : "0",
+            background: visible ? "rgba(90,15,20,0.45)" : "transparent",
+            padding: visible ? "0 8px" : "0",
             borderRadius: "6px",
             boxShadow: visible ? "0 2px 16px rgba(90,15,20,0.4)" : "none",
-            textShadow: visible ? "0 0 24px rgba(255,255,255,0.5)" : "0 2px 40px rgba(0,0,0,0.6)",
-          }}
-        >
-          {part}
-        </span>
-      ) : (
-        <span key={i}>{part}</span>
-      )
-    );
-  };
-
-  // Helper to highlight "the exit" in subline
-  const renderSubline = () => {
-    const text = aboutHeroCopy.subline;
-    const parts = text.split(/(the exit)/gi);
-    
-    return parts.map((part, i) =>
-      part.toLowerCase() === "the exit" ? (
-        <span
-          key={i}
-          className="inline-block transition-all duration-700"
-          style={{
-            background: visible ? "rgba(90,15,20,0.4)" : "transparent",
-            padding: visible ? "2px 10px" : "0",
-            borderRadius: "6px",
-            boxShadow: visible ? "0 2px 16px rgba(90,15,20,0.4)" : "none",
-            color: visible ? "#fff" : "rgba(255,255,255,0.7)",
-            textShadow: visible ? "0 0 20px rgba(255,255,255,0.4)" : "none",
           }}
         >
           {part}
@@ -65,9 +37,9 @@ export default function HeroAbout() {
   };
 
   return (
-    <section className="relative flex min-h-[70vh] w-full items-center justify-center overflow-hidden bg-black px-6 py-20 sm:min-h-[80vh]">
-      
-      {/* ── Background image (CN Tower) ── */}
+    <section className="relative flex min-h-[80svh] w-full items-center justify-center overflow-hidden bg-black px-6 py-20 sm:min-h-[80svh]">
+
+      {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
@@ -76,7 +48,7 @@ export default function HeroAbout() {
         }}
       />
 
-      {/* ── Overlay gradient (very dark) ── */}
+      {/* Overlay */}
       <div
         className="absolute inset-0"
         style={{
@@ -85,7 +57,7 @@ export default function HeroAbout() {
         }}
       />
 
-      {/* ── Grain texture ── */}
+      {/* Grain */}
       <div
         className="pointer-events-none absolute inset-0 z-[1]"
         style={{
@@ -95,7 +67,7 @@ export default function HeroAbout() {
         }}
       />
 
-      {/* ── Scan lines ── */}
+      {/* Scan lines */}
       <div className="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
         {[
           { top: "25%", delay: "0s", opacity: 0.12 },
@@ -118,15 +90,16 @@ export default function HeroAbout() {
         ))}
       </div>
 
-      {/* ── Content ── */}
+      {/* Content — centered on all breakpoints */}
       <div className="relative z-10 mx-auto w-full max-w-4xl text-center">
-        
-        {/* Main statement with "rigged" highlighted */}
+
+        {/* Main statement */}
         <h1
-          className={`mb-6 text-[34px] font-black leading-[1.15] tracking-[-0.02em] text-white transition-all duration-800 sm:text-[56px] ${
+          className={`mb-6 text-[34px] font-black leading-[1.15] tracking-[-0.02em] text-white sm:text-[56px] ${
             visible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
           }`}
           style={{
+            transition: "opacity 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",
             transitionDelay: "200ms",
             textShadow: "0 2px 40px rgba(0,0,0,0.6)",
           }}
@@ -134,26 +107,30 @@ export default function HeroAbout() {
           {renderStatement()}
         </h1>
 
-        {/* Subline with "the exit" highlighted */}
+        {/* Subline — no highlight, just clean typography */}
         <p
-          className={`text-[18px] font-medium tracking-[0.01em] transition-all duration-800 sm:text-[22px] ${
+          className={`text-[18px] font-medium tracking-[0.01em] text-white/70 sm:text-[22px] ${
             visible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
           }`}
           style={{
+            transition: "opacity 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",
             transitionDelay: "500ms",
           }}
         >
-          {renderSubline()}
+          {aboutHeroCopy.subline}
         </p>
 
       </div>
 
-      {/* ── Scroll indicator ── */}
+      {/* Scroll indicator */}
       <div
-        className={`absolute bottom-12 left-1/2 z-10 -translate-x-1/2 transition-all duration-700 ${
+        className={`absolute bottom-8 left-1/2 z-10 -translate-x-1/2 ${
           visible ? "opacity-100" : "opacity-0"
         }`}
-        style={{ transitionDelay: "900ms" }}
+        style={{
+          transition: "opacity 700ms ease",
+          transitionDelay: "900ms",
+        }}
       >
         <div className="relative h-12 w-px overflow-hidden rounded-sm bg-white/[0.08]">
           <div
@@ -166,7 +143,7 @@ export default function HeroAbout() {
         </div>
       </div>
 
-      {/* ── Keyframes ── */}
+      {/* Keyframes */}
       <style jsx>{`
         @keyframes nevexa-slow-zoom {
           from { transform: scale(1.05); }
