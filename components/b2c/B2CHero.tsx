@@ -34,7 +34,7 @@ export default function B2CHero() {
       {/* SECTION 1 — Background Image Zone */}
       <section className="relative h-[35svh] w-full overflow-hidden sm:h-[40svh]">
         <Image
-          src="/hero/b2c-hero2-background.jpg"
+          src="/hero/b2c-hero2-background.webp"
           alt="Premium automotive background"
           fill
           priority
@@ -71,13 +71,16 @@ export default function B2CHero() {
 
       {/* SECTION 2 — White Floor Zone */}
       <section
-        className="relative h-[55svh] w-full -mt-px"
-        style={{ background: "linear-gradient(to bottom, #f5f5f5, #ffffff)" }}
-      >
-        <div className="absolute inset-x-0 bottom-6 flex flex-col items-center px-6">
+  className="relative h-[55svh] w-full -mt-px"
+  style={{ 
+    background: "linear-gradient(to bottom, #f5f5f5, #ffffff)", 
+    willChange: "transform"   // ← ajoute cette ligne
+  }}
+>
+        <div className="absolute inset-x-0 bottom-8 flex flex-col items-center px-6">
           <div className="w-full max-w-md space-y-6 text-center">
             <div
-              className="flex flex-col gap-4 w-full sm:w-auto"
+              className="flex flex-col gap-3 w-full sm:w-auto md:gap-4"
               style={{
                 opacity: mounted ? 1 : 0,
                 transform: mounted ? "translateY(0)" : "translateY(12px)",
@@ -151,7 +154,7 @@ export default function B2CHero() {
         }}
       >
         <Image
-          src="/hero/b2c-hero-escalade1.png"
+          src="/hero/b2c-hero-escalade1.webp"
           alt="Premium luxury vehicle"
           width={1200}
           height={800}

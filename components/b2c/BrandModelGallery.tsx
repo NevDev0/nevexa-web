@@ -184,17 +184,17 @@ export default function BrandModelGallery() {
 
             {/* ── PROGRESS BAR ── */}
             <div className="mb-8 px-2">
-              <div className="h-px w-full overflow-hidden rounded-full bg-white/8">
+              <div className="h-px w-full overflow-hidden rounded-full bg-white/30">
                 <div
                   className="h-full rounded-full bg-[#5A0F14] transition-all duration-400 ease-out"
                   style={{ width: `${((carouselIndex + 1) / activeModels.length) * 100}%` }}
                 />
               </div>
               <div className="mt-2 flex justify-between">
-                <span className="text-[10px] uppercase tracking-wider text-white/20">
+                <span className="text-[10px] uppercase tracking-wider text-white/80">
                   {String(carouselIndex + 1).padStart(2, "0")}
                 </span>
-                <span className="text-[10px] uppercase tracking-wider text-white/20">
+                <span className="text-[10px] uppercase tracking-wider text-white/80">
                   {String(activeModels.length).padStart(2, "0")}
                 </span>
               </div>
@@ -232,7 +232,7 @@ export default function BrandModelGallery() {
           </button>
         </div>
 
-        <p className={`text-center text-xs text-neutral-600 transition-all duration-700 delay-[600ms] ${visible ? "opacity-100" : "opacity-0"}`}>
+        <p className={`text-center text-xs text-neutral-500 transition-all duration-700 delay-[600ms] ${visible ? "opacity-100" : "opacity-0"}`}>
           {brandModelGallery.disclaimer}
         </p>
       </div>
@@ -333,10 +333,10 @@ function ModelCard({ model, activeBrand, visible, index, onExplore }: ModelCardP
 
       {/* Category + Price */}
       <div className="mb-4 flex items-center justify-center gap-3">
-        <span className="rounded-md border border-white/10 px-3 py-1 text-xs font-medium tracking-wide text-neutral-500">
+        <span className="rounded-md border border-white/10 px-3 py-1 text-xs font-medium tracking-wide text-neutral-400">
           {model.category}
         </span>
-        <span className="text-xs font-light tracking-wide text-white/30">
+        <span className="text-xs font-light tracking-wide text-white/60">
           {model.price}
         </span>
       </div>
@@ -402,7 +402,7 @@ function GalleryModal({ brand, model, onClose, onRequest }: GalleryModalProps) {
 
       <div className="relative w-full max-w-5xl" onClick={e => e.stopPropagation()}>
         <div className="mb-2 text-center">
-          <h2 className="mb-1 font-serif text-4xl italic text-white md:text-5xl">{model.displayName}</h2>
+          <h2 className="mb-4 font-serif text-4xl italic text-white md:text-5xl">{model.displayName}</h2>
           <p className="text-sm text-neutral-400">{model.fullName}</p>
         </div>
 

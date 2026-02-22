@@ -2,7 +2,6 @@ import HeroAbout from "@/components/about/HeroAbout";
 import Manifesto from "@/components/about/Manifesto";
 import TheReality from "@/components/about/TheReality";
 import SplitCTA from "@/components/about/SplitCTA";
-import FollowUs from "@/components/b2b/FollowUs";
 import Footer from "@/components/Footer";
 
 export default function AboutPage() {
@@ -16,8 +15,6 @@ export default function AboutPage() {
       <TheReality />
       {/* Section 4 — Split CTA (TODO) */}
       <SplitCTA />
-      {/* FollowUs */}
-      <FollowUs />
       {/* Footer */}
       <Footer />
     </main>

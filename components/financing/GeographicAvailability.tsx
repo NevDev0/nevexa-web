@@ -111,7 +111,7 @@ export default function GeographicAvailability() {
             {/* Map Image */}
             <div className="relative aspect-square w-full">
               <Image
-                src="/images/africa-map.jpg"
+                src="/images/africa-map.webp"
                 alt="Africa Map"
                 fill
                 className="object-contain"

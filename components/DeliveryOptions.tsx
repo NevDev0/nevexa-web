@@ -52,7 +52,7 @@ export default function DeliveryOptions() {
       <div
         className="absolute inset-[-8%]"
         style={{
-          backgroundImage: "url(/delivery/cargoshipdelivery.jpg)",
+          backgroundImage: "url(/delivery/cargoshipdelivery.webp)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           transform: `translateY(${parallaxY}) scale(${inView ? 1.0 : 1.06})`,

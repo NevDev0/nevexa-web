@@ -1,5 +1,5 @@
 import Hero from "../components/Hero";
-import WhyImport from "../components/WhyImport"; // ← AJOUTE CETTE LIGNE
+import WhyImport from "../components/WhyImport";
 import ValueProposition from "../components/ValueProposition";
 import Brands from "../components/Brands";
 import ChoosePath from "../components/ChoosePath";
@@ -14,7 +14,7 @@ export default function HomePage() {
   return (
     <main className="min-h-screen w-full overflow-x-hidden bg-black text-white">
       <Hero />
-      <WhyImport /> {/* ← AJOUTE CETTE LIGNE */}
+      <WhyImport />
       <ValueProposition />
       <Brands />
       <ChoosePath />

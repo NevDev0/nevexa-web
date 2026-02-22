@@ -266,10 +266,11 @@ export default function WaitlistForm() {
 
             {/* Client Type */}
             <div>
-              <label className="mb-2 block text-sm font-medium">
+              <label htmlFor="clientType" className="mb-2 block text-sm font-medium">
                 {waitlistFormCopy.fields.clientType.label}<span className="text-[#5A0F14]"> *</span>
               </label>
               <select
+                id="clientType"
                 ref={clientTypeRef} name="clientType" value={formData.clientType}
                 onChange={handleChange}
                 className={`w-full rounded-lg border bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-300 focus:scale-[1.01] focus:outline-none ${
@@ -288,10 +289,11 @@ export default function WaitlistForm() {
 
           {/* Row 3 : Budget — pleine largeur */}
           <div>
-            <label className="mb-2 block text-sm font-medium">
+            <label htmlFor="estimatedBudget" className="mb-2 block text-sm font-medium">
               {waitlistFormCopy.fields.estimatedBudget.label}<span className="text-[#5A0F14]"> *</span>
             </label>
             <select
+              id="estimatedBudget"
               name="estimatedBudget" value={formData.estimatedBudget}
               onChange={handleChange}
               className={`w-full rounded-lg border bg-white/5 px-4 py-3 text-white backdrop-blur-sm transition-all duration-300 focus:scale-[1.01] focus:outline-none ${

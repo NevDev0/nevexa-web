@@ -4,7 +4,6 @@ import CommissionStructure from "@/components/partnership/CommissionStructure";
 import HowItWorks from "@/components/partnership/HowItWorks";
 import FAQPartnership from "@/components/partnership/FAQPartnership";
 import PartnerApplication from "@/components/partnership/PartnerApplication";
-import JoinUs from "@/components/JoinUs";
 import Footer from "@/components/Footer";
 // Import des autres composants au fur et à mesure
 // import JoinUs from "@/components/JoinUs";
@@ -19,7 +18,6 @@ export default function PartnershipPage() {
       <HowItWorks />
       <FAQPartnership />
       <PartnerApplication />
-      <JoinUs />
       <Footer />
       {/* Les autres sections seront ajoutées au fur et à mesure */}
     </main>

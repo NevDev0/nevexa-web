@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { b2bHeroCopy } from "@/content/b2b.en";
 import ContactChoiceModalB2B from "@/components/b2b/ContactChoiceModalB2B";
+import NavBar from "@/components/NavBar";
 
 export default function HeroB2B() {
   const [visible, setVisible] = useState(false);
@@ -18,12 +19,15 @@ export default function HeroB2B() {
 
   return (
     <>
+      {/* ── NAVBAR ── */}
+        <NavBar />
+
       <section className="relative w-full overflow-hidden min-h-[85svh]">
         {/* Background image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: "url('/hero/b2b-hero-background.jpg')",
+            backgroundImage: "url('/hero/b2b-hero-background.webp')",
             transition: "transform 2000ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",
             transform: visible
               ? typeof window !== "undefined" && window.matchMedia("(min-width: 640px)").matches
@@ -37,7 +41,7 @@ export default function HeroB2B() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/75" />
 
         {/* Content */}
-        <div className="relative z-10 flex min-h-[90svh] flex-col items-center justify-center px-6 pb-20 pt-12 text-center">
+        <div className="relative z-10 flex min-h-[90svh] flex-col items-center justify-center px-6 pb-20 pt-16 text-center">
           <div className="max-w-lg">
 
             {/* Badge */}
@@ -120,7 +124,7 @@ export default function HeroB2B() {
 
             {/* Disclaimer */}
             <p
-              className={`${baseTransition} mt-8 text-xs text-neutral-400`}
+              className={`${baseTransition} mt-10 text-xs text-neutral-300`}
               style={{
                 opacity: visible ? 1 : 0,
                 transitionDelay: "520ms",

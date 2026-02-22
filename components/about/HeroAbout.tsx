@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { aboutHeroCopy } from "@/content/about.en";
+import NavBar from "@/components/NavBar";
 
 export default function HeroAbout() {
   const [visible, setVisible] = useState(false);
@@ -10,6 +11,7 @@ export default function HeroAbout() {
     const t = setTimeout(() => setVisible(true), 100);
     return () => clearTimeout(t);
   }, []);
+
 
   // Fix: split on "rigged" but keep surrounding punctuation clean
   const renderStatement = () => {
@@ -35,15 +37,19 @@ export default function HeroAbout() {
       )
     );
   };
+  
 
   return (
-    <section className="relative flex min-h-[80svh] w-full items-center justify-center overflow-hidden bg-black px-6 py-20 sm:min-h-[80svh]">
+    <section className="relative flex min-h-[90svh] w-full items-center justify-center overflow-hidden bg-black px-6 py-20 sm:min-h-[90svh]">
+
+      {/* ── NAVBAR ── */}
+      <NavBar />
 
       {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: "url('/hero/partnerhero.jpg')",
+          backgroundImage: "url('/hero/partnerhero.webp')",
           animation: "nevexa-slow-zoom 20s ease-out forwards",
         }}
       />
@@ -95,7 +101,7 @@ export default function HeroAbout() {
 
         {/* Main statement */}
         <h1
-          className={`mb-6 text-[34px] font-black leading-[1.15] tracking-[-0.02em] text-white sm:text-[56px] ${
+          className={`mb-8 text-[34px] font-black leading-[1.15] tracking-[-0.02em] text-white sm:text-[56px] ${
             visible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
           }`}
           style={{
@@ -109,7 +115,7 @@ export default function HeroAbout() {
 
         {/* Subline — no highlight, just clean typography */}
         <p
-          className={`text-[18px] font-medium tracking-[0.01em] text-white/70 sm:text-[22px] ${
+          className={`text-[20px] font-medium tracking-[0.01em] text-white/80 sm:text-[22px] ${
             visible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
           }`}
           style={{

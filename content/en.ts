@@ -39,25 +39,25 @@ export const valuePropsCopy = {
       id: 1,
       label: "Sourcing",
       description: "Find and secure 2021-2026 vehicles from verified North American dealerships",
-      image: "/process/step-1-sourcing.jpg",
+      image: "/process/step-1-sourcing.webp",
     },
     {
       id: 2,
       label: "Inspection",
       description: "Complete pre-delivery inspection with CARFAX and AutoCheck reports",
-      image: "/process/step-2-inspection.jpg",
+      image: "/process/step-2-inspection.webp",
     },
     {
       id: 3,
       label: "Logistics",
       description: "Professional shipping coordination from Canada to African ports",
-      image: "/process/step-3-logistics.jpg",
+      image: "/process/step-3-logistics.webp",
     },
     {
       id: 4,
       label: "Customs",
       description: "Full documentation and customs clearance assistance",
-      image: "/process/step-4-customs.jpg",
+      image: "/process/step-4-customs.webp",
     },
   ],
 };
@@ -91,7 +91,7 @@ export const choosePathCopy = {
       badge: null,
       ctaLabel: "Find my vehicle",
       href: "/b2c",
-      image: "/paths/individuals.jpg",
+      image: "/paths/individuals.webp",
     },
     {
       id: "b2b",
@@ -99,7 +99,7 @@ export const choosePathCopy = {
       badge: null,
       ctaLabel: "Discover our offer",
       href: "/b2b",
-      image: "/paths/professionals.jpg",
+      image: "/paths/professionals.webp",
     },
     {
       id: "financing",
@@ -107,7 +107,7 @@ export const choosePathCopy = {
       badge: "EARLY ACCESS",
       ctaLabel: "Learn more",
       href: "/financing",
-      image: "/paths/financing.jpg",
+      image: "/paths/financing.webp",
     },
   ],
 };
@@ -152,29 +152,7 @@ export const finalCtaCopy = {
   whatsappNumber: "+14374842769",
 };
 
-// Section 8 — Join Us
-export const joinUsCopy = {
-  label: "Join us",
-  intro:
-    "Follow Nevexa across our official channels for updates and new arrivals.",
-  channels: [
-    {
-      id: "facebook",
-      name: "Facebook",
-      url: "#", // TODO
-    },
-    {
-      id: "instagram",
-      name: "Instagram",
-      url: "https://www.instagram.com/nevexacars/",
-    },
-    {
-      id: "linkedin",
-      name: "LinkedIn",
-      url: "https://www.linkedin.com/in/nevexa-cars/",
-    },
-  ],
-};
+
 
 // Section 9 — Footer
 export const footerCopy = {

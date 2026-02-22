@@ -18,12 +18,7 @@ export const metadata: Metadata = {
     "Nevexa sources 2021-2026 premium vehicles from official Canadian dealerships for West African markets. Sourcing, inspection, delivery.",
 };
 
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 1,
-  themeColor: "#000000",
-};
+
 
 export default function RootLayout({
   children,

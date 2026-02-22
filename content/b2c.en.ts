@@ -15,7 +15,7 @@ export const brandModelGallery = {
   badge: "2021-2026 MODELS ONLY",
   disclaimer: "Sample configurations shown. Availability and pricing vary by destination and model.",
   customSourcingCta: {
-    text: "Don't see the exact model you're looking for?",
+    text: "Don't see the brand or model you're looking for?",
     buttonLabel: "Request custom sourcing",
   },
   brands: [
@@ -294,19 +294,19 @@ export function getModelGallery(
   
   // Add exterior photos
   for (let i = 1; i <= exteriorCount; i++) {
-    gallery.push(`/catalog/${brandId}/${modelId}/exte-${i}.jpg`);
+    gallery.push(`/catalog/${brandId}/${modelId}/exte-${i}.webp`);
   }
   
   // Add interior photos
   for (let i = 1; i <= interiorCount; i++) {
-    gallery.push(`/catalog/${brandId}/${modelId}/inte-${i}.jpg`);
+    gallery.push(`/catalog/${brandId}/${modelId}/inte-${i}.webp`);
   }
   
   return gallery;
 }
 
 export function getModelThumbnail(brandId: string, modelId: string): string {
-  return `/catalog/${brandId}/${modelId}/exte-1.jpg`;
+  return `/catalog/${brandId}/${modelId}/exte-1.webp`;
 }
 
 export function hasPhotos(exteriorCount: number, interiorCount: number): boolean {

@@ -31,7 +31,7 @@ export default function HowItWorks() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full overflow-hidden bg-[#0E0F11] px-6 py-12 text-white sm:py-12"
+      className="relative w-full overflow-hidden bg-[#0E0F11] px-6 py-16 text-white sm:py-12"
     >
       {/* Particle Grid Background */}
       <div className="pointer-events-none absolute inset-0 opacity-30">

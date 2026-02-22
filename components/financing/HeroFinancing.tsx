@@ -1,10 +1,14 @@
 "use client";
 import { financingHeroCopy } from "@/content/financing.en";
+import NavBar from "@/components/NavBar"; 
 
 export default function HeroFinancing() {
   return (
     <section className="relative w-full overflow-hidden bg-black">
 
+   {/* ── NAVBAR ── */}
+    <NavBar />
+ 
       {/* ── Background : glow radial burgundy top + scan lines ── */}
       <div className="absolute inset-0 z-0">
         {/* Glow radial burgundy — haut centre */}
@@ -32,7 +36,7 @@ export default function HeroFinancing() {
       </div>
 
       {/* ── Contenu principal ── */}
-      <div className="relative z-10 flex min-h-[90svh] flex-col items-center justify-center px-6 pb-20 pt-20 text-center">
+      <div className="relative z-10 flex min-h-[90svh] flex-col items-center justify-center px-6 pb-20 pt-24 text-center">
         <div className="max-w-2xl">
 
           {/* Badges */}

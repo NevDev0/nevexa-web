@@ -67,7 +67,7 @@ function StepCard({
     >
       {/* Step Card */}
       <div
-        className="group relative overflow-hidden rounded-lg border border-white/15 transition-all duration-300 hover:scale-[1.02] hover:border-white/25 min-h-[140px] sm:min-h-[260px]"
+        className="group relative overflow-hidden rounded-lg border border-white/15 transition-all duration-300 hover:scale-[1.02] hover:border-white/25 min-h-[140px] sm:items-start"
         style={{
           backgroundImage: `url(${step.image})`,
           backgroundSize: "cover",

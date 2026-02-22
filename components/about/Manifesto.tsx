@@ -58,7 +58,7 @@ export default function Manifesto() {
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: "url('/images/aboutstructure.jpg')",
+          backgroundImage: "url('/images/aboutstructure.webp')",
           animation: "nevexa-manifesto-zoom 25s ease-out forwards",
         }}
       />
@@ -101,7 +101,6 @@ export default function Manifesto() {
                   : "linear-gradient(180deg, rgba(255,255,255,0.01) 0%, rgba(0,0,0,0.5) 100%)",
                 padding: "48px 28px",
                 minHeight: "320px",
-                // Transition CSS pure — pas de conflit avec keyframe (éléments différents)
                 opacity: visibleCards[index] ? 1 : 0,
                 transform: visibleCards[index] ? "translateX(0)" : "translateX(-40px)",
                 transition: "opacity 700ms cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 700ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",
@@ -117,12 +116,13 @@ export default function Manifesto() {
                 />
               )}
 
-              <h3
+              {/* h3 → h2 : fix accessibilité heading order */}
+              <h2
                 className="mb-8 text-[15px] font-extrabold uppercase tracking-[0.1em]"
                 style={{ color: index === 1 ? "#5A0F14" : "#fff" }}
               >
                 {pillar.title}
-              </h3>
+              </h2>
 
               <div className="space-y-4">
                 {pillar.content.map((paragraph, i) => (
@@ -152,12 +152,13 @@ export default function Manifesto() {
                 transition: "opacity 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",
               }}
             >
-              <h3
+              {/* h3 → h2 : fix accessibilité heading order */}
+              <h2
                 className="mb-5 text-[13px] font-extrabold uppercase tracking-[0.1em]"
                 style={{ color: index === 1 ? "#5A0F14" : "#fff" }}
               >
                 {pillar.title}
-              </h3>
+              </h2>
               <div className="space-y-3">
                 {pillar.content.map((paragraph, i) => (
                   <p key={i} className="text-[13px] leading-[1.75] text-white/65">

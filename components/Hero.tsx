@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { heroCopy } from "../content/en";
+import NavBar from "@/components/NavBar";
 
 export default function Hero() {
   const [mounted, setMounted] = useState(false);
@@ -23,6 +24,9 @@ export default function Hero() {
 
   return (
     <section className="relative flex min-h-[90svh] w-full items-center justify-center overflow-hidden bg-black">
+      {/* ── NAVBAR ── */}
+      <NavBar />
+
       {/* Video Background */}
       <video
         ref={videoRef}
@@ -30,10 +34,13 @@ export default function Hero() {
         loop
         muted
         playsInline
+        preload="auto"
+        // @ts-expect-error fetchPriority not yet in React video types
+        fetchPriority="high"
         className="absolute inset-0 h-full w-full object-cover object-[35%_center] md:scale-[1.10] md:object-center"
         style={{ transformOrigin: "center center" }}
       >
-        <source src="/hero/journey.mp4" type="video/mp4" />
+        <source src="/hero/journey-optimized.mp4" type="video/mp4" />
       </video>
 
       {/* Overlay Gradient - Top dark (avion zone) */}

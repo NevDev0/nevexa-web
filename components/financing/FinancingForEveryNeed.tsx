@@ -34,7 +34,7 @@ export default function FinancingForEveryNeed() {
         <BackgroundParticles />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-7xl">
+      <div className="relative z-10 mx-auto max-w-4xl">
         {/* Header */}
         <div
           className={`mb-8 text-center transition-all duration-700 ${
@@ -72,16 +72,16 @@ export default function FinancingForEveryNeed() {
             ))}
           </div>
 
-          {/* Swipe indicator — style mouse Hero */}
-          <div className="mt-4 flex flex-col items-center gap-1.5">
+          {/* Swipe indicator */}
+          <div className="-mt-12 flex flex-col items-center gap-1.5">
             <div className="ffn-swipe-mouse relative h-6 w-10 rounded-full border border-white/20" style={{ borderRadius: "999px" }}>
               <div className="ffn-swipe-dot absolute top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-white/50" style={{ left: "6px" }} />
             </div>
           </div>
         </div>
 
-        {/* Desktop: 2x2 Grid */}
-        <div className="hidden grid-cols-2 gap-8 sm:grid lg:gap-10">
+        {/* Desktop: 2-column grid — items-start so cards don't stretch */}
+        <div className="hidden grid-cols-4 gap-4 sm:grid">
           {financingProfilesCopy.profiles.map((profile, index) => (
             <ProfileCard key={profile.id} profile={profile} index={index} />
           ))}
@@ -89,7 +89,6 @@ export default function FinancingForEveryNeed() {
       </div>
 
       <style jsx>{`
-        /* Swipe indicator — dot glisse horizontalement */
         .ffn-swipe-dot {
           animation: ffn-swipe-slide 2s ease-in-out infinite;
         }
@@ -108,7 +107,7 @@ export default function FinancingForEveryNeed() {
 function ProfileCard({ profile, index }: { profile: any; index: number }) {
   return (
     <div className="financing-card-item">
-      <div className="profile-card group relative flex h-full flex-col cursor-pointer overflow-hidden rounded-[20px] border border-white/10 bg-gradient-to-br from-[#5A0F14]/12 via-[#141419]/80 to-[#0A0A0F]/90 p-10 backdrop-blur-md transition-all duration-500 hover:border-[#5A0F14]/50 hover:shadow-[0_20px_60px_rgba(90,15,20,0.4),0_0_0_1px_rgba(90,15,20,0.2),inset_0_0_40px_rgba(90,15,20,0.1)]">
+      <div className="profile-card group relative flex flex-col cursor-pointer overflow-hidden rounded-[20px] border border-white/10 bg-gradient-to-br from-[#5A0F14]/12 via-[#141419]/80 to-[#0A0A0F]/90 p-10 sm:p-8 backdrop-blur-md transition-all duration-500 hover:border-[#5A0F14]/50 hover:shadow-[0_20px_60px_rgba(90,15,20,0.4),0_0_0_1px_rgba(90,15,20,0.2),inset_0_0_40px_rgba(90,15,20,0.1)]">
 
         {/* Card Particles */}
         <div className="card-particles pointer-events-none absolute inset-0">
@@ -119,9 +118,9 @@ function ProfileCard({ profile, index }: { profile: any; index: number }) {
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#5A0F14]/30 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
         {/* Content */}
-        <div className="relative z-10 flex flex-col flex-1">
-          {/* Icon — .icon-glow via globals.css (className → globals.css) */}
-          <div className="relative mx-auto mb-6 flex h-20 w-20 items-center justify-center">
+        <div className="relative z-10 flex flex-col">
+          {/* Icon */}
+          <div className="relative mx-auto mb-5 flex h-20 w-20 items-center justify-center">
             <div className="icon-glow absolute h-full w-full rounded-full border-2 border-transparent border-t-[#5A0F14] border-r-[#5A0F14]" />
             <div
               className="relative z-10 transition-transform duration-300 group-hover:scale-110"
@@ -130,7 +129,7 @@ function ProfileCard({ profile, index }: { profile: any; index: number }) {
           </div>
 
           {/* Title */}
-          <h3 className="mb-4 text-center text-2xl font-bold text-white">
+          <h3 className="mb-3 text-center text-xl font-bold text-white">
             {profile.title}
           </h3>
 
@@ -140,12 +139,12 @@ function ProfileCard({ profile, index }: { profile: any; index: number }) {
           </div>
 
           {/* Targets */}
-          <p className="mb-5 text-center text-[0.9375rem] leading-relaxed text-white/80">
+          <p className="mb-4 text-center text-[0.9375rem] leading-relaxed text-white/80">
             {profile.targets}
           </p>
 
           {/* Divider */}
-          <div className="mx-auto mb-5 h-0.5 w-12 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent transition-all duration-300 group-hover:w-20" />
+          <div className="mx-auto mb-4 h-0.5 w-12 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent transition-all duration-300 group-hover:w-20" />
 
           {/* Example */}
           <p className="mb-4 text-center text-sm text-white/65">
@@ -165,7 +164,7 @@ function ProfileCard({ profile, index }: { profile: any; index: number }) {
           transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .profile-card:hover {
-          transform: translateY(-12px) rotateX(2deg);
+          transform: translateY(-8px);
         }
       `}</style>
     </div>

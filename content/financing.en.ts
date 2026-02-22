@@ -62,7 +62,7 @@ export const financingProfilesCopy = {
       id: "business",
       title: "Growing Your Business",
       targets: "Fleet operators, corporate buyers, transport companies",
-      example: "5+ vehicle fleet financing",
+      example: "5+ vehicle fleet financing across multiple destinations",
       range: "$100K+ multi-vehicle orders",
       icon: `<svg class="h-12 w-12" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 8px rgba(90, 15, 20, 0.5));">
         <path d="M 8 52 L 8 56 L 56 56 L 56 52" stroke="#5A0F14" stroke-width="2"/>
@@ -95,7 +95,7 @@ export const financingProfilesCopy = {
     {
       id: "personal",
       title: "Your Personal Upgrade",
-      targets: "Professionals, entrepreneurs, salaried employees",
+      targets: "Professionals, entrepreneurs, and salaried employees in Africa",
       example: "2021-2026 premium SUV or sedan",
       range: "$30K-$80K vehicles",
       icon: `<svg class="h-12 w-12" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 8px rgba(90, 15, 20, 0.5));">
@@ -125,7 +125,7 @@ export const financingProfilesCopy = {
       id: "ngo",
       title: "Serving Communities",
       targets: "NGOs, international organizations, health/education",
-      example: "Donor-funded 4x4 utility vehicles",
+      example: "Donor-funded 4x4 utility vehicles for NGO",
       range: "$50K+ purpose-built vehicles",
       icon: `<svg class="h-12 w-12" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 8px rgba(90, 15, 20, 0.5));">
         <rect class="cross-pulse" x="26" y="16" width="12" height="32" fill="#5A0F14" rx="2"/>
