@@ -134,7 +134,7 @@ export default function ReferralBlock() {
         </h2>
 
         {/* Underline */}
-        <div className="mx-auto -mb-8 flex items-center justify-center gap-2">
+        <div className="mx-auto -mb-12 flex items-center justify-center gap-2">
           <div
             className={`h-px bg-white/10 transition-all duration-700 delay-100 ${visible ? "w-8" : "w-0"}`}
           />
@@ -147,7 +147,7 @@ export default function ReferralBlock() {
         </div>
 
         {/* Hero Number with ring — overflow visible pour ne pas clipper le SVG */}
-        <div className="relative mx-auto -mb-10 flex h-72 w-72 items-center justify-center sm:h-80 sm:w-80">
+        <div className="relative mx-auto -mb-12 flex h-72 w-72 items-center justify-center sm:h-80 sm:w-80">
 
           {/* Particles canvas */}
           <canvas
@@ -169,7 +169,7 @@ export default function ReferralBlock() {
             <div className="mb-2 text-7xl font-black tracking-tighter text-[#5A0F14] sm:text-8xl">
               $1,000
             </div>
-            <div className="text-sm font-semibold uppercase tracking-[0.16em] text-white/60">
+            <div className="text-sm font-semibold uppercase tracking-[0.16em] text-white/65">
               Per referral
             </div>
           </div>
@@ -178,7 +178,7 @@ export default function ReferralBlock() {
 
         {/* Description */}
         <p
-          className={`mb-12 text-center text-[15px] leading-relaxed text-white/50 transition-all duration-700 sm:text-[16px] ${
+          className={`mb-8 text-center text-[15px] leading-relaxed text-white/55 transition-all duration-700 sm:text-[16px] ${
             visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
           style={{ transitionDelay: "500ms" }}

@@ -6,24 +6,24 @@ import Image from "next/image";
 
 export default function HowItWorks() {
   const [isVisible, setIsVisible] = useState(false);
+  const [animating, setAnimating] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Intersection observer for entrance animations
   useEffect(() => {
     if (!sectionRef.current) return;
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setIsVisible(true);
-            observer.disconnect();
+            setAnimating(true);
+          } else {
+            setAnimating(false);
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.1 }
     );
-
     observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
@@ -33,27 +33,34 @@ export default function HowItWorks() {
       ref={sectionRef}
       className="relative w-full overflow-hidden bg-[#0E0F11] px-6 py-16 text-white sm:py-12"
     >
-      {/* Particle Grid Background */}
+      {/* Particle Grid — paused when not visible */}
       <div className="pointer-events-none absolute inset-0 opacity-30">
-        <ParticleGrid />
+        <ParticleGrid animating={animating} />
       </div>
 
-      {/* Scan Lines */}
+      {/* Scan Lines — paused when not visible */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
           className="absolute h-px w-[200%] bg-gradient-to-r from-transparent via-[#5A0F14]/30 to-transparent"
           style={{
             top: "20%",
-            animation: isVisible ? "diagScan 8s ease-in-out infinite" : "none",
+            animationName: "diagScan",
+            animationDuration: "8s",
+            animationTimingFunction: "ease-in-out",
+            animationIterationCount: "infinite",
+            animationPlayState: animating ? "running" : "paused",
           }}
         />
         <div
           className="absolute h-px w-[200%] bg-gradient-to-r from-transparent via-[#5A0F14]/30 to-transparent"
           style={{
             top: "60%",
-            animation: isVisible
-              ? "diagScan 8s ease-in-out infinite 2.5s"
-              : "none",
+            animationName: "diagScan",
+            animationDuration: "8s",
+            animationTimingFunction: "ease-in-out",
+            animationIterationCount: "infinite",
+            animationDelay: "2.5s",
+            animationPlayState: animating ? "running" : "paused",
           }}
         />
       </div>
@@ -64,20 +71,24 @@ export default function HowItWorks() {
       <div className="relative z-10 mx-auto max-w-6xl">
         {/* Header */}
         <div
-          className={`mb-10 text-center transition-all duration-700 ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
-          }`}
+          className="mb-10 text-center"
+          style={{
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? "translateY(0)" : "translateY(12px)",
+            transition: "opacity 700ms ease, transform 700ms ease",
+          }}
         >
-          <h2 className="mb-3 text-xl font-bold uppercase tracking-[0.12em] sm:text-2xl">
+          <h2 className="mb-3 text-xl font-bold uppercase tracking-[0.12em] sm:text-[1.75rem]">
             {howItWorksCopy.title}
           </h2>
           <div
-            className={`mx-auto mb-6 h-px bg-[#5A0F14] transition-all duration-700 ${
-              isVisible ? "w-18" : "w-0"
-            }`}
-            style={{ transitionDelay: "200ms" }}
+            className="mx-auto mb-6 h-px bg-[#5A0F14]"
+            style={{
+              width: isVisible ? "72px" : "0px",
+              transition: "width 700ms ease 200ms",
+            }}
           />
-          <p className="text-sm leading-relaxed text-white/70 sm:text-[15px]">
+          <p className="text-sm leading-relaxed text-white/80 sm:text-[15px]">
             {howItWorksCopy.subtitle}
           </p>
         </div>
@@ -91,11 +102,7 @@ export default function HowItWorks() {
               <div key={actor.id} className="relative md:flex-1 md:max-w-[240px]">
                 {/* Actor Card */}
                 <div
-                  className={`group relative overflow-hidden rounded-xl border backdrop-blur-md transition-all duration-600 ${
-                    isVisible
-                      ? "translate-x-0 opacity-100"
-                      : "-translate-x-5 opacity-0"
-                  } ${
+                  className={`group relative overflow-hidden rounded-xl border backdrop-blur-md ${
                     index === 0
                       ? "border-white/20 bg-black/60 hover:border-white/20"
                       : index === 1
@@ -103,7 +110,9 @@ export default function HowItWorks() {
                       : "border-[#5A0F14]/50 bg-black/60 hover:border-[#5A0F14]/70"
                   }`}
                   style={{
-                    transitionDelay: `${800 + index * 200}ms`,
+                    opacity: isVisible ? 1 : 0,
+                    transform: isVisible ? "translateX(0)" : "translateX(-20px)",
+                    transition: `opacity 600ms ease ${800 + index * 200}ms, transform 600ms ease ${800 + index * 200}ms`,
                   }}
                 >
                   {/* Hover Glow */}
@@ -159,36 +168,33 @@ export default function HowItWorks() {
                   </div>
                 </div>
 
-                {/* Connection Line (Mobile Vertical) - NOW VISIBLE */}
+                {/* Connection Line Mobile */}
                 {!isLast && (
                   <div className="relative mx-auto h-8 w-0.5 md:hidden">
-                    {/* Animated gradient line */}
                     <div
-                      className={`absolute inset-0 bg-gradient-to-b from-white/30 via-[#5A0F14]/60 to-[#5A0F14]/80 transition-all duration-700 ${
-                        isVisible ? "opacity-100" : "opacity-0"
-                      }`}
+                      className="absolute inset-0 bg-gradient-to-b from-white/30 via-[#5A0F14]/60 to-[#5A0F14]/80"
                       style={{
-                        transitionDelay: `${1000 + index * 200}ms`,
+                        opacity: isVisible ? 1 : 0,
+                        transition: `opacity 700ms ease ${1000 + index * 200}ms`,
                       }}
                     >
-                      {/* Animated glow that travels down */}
                       <div
                         className="absolute left-1/2 h-3 w-3 -translate-x-1/2 rounded-full bg-[#5A0F14] blur-sm"
                         style={{
-                          animation: isVisible
-                            ? `slideDown 2s ease-in-out infinite ${index * 0.5}s`
-                            : "none",
+                          animationName: animating ? "slideDown" : "none",
+                          animationDuration: "2s",
+                          animationTimingFunction: "ease-in-out",
+                          animationIterationCount: "infinite",
+                          animationDelay: `${index * 0.5}s`,
+                          animationPlayState: animating ? "running" : "paused",
                         }}
                       />
                     </div>
-
-                    {/* Arrow at bottom */}
                     <div
-                      className={`absolute -bottom-1 left-1/2 -translate-x-1/2 transition-all duration-500 ${
-                        isVisible ? "opacity-100" : "opacity-0"
-                      }`}
+                      className="absolute -bottom-1 left-1/2 -translate-x-1/2"
                       style={{
-                        transitionDelay: `${1200 + index * 200}ms`,
+                        opacity: isVisible ? 1 : 0,
+                        transition: `opacity 500ms ease ${1200 + index * 200}ms`,
                       }}
                     >
                       <div className="h-0 w-0 border-l-[6px] border-r-[6px] border-t-[8px] border-l-transparent border-r-transparent border-t-[#5A0F14]/80" />
@@ -196,14 +202,13 @@ export default function HowItWorks() {
                   </div>
                 )}
 
-                {/* Connection Line (Desktop Horizontal) */}
+                {/* Connection Line Desktop */}
                 {!isLast && (
                   <div
-                    className={`absolute left-full top-1/2 hidden h-0.5 w-12 -translate-y-1/2 bg-gradient-to-r from-white/20 to-[#5A0F14]/40 transition-opacity duration-700 md:block lg:w-16 ${
-                      isVisible ? "opacity-100" : "opacity-0"
-                    }`}
+                    className="absolute left-full top-1/2 hidden h-0.5 w-12 -translate-y-1/2 bg-gradient-to-r from-white/20 to-[#5A0F14]/40 md:block lg:w-16"
                     style={{
-                      transitionDelay: `${1000 + index * 200}ms`,
+                      opacity: isVisible ? 1 : 0,
+                      transition: `opacity 700ms ease ${1000 + index * 200}ms`,
                     }}
                   />
                 )}
@@ -215,48 +220,27 @@ export default function HowItWorks() {
 
       <style jsx>{`
         @keyframes diagScan {
-          0%,
-          100% {
-            opacity: 0;
-            transform: translateX(-100%) rotate(-25deg);
-          }
-          10%,
-          90% {
-            opacity: 1;
-          }
-          50% {
-            transform: translateX(0) rotate(-25deg);
-          }
+          0%, 100% { opacity: 0; transform: translateX(-100%) rotate(-25deg); }
+          10%, 90% { opacity: 1; }
+          50%       { transform: translateX(0) rotate(-25deg); }
         }
-
         @keyframes slideDown {
-          0% {
-            top: 0;
-            opacity: 0;
-          }
-          20% {
-            opacity: 1;
-          }
-          80% {
-            opacity: 1;
-          }
-          100% {
-            top: 100%;
-            opacity: 0;
-          }
+          0%   { top: 0; opacity: 0; }
+          20%  { opacity: 1; }
+          80%  { opacity: 1; }
+          100% { top: 100%; opacity: 0; }
         }
       `}</style>
     </section>
   );
 }
 
-// ─── PARTICLE GRID COMPONENT ───
-function ParticleGrid() {
+// ─── PARTICLE GRID ───
+function ParticleGrid({ animating }: { animating: boolean }) {
   const [particles, setParticles] = useState<
     Array<{ id: number; left: string; top: string; delay: string }>
   >([]);
 
-  // Generate particles only on client side
   useEffect(() => {
     setParticles(
       Array.from({ length: 60 }, (_, i) => ({
@@ -277,36 +261,29 @@ function ParticleGrid() {
           style={{
             left: p.left,
             top: p.top,
-            animation: `pulse 3s ease-in-out infinite ${p.delay}`,
+            animationName: "gridPulse",
+            animationDuration: "3s",
+            animationTimingFunction: "ease-in-out",
+            animationIterationCount: "infinite",
+            animationDelay: p.delay,
+            animationPlayState: animating ? "running" : "paused",
           }}
         />
       ))}
       <style jsx>{`
-        @keyframes pulse {
-          0%,
-          100% {
-            opacity: 0.2;
-            transform: scale(1);
-          }
-          50% {
-            opacity: 0.6;
-            transform: scale(1.5);
-          }
+        @keyframes gridPulse {
+          0%, 100% { opacity: 0.2; transform: scale(1); }
+          50%       { opacity: 0.6; transform: scale(1.5); }
         }
       `}</style>
     </>
   );
 }
 
-// ─── ICON COMPONENTS ───
+// ─── ICONS ───
 function UserIcon() {
   return (
-    <svg
-      className="h-9 w-9 fill-white md:h-11 md:w-11"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg className="h-9 w-9 fill-white md:h-11 md:w-11" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" />
       <path d="M12 14C6.477 14 2 16.477 2 19.5C2 20.328 2.672 21 3.5 21H20.5C21.328 21 22 20.328 22 19.5C22 16.477 17.523 14 12 14Z" />
     </svg>
@@ -315,12 +292,7 @@ function UserIcon() {
 
 function BankIcon() {
   return (
-    <svg
-      className="h-9 w-9 fill-white md:h-11 md:w-11"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg className="h-9 w-9 fill-white md:h-11 md:w-11" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <path d="M12 2L2 7V9H22V7L12 2Z" />
       <path d="M4 10V18H6V10H4Z" />
       <path d="M8 10V18H10V10H8Z" />

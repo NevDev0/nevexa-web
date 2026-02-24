@@ -55,7 +55,7 @@ export default function TheReality() {
 
         {/* Paragraph 1 */}
         <p
-          className="mb-8 text-[18px] leading-[1.9] text-white/75 sm:mb-10 sm:text-[26px] sm:leading-[1.7]"
+          className="mb-8 text-[18px] leading-[1.9] text-white/80 sm:mb-10 sm:text-[26px] sm:leading-[1.7]"
           style={{
             opacity: visible ? 1 : 0,
             transition: "opacity 1000ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",
@@ -79,7 +79,7 @@ export default function TheReality() {
 
         {/* Paragraph 2 — delayed, bolder */}
         <p
-          className="text-[18px] font-semibold leading-[1.9] text-white sm:text-[26px] sm:leading-[1.7]"
+          className="text-[18px] font-semibold leading-[1.9] text-white/90 sm:text-[26px] sm:leading-[1.7]"
           style={{
             opacity: visible ? 1 : 0,
             transition: "opacity 1000ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",

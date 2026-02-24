@@ -116,7 +116,7 @@ export default function B2CHero() {
             </div>
 
             <p
-              className="text-xs leading-relaxed text-neutral-700"
+              className="mt-10 text-xs leading-relaxed text-neutral-700"
               style={{
                 opacity: mounted ? 1 : 0,
                 transition: "opacity 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 900ms",

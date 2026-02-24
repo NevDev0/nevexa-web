@@ -38,13 +38,13 @@ export default function GeographicAvailability() {
     if (!hasStarted) return;
 
     const timeouts = [
-      setTimeout(() => setStep(1), 1500),
-      setTimeout(() => setStep(2), 4000),
-      setTimeout(() => setStep(3), 5500),
+      setTimeout(() => setStep(1), 1000),
+      setTimeout(() => setStep(2), 2500),
+      setTimeout(() => setStep(3), 5000),
       setTimeout(() => setStep(4), 7000),
-      setTimeout(() => setStep(5), 8500),
-      setTimeout(() => setStep(6), 10000),
-      setTimeout(() => setStep(7), 12000),
+      setTimeout(() => setStep(5), 9000),
+      setTimeout(() => setStep(6), 11000),
+      setTimeout(() => setStep(7), 13000),
     ];
 
     return () => timeouts.forEach(clearTimeout);
@@ -55,8 +55,8 @@ export default function GeographicAvailability() {
       if (countryId === "nigeria") return { dot: "h-2 w-2", ring: "h-4 w-4" };
       return { dot: "h-1.5 w-1.5", ring: "h-3 w-3" };
     } else {
-      if (countryId === "nigeria") return { dot: "h-4 w-4", ring: "h-9 w-9" };
-      return { dot: "h-3 w-3", ring: "h-7 w-7" };
+      if (countryId === "nigeria") return { dot: "h-4 w-4", ring: "h-7 w-7" };
+      return { dot: "h-3 w-3", ring: "h-5 w-5" };
     }
   };
 
@@ -153,9 +153,9 @@ export default function GeographicAvailability() {
                   <div className="relative flex items-center justify-center">
                     <div className="relative">
                       {/* Outer ring — pulse sur Nigeria uniquement (amélioration 1) */}
-                      <div
-                        className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#5A0F14]/40 ${markerSize.ring} ${isNigeria ? "nigeria-ring-pulse" : ""}`}
-                      />
+                      <div className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full ${markerSize.ring}`}>
+                      <div className={`h-full w-full rounded-full border-2 border-[#5A0F14]/40 ${isNigeria ? "nigeria-ring-pulse" : ""}`} />
+                      </div>
 
                       {/* Inner dot */}
                       <div
@@ -199,15 +199,15 @@ export default function GeographicAvailability() {
           {/* Legend */}
           <div className="mx-auto mt-5 flex w-full max-w-md flex-col gap-2 text-sm lg:ml-0 lg:-mt-55 lg:w-1/3 lg:max-w-none sm:text-base">
             <div className="flex items-center gap-3">
-              <div className="h-2.5 w-2.5 flex-shrink-0 rounded-full bg-[#5A0F14] shadow-[0_0_10px_rgba(90,15,20,0.8)]" />
+              <div className="h-4 w-4 flex-shrink-0 rounded-full border-2 border-[#5A0F14] bg-white shadow-[0_0_10px_rgba(90,15,20,0.8)]" />
               <span className="text-white/80 lg:text-white">{geographicAvailabilityCopy.legend.firstMarket}</span>
             </div>
             <div className="flex items-center gap-3">
-              <div className="h-2.5 w-2.5 flex-shrink-0 rounded-full border-2 border-[#5A0F14] bg-transparent shadow-[0_0_10px_rgba(90,15,20,0.8)]" />
+              <div className="h-3.5 w-3.5 flex-shrink-0 rounded-full border-2 border-[#5A0F14] bg-white shadow-[0_0_10px_rgba(90,15,20,0.8)]" />
               <span className="text-white/80 lg:text-white">{geographicAvailabilityCopy.legend.expansion}</span>
             </div>
-            <div className="flex items-center gap-3 lg:mb-16">
-              <div className="h-2.5 w-2.5 flex-shrink-0 rounded-full border-2 border-black bg-white shadow-[0_0_10px_rgba(90,15,20,0.8)]" />
+            <div className="flex items-center gap-1 lg:mb-16">
+              <div className="h-2.5 w-2.5 flex-shrink-0 rounded-full border-2 border-black bg-black shadow-[0_0_10px_rgba(90,15,20,0.8)]" />
               <span className="text-white/80 lg:text-white">{geographicAvailabilityCopy.legend.additionalmarkets}</span>
             </div>
           </div>

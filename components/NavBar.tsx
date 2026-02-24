@@ -150,14 +150,13 @@ export default function NavBar() {
       </div>
 
       {/* OVERLAY */}
+      {drawerOpen && (
       <div
-        className={[
-          "fixed inset-0 z-40 bg-black/70 backdrop-blur-sm transition-opacity duration-300",
-          drawerOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
-        ].join(" ")}
-        aria-hidden="true"
-        onClick={() => setDrawerOpen(false)}
+       className="fixed inset-0 z-40 bg-black/90 transition-opacity duration-300"
+      aria-hidden="true"
+      onClick={() => setDrawerOpen(false)}
       />
+      )}
 
       {/* DRAWER */}
       <div

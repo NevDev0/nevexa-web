@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Hero from "@/components/b2c/B2CHero";
 import BrandModelGallery from "@/components/b2c/BrandModelGallery";
 import ImportAdvantage from "@/components/b2c/ImportAdvantage";
@@ -6,28 +7,32 @@ import ReferralBlock from "@/components/b2c/ReferralBlock";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
 
+export const metadata: Metadata = {
+  title: "Buy a Vehicle",
+  description:
+    "Browse 2021-2026 premium vehicles sourced directly from Canadian dealerships. Toyota, Lexus, BMW and more — delivered to your door in West Africa.",
+  openGraph: {
+    title: "Buy a Vehicle | Nevexa",
+    description:
+      "Browse 2021-2026 premium vehicles sourced directly from Canadian dealerships. Toyota, Lexus, BMW and more — delivered to your door in West Africa.",
+    url: "https://nevexacars.com/b2c",
+  },
+  twitter: {
+    title: "Buy a Vehicle | Nevexa",
+    description:
+      "Browse 2021-2026 premium vehicles sourced directly from Canadian dealerships. Toyota, Lexus, BMW and more — delivered to your door in West Africa.",
+  },
+};
+
 export default function B2CPage() {
   return (
     <main className="min-h-screen w-full overflow-x-hidden bg-black text-white">
-      {/* Section 1 — Hero */}
       <Hero />
-      
-      {/* Section 2 — Brand Model Gallery */}
       <BrandModelGallery />
-      
-      {/* Section 3 — Import Advantage */}
       <ImportAdvantage />
-      
-      {/* Section 4 — FAQ */}
       <FAQ />
-      
-      {/* Section 5 — Referral */}
       <ReferralBlock />
-      
-      {/* Section 6 — Contact CTA */}
       <FinalCTA />
-      
-      {/* Section 7 — Footer */}
       <Footer />
     </main>
   );

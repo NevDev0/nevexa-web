@@ -203,7 +203,7 @@ export const geographicAvailabilityCopy = {
     { 
       id: "ivory-coast", 
       name: "Ivory Coast", 
-      x: { mobile: "27%", desktop: "25%" },
+      x: { mobile: "25%", desktop: "25%" },
       y: { mobile: "45%", desktop: "45%" },
       year: "2028",
       labelPosition: "bottom-left"
@@ -239,32 +239,27 @@ export const faqFinancingCopy = {
   title: "Your Questions",
   
   questions: [
+    
     {
       id: 1,
-      question: "Is financing currently available?",
-      answer:
-        "No. Nevexa financing is under development with banking partners and is expected to launch in Q1 2027, starting with Nigeria.",
-    },
-    {
-      id: 2,
       question: "Does Nevexa lend money?",
       answer:
         "No. Nevexa does not provide loans. Financing will be provided by licensed banking institutions in your country. Nevexa facilitates vehicle sourcing and delivery.",
     },
     {
-      id: 3,
+      id: 2,
       question: "Does joining the waitlist guarantee financing approval?",
       answer:
         "No. The waitlist helps us gauge market interest and prioritize launch regions. Final loan approval will be determined by our banking partners based on individual credit assessment.",
     },
     {
-      id: 4,
+      id: 3,
       question: "When will financing be available in my country?",
       answer:
         "We are launching first in Nigeria (Q1 2027), followed by West Africa (2027-2028). Join the waitlist to be notified when we expand to your region.",
     },
     {
-      id: 5,
+      id: 4,
       question: "What happens to my data?",
       answer:
         "Your waitlist data is used solely to inform banking partners of market demand and to notify you when financing becomes available. We do not share your information with third parties without consent.",

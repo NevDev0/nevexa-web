@@ -192,6 +192,14 @@ body {
   }
 
  /* ========================================
+    HeroFinancingicon
+   ======================================== */
+  @keyframes hf-fade-up {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+    
+  }
+ /* ========================================
    NEVEXA ROTATE GLOW — FinancingForEveryNeed icon ring
    Appelée via className .icon-glow
    ======================================== */
@@ -270,10 +278,16 @@ body {
    NIGERIA RING PULSE — GeographicAvailability
    Appelée via className .nigeria-ring-pulse
    ======================================== */
-@keyframes nigeriaPulse {
-  0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
-  50%       { opacity: 0.9; transform: translate(-50%, -50%) scale(1.2); }
-}
+   .nigeria-ring-pulse {
+    --ring-x: 0px;
+    --ring-y: 0px;
+    animation: nigeriaPulse 2s ease-in-out infinite;
+  }
+  
+  @keyframes nigeriaPulse {
+    0%, 100% { opacity: 1.5; transform: translate(var(--ring-x), var(--ring-y)) scale(1); }
+    50%       { opacity: 2.6; transform: translate(var(--ring-x), var(--ring-y)) scale(1.10); }
+  }
 
 .nigeria-ring-pulse {
   animation: nigeriaPulse 2s ease-in-out infinite;

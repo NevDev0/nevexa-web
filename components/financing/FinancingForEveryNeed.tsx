@@ -5,6 +5,7 @@ import { financingProfilesCopy } from "@/content/financing.en";
 
 export default function FinancingForEveryNeed() {
   const [isVisible, setIsVisible] = useState(false);
+  const [animating, setAnimating] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -14,11 +15,14 @@ export default function FinancingForEveryNeed() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setIsVisible(true);
-            observer.disconnect();
+            setAnimating(true);
+          } else {
+            // Pause animations when out of viewport
+            setAnimating(false);
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.1 }
     );
     observer.observe(sectionRef.current);
     return () => observer.disconnect();
@@ -29,37 +33,43 @@ export default function FinancingForEveryNeed() {
       ref={sectionRef}
       className="relative w-full overflow-hidden bg-black px-6 py-12 text-white sm:py-16"
     >
-      {/* Background Particles */}
+      {/* Background Particles — paused when not visible */}
       <div className="pointer-events-none absolute inset-0 opacity-15">
-        <BackgroundParticles />
+        <BackgroundParticles animating={animating} />
       </div>
 
       <div className="relative z-10 mx-auto max-w-4xl">
         {/* Header */}
         <div
-          className={`mb-8 text-center transition-all duration-700 ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
-          }`}
+          className="mb-8 text-center"
+          style={{
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? "translateY(0)" : "translateY(12px)",
+            transition: "opacity 700ms ease, transform 700ms ease",
+          }}
         >
           <h2 className="mb-3 bg-gradient-to-r from-white to-white/70 bg-clip-text text-xl font-bold uppercase tracking-[0.12em] text-transparent sm:text-[1.75rem]">
             {financingProfilesCopy.title}
           </h2>
           <div
-            className={`mx-auto h-0.5 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent shadow-[0_0_10px_rgba(90,15,20,0.5)] transition-all duration-700 ${
-              isVisible ? "w-24" : "w-0"
-            }`}
-            style={{ transitionDelay: "200ms" }}
+            className="mx-auto h-0.5 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent shadow-[0_0_10px_rgba(90,15,20,0.5)]"
+            style={{
+              width: isVisible ? "96px" : "0px",
+              transition: "width 700ms ease 200ms",
+            }}
           />
         </div>
 
         {/* Intro */}
         <div
-          className={`mx-auto mb-8 max-w-3xl text-center transition-all duration-700 ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
-          }`}
-          style={{ transitionDelay: "400ms" }}
+          className="mx-auto mb-8 max-w-3xl text-center"
+          style={{
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? "translateY(0)" : "translateY(12px)",
+            transition: "opacity 700ms ease 400ms, transform 700ms ease 400ms",
+          }}
         >
-          <p className="text-[0.95rem] leading-relaxed text-white/85">
+          <p className="text-[0.95rem] leading-relaxed text-white/80">
             {financingProfilesCopy.intro}
           </p>
         </div>
@@ -68,22 +78,31 @@ export default function FinancingForEveryNeed() {
         <div className="sm:hidden">
           <div className="financing-carousel">
             {financingProfilesCopy.profiles.map((profile, index) => (
-              <ProfileCard key={profile.id} profile={profile} index={index} />
+              <ProfileCard key={profile.id} profile={profile} index={index} animating={animating} />
             ))}
           </div>
 
           {/* Swipe indicator */}
-          <div className="-mt-12 flex flex-col items-center gap-1.5">
-            <div className="ffn-swipe-mouse relative h-6 w-10 rounded-full border border-white/20" style={{ borderRadius: "999px" }}>
-              <div className="ffn-swipe-dot absolute top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-white/50" style={{ left: "6px" }} />
+          <div className="mt-6 flex flex-col items-center gap-1.5">
+            <div
+              className="relative h-6 w-10 rounded-full border border-white/20"
+              style={{ borderRadius: "999px" }}
+            >
+              <div
+                className="absolute top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-white/50"
+                style={{
+                  left: "6px",
+                  animation: animating ? "ffn-swipe-slide 2s ease-in-out infinite" : "none",
+                }}
+              />
             </div>
           </div>
         </div>
 
-        {/* Desktop: 2-column grid — items-start so cards don't stretch */}
+        {/* Desktop: 4-column grid */}
         <div className="hidden grid-cols-4 gap-4 sm:grid">
           {financingProfilesCopy.profiles.map((profile, index) => (
-            <ProfileCard key={profile.id} profile={profile} index={index} />
+            <ProfileCard key={profile.id} profile={profile} index={index} animating={animating} />
           ))}
         </div>
       </div>
@@ -104,14 +123,25 @@ export default function FinancingForEveryNeed() {
 }
 
 // ─── PROFILE CARD ───
-function ProfileCard({ profile, index }: { profile: any; index: number }) {
+function ProfileCard({
+  profile,
+  index,
+  animating,
+}: {
+  profile: any;
+  index: number;
+  animating: boolean;
+}) {
   return (
     <div className="financing-card-item">
-      <div className="profile-card group relative flex flex-col cursor-pointer overflow-hidden rounded-[20px] border border-white/10 bg-gradient-to-br from-[#5A0F14]/12 via-[#141419]/80 to-[#0A0A0F]/90 p-10 sm:p-8 backdrop-blur-md transition-all duration-500 hover:border-[#5A0F14]/50 hover:shadow-[0_20px_60px_rgba(90,15,20,0.4),0_0_0_1px_rgba(90,15,20,0.2),inset_0_0_40px_rgba(90,15,20,0.1)]">
-
-        {/* Card Particles */}
+      <div className="profile-card group relative flex flex-col cursor-pointer overflow-hidden rounded-[20px] border border-white/10 bg-gradient-to-br from-[#5A0F14]/12 via-[#141419]/80 to-[#0A0A0F]/90 p-10 sm:p-8 backdrop-blur-md hover:border-[#5A0F14]/50 hover:shadow-[0_20px_60px_rgba(90,15,20,0.4),0_0_0_1px_rgba(90,15,20,0.2),inset_0_0_40px_rgba(90,15,20,0.1)]"
+        style={{
+          transition: "border-color 500ms ease, box-shadow 500ms ease, transform 500ms cubic-bezier(0.4,0,0.2,1)",
+        }}
+      >
+        {/* Card Particles — paused when section not visible */}
         <div className="card-particles pointer-events-none absolute inset-0">
-          <CardParticles />
+          <CardParticles animating={animating} />
         </div>
 
         {/* Gradient Overlay on hover */}
@@ -121,7 +151,14 @@ function ProfileCard({ profile, index }: { profile: any; index: number }) {
         <div className="relative z-10 flex flex-col">
           {/* Icon */}
           <div className="relative mx-auto mb-5 flex h-20 w-20 items-center justify-center">
-            <div className="icon-glow absolute h-full w-full rounded-full border-2 border-transparent border-t-[#5A0F14] border-r-[#5A0F14]" />
+            <div
+              className="icon-glow absolute h-full w-full rounded-full border-2 border-transparent border-t-[#5A0F14] border-r-[#5A0F14]"
+              style={{
+                animation: animating
+                  ? `icon-spin 3s linear infinite ${index * 0.5}s`
+                  : "none",
+              }}
+            />
             <div
               className="relative z-10 transition-transform duration-300 group-hover:scale-110"
               dangerouslySetInnerHTML={{ __html: profile.icon }}
@@ -158,21 +195,12 @@ function ProfileCard({ profile, index }: { profile: any; index: number }) {
           </span>
         </div>
       </div>
-
-      <style jsx>{`
-        .profile-card {
-          transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .profile-card:hover {
-          transform: translateY(-8px);
-        }
-      `}</style>
     </div>
   );
 }
 
 // ─── BACKGROUND PARTICLES ───
-function BackgroundParticles() {
+function BackgroundParticles({ animating }: { animating: boolean }) {
   const [particles, setParticles] = useState<
     Array<{ id: number; left: string; top: string; delay: string; duration: string }>
   >([]);
@@ -198,7 +226,12 @@ function BackgroundParticles() {
           style={{
             left: p.left,
             top: p.top,
-            animation: `floatParticle ${p.duration} ease-in-out infinite ${p.delay}`,
+            animationName: "floatParticle",
+            animationDuration: p.duration,
+            animationTimingFunction: "ease-in-out",
+            animationIterationCount: "infinite",
+            animationDelay: p.delay,
+            animationPlayState: animating ? "running" : "paused",
           }}
         />
       ))}
@@ -207,13 +240,17 @@ function BackgroundParticles() {
           0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
           50%       { transform: translateY(-30px) translateX(15px); opacity: 0.8; }
         }
+        @keyframes icon-spin {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
+        }
       `}</style>
     </>
   );
 }
 
 // ─── CARD PARTICLES ───
-function CardParticles() {
+function CardParticles({ animating }: { animating: boolean }) {
   const [particles, setParticles] = useState<
     Array<{ id: number; left: string; top: string; delay: string; duration: string }>
   >([]);
@@ -239,7 +276,12 @@ function CardParticles() {
           style={{
             left: p.left,
             top: p.top,
-            animation: `cardParticleFloat ${p.duration} ease-in-out infinite ${p.delay}`,
+            animationName: "cardParticleFloat",
+            animationDuration: p.duration,
+            animationTimingFunction: "ease-in-out",
+            animationIterationCount: "infinite",
+            animationDelay: p.delay,
+            animationPlayState: animating ? "running" : "paused",
           }}
         />
       ))}

@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { faqFinancingCopy } from "@/content/financing.en";
 
 export default function FAQFinancing() {
-  const [openId, setOpenId] = useState<number | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [visibleItems, setVisibleItems] = useState<number[]>([]);
   const sectionRef = useRef<HTMLElement>(null);
@@ -12,18 +11,16 @@ export default function FAQFinancing() {
   useEffect(() => {
     if (!sectionRef.current) return;
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            faqFinancingCopy.questions.forEach((_, i) => {
-              setTimeout(() => {
-                setVisibleItems((prev) => [...prev, i]);
-              }, 200 + i * 100);
-            });
-            observer.disconnect();
-          }
-        });
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          faqFinancingCopy.questions.forEach((_, i) => {
+            setTimeout(() => {
+              setVisibleItems((prev) => [...prev, i]);
+            }, 200 + i * 150);
+          });
+          observer.disconnect();
+        }
       },
       { threshold: 0.1 }
     );
@@ -31,22 +28,21 @@ export default function FAQFinancing() {
     return () => observer.disconnect();
   }, []);
 
-  const toggle = (id: number) => {
-    setOpenId(openId === id ? null : id);
-  };
-
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-[#F3EFEA] px-6 py-16 text-black"
+      className="relative w-full bg-[#F3EFEA] px-6 py-12 text-black sm:py-16"
     >
-      <div className="relative z-10 mx-auto max-w-3xl">
+      <div className="mx-auto max-w-3xl">
 
         {/* Header */}
         <div
-          className={`mb-3 text-center transition-all duration-700 ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
-          }`}
+          className="mb-3 text-center"
+          style={{
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? "translateY(0)" : "translateY(12px)",
+            transition: "opacity 600ms ease, transform 600ms ease",
+          }}
         >
           <h2 className="text-xl font-bold uppercase tracking-[0.12em] sm:text-2xl">
             {faqFinancingCopy.title}
@@ -54,119 +50,66 @@ export default function FAQFinancing() {
         </div>
 
         {/* Underline */}
-        <div
-          className={`mb-12 flex justify-center transition-all duration-700 ${
-            isVisible ? "opacity-100" : "opacity-0"
-          }`}
-          style={{ transitionDelay: "200ms" }}
-        >
-          <div className="h-px w-12 bg-[#5A0F14]" />
+        <div className="mb-12 flex justify-center">
+          <div
+            className="h-px bg-[#5A0F14]"
+            style={{
+              width: isVisible ? "48px" : "0px",
+              transition: "width 600ms ease 200ms",
+            }}
+          />
         </div>
 
-        {/* FAQ List — style B2B timeline */}
-        <div className="relative">
-          {/* Vertical timeline line */}
-          <div className="absolute bottom-8 left-[11px] top-8 w-px bg-black/8" />
-
+        {/* FAQ Items */}
+        <div className="flex flex-col">
           {faqFinancingCopy.questions.map((item, index) => {
-            const isOpen = openId === item.id;
-            const isLast = index === faqFinancingCopy.questions.length - 1;
             const isItemVisible = visibleItems.includes(index);
+            const isLast = index === faqFinancingCopy.questions.length - 1;
+            const num = String(item.id).padStart(2, "0");
 
             return (
               <div
                 key={item.id}
-                className={`relative transition-all duration-500 ${
-                  !isLast ? "mb-4" : ""
-                } ${
-                  isItemVisible
-                    ? "translate-x-0 opacity-100"
-                    : "translate-x-4 opacity-0"
-                }`}
+                className={`relative overflow-hidden py-8 ${!isLast ? "border-b border-black/10" : ""} ${index === 0 ? "border-t border-black/10" : ""}`}
                 style={{
-                  transitionDelay: isItemVisible ? `${index * 80}ms` : "0ms",
+                  opacity: isItemVisible ? 1 : 0,
+                  transform: isItemVisible ? "translateY(0)" : "translateY(20px)",
+                  transition: "opacity 600ms ease, transform 600ms ease",
                 }}
               >
-                {/* Timeline dot */}
-                <div className="absolute left-0 top-5 z-10">
-                  <div
-                    className={`h-6 w-6 rounded-full border-2 shadow-sm transition-all duration-300 ${
-                      isOpen
-                        ? "scale-110 border-[#5A0F14] bg-[#5A0F14] shadow-[0_0_12px_rgba(90,15,20,0.3)]"
-                        : "scale-100 border-black/20 bg-white"
-                    }`}
-                  >
-                    {isOpen && (
-                      <div className="absolute inset-1 rounded-full bg-white/30" />
-                    )}
-                  </div>
+                {/* Large background number */}
+                <div
+                  className="pointer-events-none absolute right-0 top-1/2 select-none text-[110px] font-bold leading-none tracking-tighter"
+                  style={{
+                    color: "rgba(90,15,20,0.06)",
+                    transform: "translateY(-50%)",
+                  }}
+                >
+                  {num}
                 </div>
 
-                {/* Question card */}
-                <div
-                  className={`ml-12 overflow-hidden rounded-lg border bg-white transition-all duration-300 ${
-                    isOpen
-                      ? "border-[#5A0F14]/30 shadow-md"
-                      : "border-black/8 shadow-sm hover:-translate-y-0.5 hover:shadow-md"
-                  }`}
-                >
-                  {/* Question row */}
-                  <button
-                    onClick={() => toggle(item.id)}
-                    className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
-                    aria-expanded={isOpen}
-                  >
+                {/* Content */}
+                <div className="relative z-10">
+                  {/* Number label + Question */}
+                  <div className="mb-3 flex items-start gap-3">
                     <span
-                      className={`text-[15px] leading-snug tracking-wide transition-colors duration-300 ${
-                        isOpen ? "font-normal text-black" : "font-light text-black/85"
-                      }`}
+                      className="mt-0.5 flex-shrink-0 text-[11px] font-bold uppercase tracking-widest"
+                      style={{ color: "#5A0F14" }}
                     >
-                      {item.question}
+                      {num}
                     </span>
-
-                    {/* + → × */}
-                    <div
-                      className="relative h-6 w-6 flex-shrink-0"
-                      style={{
-                        transition: "transform 0.3s ease",
-                        transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
-                      }}
-                    >
-                      <span
-                        className="absolute left-1/2 top-1/2 h-px w-[14px] -translate-x-1/2 -translate-y-1/2 rounded-sm transition-colors duration-300"
-                        style={{ background: isOpen ? "#5A0F14" : "rgba(0,0,0,0.4)" }}
-                      />
-                      <span
-                        className="absolute left-1/2 top-1/2 h-[14px] w-px -translate-x-1/2 -translate-y-1/2 rounded-sm transition-colors duration-300"
-                        style={{ background: isOpen ? "#5A0F14" : "rgba(0,0,0,0.4)" }}
-                      />
-                    </div>
-                  </button>
-
-                  {/* Answer — grid-rows trick, fiable iOS Safari */}
-                  <div
-                    className="grid transition-all duration-300 ease-in-out"
-                    style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
-                  >
-                    <div className="overflow-hidden">
-                      <div
-                        className={`px-6 pb-6 transition-all duration-300 ${
-                          isOpen ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
-                        }`}
-                        style={{ transitionDelay: isOpen ? "100ms" : "0ms" }}
-                      >
-                        <p className="text-[13px] font-light leading-relaxed tracking-wide text-black/70">
-                          {item.answer}
-                        </p>
-                      </div>
-                    </div>
+                    <h3 className="text-[15px] font-semibold leading-snug tracking-wide text-black">
+                      {item.question}
+                    </h3>
                   </div>
 
-                  {/* Burgundy bottom line */}
-                  <div
-                    className="h-px bg-[#5A0F14] transition-all duration-500"
-                    style={{ width: isOpen ? "100%" : "0%" }}
-                  />
+                  {/* Answer */}
+                  <p
+                    className="pl-7 text-[13px] leading-relaxed tracking-wide"
+                    style={{ fontWeight: 300, color: "rgba(0,0,0,0.6)" }}
+                  >
+                    {item.answer}
+                  </p>
                 </div>
               </div>
             );

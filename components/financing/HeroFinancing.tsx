@@ -1,38 +1,83 @@
 "use client";
+
+import { useEffect, useRef, useState } from "react";
 import { financingHeroCopy } from "@/content/financing.en";
-import NavBar from "@/components/NavBar"; 
+import NavBar from "@/components/NavBar";
 
 export default function HeroFinancing() {
-  return (
-    <section className="relative w-full overflow-hidden bg-black">
+  const [animating, setAnimating] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
-   {/* ── NAVBAR ── */}
-    <NavBar />
- 
-      {/* ── Background : glow radial burgundy top + scan lines ── */}
+  useEffect(() => {
+    if (!sectionRef.current) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          setAnimating(entry.isIntersecting);
+        });
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section ref={sectionRef} className="relative w-full overflow-hidden bg-black">
+
+      {/* ── NAVBAR ── */}
+      <NavBar />
+
+      {/* ── Background ── */}
       <div className="absolute inset-0 z-0">
-        {/* Glow radial burgundy — haut centre */}
+        {/* Glow radial burgundy */}
         <div
           className="absolute left-1/2 top-0 -translate-x-1/2"
           style={{
             width: "700px",
             height: "500px",
-            background:
-              "radial-gradient(ellipse at 50% 0%, rgba(90,15,20,0.35) 0%, rgba(90,15,20,0.10) 45%, transparent 70%)",
+            background: "radial-gradient(ellipse at 50% 0%, rgba(90,15,20,0.35) 0%, rgba(90,15,20,0.10) 45%, transparent 70%)",
           }}
         />
-        {/* Glow radial blanc — centré sur le titre (Option B) */}
+        {/* Glow radial blanc */}
         <div
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
           style={{
             width: "600px",
             height: "260px",
-            background:
-              "radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.01) 50%, transparent 75%)",
+            background: "radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.01) 50%, transparent 75%)",
           }}
         />
-        {/* Scan lines diagonales */}
-        <div className="hero-financing-scanlines absolute inset-0" />
+        {/* Scan lines */}
+        <div className="absolute inset-0">
+          <div
+            className="absolute h-px w-[200%] bg-white/[0.025]"
+            style={{
+              top: "35%",
+              left: "-50%",
+              transform: "rotate(-18deg)",
+              animationName: "hf-scan",
+              animationDuration: "9s",
+              animationTimingFunction: "ease-in-out",
+              animationIterationCount: "infinite",
+              animationPlayState: animating ? "running" : "paused",
+            }}
+          />
+          <div
+            className="absolute h-px w-[200%] bg-white/[0.025]"
+            style={{
+              top: "65%",
+              left: "-50%",
+              transform: "rotate(-18deg)",
+              animationName: "hf-scan",
+              animationDuration: "9s",
+              animationTimingFunction: "ease-in-out",
+              animationIterationCount: "infinite",
+              animationDelay: "4.5s",
+              animationPlayState: animating ? "running" : "paused",
+            }}
+          />
+        </div>
       </div>
 
       {/* ── Contenu principal ── */}
@@ -41,7 +86,17 @@ export default function HeroFinancing() {
 
           {/* Badges */}
           <div className="hero-financing-item-1 mb-10 flex items-center justify-center gap-4">
-            <span className="hero-financing-badge-pulse inline-flex items-center rounded-full bg-[#5A0F14]/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-white/90">
+            <span
+              className="inline-flex items-center rounded-full bg-[#5A0F14]/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-white/90"
+              style={{
+                border: "1px solid rgba(90,15,20,0.4)",
+                animationName: "hf-border-pulse",
+                animationDuration: "3s",
+                animationTimingFunction: "ease-in-out",
+                animationIterationCount: "infinite",
+                animationPlayState: animating ? "running" : "paused",
+              }}
+            >
               {financingHeroCopy.badges.earlyAccess}
             </span>
             <span className="rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-white/70">
@@ -49,19 +104,18 @@ export default function HeroFinancing() {
             </span>
           </div>
 
-          {/* H1 — text-shadow glow (Option A) */}
+          {/* H1 */}
           <h1
             className="hero-financing-item-2 mb-10 text-3xl font-bold leading-snug tracking-tight text-white sm:text-4xl sm:leading-tight"
             style={{
-              textShadow:
-                "0 0 40px rgba(255,255,255,0.08), 0 0 80px rgba(255,255,255,0.04)",
+              textShadow: "0 0 40px rgba(255,255,255,0.08), 0 0 80px rgba(255,255,255,0.04)",
             }}
           >
             {financingHeroCopy.title}
           </h1>
 
           {/* Subtitle */}
-          <p className="hero-financing-item-3 mb-10 text-sm leading-relaxed text-neutral-300 sm:text-base sm:leading-relaxed">
+          <p className="hero-financing-item-3 mb-10 text-sm leading-relaxed text-neutral-300 sm:text-base">
             {financingHeroCopy.subtitle}
           </p>
 
@@ -83,67 +137,39 @@ export default function HeroFinancing() {
         </div>
       </div>
 
-      {/* ── Scroll indicator (visuel uniquement) ── */}
+      {/* ── Scroll indicator ── */}
       <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2">
         <div className="hero-financing-scroll-mouse relative h-8 w-5 rounded-full border border-white/20">
-          <div className="hero-financing-scroll-dot absolute left-1/2 top-1.5 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-white/50" />
+          <div
+            className="absolute left-1/2 top-1.5 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-white/50"
+            style={{
+              animationName: "hf-scroll-dot",
+              animationDuration: "2s",
+              animationTimingFunction: "ease-in-out",
+              animationIterationCount: "infinite",
+              animationPlayState: animating ? "running" : "paused",
+            }}
+          />
         </div>
       </div>
 
+      {/*
+        hf-fade-up → className → @keyframes dans globals.css
+        hf-border-pulse, hf-scan, hf-scroll-dot → animationName inline → @keyframes ici
+      */}
       <style>{`
-        /* Entrance cascade — items renumérotés après suppression underline */
         .hero-financing-item-1 { opacity: 0; animation: hf-fade-up 0.7s cubic-bezier(0.25,0.46,0.45,0.94) 0.2s forwards; }
         .hero-financing-item-2 { opacity: 0; animation: hf-fade-up 0.7s cubic-bezier(0.25,0.46,0.45,0.94) 0.45s forwards; }
         .hero-financing-item-3 { opacity: 0; animation: hf-fade-up 0.7s cubic-bezier(0.25,0.46,0.45,0.94) 0.7s forwards; }
         .hero-financing-item-4 { opacity: 0; animation: hf-fade-up 0.7s cubic-bezier(0.25,0.46,0.45,0.94) 0.95s forwards; }
-
-        @keyframes hf-fade-up {
-          from { opacity: 0; transform: translateY(22px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Border pulse — Early Access */
-        .hero-financing-badge-pulse {
-          border: 1px solid rgba(90,15,20,0.4);
-          animation: hf-border-pulse 3s ease-in-out infinite;
-        }
+        .hero-financing-scroll-mouse { opacity: 0; animation: hf-fade-up 0.6s ease 1.6s forwards; }
         @keyframes hf-border-pulse {
           0%, 100% { border-color: rgba(90,15,20,0.4); box-shadow: 0 0 0px rgba(90,15,20,0); }
           50%       { border-color: rgba(90,15,20,0.9); box-shadow: 0 0 8px rgba(90,15,20,0.3); }
         }
-
-        /* Scan lines */
-        .hero-financing-scanlines::before,
-        .hero-financing-scanlines::after {
-          content: '';
-          position: absolute;
-          width: 200%;
-          height: 1px;
-          background: rgba(255,255,255,0.025);
-          transform-origin: left center;
-        }
-        .hero-financing-scanlines::before {
-          top: 35%; left: -50%;
-          transform: rotate(-18deg);
-          animation: hf-scan 9s ease-in-out infinite;
-        }
-        .hero-financing-scanlines::after {
-          top: 65%; left: -50%;
-          transform: rotate(-18deg);
-          animation: hf-scan 9s ease-in-out infinite 4.5s;
-        }
         @keyframes hf-scan {
           0%, 100% { opacity: 0.015; }
           50%       { opacity: 0.05; }
-        }
-
-        /* Scroll indicator */
-        .hero-financing-scroll-mouse {
-          opacity: 0;
-          animation: hf-fade-up 0.6s ease 1.6s forwards;
-        }
-        .hero-financing-scroll-dot {
-          animation: hf-scroll-dot 2s ease-in-out infinite;
         }
         @keyframes hf-scroll-dot {
           0%   { opacity: 0; transform: translateX(-50%) translateY(0); }

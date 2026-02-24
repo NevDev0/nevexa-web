@@ -171,15 +171,15 @@ export default function WaitlistForm() {
 
       <div className="relative z-10 mx-auto max-w-2xl">
         {/* Title */}
-        <div className="mb-10 text-center">
+        <div className="mb-8 text-center">
           <h2 className="mb-4 text-2xl font-bold uppercase tracking-[0.12em] sm:text-3xl">{waitlistFormCopy.title}</h2>
           <div className="mx-auto h-px w-16 bg-[#5A0F14]" />
         </div>
 
         {/* Counter */}
         {displayCount > 0 && (
-          <div className="mb-8 text-center">
-            <div className="mb-3 inline-flex items-center gap-3 rounded-full border border-[#5A0F14]/30 bg-[#5A0F14]/10 px-6 py-3 backdrop-blur-sm">
+          <div className="mb-4 text-center">
+            <div className="mb-2 inline-flex items-center gap-3 rounded-full border border-[#5A0F14]/30 bg-[#5A0F14]/10 px-6 py-3 backdrop-blur-sm">
               <div className="relative">
                 <div className="h-2 w-2 rounded-full bg-[#5A0F14]" />
                 <div className="absolute inset-0 h-2 w-2 animate-ping rounded-full bg-[#5A0F14] opacity-75" />
@@ -187,12 +187,12 @@ export default function WaitlistForm() {
               <span className="text-xl font-bold tabular-nums text-white/90 sm:text-2xl">{displayCount.toLocaleString()}</span>
               <span className="text-sm text-white/80">on the waitlist</span>
             </div>
-            <p className="text-xs text-white/50">Last signup moments ago</p>
+            <p className="text-xs text-white/60">Last signup moments ago</p>
           </div>
         )}
 
         {/* Progress bar */}
-        <div className="mb-8 h-1 w-full overflow-hidden rounded-full bg-white/5">
+        <div className="mb-6 h-1 w-full overflow-hidden rounded-full bg-white/5">
           <div className="h-full bg-gradient-to-r from-[#5A0F14] to-[#8A1F24] transition-all duration-500 ease-out" style={{ width: `${progress}%` }} />
         </div>
 
@@ -200,7 +200,7 @@ export default function WaitlistForm() {
         <form onSubmit={handleSubmit} className="space-y-6">
 
           {/* Row 1 : Full Name + Email */}
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             {/* Full Name */}
             <div>
               <label className="mb-2 block text-sm font-medium">

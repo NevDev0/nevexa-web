@@ -8,14 +8,14 @@ export default function SplitCTA() {
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animFrameRef = useRef<number>(0);
-  const isVisibleRef = useRef(false);
+  const isAnimatingRef = useRef(false);
   const [visible, setVisible] = useState(false);
+  const [animating, setAnimating] = useState(false);
 
-  // Particles — pause when section not visible (performance)
+  // Canvas particles setup
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
@@ -37,13 +37,6 @@ export default function SplitCTA() {
 
     function animate() {
       if (!ctx || !canvas) return;
-
-      // Pause when not visible
-      if (!isVisibleRef.current) {
-        animFrameRef.current = requestAnimationFrame(animate);
-        return;
-      }
-
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       particles.forEach((p) => {
         p.x += p.vx;
@@ -55,26 +48,42 @@ export default function SplitCTA() {
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
       });
-
-      animFrameRef.current = requestAnimationFrame(animate);
+      // Seulement si toujours animating
+      if (isAnimatingRef.current) {
+        animFrameRef.current = requestAnimationFrame(animate);
+      }
     }
 
-    animate();
+    // Expose start/stop via ref
+    (canvas as any)._start = () => {
+      if (isAnimatingRef.current) return;
+      isAnimatingRef.current = true;
+      animFrameRef.current = requestAnimationFrame(animate);
+    };
+    (canvas as any)._stop = () => {
+      isAnimatingRef.current = false;
+      cancelAnimationFrame(animFrameRef.current);
+    };
 
     return () => {
+      isAnimatingRef.current = false;
       cancelAnimationFrame(animFrameRef.current);
       window.removeEventListener("resize", resize);
     };
   }, []);
 
-  // IntersectionObserver — scroll-reveal + pause canvas
+  // IntersectionObserver — start/stop rAF proprement
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        isVisibleRef.current = entry.isIntersecting;
+        const canvas = canvasRef.current as any;
         if (entry.isIntersecting) {
           setVisible(true);
-          observer.disconnect();
+          setAnimating(true);
+          canvas?._start?.();
+        } else {
+          setAnimating(false);
+          canvas?._stop?.();
         }
       },
       { threshold: 0.2 }
@@ -95,7 +104,6 @@ export default function SplitCTA() {
         background: "radial-gradient(circle at center, rgba(90,15,20,0.08) 0%, #0E0F11 70%)",
       }}
     >
-
       {/* Particles canvas */}
       <canvas
         ref={canvasRef}
@@ -103,12 +111,18 @@ export default function SplitCTA() {
         style={{ width: "100%", height: "100%" }}
       />
 
-      {/* Top separator with pulsing dot — keyframe via style inline → dans <style jsx> */}
+      {/* Top separator with pulsing dot */}
       <div className="pointer-events-none absolute top-0 left-0 right-0 flex items-center justify-center">
         <div className="h-px w-full bg-white/[0.06]" />
         <div
           className="absolute h-2 w-2 rounded-full bg-[#5A0F14]"
-          style={{ animation: "nevexa-cta-pulse 2s ease-in-out infinite" }}
+          style={{
+            animationName: "nevexa-cta-pulse",
+            animationDuration: "2s",
+            animationTimingFunction: "ease-in-out",
+            animationIterationCount: "infinite",
+            animationPlayState: animating ? "running" : "paused",
+          }}
         />
       </div>
 
@@ -128,7 +142,7 @@ export default function SplitCTA() {
           {splitCTACopy.title}
         </h2>
 
-        {/* Underline — width reveal */}
+        {/* Underline */}
         <div className="mb-14 flex justify-center">
           <div
             className="h-px bg-[#5A0F14]"
@@ -141,7 +155,7 @@ export default function SplitCTA() {
           />
         </div>
 
-        {/* Buttons — cascade */}
+        {/* Buttons */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8">
           {splitCTACopy.buttons.map((button, index) => (
             <div
@@ -153,22 +167,20 @@ export default function SplitCTA() {
                 transitionDelay: `${500 + index * 180}ms`,
               }}
             >
-              {/* Label */}
               <div className="mb-4 flex items-center justify-center gap-2">
                 <div
                   className={`h-1 w-1 rounded-full ${
-                    button.variant === "solid" ? "bg-[#5A0F14]/60" : "bg-white/30"
+                    button.variant === "solid" ? "bg-[#5A0F14]" : "bg-white/40"
                   }`}
                 />
-                <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-white/40">
+                <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-white/50">
                   {button.label}
                 </span>
               </div>
 
-              {/* Button — rounded-full cohérent avec le système */}
               <Link
                 href={button.href}
-                className={`group relative flex h-14 items-center justify-center gap-3 overflow-hidden rounded-full text-[15px] font-semibold transition-all duration-300 sm:h-16 sm:text-[16px] ${
+                className={`group relative flex h-14 items-center justify-center gap-3 overflow-hidden rounded-full text-[15px] font-semibold sm:h-16 sm:text-[16px] ${
                   button.variant === "outline"
                     ? "border-2 border-white/30 bg-transparent text-white hover:border-white/50 hover:bg-white/[0.05] hover:-translate-y-1"
                     : "border-2 border-[#5A0F14] bg-[#5A0F14] text-white hover:bg-[#6A1F24] hover:-translate-y-1"
@@ -178,6 +190,7 @@ export default function SplitCTA() {
                     button.variant === "outline"
                       ? "0 4px 20px rgba(255,255,255,0.04)"
                       : "0 4px 24px rgba(90,15,20,0.35)",
+                  transition: "background-color 300ms ease, transform 300ms ease",
                 }}
               >
                 <span>{button.buttonText}</span>
@@ -197,9 +210,7 @@ export default function SplitCTA() {
       </div>
 
       {/*
-        RÈGLE KEYFRAMES :
-        nevexa-cta-pulse → appelée via style={{ animation: "nevexa-cta-pulse ..." }}
-        → keyframe dans <style jsx> ✅
+        nevexa-cta-pulse → animationName inline → keyframe ici ✅
       */}
       <style jsx>{`
         @keyframes nevexa-cta-pulse {
