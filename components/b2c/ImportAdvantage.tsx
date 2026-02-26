@@ -144,7 +144,7 @@ export default function ImportAdvantage() {
         {/* Underline */}
         <div className="mb-12 flex justify-center">
           <div
-            className={`h-px bg-[#5A0F14] transition-all duration-700 delay-200 ${
+            className={`mx-auto h-px w-24 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent shadow-[0_0_15px_rgba(138,31,36,0.8)] ${
               visible ? "w-18" : "w-0"
             }`}
           />

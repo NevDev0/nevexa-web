@@ -145,9 +145,9 @@ export default function SplitCTA() {
         {/* Underline */}
         <div className="mb-14 flex justify-center">
           <div
-            className="h-px bg-[#5A0F14]"
+            className="mx-auto h-px w-24 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent shadow-[0_0_15px_rgba(138,31,36,0.8)]"
             style={{
-              width: visible ? "80px" : "0px",
+              width: visible ? "180px" : "0px",
               opacity: visible ? 1 : 0,
               transition: "width 700ms cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 700ms ease",
               transitionDelay: "300ms",

@@ -56,7 +56,7 @@ export default function FAQB2B() {
 
         {/* Underline */}
         <div
-          className={`mb-10 flex justify-center transition-all duration-700 ${
+          className={`mx-auto mb-10 h-px w-24 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent shadow-[0_0_15px_rgba(138,31,36,0.8)] ${
             isVisible ? "opacity-100" : "opacity-0"
           }`}
           style={{ transitionDelay: "200ms" }}

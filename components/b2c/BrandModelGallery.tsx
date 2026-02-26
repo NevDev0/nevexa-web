@@ -104,7 +104,7 @@ export default function BrandModelGallery() {
   return (
     // ── id="catalog" ajouté — permet au CTA hero "Explore catalog" de scroller ici ──
     <section id="catalog" ref={sectionRef} className="w-full overflow-x-hidden bg-[#0E0F11] px-6 py-12 text-white">
-      <div className="mx-auto max-w-4xl">
+      <div className="mx-auto max-w-7xl">
 
         {/* ── HEADER ── */}
         <div className={`mb-3 text-center transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
@@ -114,7 +114,7 @@ export default function BrandModelGallery() {
         </div>
 
         <div className="mb-12 flex justify-center">
-          <div className={`h-px bg-[#5A0F14] transition-all duration-700 delay-100 ${visible ? "w-12" : "w-0"}`} />
+          <div className={`mx-auto h-px w-24 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent shadow-[0_0_15px_rgba(138,31,36,0.8)] ${visible ? "w-12" : "w-0"}`} />
         </div>
 
         {/* ── BRAND TABS WITH SLIDING INDICATOR ── */}
@@ -299,14 +299,14 @@ function ModelCard({ model, activeBrand, visible, index, onExplore }: ModelCardP
           {model.displayName}
         </h2>
         {model.subtitle && (
-          <p className="mt-1 text-xs font-light tracking-widest text-neutral-400">
+          <p className="mt-1 text-xs font-light tracking-widest text-neutral-400 md:text-sm">
             {model.subtitle}
           </p>
         )}
       </div>
 
       {/* Image with parallax */}
-      <div className="relative mb-4 aspect-[5/3] w-full overflow-hidden rounded-lg border border-white/10 bg-black transition-all duration-300 group-hover:border-white/20 group-hover:shadow-xl group-hover:shadow-black/60">
+      <div className="relative mb-4 aspect-[16/9] w-full overflow-hidden rounded-lg border border-white/10 bg-black transition-all duration-300 group-hover:border-white/20 group-hover:shadow-xl group-hover:shadow-black/60">
         {hasPhotos(model.exteriorCount, model.interiorCount) ? (
           <Image
             src={getModelThumbnail(activeBrand, model.id)}
@@ -409,10 +409,10 @@ function GalleryModal({ brand, model, onClose, onRequest }: GalleryModalProps) {
         <div className="relative mb-4 h-[35vh] w-full overflow-hidden rounded-lg bg-black md:h-[45vh]">
           <Image src={gallery[currentIndex]} alt={`${model.name} - ${currentIndex + 1}`} fill sizes="(max-width: 1280px) 100vw, 1280px" className="object-contain" quality={90} priority />
 
-          <button onClick={handlePrev} className="absolute left-1 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-sm transition-all hover:bg-black/80">
+          <button onClick={handlePrev} className="absolute left-0.5 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-sm transition-all hover:bg-black/80">
             <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" /></svg>
           </button>
-          <button onClick={handleNext} className="absolute right-1 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-sm transition-all hover:bg-black/80">
+          <button onClick={handleNext} className="absolute right-0.5 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-sm transition-all hover:bg-black/80">
             <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
           </button>
 

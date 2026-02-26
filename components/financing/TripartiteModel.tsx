@@ -82,7 +82,7 @@ export default function HowItWorks() {
             {howItWorksCopy.title}
           </h2>
           <div
-            className="mx-auto mb-6 h-px bg-[#5A0F14]"
+            className="mb-6 mx-auto h-0.5 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent shadow-[0_0_10px_rgba(90,15,20,0.5)]"
             style={{
               width: isVisible ? "72px" : "0px",
               transition: "width 700ms ease 200ms",

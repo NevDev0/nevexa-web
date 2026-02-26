@@ -179,15 +179,15 @@ export const geographicAvailabilityCopy = {
     { 
       id: "nigeria", 
       name: "Nigeria", 
-      x: { mobile: "42%", desktop: "42%" },
-      y: { mobile: "42%", desktop: "41%" },
+      x: { mobile: "45%", desktop: "42%" },
+      y: { mobile: "41%", desktop: "41%" },
       year: "2027",
       labelPosition: "top-right"
     },
     { 
       id: "senegal", 
       name: "Senegal", 
-      x: { mobile: "15%", desktop: "15%" },
+      x: { mobile: "24%", desktop: "15%" },
       y: { mobile: "33%", desktop: "33%" },
       year: "2028",
       labelPosition: "left"
@@ -195,15 +195,15 @@ export const geographicAvailabilityCopy = {
     { 
       id: "ghana", 
       name: "Ghana", 
-      x: { mobile: "31%", desktop: "31%" },
-      y: { mobile: "43%", desktop: "44%" },
+      x: { mobile: "36%", desktop: "31%" },
+      y: { mobile: "41%", desktop: "44%" },
       year: "2028",
       labelPosition: "top"
     },
     { 
       id: "ivory-coast", 
       name: "Ivory Coast", 
-      x: { mobile: "25%", desktop: "25%" },
+      x: { mobile: "32%", desktop: "25%" },
       y: { mobile: "45%", desktop: "45%" },
       year: "2028",
       labelPosition: "bottom-left"
@@ -211,7 +211,7 @@ export const geographicAvailabilityCopy = {
     { 
       id: "cameroun", 
       name: "Cameroun", 
-      x: { mobile: "47%", desktop: "46%" },
+      x: { mobile: "48%", desktop: "46%" },
       y: { mobile: "48%", desktop: "48%" },
       year: "2028",
       labelPosition: "bottom-right"

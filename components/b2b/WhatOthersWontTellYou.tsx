@@ -57,7 +57,7 @@ export default function WhatOthersWontTellYou() {
             {whatOthersWontTellYou.title}
           </h2>
           <div
-            className={`mx-auto mb-5 h-px bg-[#5A0F14] transition-all duration-700 ${
+            className={`mx-auto mb-5 h-px w-24 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent shadow-[0_0_15px_rgba(138,31,36,0.8)] ${
               isVisible ? "w-18" : "w-0"
             }`}
             style={{ transitionDelay: "300ms" }}

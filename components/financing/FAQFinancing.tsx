@@ -31,7 +31,7 @@ export default function FAQFinancing() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-[#F3EFEA] px-6 py-12 text-black sm:py-16"
+      className="relative w-full bg-[#F3EFEA]/90 px-6 py-12 text-black sm:py-16"
     >
       <div className="mx-auto max-w-3xl">
 
@@ -52,7 +52,7 @@ export default function FAQFinancing() {
         {/* Underline */}
         <div className="mb-12 flex justify-center">
           <div
-            className="h-px bg-[#5A0F14]"
+            className="mx-auto h-px w-24 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent shadow-[0_0_15px_rgba(138,31,36,0.8)]"
             style={{
               width: isVisible ? "48px" : "0px",
               transition: "width 600ms ease 200ms",

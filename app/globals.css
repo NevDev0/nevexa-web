@@ -261,37 +261,34 @@ body {
    NEVEXA CTA PULSE — GeographicAvailability
    Appelée via className .cta-button
    ======================================== */
-@keyframes pulseSubtle {
-  0%, 100% { box-shadow: 0 4px 20px rgba(90, 15, 20, 0.5); }
-  50%       { box-shadow: 0 4px 30px rgba(90, 15, 20, 0.8); }
-}
-
-.cta-button {
-  animation: pulseSubtle 2s ease-in-out infinite;
-}
-
-.cta-button:hover {
-  box-shadow: 0 8px 35px rgba(90, 15, 20, 0.7);
-}
-
-/* ========================================
-   NIGERIA RING PULSE — GeographicAvailability
-   Appelée via className .nigeria-ring-pulse
-   ======================================== */
-   .nigeria-ring-pulse {
-    --ring-x: 0px;
-    --ring-y: 0px;
+   @keyframes pulseSubtle {
+    0%, 100% { box-shadow: 0 4px 20px rgba(90, 15, 20, 0.4); }
+    50%      { box-shadow: 0 4px 35px rgba(138, 31, 36, 0.7); }
+  }
+  
+  .cta-button {
+    animation: pulseSubtle 2.5s ease-in-out infinite;
+  }
+  
+  /* ========================================
+     NIGERIA RING PULSE — GeographicAvailability
+     Appelée via className .nigeria-ring-pulse
+     ======================================== */
+  .nigeria-ring-pulse {
+    /* Le transform translate est inclus dans les keyframes pour ne pas casser le centrage */
     animation: nigeriaPulse 2s ease-in-out infinite;
   }
   
   @keyframes nigeriaPulse {
-    0%, 100% { opacity: 1.5; transform: translate(var(--ring-x), var(--ring-y)) scale(1); }
-    50%       { opacity: 2.6; transform: translate(var(--ring-x), var(--ring-y)) scale(1.10); }
+    0%, 100% { 
+      opacity: 0.3; 
+      transform: scale(1); 
+    }
+    50% { 
+      opacity: 0.8; 
+      transform: scale(1.15); 
+    }
   }
-
-.nigeria-ring-pulse {
-  animation: nigeriaPulse 2s ease-in-out infinite;
-}
 
 /* ========================================
    WAITLIST FORM — toutes les keyframes

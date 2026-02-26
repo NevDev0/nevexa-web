@@ -16,6 +16,7 @@ export default function Hero() {
     });
     
     if (videoRef.current) {
+      // Play immediately, ignore the promise rejection if it fails initially
       videoRef.current.play().catch(() => {});
     }
     
@@ -39,7 +40,8 @@ export default function Hero() {
         // @ts-expect-error fetchPriority not yet in React video types
         fetchPriority="high"
         className="absolute inset-0 h-full w-full object-cover object-center"
-        style={{ transformOrigin: "center center" }}
+        // Force hardware acceleration for the video layer
+        style={{ transformOrigin: "center center", transform: "translateZ(0)" }}
       >
         <source src="/hero/hero-bg.mp4" type="video/mp4" />
       </video>
@@ -51,18 +53,21 @@ export default function Hero() {
       <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/95 via-black/50 to-transparent md:from-black/85 md:via-black/40" />
 
       {/* Subtle red glow global */}
-      <div className="absolute inset-0 bg-[#5A0F14]/5" />
+      <div className="absolute inset-0 bg-[#5A0F14]/5 pointer-events-none" />
 
       {/* ========== MOBILE LAYOUT ========== */}
       <div className="absolute top-26 inset-x-0 z-10 px-6 text-center md:hidden">
         <h1
-          className="mb-8 text-4xl font-bold leading-tight tracking-tight text-white transition-all duration-[600ms] ease-out"
+          // Removed tracking-tight to improve legibility if stroke is removed
+          className="mb-8 text-4xl font-bold leading-tight text-white transition-all duration-[600ms] ease-out"
           style={{
-            textShadow: "0 0 40px rgba(0,0,0,0.9), 0 0 80px rgba(0,0,0,0.7), 0 4px 16px rgba(0,0,0,0.95)",
-            WebkitTextStroke: "0.5px rgba(255,255,255,0.08)",
+            // OPTIMIZATION: Reduced to a single, efficient drop-shadow for contrast
+            textShadow: "0px 4px 12px rgba(0,0,0,0.8)",
             opacity: mounted ? 1 : 0,
             transform: mounted ? "translateY(0)" : "translateY(24px)",
             transitionDelay: "400ms",
+            // Will-change hints the browser to prepare for animation, preventing lag
+            willChange: "transform, opacity",
           }}
         >
           {heroCopy.title}
@@ -74,6 +79,7 @@ export default function Hero() {
             opacity: mounted ? 1 : 0,
             transform: mounted ? "translateY(0)" : "translateY(16px)",
             transitionDelay: "1400ms",
+            willChange: "transform, opacity",
           }}
         >
           {["Sourcing.", "Inspection.", "Delivery."].map((word, i) => (
@@ -81,7 +87,7 @@ export default function Hero() {
               key={word}
               className="text-base font-medium tracking-wide text-neutral-200 transition-all duration-500 ease-out"
               style={{
-                textShadow: "0 2px 12px rgba(0,0,0,0.8)",
+                textShadow: "0 2px 8px rgba(0,0,0,0.8)",
                 opacity: mounted ? 1 : 0,
                 transitionDelay: `${200 + i * 120}ms`,
               }}
@@ -96,12 +102,13 @@ export default function Hero() {
         <div className="flex flex-col gap-3">
           <Link
             href="/b2c"
-            className="group flex h-12 items-center justify-center rounded-full bg-white px-8 text-sm font-semibold text-black transition-all duration-300 hover:scale-105 hover:bg-neutral-100"
+            className="group flex h-12 items-center justify-center rounded-full bg-white px-8 text-sm font-semibold text-black transition-all duration-300 hover:scale-[1.03] hover:bg-neutral-100 shadow-lg shadow-black/20"
             style={{
               opacity: mounted ? 1 : 0,
               transform: mounted ? "translateY(0)" : "translateY(16px)",
               transition: "opacity 600ms ease-out, transform 600ms ease-out, background-color 300ms, scale 300ms",
               transitionDelay: "1800ms",
+              willChange: "transform, opacity",
             }}
           >
             <span>{heroCopy.ctaIndividuals}</span>
@@ -112,12 +119,14 @@ export default function Hero() {
 
           <Link
             href="/b2b"
-            className="group flex h-12 items-center justify-center rounded-full border-2 border-white bg-white/5 px-8 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/15"
+            // OPTIMIZATION: Removed backdrop-blur-sm, it's very expensive over video
+            className="group flex h-12 items-center justify-center rounded-full border border-white/50 bg-black/40 px-8 text-sm font-semibold text-white transition-all duration-300 hover:scale-[1.03] hover:bg-white/10"
             style={{
               opacity: mounted ? 1 : 0,
               transform: mounted ? "translateY(0)" : "translateY(16px)",
               transition: "opacity 600ms ease-out, transform 600ms ease-out, background-color 300ms, scale 300ms",
               transitionDelay: "2200ms",
+              willChange: "transform, opacity",
             }}
           >
             <span>{heroCopy.ctaProfessionals}</span>
@@ -128,7 +137,7 @@ export default function Hero() {
         </div>
 
         <div
-          className="mt-12 flex justify-center"
+          className="mt-12 flex justify-center pointer-events-none"
           style={{
             opacity: mounted ? 1 : 0,
             transition: "opacity 600ms ease-out",
@@ -146,14 +155,14 @@ export default function Hero() {
       {/* ========== DESKTOP LAYOUT ========== */}
       <div className="relative z-10 mx-auto hidden w-full max-w-4xl px-6 py-20 text-center text-white md:block">
         <h1
-          className="mb-6 text-5xl font-bold leading-tight tracking-tight lg:text-6xl"
+          className="mb-6 text-5xl font-bold leading-tight lg:text-6xl transition-all duration-[600ms] ease-out"
           style={{
-            textShadow: "0 0 60px rgba(0,0,0,0.8), 0 0 100px rgba(0,0,0,0.6), 0 6px 20px rgba(0,0,0,0.9)",
-            WebkitTextStroke: "0.5px rgba(255,255,255,0.1)",
+            // OPTIMIZATION: Simplified shadow for desktop
+            textShadow: "0px 6px 16px rgba(0,0,0,0.8)",
             opacity: mounted ? 1 : 0,
             transform: mounted ? "translateY(0)" : "translateY(28px)",
-            transition: "opacity 600ms ease-out, transform 600ms ease-out",
             transitionDelay: "400ms",
+            willChange: "transform, opacity",
           }}
         >
           {heroCopy.title}
@@ -166,6 +175,7 @@ export default function Hero() {
             transform: mounted ? "translateY(0)" : "translateY(18px)",
             transition: "opacity 600ms ease-out, transform 600ms ease-out",
             transitionDelay: "1000ms",
+            willChange: "transform, opacity",
           }}
         >
           {["Sourcing.", "Inspection.", "Delivery."].map((word, i) => (
@@ -173,7 +183,7 @@ export default function Hero() {
               key={word}
               className="text-xl font-medium tracking-wide text-neutral-300 transition-all duration-500 ease-out"
               style={{
-                textShadow: "0 2px 16px rgba(0,0,0,0.8)",
+                textShadow: "0 2px 8px rgba(0,0,0,0.8)",
                 opacity: mounted ? 1 : 0,
                 transitionDelay: `${200 + i * 130}ms`,
               }}
@@ -186,12 +196,13 @@ export default function Hero() {
         <div className="flex flex-row justify-center gap-6">
           <Link
             href="/b2c"
-            className="group flex h-14 items-center justify-center rounded-full bg-white px-10 text-base font-semibold text-black transition-all duration-300 hover:scale-105 hover:bg-neutral-100"
+            className="group flex h-14 items-center justify-center rounded-full bg-white px-10 text-base font-semibold text-black transition-all duration-300 hover:scale-[1.03] hover:bg-neutral-100 shadow-xl shadow-black/20"
             style={{
               opacity: mounted ? 1 : 0,
               transform: mounted ? "translateY(0)" : "translateY(16px)",
               transition: "opacity 600ms ease-out, transform 600ms ease-out, background-color 300ms, scale 300ms",
               transitionDelay: "1800ms",
+              willChange: "transform, opacity",
             }}
           >
             <span>{heroCopy.ctaIndividuals}</span>
@@ -202,12 +213,14 @@ export default function Hero() {
 
           <Link
             href="/b2b"
-            className="group flex h-14 items-center justify-center rounded-full border-2 border-white bg-white/5 px-10 text-base font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/15"
+             // OPTIMIZATION: Removed backdrop-blur-sm
+            className="group flex h-14 items-center justify-center rounded-full border border-white/50 bg-black/40 px-10 text-base font-semibold text-white transition-all duration-300 hover:scale-[1.03] hover:bg-white/10"
             style={{
               opacity: mounted ? 1 : 0,
               transform: mounted ? "translateY(0)" : "translateY(16px)",
               transition: "opacity 600ms ease-out, transform 600ms ease-out, background-color 300ms, scale 300ms",
               transitionDelay: "2200ms",
+              willChange: "transform, opacity",
             }}
           >
             <span>{heroCopy.ctaProfessionals}</span>
@@ -220,7 +233,7 @@ export default function Hero() {
 
       {/* Scroll Indicator desktop */}
       <div
-        className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 animate-bounce md:block"
+        className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 animate-bounce pointer-events-none md:block"
         style={{
           opacity: mounted ? 0.5 : 0,
           transition: "opacity 600ms ease-out",

@@ -7,6 +7,8 @@ import ReferralBlock from "@/components/b2c/ReferralBlock";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
 
+const SHOW_REAL_RESULTS = false;
+
 export const metadata: Metadata = {
   title: "Buy a Vehicle",
   description:
@@ -31,7 +33,7 @@ export default function B2CPage() {
       <BrandModelGallery />
       <ImportAdvantage />
       <FAQ />
-      <ReferralBlock />
+      {SHOW_REAL_RESULTS && <ReferralBlock />}
       <FinalCTA />
       <Footer />
     </main>

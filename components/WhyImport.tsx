@@ -69,7 +69,7 @@ export default function WhyImport() {
         {/* Underline animée — E */}
         <div className="mb-8 flex justify-center">
           <div
-            className="h-px bg-[#5A0F14]"
+            className="mx-auto h-px w-24 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent shadow-[0_0_15px_rgba(138,31,36,0.8)]"
             style={{
               width: underlineWidth ? "80px" : "0px",
               transition: "width 600ms ease-out",

@@ -1,183 +1,120 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { financingHeroCopy } from "@/content/financing.en";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { financingHeroCopy, waitlistFormCopy } from "@/content/financing.en";
 import NavBar from "@/components/NavBar";
 
-export default function HeroFinancing() {
-  const [animating, setAnimating] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
+export default function FinancingHero() {
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    if (!sectionRef.current) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          setAnimating(entry.isIntersecting);
-        });
-      },
-      { threshold: 0.1 }
-    );
-    observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+    const t = setTimeout(() => setMounted(true), 100);
+    return () => clearTimeout(t);
   }, []);
 
-  return (
-    <section ref={sectionRef} className="relative w-full overflow-hidden bg-black">
+  const scrollToForm = () => {
+    // Cible l'ID exact de ton WaitlistForm
+    const formElement = document.getElementById("waitlist");
+    if (formElement) {
+      formElement.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
+  return (
+    <section className="relative flex min-h-[90svh] w-full items-start justify-center overflow-hidden bg-[#0A0A0A] pt-28 pb-8 sm:pt-36">
       {/* ── NAVBAR ── */}
       <NavBar />
-
-      {/* ── Background ── */}
+      
+      {/* ── BACKGROUND IMAGE ── */}
       <div className="absolute inset-0 z-0">
-        {/* Glow radial burgundy */}
-        <div
-          className="absolute left-1/2 top-0 -translate-x-1/2"
-          style={{
-            width: "700px",
-            height: "500px",
-            background: "radial-gradient(ellipse at 50% 0%, rgba(90,15,20,0.35) 0%, rgba(90,15,20,0.10) 45%, transparent 70%)",
-          }}
+        <Image
+          src="/hero/financing-bg.webp" 
+          alt="Luxury vehicle financing silhouette"
+          fill
+          className="object-cover object-center opacity-100 mix-blend-luminosity"
+          priority
         />
-        {/* Glow radial blanc */}
-        <div
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-          style={{
-            width: "600px",
-            height: "260px",
-            background: "radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.01) 50%, transparent 75%)",
-          }}
-        />
-        {/* Scan lines */}
-        <div className="absolute inset-0">
-          <div
-            className="absolute h-px w-[200%] bg-white/[0.025]"
-            style={{
-              top: "35%",
-              left: "-50%",
-              transform: "rotate(-18deg)",
-              animationName: "hf-scan",
-              animationDuration: "9s",
-              animationTimingFunction: "ease-in-out",
-              animationIterationCount: "infinite",
-              animationPlayState: animating ? "running" : "paused",
-            }}
-          />
-          <div
-            className="absolute h-px w-[200%] bg-white/[0.025]"
-            style={{
-              top: "65%",
-              left: "-50%",
-              transform: "rotate(-18deg)",
-              animationName: "hf-scan",
-              animationDuration: "9s",
-              animationTimingFunction: "ease-in-out",
-              animationIterationCount: "infinite",
-              animationDelay: "4.5s",
-              animationPlayState: animating ? "running" : "paused",
-            }}
-          />
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-black/40 to-[#0A0A0A]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.8)_100%)]" />
       </div>
 
-      {/* ── Contenu principal ── */}
-      <div className="relative z-10 flex min-h-[90svh] flex-col items-center justify-center px-6 pb-20 pt-24 text-center">
-        <div className="max-w-2xl">
+      {/* ── CONTENT ── */}
+      <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-6 text-center">
+        
+        {/* Badges */}
+        <div 
+          className="mb-10 flex items-center justify-center gap-3 transition-all duration-1000 ease-out"
+          style={{ 
+            opacity: mounted ? 1 : 0, 
+            transform: mounted ? "translateY(0)" : "translateY(30px)" 
+          }}
+        >
+          <span className="rounded-full border border-white/20 bg-white/5 px-5 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white backdrop-blur-md">
+            {financingHeroCopy.badges.earlyAccess}
+          </span>
+          <span className="rounded-full border border-[#5A0F14] bg-[#5A0F14]/70 px-5 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white backdrop-blur-md shadow-[0_0_25px_rgba(90,15,20,0.2)]">
+            {financingHeroCopy.badges.comingSoon}
+          </span>
+        </div>
 
-          {/* Badges */}
-          <div className="hero-financing-item-1 mb-10 flex items-center justify-center gap-4">
-            <span
-              className="inline-flex items-center rounded-full bg-[#5A0F14]/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-white/90"
-              style={{
-                border: "1px solid rgba(90,15,20,0.4)",
-                animationName: "hf-border-pulse",
-                animationDuration: "3s",
-                animationTimingFunction: "ease-in-out",
-                animationIterationCount: "infinite",
-                animationPlayState: animating ? "running" : "paused",
-              }}
-            >
-              {financingHeroCopy.badges.earlyAccess}
-            </span>
-            <span className="rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-white/70">
-              {financingHeroCopy.badges.comingSoon}
-            </span>
-          </div>
+        {/* Title */}
+        <h1 
+          className="mb-8 text-5xl font-bold tracking-tight text-white md:text-7xl lg:text-8xl transition-all duration-1000 delay-200 ease-out"
+          style={{ 
+            opacity: mounted ? 1 : 0, 
+            transform: mounted ? "translateY(0)" : "translateY(30px)" 
+          }}
+        >
+          Vehicle Financing <br />
+          <span className="text-neutral-600">Coming 2027.</span>
+        </h1>
 
-          {/* H1 */}
-          <h1
-            className="hero-financing-item-2 mb-10 text-3xl font-bold leading-snug tracking-tight text-white sm:text-4xl sm:leading-tight"
-            style={{
-              textShadow: "0 0 40px rgba(255,255,255,0.08), 0 0 80px rgba(255,255,255,0.04)",
-            }}
+        {/* Subtitle */}
+        <p 
+          className="mb-12 max-w-2xl text-base leading-relaxed text-neutral-400 sm:text-lg md:text-xl transition-all duration-1000 delay-400 ease-out"
+          style={{ 
+            opacity: mounted ? 1 : 0, 
+            transform: mounted ? "translateY(0)" : "translateY(30px)" 
+          }}
+        >
+          {financingHeroCopy.subtitle}
+        </p>
+
+        {/* CTA Button */}
+        <div 
+          className="mb-10 transition-all duration-1000 delay-600 ease-out"
+          style={{ 
+            opacity: mounted ? 1 : 0, 
+            transform: mounted ? "translateY(0)" : "translateY(30px)" 
+          }}
+        >
+          <button 
+            onClick={scrollToForm}
+            className="group relative flex h-16 items-center justify-center overflow-hidden rounded-full bg-white px-12 text-sm font-bold uppercase tracking-widest text-black transition-all duration-300 hover:scale-[1.05] hover:bg-neutral-100"
           >
-            {financingHeroCopy.title}
-          </h1>
+            <span className="relative z-10">{waitlistFormCopy.submitButton}</span>
+            <div className="absolute inset-0 z-0 translate-y-full bg-neutral-200 transition-transform duration-300 group-hover:translate-y-0" />
+          </button>
+        </div>
 
-          {/* Subtitle */}
-          <p className="hero-financing-item-3 mb-10 text-sm leading-relaxed text-neutral-300 sm:text-base">
-            {financingHeroCopy.subtitle}
+        {/* Clarification */}
+        <div 
+          className="max-w-xl transition-all duration-1000 delay-800 ease-out"
+          style={{ 
+            opacity: mounted ? 1 : 0, 
+            transform: mounted ? "translateY(0)" : "translateY(20px)" 
+          }}
+        >
+          <p className="text-[11px] leading-relaxed tracking-wide text-neutral-400">
+            <span className="font-bold text-neutral-300 uppercase mr-1">Important —</span> 
+            {financingHeroCopy.clarification}
           </p>
-
-          {/* Clarification card */}
-          <div className="hero-financing-item-4 mx-auto max-w-lg rounded-xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur-sm">
-            <div className="mb-2 flex items-center justify-center gap-2">
-              <svg className="h-3.5 w-3.5 flex-shrink-0 text-[#5A0F14]" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-              </svg>
-              <span className="text-[10px] font-bold uppercase tracking-widest text-[#5A0F14]">
-                Important
-              </span>
-            </div>
-            <p className="text-xs leading-relaxed text-neutral-400 sm:text-sm">
-              {financingHeroCopy.clarification}
-            </p>
-          </div>
-
         </div>
       </div>
 
-      {/* ── Scroll indicator ── */}
-      <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2">
-        <div className="hero-financing-scroll-mouse relative h-8 w-5 rounded-full border border-white/20">
-          <div
-            className="absolute left-1/2 top-1.5 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-white/50"
-            style={{
-              animationName: "hf-scroll-dot",
-              animationDuration: "2s",
-              animationTimingFunction: "ease-in-out",
-              animationIterationCount: "infinite",
-              animationPlayState: animating ? "running" : "paused",
-            }}
-          />
-        </div>
-      </div>
 
-      {/*
-        hf-fade-up → className → @keyframes dans globals.css
-        hf-border-pulse, hf-scan, hf-scroll-dot → animationName inline → @keyframes ici
-      */}
-      <style>{`
-        .hero-financing-item-1 { opacity: 0; animation: hf-fade-up 0.7s cubic-bezier(0.25,0.46,0.45,0.94) 0.2s forwards; }
-        .hero-financing-item-2 { opacity: 0; animation: hf-fade-up 0.7s cubic-bezier(0.25,0.46,0.45,0.94) 0.45s forwards; }
-        .hero-financing-item-3 { opacity: 0; animation: hf-fade-up 0.7s cubic-bezier(0.25,0.46,0.45,0.94) 0.7s forwards; }
-        .hero-financing-item-4 { opacity: 0; animation: hf-fade-up 0.7s cubic-bezier(0.25,0.46,0.45,0.94) 0.95s forwards; }
-        .hero-financing-scroll-mouse { opacity: 0; animation: hf-fade-up 0.6s ease 1.6s forwards; }
-        @keyframes hf-border-pulse {
-          0%, 100% { border-color: rgba(90,15,20,0.4); box-shadow: 0 0 0px rgba(90,15,20,0); }
-          50%       { border-color: rgba(90,15,20,0.9); box-shadow: 0 0 8px rgba(90,15,20,0.3); }
-        }
-        @keyframes hf-scan {
-          0%, 100% { opacity: 0.015; }
-          50%       { opacity: 0.05; }
-        }
-        @keyframes hf-scroll-dot {
-          0%   { opacity: 0; transform: translateX(-50%) translateY(0); }
-          30%  { opacity: 1; }
-          80%  { opacity: 0; transform: translateX(-50%) translateY(10px); }
-          100% { opacity: 0; transform: translateX(-50%) translateY(10px); }
-        }
-      `}</style>
     </section>
   );
 }

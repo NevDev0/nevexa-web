@@ -65,19 +65,22 @@ function StepCard({
           "opacity 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",
       }}
     >
-      {/* Step Card */}
+      {/* ── CONTENEUR PRINCIPAL (Sans bordure, gère juste la forme et l'image) ── */}
       <div
-        className="group relative overflow-hidden rounded-lg border border-white/15 transition-all duration-300 hover:scale-[1.02] hover:border-white/25 min-h-[140px] sm:items-start"
+        className="group relative overflow-hidden rounded-lg transition-all duration-300 hover:scale-[1.02] min-h-[140px] sm:items-start"
         style={{
           backgroundImage: `url(${step.image})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/75 backdrop-blur-[2px] transition-all duration-300 group-hover:bg-black/65" />
+        {/* 1. OVERLAY DE FLOU ÉTENDU : Le -inset-2 pousse le flou hors du cadre pour cacher les bords moches */}
+        <div className="absolute -inset-2 bg-black/75 backdrop-blur-[3px] transition-all duration-300 group-hover:bg-black/65" />
 
-        {/* Content */}
+        {/* 2. VRAIE BORDURE HOMOGÈNE : Posée par-dessus le flou, au pixel près */}
+        <div className="pointer-events-none absolute inset-0 z-20 rounded-lg border border-white/20 transition-colors duration-300 group-hover:border-white/30" />
+
+        {/* ── CONTENT ── */}
         <div className="relative z-10 flex items-start gap-4 p-6">
 
           {/* Dot avec glow */}
@@ -195,9 +198,9 @@ export default function ValueProposition() {
             {valuePropsCopy.trustLine}
           </p>
           <div
-            className="h-px bg-[#5A0F14]"
+            className="mx-auto h-px w-24 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent shadow-[0_0_15px_rgba(138,31,36,0.8)]"
             style={{
-              width: visible ? "80px" : "0px",
+              width: visible ? "180px" : "0px",
               transition: "width 600ms ease-out",
               transitionDelay: "200ms",
             }}

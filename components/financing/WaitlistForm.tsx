@@ -118,7 +118,7 @@ export default function WaitlistForm() {
   // SUCCESS STATE
   if (submitted) {
     return (
-      <section className="relative w-full overflow-hidden bg-black px-6 py-20 text-white">
+      <section id="waitlist" className="relative w-full overflow-hidden bg-black px-6 py-20 text-white">
         <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
           {[15, 30, 50, 70, 85].map((left, i) => (
             <div key={i} className="particle absolute h-3 w-3 rounded-full bg-[#8A1F24]"
@@ -173,7 +173,7 @@ export default function WaitlistForm() {
         {/* Title */}
         <div className="mb-8 text-center">
           <h2 className="mb-4 text-2xl font-bold uppercase tracking-[0.12em] sm:text-3xl">{waitlistFormCopy.title}</h2>
-          <div className="mx-auto h-px w-16 bg-[#5A0F14]" />
+          <div className="mx-auto h-px w-24 bg-gradient-to-r from-transparent via-[#8A1F24] to-transparent shadow-[0_0_15px_rgba(138,31,36,0.8)]" />
         </div>
 
         {/* Counter */}

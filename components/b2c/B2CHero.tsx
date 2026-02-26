@@ -27,142 +27,143 @@ export default function B2CHero() {
 
   return (
     <div className="relative w-full">
-
-      {/* ── NAVBAR — superposé, ne ronge pas le hero ── */}
+      {/* ── NAVBAR ── */}
       <NavBar />
 
-      {/* SECTION 1 — Background Image Zone */}
-      <section className="relative h-[35svh] w-full overflow-hidden sm:h-[40svh]">
-        <Image
-          src="/hero/b2c-hero2-background.webp"
-          alt="Premium automotive background"
-          fill
-          priority
-          className="object-cover object-center"
-          style={{ filter: "blur(1px)" }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-transparent" />
-
-        <div className="absolute inset-x-0 top-[10vh] z-10 flex justify-center px-6 md:top-[12vh]">
-          <div
-            className="absolute inset-0 -z-10 -m-8"
-            style={{
-              background: "radial-gradient(ellipse 80% 100% at 50% 40%, rgba(0,0,0,0.65) 0%, transparent 70%)",
-            }}
+      {/* ══════════════════════════════════════════════════════════════ */}
+      {/* HERO CONTAINER - Natural Document Flow avec Flexbox */}
+      {/* ══════════════════════════════════════════════════════════════ */}
+      <section className="relative w-full overflow-hidden min-h-[85svh]">
+        
+        {/* ── BACKGROUND LAYERS (seuls éléments en absolute) ── */}
+        <div className="absolute inset-0 h-[45%]">
+          <Image
+            src="/hero/b2c-hero2-background.webp"
+            alt="Premium automotive background"
+            fill
+            priority
+            className="object-cover object-center blur-[1px]"
           />
-          <h1 className="text-center text-3xl font-bold leading-tight text-white drop-shadow-2xl sm:text-4xl md:text-5xl">
-            {(["Your", "vehicle.", "No", "surprises."] as const).map((word, idx) => (
-              <span
-                key={word}
-                className="inline-block"
-                style={{
-                  opacity: mounted ? 1 : 0,
-                  transform: mounted ? "translateY(0)" : "translateY(20px)",
-                  transition: `opacity 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94) ${80 + idx * 150}ms, transform 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94) ${80 + idx * 150}ms`,
-                  marginRight: word === "vehicle." ? "0.5ch" : idx < 3 ? "0.5ch" : "0",
-                }}
-              >
-                {word}
-              </span>
-            ))}
-          </h1>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-transparent" />
         </div>
-      </section>
 
-      {/* SECTION 2 — White Floor Zone */}
-      <section
-  className="relative h-[55svh] w-full -mt-px"
-  style={{ 
-    background: "linear-gradient(to bottom, #f5f5f5, #ffffff)", 
-    willChange: "transform"   // ← ajoute cette ligne
-  }}
->
-        <div className="absolute inset-x-0 bottom-8 flex flex-col items-center px-6">
-          <div className="w-full max-w-md space-y-6 text-center">
-            <div
-              className="flex flex-col gap-3 w-full sm:w-auto md:gap-4"
+        <div className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-b from-neutral-100 to-white" />
+
+        {/* ── CONTENT STACK (Natural Flow) ── */}
+        {/* ATTENTION: J'ai enlevé le px- ici pour que la voiture puisse se centrer à 100% sans être bloquée par les marges */}
+        <div className="relative z-10 flex w-full flex-col items-center pb-[clamp(1rem,2vh,2rem)] pt-[clamp(6rem,14vh,8rem)]">
+          
+          {/* ══════════════════════════════════════════════════════════ */}
+          {/* HEADING - Fluid Typography (Les marges px- sont ici maintenant) */}
+          {/* ══════════════════════════════════════════════════════════ */}
+          <div className="relative flex w-full justify-center px-[clamp(1.5rem,5vw,3rem)]">
+            <div className="absolute inset-0 -z-10 -m-[clamp(1.5rem,3vw,2rem)] bg-[radial-gradient(ellipse_80%_100%_at_50%_40%,rgba(0,0,0,0.65)_0%,transparent_70%)]" />
+            
+            <h1 className="text-center text-[clamp(1.875rem,5vw,3.5rem)] font-bold leading-[1.1] tracking-[clamp(-0.02em,-0.015vw,-0.01em)] text-white drop-shadow-2xl">
+              {(["Your", "vehicle.", "No", "surprises."] as const).map((word, idx) => (
+                <span
+                  key={word}
+                  className="inline-block"
+                  style={{
+                    opacity: mounted ? 1 : 0,
+                    transform: mounted ? "translateY(0)" : "translateY(20px)",
+                    transition: `opacity 600ms cubic-bezier(0.25,0.46,0.45,0.94) ${80 + idx * 150}ms, transform 600ms cubic-bezier(0.25,0.46,0.45,0.94) ${80 + idx * 150}ms`,
+                    marginRight: word === "vehicle." ? "0.5ch" : idx < 3 ? "0.5ch" : "0",
+                  }}
+                >
+                  {word}
+                </span>
+              ))}
+            </h1>
+          </div>
+
+          {/* ══════════════════════════════════════════════════════════ */}
+          {/* VEHICLE IMAGE - Centrage absolu et taille massive sur mobile */}
+          {/* ══════════════════════════════════════════════════════════ */}
+          <div 
+            // 115vw = dépasse de l'écran sur mobile pour l'effet massif. max-w-none = empêche l'écrasement.
+            className="flex w-[115vw] max-w-none justify-center md:w-[clamp(600px,75vw,900px)] -mt-[clamp(3rem,12vw,8rem)] pointer-events-none"
+            style={{
+              opacity: mounted ? 1 : 0,
+              transform: mounted ? "translateY(0)" : "translateY(20px)",
+              transition: "opacity 1000ms cubic-bezier(0.25,0.46,0.45,0.94) 150ms, transform 1000ms cubic-bezier(0.25,0.46,0.45,0.94) 150ms",
+            }}
+          >
+            <Image
+              src="/hero/b2c-hero-escalade1.webp"
+              alt="Premium luxury vehicle"
+              width={1200}
+              height={800}
+              priority
+              className="h-auto w-full object-contain drop-shadow-[0_clamp(20px,5vw,70px)_clamp(40px,8vw,100px)_rgba(0,0,0,0.5)]"
+            />
+          </div>
+
+          {/* ══════════════════════════════════════════════════════════ */}
+          {/* BOTTOM BLOCK - L'Aspirateur à vide blanc (-mt) */}
+          {/* ══════════════════════════════════════════════════════════ */}
+          <div className="relative z-20 flex w-full flex-col items-center px-[clamp(1.5rem,5vw,3rem)] -mt-[clamp(1rem,4vh,2rem)] md:-mt-[clamp(6rem,18vh,12rem)]">
+            
+            {/* BADGE */}
+            <div 
               style={{
                 opacity: mounted ? 1 : 0,
-                transform: mounted ? "translateY(0)" : "translateY(12px)",
-                transition:
-                  "opacity 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 600ms, transform 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 600ms",
+                transition: "opacity 600ms cubic-bezier(0.25,0.46,0.45,0.94) 400ms",
               }}
             >
-              <button
-                type="button"
-                onClick={handleScrollToCatalog}
-                className="group w-full rounded-full bg-black px-6 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 sm:w-auto"
-              >
-                <span className="flex items-center justify-center gap-2">
-                  {b2cHeroCopy.ctaPrimary}
-                  <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </span>
-              </button>
-
-              <button
-                type="button"
-                onClick={handleOpenModal}
-                className="group w-full rounded-full border-2 border-black bg-white px-6 py-2.5 text-sm font-semibold text-black shadow-sm transition-all duration-300 hover:bg-black hover:text-white sm:w-auto"
-              >
-                <span className="flex items-center justify-center gap-2">
-                  {b2cHeroCopy.ctaSecondary}
-                  <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </span>
-              </button>
+              <span className="inline-flex items-center whitespace-nowrap rounded-full border border-neutral-400 bg-white px-[clamp(0.875rem,2.5vw,1.25rem)] py-[clamp(0.375rem,1.2vh,0.625rem)] text-[clamp(0.625rem,1.5vw,0.75rem)] font-semibold uppercase tracking-[clamp(0.05em,0.1vw,0.1em)] text-neutral-700 shadow-sm">
+                {b2cHeroCopy.badge}
+              </span>
             </div>
 
-            <p
-              className="mt-10 text-xs leading-relaxed text-neutral-700"
-              style={{
-                opacity: mounted ? 1 : 0,
-                transition: "opacity 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 900ms",
-              }}
-            >
-              {b2cHeroCopy.disclaimer}
-            </p>
+            {/* CTA BLOCK */}
+            <div className="w-full max-w-[clamp(280px,92vw,500px)] mt-[clamp(1rem,3vh,2rem)]">
+              
+              <div 
+                className="flex w-full flex-col gap-[clamp(0.5rem,1vh,1rem)] md:w-auto md:flex-row md:justify-center md:gap-[clamp(1rem,2vw,1.5rem)]"
+                style={{
+                  opacity: mounted ? 1 : 0,
+                  transform: mounted ? "translateY(0)" : "translateY(12px)",
+                  transition: "opacity 800ms cubic-bezier(0.25,0.46,0.45,0.94) 600ms, transform 800ms cubic-bezier(0.25,0.46,0.45,0.94) 600ms",
+                }}
+              >
+                <button
+                  type="button"
+                  onClick={handleScrollToCatalog}
+                  className="group flex w-full items-center justify-center gap-[clamp(0.375rem,1vw,0.5rem)] rounded-full bg-black px-[clamp(1.25rem,4vw,2rem)] py-[clamp(0.625rem,2vh,0.875rem)] text-[clamp(0.875rem,2.2vw,1rem)] font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 md:w-auto"
+                >
+                  {b2cHeroCopy.ctaPrimary}
+                  <svg className="h-[clamp(0.875rem,2.2vw,1rem)] w-[clamp(0.875rem,2.2vw,1rem)] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleOpenModal}
+                  className="group flex w-full items-center justify-center gap-[clamp(0.375rem,1vw,0.5rem)] rounded-full border-2 border-black bg-white px-[clamp(1.25rem,4vw,2rem)] py-[clamp(0.625rem,2vh,0.875rem)] text-[clamp(0.875rem,2.2vw,1rem)] font-semibold text-black shadow-sm transition-all duration-300 hover:bg-black hover:text-white md:w-auto"
+                >
+                  {b2cHeroCopy.ctaSecondary}
+                  <svg className="h-[clamp(0.875rem,2.2vw,1rem)] w-[clamp(0.875rem,2.2vw,1rem)] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </button>
+              </div>
+
+              <p 
+                className="mt-[clamp(1rem,3vh,1.5rem)] text-center text-[clamp(0.625rem,1.8vw,0.75rem)] leading-[clamp(1.4,1.6,1.7)] text-neutral-800"
+                style={{
+                  opacity: mounted ? 1 : 0,
+                  transition: "opacity 800ms cubic-bezier(0.25,0.46,0.45,0.94) 900ms",
+                }}
+              >
+                {b2cHeroCopy.disclaimer}
+              </p>
+            </div>
           </div>
+
         </div>
       </section>
-
-      {/* BADGE */}
-      <div
-        className="absolute left-1/2 top-[calc(35svh+120px)] z-30 -translate-x-1/2 pointer-events-none sm:top-[calc(40svh+160px)]"
-        style={{
-          opacity: mounted ? 1 : 0,
-          transition: "opacity 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 400ms",
-        }}
-      >
-        <span className="inline-flex items-center whitespace-nowrap rounded-full border border-neutral-300 bg-white px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-neutral-700 shadow-sm pointer-events-auto">
-          {b2cHeroCopy.badge}
-        </span>
-      </div>
-
-      {/* VEHICLE */}
-      <div
-        className="absolute left-[55%] top-[35svh] z-20 w-[120%] sm:top-[40svh] sm:w-[70%] md:w-[65%] lg:w-[55%] pointer-events-none"
-        style={{
-          opacity: mounted ? 1 : 0,
-          transform: mounted
-            ? "translateX(-50%) translateY(-50%)"
-            : "translateX(-50%) translateY(-42%)",
-          transition:
-            "opacity 1000ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 150ms, transform 1000ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 150ms",
-        }}
-      >
-        <Image
-          src="/hero/b2c-hero-escalade1.webp"
-          alt="Premium luxury vehicle"
-          width={1200}
-          height={800}
-          priority
-          className="w-full h-auto object-contain"
-          style={{ filter: "drop-shadow(0 35px 70px rgba(0,0,0,0.5))" }}
-        />
-      </div>
 
       <ContactChoiceModal
         isOpen={isModalOpen}

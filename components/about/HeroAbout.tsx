@@ -10,41 +10,59 @@ export default function HeroAbout() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    // Entrance — déclenché après 100ms
-    const t = setTimeout(() => setVisible(true), 100);
-    return () => clearTimeout(t);
-  }, []);
-
-  useEffect(() => {
     if (!sectionRef.current) return;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           setAnimating(entry.isIntersecting);
+          // On déclenche l'apparition (visible) UNIQUEMENT quand la section est vue.
+          // Le !visible permet de ne jamais le remettre à false : l'animation d'entrée ne se joue qu'une fois.
+          if (entry.isIntersecting && !visible) {
+            setVisible(true);
+          }
         });
       },
       { threshold: 0.1 }
     );
     observer.observe(sectionRef.current);
     return () => observer.disconnect();
-  }, []);
+  }, [visible]);
 
+  // Nouveau design pour le mot "rigged" avec le vrai rouge Nevexa
   const renderStatement = () => {
-    const parts = aboutHeroCopy.statement.split(/(rigged)/gi);
+    const parts = aboutHeroCopy.statement.split(/(rigged)/gi); //
     return parts.map((part, i) =>
       part.toLowerCase() === "rigged" ? (
         <span
           key={i}
-          className="relative inline-block"
+          className="relative inline-block px-2 transition-all duration-1000 ease-out"
           style={{
-            background: visible ? "rgba(90,15,20,0.45)" : "transparent",
-            padding: visible ? "0 8px" : "0",
-            borderRadius: "6px",
-            boxShadow: visible ? "0 2px 16px rgba(90,15,20,0.4)" : "none",
-            transition: "background 700ms ease, padding 700ms ease, box-shadow 700ms ease",
+            color: visible ? "#5A0F14" : "transparent",
+            // Double glow pour faire brûler le rouge profond dans l'obscurité
+            textShadow: visible ? "0 0 40px rgba(90,15,20,0.9), 0 0 15px rgba(90,15,20,0.6)" : "none",
+            transform: visible ? "scale(1)" : "scale(0.95)",
+            transitionDelay: "600ms", // Apparaît juste après le reste de la phrase
           }}
         >
+          {/* Crochet gauche */}
+          <span 
+            className="absolute left-0 top-0 bottom-0 w-[2px] bg-[#5A0F14] transition-all duration-1000 delay-[800ms]"
+            style={{ 
+              opacity: visible ? 1 : 0, 
+              height: visible ? "100%" : "0%",
+              boxShadow: "0 0 10px rgba(90,15,20,0.8)" 
+            }}
+          />
           {part}
+          {/* Crochet droit */}
+          <span 
+            className="absolute right-0 top-0 bottom-0 w-[2px] bg-[#5A0F14] transition-all duration-1000 delay-[800ms]"
+            style={{ 
+              opacity: visible ? 1 : 0, 
+              height: visible ? "100%" : "0%",
+              boxShadow: "0 0 10px rgba(90,15,20,0.8)" 
+            }}
+          />
         </span>
       ) : (
         <span key={i}>{part}</span>
@@ -61,16 +79,16 @@ export default function HeroAbout() {
   return (
     <section
       ref={sectionRef}
-      className="relative flex min-h-[90svh] w-full items-center justify-center overflow-hidden bg-black px-6 py-20 sm:min-h-[90svh]"
+      className="relative flex min-h-[90svh] w-full items-start justify-center overflow-hidden bg-black px-6 pt-40 pb-20 sm:min-h-[90svh] sm:pt-50"
     >
       {/* ── NAVBAR ── */}
       <NavBar />
 
-      {/* Background image — slow zoom forwards, s'arrête seul */}
+      {/* Background image — Changé pour about-bg.webp */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-center mix-blend-luminosity opacity-40"
         style={{
-          backgroundImage: "url('/hero/partnerhero.webp')",
+          backgroundImage: "url('/hero/about-bg.webp')", // Remplace l'image de la CN Tower par un port sombre/conteneurs
           animationName: "nevexa-slow-zoom",
           animationDuration: "20s",
           animationTimingFunction: "ease-out",
@@ -79,12 +97,12 @@ export default function HeroAbout() {
         }}
       />
 
-      {/* Overlay */}
+      {/* Overlay Sombre et Cinématographique */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(160deg, rgba(0,0,0,0.94) 0%, rgba(0,0,0,0.90) 40%, rgba(90,15,20,0.08) 60%, rgba(0,0,0,0.96) 100%)",
+            "linear-gradient(160deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.85) 40%, rgba(90,15,20,0.1) 60%, rgba(0,0,0,0.98) 100%)",
         }}
       />
 
@@ -98,7 +116,7 @@ export default function HeroAbout() {
         }}
       />
 
-      {/* Scan lines — pausées via animationPlayState */}
+      {/* Scan lines — pausées via animationPlayState pour les performances */}
       <div className="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
         {scanLines.map((line, i) => (
           <div
@@ -122,17 +140,17 @@ export default function HeroAbout() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 mx-auto w-full max-w-4xl text-center">
+      <div className="relative z-10 mx-auto w-full max-w-4xl text-center pb-12">
 
         {/* Main statement */}
         <h1
-          className="mb-8 text-[34px] font-black leading-[1.15] tracking-[-0.02em] text-white sm:text-[56px]"
+          className="mb-10 text-[36px] font-black leading-[1.2] tracking-tight text-white sm:text-[64px]"
           style={{
             opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(24px)",
-            transition: "opacity 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",
-            transitionDelay: "200ms",
-            textShadow: "0 2px 40px rgba(0,0,0,0.6)",
+            transform: visible ? "translateY(0)" : "translateY(30px)",
+            transition: "opacity 1000ms cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1000ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+            transitionDelay: "100ms",
+            textShadow: "0 4px 40px rgba(0,0,0,0.8)",
           }}
         >
           {renderStatement()}
@@ -140,12 +158,12 @@ export default function HeroAbout() {
 
         {/* Subline */}
         <p
-          className="text-[20px] font-medium tracking-[0.01em] text-white/80 sm:text-[22px]"
+          className="text-[24px] font-medium tracking-wide text-neutral-300 sm:text-[30px]"
           style={{
             opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(16px)",
-            transition: "opacity 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",
-            transitionDelay: "500ms",
+            transform: visible ? "translateY(0)" : "translateY(20px)",
+            transition: "opacity 1000ms cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1000ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+            transitionDelay: "400ms",
           }}
         >
           {aboutHeroCopy.subline}
@@ -155,19 +173,19 @@ export default function HeroAbout() {
 
       {/* Scroll indicator — pausé quand hors viewport */}
       <div
-        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2"
+        className="absolute bottom-10 left-1/2 z-10 -translate-x-1/2"
         style={{
-          opacity: visible ? 1 : 0,
-          transition: "opacity 700ms ease 900ms",
+          opacity: visible ? 0.6 : 0,
+          transition: "opacity 1000ms ease 1000ms",
         }}
       >
-        <div className="relative h-12 w-px overflow-hidden rounded-sm bg-white/[0.08]">
+        <div className="relative h-14 w-[1px] overflow-hidden bg-white/10">
           <div
             className="absolute left-0 top-0 h-full w-full"
             style={{
-              background: "linear-gradient(to bottom, transparent, rgba(255,255,255,0.4), transparent)",
+              background: "linear-gradient(to bottom, transparent, rgba(255,255,255,0.8), transparent)",
               animationName: "nevexa-scroll-line",
-              animationDuration: "2.5s",
+              animationDuration: "2s",
               animationTimingFunction: "ease-in-out",
               animationIterationCount: "infinite",
               animationPlayState: animating ? "running" : "paused",
@@ -176,10 +194,6 @@ export default function HeroAbout() {
         </div>
       </div>
 
-      {/*
-        RÈGLE KEYFRAMES :
-        Toutes appelées via animationName (style inline) → keyframes ici dans le composant ✅
-      */}
       <style jsx>{`
         @keyframes nevexa-slow-zoom {
           from { transform: scale(1.05); }
@@ -194,7 +208,6 @@ export default function HeroAbout() {
           to   { top: 100%; }
         }
       `}</style>
-
     </section>
   );
 }

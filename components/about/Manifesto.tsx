@@ -126,7 +126,7 @@ export default function Manifesto() {
 
               <div className="space-y-4">
                 {pillar.content.map((paragraph, i) => (
-                  <p key={i} className="text-[14px] leading-[1.8] text-white/65">
+                  <p key={i} className="text-[14px] leading-[1.8] text-white/85">
                     {paragraph}
                   </p>
                 ))}
@@ -181,7 +181,7 @@ export default function Manifesto() {
           >
             <div className="absolute left-1/3 top-0 hidden h-full w-px bg-white/[0.06] sm:block" />
             <div className="absolute right-1/3 top-0 hidden h-full w-px bg-white/[0.06] sm:block" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/25">
+            <span className="text-[13px] font-bold uppercase tracking-[0.18em] text-white/85">
               Foundation
             </span>
           </div>

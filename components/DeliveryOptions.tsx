@@ -78,7 +78,7 @@ export default function DeliveryOptions() {
 
         {/* Underline */}
         <div className="mb-6 flex justify-center">
-          <div className="h-px w-20 bg-[#5A0F14]" />
+          <div className="mx-auto h-px w-24 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent shadow-[0_0_15px_rgba(138,31,36,0.8)]" />
         </div>
 
         {/* Intro */}
