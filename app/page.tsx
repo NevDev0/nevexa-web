@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Nevexa — Premium vehicles, from Canada to Africa",
     description:
-      "Source your next vehicle directly from Canadian dealerships. Nevexa delivers certified 2021-2026 vehicles to West Africa with full transparency.",
+      "Source your next vehicle directly from Canadian dealerships. Nevexa delivers certified 2021-2026 vehicles to Africa with full transparency.",
     url: "https://nevexacars.com",
   },
   twitter: {

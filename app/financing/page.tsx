@@ -11,17 +11,17 @@ import dynamic from "next/dynamic";
 export const metadata: Metadata = {
   title: "Financing",
   description:
-    "Vehicle financing for West Africa — launching Q1 2027 in Nigeria. Join the waitlist and be first to access Nevexa's banking partnership program.",
+    "Vehicle financing for Africa — launching Q1 2027 in Nigeria. Join the waitlist and be first to access Nevexa's banking partnership program.",
   openGraph: {
     title: "Financing | Nevexa",
     description:
-      "Vehicle financing for West Africa — launching Q1 2027 in Nigeria. Join the waitlist and be first to access Nevexa's banking partnership program.",
+      "Vehicle financing for Africa — launching Q1 2027 in Nigeria. Join the waitlist and be first to access Nevexa's banking partnership program.",
     url: "https://nevexacars.com/financing",
   },
   twitter: {
     title: "Financing | Nevexa",
     description:
-      "Vehicle financing for West Africa — launching Q1 2027 in Nigeria. Join the waitlist and be first to access Nevexa's banking partnership program.",
+      "Vehicle financing for Africa — launching Q1 2027 in Nigeria. Join the waitlist and be first to access Nevexa's banking partnership program.",
   },
 };
 

@@ -26,6 +26,8 @@ interface Model {
   exteriorCount: number;
   interiorCount: number;
   description: string;
+  imageExtension?: string;
+  exceptions?: Record<string, string>;
 }
 
 export default function BrandModelGallery() {
@@ -275,7 +277,6 @@ function ModelCard({ model, activeBrand, visible, index, onExplore }: ModelCardP
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
-    // Amplitude augmentée 7 → 10px pour un effet de profondeur plus perceptible
     const x = ((e.clientX - rect.left) / rect.width - 0.5) * 10;
     const y = ((e.clientY - rect.top) / rect.height - 0.5) * 10;
     setMousePos({ x, y });
@@ -309,7 +310,8 @@ function ModelCard({ model, activeBrand, visible, index, onExplore }: ModelCardP
       <div className="relative mb-4 aspect-[16/9] w-full overflow-hidden rounded-lg border border-white/10 bg-black transition-all duration-300 group-hover:border-white/20 group-hover:shadow-xl group-hover:shadow-black/60">
         {hasPhotos(model.exteriorCount, model.interiorCount) ? (
           <Image
-            src={getModelThumbnail(activeBrand, model.id)}
+            // ICI: On passe l'extension par défaut ET les exceptions
+            src={getModelThumbnail(activeBrand, model.id, model.imageExtension || "webp", model.exceptions || {})}
             alt={model.name}
             fill
             sizes="(max-width: 1024px) 90vw, 33vw"
@@ -372,7 +374,16 @@ interface GalleryModalProps {
 
 function GalleryModal({ brand, model, onClose, onRequest }: GalleryModalProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const gallery = getModelGallery(brand, model.id, model.exteriorCount, model.interiorCount);
+  
+  // ICI: On passe l'extension par défaut ET les exceptions à la fonction getModelGallery
+  const gallery = getModelGallery(
+    brand, 
+    model.id, 
+    model.exteriorCount, 
+    model.interiorCount, 
+    model.imageExtension || "webp", 
+    model.exceptions || {}
+  );
 
   const handlePrev = () => setCurrentIndex(p => p === 0 ? gallery.length - 1 : p - 1);
   const handleNext = () => setCurrentIndex(p => p === gallery.length - 1 ? 0 : p + 1);

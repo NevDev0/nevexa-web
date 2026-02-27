@@ -80,7 +80,7 @@ export default function NavBar() {
   return (
     <>
       {/* ── NAVBAR ── */}
-      <div className="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-black/90 to-transparent">
+      <div className="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-black/75 to-transparent">
         {/* Breathing Room: sm:h-[88px] au lieu de 72px pour aérer le top */}
         <div className="relative flex h-20 items-center justify-between px-6 sm:h-[88px] sm:px-10">
 
@@ -156,14 +156,13 @@ export default function NavBar() {
       </div>
 
       {/* OVERLAY */}
+       {drawerOpen && (
       <div
-        className={[
-          "fixed inset-0 z-40 bg-black/70 backdrop-blur-sm transition-opacity duration-300",
-          drawerOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
-        ].join(" ")}
-        aria-hidden="true"
-        onClick={() => setDrawerOpen(false)}
-      />
+       className="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm transition-opacity duration-300"
+       aria-hidden="true"
+     onClick={() => setDrawerOpen(false)}
+    />
+      )}
 
       {/* DRAWER */}
       <div

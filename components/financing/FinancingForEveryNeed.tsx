@@ -38,7 +38,7 @@ export default function FinancingForEveryNeed() {
         <BackgroundParticles animating={animating} />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-4xl">
+      <div className="relative z-10 mx-auto max-w-7xl">
         {/* Header */}
         <div
           className="mb-8 text-center"
@@ -99,8 +99,8 @@ export default function FinancingForEveryNeed() {
           </div>
         </div>
 
-        {/* Desktop: 4-column grid */}
-        <div className="hidden grid-cols-4 gap-4 sm:grid">
+        {/* Desktop: 4-column grid (AJUSTÉ ICI AVEC items-stretch) */}
+        <div className="hidden sm:grid sm:grid-cols-4 sm:gap-6 lg:gap-7 items-stretch">
           {financingProfilesCopy.profiles.map((profile, index) => (
             <ProfileCard key={profile.id} profile={profile} index={index} animating={animating} />
           ))}
@@ -133,8 +133,8 @@ function ProfileCard({
   animating: boolean;
 }) {
   return (
-    <div className="financing-card-item">
-      <div className="profile-card group relative flex flex-col cursor-pointer overflow-hidden rounded-[20px] border border-white/10 bg-gradient-to-br from-[#5A0F14]/12 via-[#141419]/80 to-[#0A0A0F]/90 p-10 sm:p-8 backdrop-blur-md hover:border-[#5A0F14]/50 hover:shadow-[0_20px_60px_rgba(90,15,20,0.4),0_0_0_1px_rgba(90,15,20,0.2),inset_0_0_40px_rgba(90,15,20,0.1)]"
+    <div className="financing-card-item h-full">
+      <div className="profile-card group relative flex h-full flex-col cursor-pointer overflow-hidden rounded-[20px] border border-white/10 bg-gradient-to-br from-[#5A0F14]/12 via-[#141419]/80 to-[#0A0A0F]/90 p-10 sm:p-8 backdrop-blur-md hover:border-[#5A0F14]/50 hover:shadow-[0_20px_60px_rgba(90,15,20,0.4),0_0_0_1px_rgba(90,15,20,0.2),inset_0_0_40px_rgba(90,15,20,0.1)]"
         style={{
           transition: "border-color 500ms ease, box-shadow 500ms ease, transform 500ms cubic-bezier(0.4,0,0.2,1)",
         }}
@@ -148,7 +148,7 @@ function ProfileCard({
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#5A0F14]/30 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
         {/* Content */}
-        <div className="relative z-10 flex flex-col">
+        <div className="relative z-10 flex h-full flex-col">
           {/* Icon */}
           <div className="relative mx-auto mb-5 flex h-20 w-20 items-center justify-center">
             <div
@@ -180,8 +180,8 @@ function ProfileCard({
             {profile.targets}
           </p>
 
-          {/* Divider */}
-          <div className="mx-auto mb-4 h-0.5 w-12 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent transition-all duration-300 group-hover:w-20" />
+          {/* Divider avec le mt-auto pour tout aligner en bas */}
+          <div className="mt-auto mx-auto mb-4 h-0.5 w-12 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent transition-all duration-300 group-hover:w-20" />
 
           {/* Example */}
           <p className="mb-4 text-center text-sm text-white/65">

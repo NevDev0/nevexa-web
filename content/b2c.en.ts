@@ -95,6 +95,10 @@ export const brandModelGallery = {
         exteriorCount: 4,
         interiorCount: 5,
         description: "Electric luxury meets M performance",
+        exceptions: {
+          "exte-2": "jpg",
+          "inte-1": "jpg"
+        }
       },
       {
         id: "x6-m",
@@ -125,6 +129,7 @@ export const brandModelGallery = {
         exteriorCount: 4,
         interiorCount: 3,
         description: "Electric executive sedan redefined",
+        imageExtension: "jpg",
       },
     ],
 
@@ -288,25 +293,37 @@ export function getModelGallery(
   brandId: string,
   modelId: string,
   exteriorCount: number,
-  interiorCount: number
+  interiorCount: number,
+  defaultExt: string = "webp",
+  exceptions: Record<string, string> = {} // Le dictionnaire des exceptions
 ): string[] {
   const gallery: string[] = [];
   
   // Add exterior photos
   for (let i = 1; i <= exteriorCount; i++) {
-    gallery.push(`/catalog/${brandId}/${modelId}/exte-${i}.webp`);
+    const key = `exte-${i}`;
+    const ext = exceptions[key] || defaultExt; // Si exception existe, prend 'jpg', sinon 'webp'
+    gallery.push(`/catalog/${brandId}/${modelId}/${key}.${ext}`);
   }
   
   // Add interior photos
   for (let i = 1; i <= interiorCount; i++) {
-    gallery.push(`/catalog/${brandId}/${modelId}/inte-${i}.webp`);
+    const key = `inte-${i}`;
+    const ext = exceptions[key] || defaultExt;
+    gallery.push(`/catalog/${brandId}/${modelId}/${key}.${ext}`);
   }
   
   return gallery;
 }
 
-export function getModelThumbnail(brandId: string, modelId: string): string {
-  return `/catalog/${brandId}/${modelId}/exte-1.webp`;
+export function getModelThumbnail(
+  brandId: string, 
+  modelId: string, 
+  defaultExt: string = "webp",
+  exceptions: Record<string, string> = {}
+): string {
+  const ext = exceptions["exte-1"] || defaultExt;
+  return `/catalog/${brandId}/${modelId}/exte-1.${ext}`;
 }
 
 export function hasPhotos(exteriorCount: number, interiorCount: number): boolean {

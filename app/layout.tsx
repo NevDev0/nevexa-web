@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://nevexacars.com'),
   title: "Nevexa — Premium vehicles, from Canada to Africa",
   description:
-    "Nevexa sources 2021-2026 premium vehicles from official Canadian dealerships for West African markets. Sourcing, inspection, delivery.",
+    "Nevexa sources 2021-2026 premium vehicles from official Canadian dealerships for African markets. Sourcing, inspection, delivery.",
   keywords: [
     "Nevexa", 
     "Premium Vehicles", 
