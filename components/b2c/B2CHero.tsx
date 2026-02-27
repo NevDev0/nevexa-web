@@ -35,27 +35,25 @@ export default function B2CHero() {
       {/* ══════════════════════════════════════════════════════════════ */}
       <section className="relative w-full overflow-hidden min-h-[85svh]">
         
-        {/* ── BACKGROUND LAYERS (Méthode Robuste "Backdrop Blur") ── */}
+        {/* ── BACKGROUND LAYERS ── */}
         <div className="absolute inset-0 h-[75%]">
-          {/* 1. L'image nette (sans blur CSS direct) */}
           <Image
             src="/hero/b2c-hero2-background.webp"
             alt="Premium automotive background"
             fill
             priority
-            // J'ai retiré blur-[1px] et scale-105 ici. L'image est clean.
             className="object-cover object-center"
           />
-
-          {/* 2. LE CORRECTIF : Calque de flou par-dessus (Backdrop filter) */}
-          {/* Ce calque floute ce qui est DERRIÈRE lui. Zéro artefact sur les bords. */}
           <div className="absolute inset-0 backdrop-blur-[1px]" />
-
-          {/* 3. Le dégradé sombre */}
+          
+          {/* Calque 1 : Dégradé vertical standard */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-transparent" />
+          
+          {/* Calque 2 : L'ombre du texte déplacée ici (elle couvrira tout l'écran, plus de ligne !) */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_100%_100%_at_50%_40%,rgba(0,0,0,0.4)_0%,transparent_70%)]" />
         </div>
 
-        {/* Le fond du bas qui remonte (inchangé) */}
+        {/* Le fond du bas (inchangé) */}
         <div className="absolute inset-x-0 bottom-0 h-[60%] bg-gradient-to-b from-neutral-100/0 via-neutral-100 to-white" />
 
         {/* ── CONTENT STACK (Natural Flow) ── */}
@@ -63,28 +61,26 @@ export default function B2CHero() {
         <div className="relative z-10 flex w-full flex-col items-center pb-[clamp(1rem,2vh,2rem)] pt-[clamp(6rem,14vh,8rem)]">
           
           {/* ══════════════════════════════════════════════════════════ */}
-          {/* HEADING - Fluid Typography (Les marges px- sont ici maintenant) */}
+          {/* HEADING - Fluid Typography */}
           {/* ══════════════════════════════════════════════════════════ */}
-          <div className="relative flex w-full justify-center px-[clamp(1.5rem,5vw,3rem)]">
-            <div className="absolute inset-0 -z-10 -m-[clamp(1.5rem,3vw,2rem)] bg-[radial-gradient(ellipse_80%_100%_at_50%_40%,rgba(0,0,0,0.65)_0%,transparent_70%)]" />
-            
-            <h1 className="text-center text-[clamp(1.875rem,5vw,3.5rem)] font-bold leading-[1.1] tracking-[clamp(-0.02em,-0.015vw,-0.01em)] text-white drop-shadow-2xl">
-              {(["Your", "vehicle.", "No", "surprises."] as const).map((word, idx) => (
-                <span
-                  key={word}
-                  className="inline-block"
-                  style={{
-                    opacity: mounted ? 1 : 0,
-                    transform: mounted ? "translateY(0)" : "translateY(20px)",
-                    transition: `opacity 600ms cubic-bezier(0.25,0.46,0.45,0.94) ${80 + idx * 150}ms, transform 600ms cubic-bezier(0.25,0.46,0.45,0.94) ${80 + idx * 150}ms`,
-                    marginRight: word === "vehicle." ? "0.5ch" : idx < 3 ? "0.5ch" : "0",
-                  }}
-                >
-                  {word}
-                </span>
-              ))}
-            </h1>
-          </div>
+         <div className="relative flex w-full justify-center px-[clamp(1.5rem,5vw,3rem)]">
+        <h1 className="text-center text-[clamp(1.875rem,5vw,3.5rem)] font-bold leading-[1.1] tracking-[clamp(-0.02em,-0.015vw,-0.01em)] text-white drop-shadow-2xl">
+         {(["Your", "vehicle.", "No", "surprises."] as const).map((word, idx) => (
+       <span
+        key={word}
+        className="inline-block"
+        style={{
+          opacity: mounted ? 1 : 0,
+          transform: mounted ? "translateY(0)" : "translateY(20px)",
+          transition: `opacity 600ms cubic-bezier(0.25,0.46,0.45,0.94) ${80 + idx * 150}ms, transform 600ms cubic-bezier(0.25,0.46,0.45,0.94) ${80 + idx * 150}ms`,
+          marginRight: word === "vehicle." ? "0.5ch" : idx < 3 ? "0.5ch" : "0",
+        }}
+      >
+        {word}
+      </span>
+    ))}
+  </h1>
+</div>
 
           {/* ══════════════════════════════════════════════════════════ */}
           {/* VEHICLE IMAGE - Centrage absolu et taille massive sur mobile */}
