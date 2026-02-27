@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import Hero from "../components/Hero";
-import WhyImport from "../components/WhyImport";
-import ValueProposition from "../components/ValueProposition";
-import Brands from "../components/Brands";
-import ChoosePath from "../components/ChoosePath";
-import DeliveryOptions from "../components/DeliveryOptions";
-import RealResults from "../components/RealResults";
-import FinalCTA from "../components/FinalCTA";
-import Footer from "../components/Footer";
+import Hero from "@/components/Hero";
+import WhyImport from "@/components/WhyImport";
+import ValueProposition from "@/components/ValueProposition";
+import Brands from "@/components/Brands";
+import ChoosePath from "@/components/ChoosePath";
+import DeliveryOptions from "@/components/DeliveryOptions";
+import RealResults from "@/components/RealResults";
+import FinalCTA from "@/components/FinalCTA";
+import Footer from "@/components/Footer";
 
 const SHOW_REAL_RESULTS = false;
 
