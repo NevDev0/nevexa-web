@@ -36,7 +36,7 @@ export default function B2CHero() {
       <section className="relative w-full overflow-hidden min-h-[85svh]">
         
         {/* ── BACKGROUND LAYERS (seuls éléments en absolute) ── */}
-        <div className="absolute inset-0 h-[45%]">
+        <div className="absolute inset-0 h-[75%]">
           <Image
             src="/hero/b2c-hero2-background.webp"
             alt="Premium automotive background"
@@ -47,7 +47,8 @@ export default function B2CHero() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-transparent" />
         </div>
 
-        <div className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-b from-neutral-100 to-white" />
+        {/* Le fond du bas qui remonte par-dessus l'image avec un fade transparent pour effacer la ligne */}
+        <div className="absolute inset-x-0 bottom-0 h-[60%] bg-gradient-to-b from-neutral-100/0 via-neutral-100 to-white" />
 
         {/* ── CONTENT STACK (Natural Flow) ── */}
         {/* ATTENTION: J'ai enlevé le px- ici pour que la voiture puisse se centrer à 100% sans être bloquée par les marges */}
