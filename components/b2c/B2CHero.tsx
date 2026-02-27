@@ -42,7 +42,8 @@ export default function B2CHero() {
             alt="Premium automotive background"
             fill
             priority
-            className="object-cover object-center blur-[1px]"
+            // 💡 AJOUT ICI : scale-105 pousse les artefacts de blur hors de l'écran
+            className="object-cover object-center blur-[1px] scale-105"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-transparent" />
         </div>
