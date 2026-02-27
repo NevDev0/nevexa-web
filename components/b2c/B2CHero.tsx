@@ -100,7 +100,7 @@ export default function B2CHero() {
               width={1200}
               height={800}
               priority
-              className="h-auto w-full object-contain drop-shadow-[0_clamp(20px,5vw,70px)_clamp(40px,8vw,100px)_rgba(0,0,0,0.5)]"
+              className="h-auto w-full object-contain"
             />
           </div>
 
