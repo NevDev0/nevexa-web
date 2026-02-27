@@ -35,20 +35,27 @@ export default function B2CHero() {
       {/* ══════════════════════════════════════════════════════════════ */}
       <section className="relative w-full overflow-hidden min-h-[85svh]">
         
-        {/* ── BACKGROUND LAYERS (seuls éléments en absolute) ── */}
+        {/* ── BACKGROUND LAYERS (Méthode Robuste "Backdrop Blur") ── */}
         <div className="absolute inset-0 h-[75%]">
+          {/* 1. L'image nette (sans blur CSS direct) */}
           <Image
             src="/hero/b2c-hero2-background.webp"
             alt="Premium automotive background"
             fill
             priority
-            // 💡 AJOUT ICI : scale-105 pousse les artefacts de blur hors de l'écran
-            className="object-cover object-center blur-[1px] scale-105"
+            // J'ai retiré blur-[1px] et scale-105 ici. L'image est clean.
+            className="object-cover object-center"
           />
+
+          {/* 2. LE CORRECTIF : Calque de flou par-dessus (Backdrop filter) */}
+          {/* Ce calque floute ce qui est DERRIÈRE lui. Zéro artefact sur les bords. */}
+          <div className="absolute inset-0 backdrop-blur-[1px]" />
+
+          {/* 3. Le dégradé sombre */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-transparent" />
         </div>
 
-        {/* Le fond du bas qui remonte par-dessus l'image avec un fade transparent pour effacer la ligne */}
+        {/* Le fond du bas qui remonte (inchangé) */}
         <div className="absolute inset-x-0 bottom-0 h-[60%] bg-gradient-to-b from-neutral-100/0 via-neutral-100 to-white" />
 
         {/* ── CONTENT STACK (Natural Flow) ── */}
