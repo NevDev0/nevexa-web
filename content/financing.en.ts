@@ -186,7 +186,7 @@ export const geographicAvailabilityCopy = {
       x: { mobile: "42%", desktop: "42%" },
       y: { mobile: "43%", desktop: "41%" },
       year: "2027",
-      labelPosition: "top-right"
+      labelClass: "left-full bottom-full -mb-1 ml-2 sm:mb-1"
     },
     { 
       id: "senegal", 
@@ -194,7 +194,7 @@ export const geographicAvailabilityCopy = {
       x: { mobile: "15%", desktop: "18%" },
       y: { mobile: "35%", desktop: "33%" },
       year: "2028",
-      labelPosition: "top-left"
+      labelClass: "right-full bottom-full -mr-10 mb-4 sm:mr-4"
     },
     { 
       id: "ghana", 
@@ -202,7 +202,7 @@ export const geographicAvailabilityCopy = {
       x: { mobile: "31%", desktop: "32%" },
       y: { mobile: "42%", desktop: "41%" },
       year: "2028",
-      labelPosition: "top"
+      labelClass: "bottom-full left-1/2 mb-4 -translate-x-1/2"
     },
     { 
       id: "ivory-coast", 
@@ -210,7 +210,7 @@ export const geographicAvailabilityCopy = {
       x: { mobile: "25%", desktop: "27%" },
       y: { mobile: "45%", desktop: "45%" },
       year: "2028",
-      labelPosition: "bottom"
+      labelClass: "top-full mt-2 -ml-10"
     },
     { 
       id: "cameroon", 
@@ -218,7 +218,7 @@ export const geographicAvailabilityCopy = {
       x: { mobile: "48%", desktop: "46%" },
       y: { mobile: "48%", desktop: "48%" },
       year: "2028",
-      labelPosition: "bottom-right"
+      labelClass: "left-full top-full -mb-2 ml-1 sm:mt-1"
     },
   ],
   

@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 const SOCIALS = [
   {
     id: "x",
     name: "X",
-    url: "https://x.com/nevexacars", // À mettre à jour
+    url: "https://x.com/nevexacars",
     icon: (
       <svg viewBox="0 0 24 24" className="h-6 w-6" fill="currentColor">
         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
@@ -37,23 +37,39 @@ const SOCIALS = [
 ];
 
 export default function Footer() {
+  const [visible, setVisible] = useState(false);
+  const footerRef = useRef<HTMLElement>(null);
   const year = new Date().getFullYear();
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    if (footerRef.current) observer.observe(footerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <footer className="w-full bg-[#0E0F11] px-6 py-12 text-white">
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
+    <footer ref={footerRef} className="w-full bg-[#0E0F11] px-6 py-12 text-white">
+      <div
         className="mx-auto flex w-full max-w-7xl flex-col items-center"
+        style={{
+          opacity: visible ? 1 : 0,
+          transform: visible ? "translateY(0)" : "translateY(20px)",
+          transition: "opacity 800ms ease-out, transform 800ms ease-out",
+        }}
       >
-        {/* Ligne de séparation élégante */}
         <div className="mb-12 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
         <div className="flex w-full flex-col items-center justify-between gap-10 md:flex-row">
-          
-          {/* LOGO & COPYRIGHT */}
+
+          {/* Logo & copyright */}
           <div className="flex flex-col items-center gap-4 md:items-start">
             <img
               src="/logo/WORDMARK_HORIZONTAL_1_WHITE_copy.svg"
@@ -61,12 +77,12 @@ export default function Footer() {
               className="h-5 w-auto opacity-90 transition-opacity hover:opacity-100"
               draggable={false}
             />
-            <p className="text-[11px] font-medium tracking-widest text-neutral-500 uppercase">
+            <p className="text-[11px] font-medium uppercase tracking-widest text-neutral-500">
               © {year} Nevexa Automotive Inc.
             </p>
           </div>
 
-          {/* SOCIALS */}
+          {/* Socials */}
           <div className="flex items-center gap-10">
             {SOCIALS.map((social) => (
               <a
@@ -82,10 +98,10 @@ export default function Footer() {
             ))}
           </div>
 
-          {/* LEGAL NAVIGATION */}
+          {/* Legal */}
           <nav className="flex items-center gap-6">
-            <Link 
-              href="/legal-notice" 
+            <Link
+              href="/legal-notice"
               className="text-[12px] font-medium tracking-wide text-neutral-500 transition-colors hover:text-white"
             >
               Legal Notice
@@ -93,9 +109,8 @@ export default function Footer() {
           </nav>
         </div>
 
-        {/* Petit détail final de luxe : une ligne de lueur rouge tout en bas */}
         <div className="mt-12 h-[1px] w-1/4 bg-gradient-to-r from-transparent via-[#5A0F14]/40 to-transparent" />
-      </motion.div>
+      </div>
     </footer>
   );
 }

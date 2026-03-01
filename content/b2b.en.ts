@@ -157,9 +157,12 @@ export const whatOthersWontTellYou = {
   ],
 };
 
-// Section 4 — FAQ
+// Section 4 — FAQ //
+
 export const faqB2B = {
   title: "Common Questions",
+  description:
+    "Everything you need to know about our sourcing, pricing, and delivery process for corporate clients.",
   questions: [
     {
       id: 1,

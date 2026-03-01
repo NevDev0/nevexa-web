@@ -25,8 +25,25 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* ══════════════════════════════════════
+   WHY IMPORT — Animations  (homepage)
+   ══════════════════════════════════════ */
+
+   .wi-fade-up {
+    opacity: 0;
+    transform: translateY(40px);
+    filter: blur(10px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out, filter 0.7s ease-out;
+  }
+  
+  .wi-fade-up.wi-visible {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+
 /* ========================================
-   BRANDS MARQUEE - ANIMATION PRINCIPALE
+   BRANDS MARQUEE ( Homepage) - ANIMATION PRINCIPALE 
    ======================================== */
 
 @keyframes nevexa-marquee {
@@ -100,7 +117,7 @@ body {
 }
 
 /* ========================================
-   SCROLLBAR HIDE
+   SCROLLBAR HIDE b2c inspirational catalog
    ======================================== */
    .scrollbar-hide::-webkit-scrollbar {
     display: none;
@@ -112,7 +129,7 @@ body {
  
 
   /* ========================================
-     CAROUSEL SNAP SCROLL
+     CAROUSEL SNAP SCROLL b2c  inspirational catalog
      ======================================== */
   .carousel-container {
     display: flex;
@@ -145,6 +162,29 @@ body {
     }
   }
   
+/* ══════════════════════════════════════
+   IMPORT ADVANTAGE — Animations
+   ══════════════════════════════════════ */
+
+   @keyframes ia-dot-pulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50%       { opacity: 1;   transform: scale(1.2); }
+  }
+  
+  .ia-dot {
+    animation: ia-dot-pulse 2s ease-in-out infinite;
+  }
+  
+  @keyframes ia-blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.5; }
+  }
+  
+  .ia-pulse {
+    animation: ia-blink 1.5s ease-in-out infinite;
+  }
+
+
   /* ========================================
    B2B carousel
    ======================================== */
@@ -205,14 +245,18 @@ body {
     }
   }
 
- /* ========================================
-    HeroFinancingicon
-   ======================================== */
-  @keyframes hf-fade-up {
-    from { opacity: 0; transform: translateY(22px); }
-    to   { opacity: 1; transform: translateY(0); }
-    
-  }
+ /* ══════════════════════════════════════
+   HERO FINANCING — Scroll indicator
+   ══════════════════════════════════════ */
+
+@keyframes hf-scan {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+
+.hf-scan {
+  animation: hf-scan 2s ease-in-out infinite;
+}
 
 /* ══════════════════════════════════════
    TRIPARTITE MODEL — Animations
@@ -221,8 +265,9 @@ body {
 /* Fade Up — Cards & Header */
 .tm-fade-up {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.55s ease-out, transform 0.55s ease-out;
+  transform: translateY(32px);
+  transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .tm-fade-up.tm-visible {
   opacity: 1;
@@ -232,7 +277,7 @@ body {
 /* Underline Reveal */
 .tm-underline {
   width: 0;
-  transition: width 0.6s ease-out;
+  transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .tm-underline.tm-visible {
   width: 80px;
@@ -243,7 +288,8 @@ body {
   opacity: 0;
   transform: scaleX(0);
   transform-origin: left center;
-  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+  transition: opacity 0.5s ease-out,
+              transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .tm-scale-x.tm-visible {
   opacity: 1;
@@ -254,7 +300,7 @@ body {
 .tm-scale-y {
   opacity: 0;
   height: 0;
-  transition: opacity 0.4s ease-out, height 0.4s ease-out;
+  transition: opacity 0.5s ease-out, height 0.5s ease-out;
 }
 .tm-scale-y.tm-visible {
   opacity: 1;
@@ -293,10 +339,42 @@ body {
   will-change: opacity, transform;
 }
   
- /* ========================================
-   NEVEXA ROTATE GLOW — FinancingForEveryNeed icon ring
-   Appelée via className .icon-glow
-   ======================================== */
+ /* ══════════════════════════════════════
+   FINANCING FOR EVERY NEED — Animations
+   ══════════════════════════════════════ */
+
+@keyframes ffen-float {
+  0%, 100% { transform: translateY(0);    opacity: 0.3; }
+  50%       { transform: translateY(-30px); opacity: 0.7; }
+}
+
+.ffen-particle {
+  animation: ffen-float 5s ease-in-out infinite;
+}
+
+@keyframes ffen-card-float {
+  0%   { transform: translateY(0);    opacity: 0; }
+  50%  { opacity: 1; }
+  100% { transform: translateY(-40px); opacity: 0; }
+}
+
+.ffen-card-particle {
+  animation: ffen-card-float 3s ease-out infinite;
+}
+
+@keyframes ffen-swipe {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(300%); }
+}
+
+.ffen-swipe-indicator {
+  animation: ffen-swipe 2s linear infinite;
+}
+
+/* ══════════════════════════════════════
+   FINANCING ICON RING — Rotate
+   ══════════════════════════════════════ */
+
 @keyframes rotateGlow {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
@@ -306,40 +384,39 @@ body {
   animation: rotateGlow 3s linear infinite;
 }
 
+/* ══════════════════════════════════════
+   GEOGRAPHIC AVAILABILITY — Animations
+   ══════════════════════════════════════ */
 
+/* Nigeria ring pulse */
+@keyframes nigeriaPulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50%       { opacity: 0.8; transform: scale(1.15); }
+}
 
-/* ========================================
-   NEVEXA CTA PULSE — GeographicAvailability
-   Appelée via className .cta-button
-   ======================================== */
-   @keyframes pulseSubtle {
-    0%, 100% { box-shadow: 0 4px 20px rgba(90, 15, 20, 0.4); }
-    50%      { box-shadow: 0 4px 35px rgba(138, 31, 36, 0.7); }
-  }
-  
-  .cta-button {
-    animation: pulseSubtle 2.5s ease-in-out infinite;
-  }
-  
-  /* ========================================
-     NIGERIA RING PULSE — GeographicAvailability
-     Appelée via className .nigeria-ring-pulse
-     ======================================== */
-  .nigeria-ring-pulse {
-    /* Le transform translate est inclus dans les keyframes pour ne pas casser le centrage */
-    animation: nigeriaPulse 2s ease-in-out infinite;
-  }
-  
-  @keyframes nigeriaPulse {
-    0%, 100% { 
-      opacity: 0.3; 
-      transform: scale(1); 
-    }
-    50% { 
-      opacity: 0.8; 
-      transform: scale(1.15); 
-    }
-  }
+.nigeria-ring-pulse {
+  animation: nigeriaPulse 2s ease-in-out infinite;
+}
+
+/* CTA button pulse */
+@keyframes pulseSubtle {
+  0%, 100% { box-shadow: 0 4px 20px rgba(90, 15, 20, 0.4); }
+  50%       { box-shadow: 0 4px 35px rgba(138, 31, 36, 0.7); }
+}
+
+.cta-button {
+  animation: pulseSubtle 2.5s ease-in-out infinite;
+}
+
+/* Shimmer au hover */
+@keyframes ga-shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+.ga-shimmer {
+  animation: ga-shimmer 1.5s ease-in-out infinite;
+}
 
 /* Animation de flottaison des particules */
 @keyframes float-up {
@@ -369,3 +446,16 @@ select {
   background-position: right 0px center;
   background-size: 16px;
 }
+
+/* ══════════════════════════════════════
+   HERO ABOUT — Scroll indicator
+   ══════════════════════════════════════ */
+
+   @keyframes ha-scan {
+    0%   { transform: translateY(-100%); }
+    100% { transform: translateY(200%); }
+  }
+  
+  .ha-scan {
+    animation: ha-scan 2s ease-in-out infinite;
+  }
