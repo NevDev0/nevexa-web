@@ -1,191 +1,124 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
 import { whyImportCopy } from "@/content/en";
-
-// Teintes de fond par accordion ouvert
-const bgTints: Record<string, string> = {
-  null: "#F2F2F2",
-  "recent-models": "#EEECEA",
-  "competitive-pricing": "#ECEAEA",
-  "verified-history": "#EAEAEC",
-};
+import { motion, Variants } from "framer-motion";
 
 export default function WhyImport() {
-  const [openId, setOpenId] = useState<string | null>(null);
-  const [visible, setVisible] = useState(false);
-  const [underlineWidth, setUnderlineWidth] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-
-  // IntersectionObserver — cascade au scroll
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          setTimeout(() => setUnderlineWidth(true), 300);
-          observer.disconnect();
-        }
+  // 1. LA MAGIE DU SMOOTH : Configuration "Luxe"
+  // Pas de durée fixe, mais une physique de ressort amorti.
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15, // Délai fluide entre chaque item
+        delayChildren: 0.2,
       },
-      { threshold: 0.2 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  const toggleAccordion = (id: string) => {
-    setOpenId(openId === id ? null : id);
+    },
   };
 
-  const currentBg = bgTints[openId ?? "null"];
+  const itemVariants: Variants = {
+    hidden: { 
+      opacity: 0, 
+      y: 40, // On part de plus bas pour donner du poids
+      filter: "blur(10px)", // Petit flou au départ pour la douceur (optionnel mais classe)
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      filter: "blur(0px)",
+      transition: { 
+        type: "spring", // C'est CA qui change tout
+        stiffness: 70,  // Tension faible = mouvement lent et gracieux
+        damping: 20,    // Amortissement pour éviter que ça rebondisse comme un cartoon
+        mass: 1
+      } 
+    },
+  };
 
   return (
-    <section
-      ref={sectionRef}
-      id="why-import"
-      className="w-full px-6 py-16 text-black"
-      style={{
-        backgroundColor: currentBg,
-        transition: "background-color 600ms ease-in-out",
-      }}
-    >
-      <div className="mx-auto max-w-4xl">
+    <section className="relative w-full bg-[#050505] px-6 py-24 text-white lg:py-24 overflow-hidden">
+      <div className="mx-auto max-w-7xl">
+        
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-8">
+          
+          {/* --- COLONNE GAUCHE (TITRE) --- */}
+          <div className="lg:col-span-5 lg:sticky lg:top-32 lg:h-fit">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-10% 0px -10% 0px" }} // Déclenche un peu avant
+              variants={containerVariants}
+            >
+              <motion.h2 variants={itemVariants} className="mb-6 text-xs font-black uppercase tracking-[0.3em] text-[#8A1F24]">
+                {whyImportCopy.title}
+              </motion.h2>
+              
+              <motion.h3 variants={itemVariants} className="text-4xl font-bold uppercase leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+                <span className="block text-white">Superior</span>
+                <span className="block text-white/40">Standards.</span>
+                <span className="block text-[#8A1F24]">Max Security.</span>
+              </motion.h3>
+              
+              <motion.p variants={itemVariants} className="mt-8 text-lg font-light leading-relaxed text-neutral-400">
+                {whyImportCopy.intro}
+              </motion.p>
 
-        {/* Titre — cascade A */}
-        <div className="mb-3 text-center">
-          <h2
-            className="text-xl font-bold uppercase tracking-[0.12em] sm:text-2xl"
-            style={{
-              opacity: visible ? 1 : 0,
-              transform: visible ? "translateY(0)" : "translateY(20px)",
-              transition: "opacity 600ms ease-out, transform 600ms ease-out",
-              transitionDelay: "0ms",
-            }}
-          >
-            {whyImportCopy.title}
-          </h2>
-        </div>
+              <motion.div variants={itemVariants} className="mt-12 h-px w-24 bg-gradient-to-r from-[#8A1F24] to-transparent" />
+            </motion.div>
+          </div>
 
-        {/* Underline animée — E */}
-        <div className="mb-8 flex justify-center">
-          <div
-            className="mx-auto h-px w-24 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent shadow-[0_0_15px_rgba(138,31,36,0.8)]"
-            style={{
-              width: underlineWidth ? "80px" : "0px",
-              transition: "width 600ms ease-out",
-              transitionDelay: "300ms",
-            }}
-          />
-        </div>
-
-        {/* Intro — cascade A */}
-        <p
-          className="mb-8 text-center text-lg font-medium text-neutral-800 sm:text-xl"
-          style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(16px)",
-            transition: "opacity 600ms ease-out, transform 600ms ease-out",
-            transitionDelay: "200ms",
-          }}
-        >
-          {whyImportCopy.intro}
-        </p>
-
-        {/* Accordéons */}
-        <div className="space-y-0">
-          {whyImportCopy.accordions.map((accordion, index) => {
-            const isOpen = openId === accordion.id;
-            const isLast = index === whyImportCopy.accordions.length - 1;
-
-            return (
-              <div
-                key={accordion.id}
-                style={{
-                  opacity: visible ? 1 : 0,
-                  transform: visible ? "translateY(0)" : "translateY(16px)",
-                  transition: "opacity 600ms ease-out, transform 600ms ease-out",
-                  transitionDelay: `${300 + index * 80}ms`,
-                }}
-              >
-                {/* Header cliquable */}
-                <button
-                  onClick={() => toggleAccordion(accordion.id)}
-                  className="group flex w-full items-center justify-between py-6 text-left"
-                  aria-expanded={isOpen}
+          {/* --- COLONNE DROITE (LISTE) --- */}
+          <div className="lg:col-span-7 lg:pl-12">
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
+              variants={containerVariants}
+              className="divide-y divide-white/10 border-t border-b border-white/10 lg:border-b-0"
+            >
+              {whyImportCopy.accordions.map((item) => (
+                <motion.div
+                  key={item.id}
+                  variants={itemVariants} // Utilise la même physique smooth
+                  className="group py-10 lg:py-12"
                 >
-                  {/* Titre avec trait burgund au hover — C */}
-                  <span className="relative text-lg font-semibold sm:text-xl">
-                    <span
-                      className="transition-colors duration-300"
-                      style={{ color: isOpen ? "#5A0F14" : "inherit" }}
-                    >
-                      {accordion.title}
-                    </span>
-                    {/* Trait slide sous le titre */}
-                    <span
-                      className="absolute -bottom-0.5 left-0 h-px bg-[#5A0F14]"
-                      style={{
-                        width: isOpen ? "100%" : "0%",
-                        transition: "width 400ms ease-out",
-                      }}
-                    />
-                  </span>
+                  <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
+                    
+                    {/* Icone */}
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#8A1F24]/10 text-[#8A1F24] transition-colors duration-500 group-hover:bg-[#8A1F24] group-hover:text-white">
+                      {getIcon(item.id)}
+                    </div>
 
-                  {/* D — Croix SVG fine avec rotation */}
-                  <span
-                    className="ml-4 flex-shrink-0 text-[#5A0F14]"
-                    style={{
-                      transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
-                      transition: "transform 300ms ease-in-out",
-                    }}
-                  >
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 20 20"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                    >
-                      <line x1="10" y1="2" x2="10" y2="18" />
-                      <line x1="2" y1="10" x2="18" y2="10" />
-                    </svg>
-                  </span>
-                </button>
-
-                {/* Contenu — B — slide + max-height */}
-                <div
-                  className="overflow-hidden"
-                  style={{
-                    maxHeight: isOpen ? "500px" : "0px",
-                    transition: "max-height 400ms ease-in-out, opacity 300ms ease-in-out",
-                    opacity: isOpen ? 1 : 0,
-                  }}
-                >
-                  <div
-                    className="pb-6 pr-12"
-                    style={{
-                      transform: isOpen ? "translateY(0)" : "translateY(8px)",
-                      transition: "transform 400ms ease-out",
-                    }}
-                  >
-                    <p className="text-base leading-relaxed text-neutral-700">
-                      {accordion.content}
-                    </p>
+                    <div className="flex-1">
+                      <h4 className="mb-2 text-lg font-bold uppercase tracking-wide text-white group-hover:text-[#8A1F24] transition-colors duration-500 sm:text-xl">
+                        {item.title}
+                      </h4>
+                      <p className="text-sm font-light leading-relaxed text-neutral-400 group-hover:text-neutral-300 transition-colors duration-500 sm:text-base">
+                        {item.content}
+                      </p>
+                    </div>
                   </div>
-                </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
 
-                {/* Divider */}
-                {!isLast && <div className="h-px bg-neutral-200" />}
-              </div>
-            );
-          })}
         </div>
-
-        {/* Divider final */}
-        <div className="mt-0 h-px bg-neutral-200" />
       </div>
     </section>
   );
+}
+
+// Icons mapping (Toujours pareil)
+function getIcon(id: string) {
+  switch (id) {
+    case "inventory-quality": 
+      return <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>;
+    case "export-security": 
+      return <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>;
+    case "heavy-duty-specs": 
+      return <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>;
+    default: return null;
+  }
 }

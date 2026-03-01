@@ -1,296 +1,180 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { financingProfilesCopy } from "@/content/financing.en";
 
 export default function FinancingForEveryNeed() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [animating, setAnimating] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    if (!sectionRef.current) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            setAnimating(true);
-          } else {
-            // Pause animations when out of viewport
-            setAnimating(false);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative w-full overflow-hidden bg-black px-6 py-12 text-white sm:py-16"
-    >
-      {/* Background Particles — paused when not visible */}
-      <div className="pointer-events-none absolute inset-0 opacity-15">
-        <BackgroundParticles animating={animating} />
+    <section className="relative w-full overflow-hidden bg-[#0E0F11] py-24 sm:py-32">
+      
+      {/* ── BACKGROUND FX ── */}
+      <div className="pointer-events-none absolute inset-0 z-0 opacity-20">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+        {mounted && <BackgroundParticles />}
       </div>
 
-      <div className="relative z-10 mx-auto max-w-7xl">
-        {/* Header */}
-        <div
-          className="mb-8 text-center"
-          style={{
-            opacity: isVisible ? 1 : 0,
-            transform: isVisible ? "translateY(0)" : "translateY(12px)",
-            transition: "opacity 700ms ease, transform 700ms ease",
-          }}
-        >
-          <h2 className="mb-3 bg-gradient-to-r from-white to-white/70 bg-clip-text text-xl font-bold uppercase tracking-[0.12em] text-transparent sm:text-[1.75rem]">
+      <div className="relative z-10 mx-auto max-w-7xl px-6">
+        
+        {/* ── HEADER ── */}
+        <div className="mb-16 text-center">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-4 text-2xl font-bold uppercase tracking-[0.12em] text-white sm:text-3xl"
+          >
             {financingProfilesCopy.title}
-          </h2>
-          <div
-            className="mx-auto h-0.5 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent shadow-[0_0_10px_rgba(90,15,20,0.5)]"
-            style={{
-              width: isVisible ? "96px" : "0px",
-              transition: "width 700ms ease 200ms",
-            }}
+          </motion.h2>
+          
+          <motion.div 
+            initial={{ width: 0 }}
+            whileInView={{ width: 80 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="mx-auto mb-6 h-0.5 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent shadow-[0_0_10px_rgba(90,15,20,0.5)]" 
           />
-        </div>
-
-        {/* Intro */}
-        <div
-          className="mx-auto mb-8 max-w-3xl text-center"
-          style={{
-            opacity: isVisible ? 1 : 0,
-            transform: isVisible ? "translateY(0)" : "translateY(12px)",
-            transition: "opacity 700ms ease 400ms, transform 700ms ease 400ms",
-          }}
-        >
-          <p className="text-[0.95rem] leading-relaxed text-white/80">
+          
+          <motion.p 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="mx-auto max-w-2xl text-[15px] font-medium leading-relaxed text-white/60 sm:text-[16px]"
+          >
             {financingProfilesCopy.intro}
-          </p>
+          </motion.p>
         </div>
 
-        {/* Mobile: Horizontal Scroll Carousel */}
-        <div className="sm:hidden">
-          <div className="financing-carousel">
-            {financingProfilesCopy.profiles.map((profile, index) => (
-              <ProfileCard key={profile.id} profile={profile} index={index} animating={animating} />
-            ))}
-          </div>
-
-          {/* Swipe indicator */}
-          <div className="mt-6 flex flex-col items-center gap-1.5">
-            <div
-              className="relative h-6 w-10 rounded-full border border-white/20"
-              style={{ borderRadius: "999px" }}
-            >
-              <div
-                className="absolute top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-white/50"
-                style={{
-                  left: "6px",
-                  animation: animating ? "ffn-swipe-slide 2s ease-in-out infinite" : "none",
-                }}
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Desktop: 4-column grid (AJUSTÉ ICI AVEC items-stretch) */}
-        <div className="hidden sm:grid sm:grid-cols-4 sm:gap-6 lg:gap-7 items-stretch">
+        {/* ── CARDS CAROUSEL (Mobile Swipe / Desktop Grid) ── */}
+        <div className="flex w-full snap-x snap-mandatory gap-6 overflow-x-auto pb-12 scrollbar-hide sm:grid sm:grid-cols-2 sm:overflow-visible sm:pb-0 lg:grid-cols-4">
+          
           {financingProfilesCopy.profiles.map((profile, index) => (
-            <ProfileCard key={profile.id} profile={profile} index={index} animating={animating} />
-          ))}
-        </div>
-      </div>
+            <motion.div
+              key={profile.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.5 }}
+              className="relative flex min-w-[85vw] snap-center flex-col sm:min-w-0"
+            >
+              <div className="group relative flex h-full flex-col overflow-hidden rounded-[20px] border border-white/10 bg-gradient-to-br from-[#1A1A20] via-[#0E0E12] to-[#050505] p-8 text-center transition-all duration-500 hover:border-[#5A0F14]/50 hover:shadow-[0_20px_60px_rgba(90,15,20,0.2),inset_0_0_40px_rgba(90,15,20,0.05)]">
+                
+                {/* Internal Glow Effect */}
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(90,15,20,0.15),transparent_70%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                
+                {/* Floating Particles inside Card */}
+                <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-40">
+                  <CardParticles delay={index} />
+                </div>
 
-      <style jsx>{`
-        .ffn-swipe-dot {
-          animation: ffn-swipe-slide 2s ease-in-out infinite;
-        }
-        @keyframes ffn-swipe-slide {
-          0%   { opacity: 0; left: 6px; }
-          20%  { opacity: 1; }
-          80%  { opacity: 0; left: calc(100% - 12px); }
-          100% { opacity: 0; left: calc(100% - 12px); }
-        }
-      `}</style>
+                {/* Icon with Rotating Ring */}
+                <div className="relative mx-auto mb-6 flex h-20 w-20 items-center justify-center">
+                  <div className="absolute inset-0 rounded-full border-2 border-white/5" />
+                  <div className="absolute inset-0 rounded-full border-t-2 border-r-2 border-[#5A0F14] animate-[spin_3s_linear_infinite]" />
+                  
+                  <div 
+                    className="relative z-10 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:text-[#5A0F14] text-white"
+                    dangerouslySetInnerHTML={{ __html: profile.icon }} 
+                  />
+                </div>
+
+                {/* Content */}
+                <div className="relative z-10 flex flex-1 flex-col items-center">
+                  <h3 className="mb-2 text-xl font-bold text-white group-hover:text-white transition-colors">
+                    {profile.title}
+                  </h3>
+                  
+                  <p className="mb-4 text-xs font-bold uppercase tracking-wider text-[#5A0F14]/80">
+                    Target: <span className="text-white/60 font-medium normal-case tracking-normal">{profile.targets}</span>
+                  </p>
+
+                  <div className="mx-auto mb-4 h-px w-12 bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:via-[#5A0F14]/50 transition-all duration-500" />
+
+                  <div className="mt-auto">
+                    <p className="mb-3 text-xs text-white/50">
+                      <strong className="text-white/80 block mb-1">Example:</strong>
+                      {profile.example}
+                    </p>
+                    <span className="inline-block rounded-full border border-white/5 bg-white/[0.03] px-3 py-1 text-[10px] font-bold text-white/80 transition-colors group-hover:border-[#5A0F14]/30 group-hover:bg-[#5A0F14]/10">
+                      {profile.range}
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+            </motion.div>
+          ))}
+
+        </div>
+
+        {/* Mobile Swipe Indicator */}
+        <div className="mt-4 flex justify-center sm:hidden">
+          <div className="h-1 w-16 rounded-full bg-white/10 overflow-hidden">
+             <motion.div 
+               animate={{ x: ["-100%", "100%"] }}
+               transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
+               className="h-full w-1/3 bg-[#5A0F14]"
+             />
+          </div>
+        </div>
+
+      </div>
     </section>
   );
 }
 
-// ─── PROFILE CARD ───
-function ProfileCard({
-  profile,
-  index,
-  animating,
-}: {
-  profile: any;
-  index: number;
-  animating: boolean;
-}) {
-  return (
-    <div className="financing-card-item h-full">
-      <div className="profile-card group relative flex h-full flex-col cursor-pointer overflow-hidden rounded-[20px] border border-white/10 bg-gradient-to-br from-[#5A0F14]/12 via-[#141419]/80 to-[#0A0A0F]/90 p-10 sm:p-8 backdrop-blur-md hover:border-[#5A0F14]/50 hover:shadow-[0_20px_60px_rgba(90,15,20,0.4),0_0_0_1px_rgba(90,15,20,0.2),inset_0_0_40px_rgba(90,15,20,0.1)]"
-        style={{
-          transition: "border-color 500ms ease, box-shadow 500ms ease, transform 500ms cubic-bezier(0.4,0,0.2,1)",
-        }}
-      >
-        {/* Card Particles — paused when section not visible */}
-        <div className="card-particles pointer-events-none absolute inset-0">
-          <CardParticles animating={animating} />
-        </div>
-
-        {/* Gradient Overlay on hover */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#5A0F14]/30 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-
-        {/* Content */}
-        <div className="relative z-10 flex h-full flex-col">
-          {/* Icon */}
-          <div className="relative mx-auto mb-5 flex h-20 w-20 items-center justify-center">
-            <div
-              className="icon-glow absolute h-full w-full rounded-full border-2 border-transparent border-t-[#5A0F14] border-r-[#5A0F14]"
-              style={{
-                animation: animating
-                  ? `icon-spin 3s linear infinite ${index * 0.5}s`
-                  : "none",
-              }}
-            />
-            <div
-              className="relative z-10 transition-transform duration-300 group-hover:scale-110"
-              dangerouslySetInnerHTML={{ __html: profile.icon }}
-            />
-          </div>
-
-          {/* Title */}
-          <h3 className="mb-3 text-center text-xl font-bold text-white">
-            {profile.title}
-          </h3>
-
-          {/* For */}
-          <div className="mb-2 text-center text-xs font-semibold uppercase tracking-wider text-white/50">
-            For:
-          </div>
-
-          {/* Targets */}
-          <p className="mb-4 text-center text-[0.9375rem] leading-relaxed text-white/80">
-            {profile.targets}
-          </p>
-
-          {/* Divider avec le mt-auto pour tout aligner en bas */}
-          <div className="mt-auto mx-auto mb-4 h-0.5 w-12 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent transition-all duration-300 group-hover:w-20" />
-
-          {/* Example */}
-          <p className="mb-4 text-center text-sm text-white/65">
-            <span className="font-semibold text-white/95">Example:</span>{" "}
-            {profile.example}
-          </p>
-
-          {/* Range Badge */}
-          <span className="mx-auto block w-fit rounded-full border border-[#5A0F14]/40 bg-[#5A0F14]/20 px-4 py-2 text-sm font-semibold text-white/95 transition-all duration-300 group-hover:border-[#5A0F14]/60 group-hover:bg-[#5A0F14]/30 group-hover:shadow-[0_0_20px_rgba(90,15,20,0.3)]">
-            {profile.range}
-          </span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ─── BACKGROUND PARTICLES ───
-function BackgroundParticles({ animating }: { animating: boolean }) {
-  const [particles, setParticles] = useState<
-    Array<{ id: number; left: string; top: string; delay: string; duration: string }>
-  >([]);
-
-  useEffect(() => {
-    setParticles(
-      Array.from({ length: 30 }, (_, i) => ({
-        id: i,
-        left: `${Math.random() * 100}%`,
-        top: `${Math.random() * 100}%`,
-        delay: `${Math.random() * 8}s`,
-        duration: `${6 + Math.random() * 4}s`,
-      }))
-    );
-  }, []);
+// ─── OPTIMIZED PARTICLES ───
+function BackgroundParticles() {
+  // Positions fixes pour éviter l'hydratation mismatch & lag
+  const particles = Array.from({ length: 15 }).map((_, i) => ({
+    id: i,
+    left: `${(i * 13) % 100}%`,
+    top: `${(i * 23) % 100}%`,
+    delay: i * 0.5
+  }));
 
   return (
     <>
       {particles.map((p) => (
-        <div
+        <motion.div
           key={p.id}
-          className="absolute h-[3px] w-[3px] rounded-full bg-[#5A0F14] shadow-[0_0_10px_rgba(90,15,20,0.5)]"
-          style={{
-            left: p.left,
-            top: p.top,
-            animationName: "floatParticle",
-            animationDuration: p.duration,
-            animationTimingFunction: "ease-in-out",
-            animationIterationCount: "infinite",
-            animationDelay: p.delay,
-            animationPlayState: animating ? "running" : "paused",
-          }}
+          className="absolute h-1 w-1 rounded-full bg-[#5A0F14]/30 blur-[1px]"
+          style={{ top: p.top, left: p.left }}
+          animate={{ y: [0, -30, 0], opacity: [0.3, 0.7, 0.3] }}
+          transition={{ duration: 5 + (p.id % 5), repeat: Infinity, delay: p.delay, ease: "easeInOut" }}
         />
       ))}
-      <style jsx>{`
-        @keyframes floatParticle {
-          0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
-          50%       { transform: translateY(-30px) translateX(15px); opacity: 0.8; }
-        }
-        @keyframes icon-spin {
-          from { transform: rotate(0deg); }
-          to   { transform: rotate(360deg); }
-        }
-      `}</style>
     </>
   );
 }
 
-// ─── CARD PARTICLES ───
-function CardParticles({ animating }: { animating: boolean }) {
-  const [particles, setParticles] = useState<
-    Array<{ id: number; left: string; top: string; delay: string; duration: string }>
-  >([]);
-
-  useEffect(() => {
-    setParticles(
-      Array.from({ length: 8 }, (_, i) => ({
-        id: i,
-        left: `${10 + Math.random() * 80}%`,
-        top: `${10 + Math.random() * 80}%`,
-        delay: `${Math.random() * 3}s`,
-        duration: `${2 + Math.random() * 2}s`,
-      }))
-    );
-  }, []);
+function CardParticles({ delay }: { delay: number }) {
+  // Moins de particules par carte pour la perf
+  const particles = [1, 2, 3]; 
 
   return (
     <>
-      {particles.map((p) => (
-        <div
-          key={p.id}
-          className="absolute h-1 w-1 rounded-full bg-[#5A0F14] shadow-[0_0_8px_rgba(90,15,20,0.8)]"
-          style={{
-            left: p.left,
-            top: p.top,
-            animationName: "cardParticleFloat",
-            animationDuration: p.duration,
-            animationTimingFunction: "ease-in-out",
-            animationIterationCount: "infinite",
-            animationDelay: p.delay,
-            animationPlayState: animating ? "running" : "paused",
+      {particles.map((i) => (
+        <motion.div
+          key={i}
+          className="absolute h-1 w-1 rounded-full bg-[#5A0F14]"
+          style={{ 
+            left: `${20 + (i * 30)}%`, 
+            top: `${80 - (i * 20)}%` 
+          }}
+          animate={{ y: [0, -40], opacity: [0, 1, 0] }}
+          transition={{ 
+            duration: 3 + i, 
+            repeat: Infinity, 
+            delay: delay + i, 
+            ease: "easeOut" 
           }}
         />
       ))}
-      <style jsx>{`
-        @keyframes cardParticleFloat {
-          0%, 100% { transform: translateY(0) scale(1); opacity: 0.5; }
-          50%       { transform: translateY(-20px) scale(1.5); opacity: 1; }
-        }
-      `}</style>
     </>
   );
 }

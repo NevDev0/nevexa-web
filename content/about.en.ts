@@ -63,6 +63,13 @@ export const realityCopy = {
       highlights: ["end it"],
     },
   ],
+  founder: {
+    header: "A Word from our Founder",
+    // Nouveau wording : Focus sur la protection et la vérité, pas sur le processus technique.
+    quote: "In an industry where silence is profit, transparency is our only currency. I've watched too many people invest their life savings into vehicles that were never safe to begin with. Nevexa wasn't created to be another dealership; it was created to be a guardian. We are here to ensure that your ambition is never compromised by someone else's dishonesty. You aren't just buying a vehicle—you are buying the security that your investment is protected by the truth.",
+    signature: "Ozioma",
+    role: "Founder, Nevexa Automotive Inc.",
+  }
 };
 
 // ─────────────────────────────────────────

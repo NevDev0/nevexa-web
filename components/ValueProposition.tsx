@@ -3,8 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { valuePropsCopy } from "@/content/en";
 
-// Card reçoit isVisible depuis le parent sur desktop
-// et gère son propre observer sur mobile
+// --- SOUS-COMPOSANT CARTE ---
 function StepCard({
   step,
   index,
@@ -21,29 +20,34 @@ function StepCard({
   const [isVisibleMobile, setIsVisibleMobile] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
+  // Logique Gauche/Droite basée sur l'index (Pair = Gauche, Impair = Droite)
   const fromLeft = index % 2 === 0;
+  
+  // Priorité : Si Desktop, on écoute le Parent. Si Mobile, on écoute le Scroll local.
   const isVisible = isDesktop ? isVisibleFromParent : isVisibleMobile;
 
+  // Configuration du Slide (70px pour un mouvement bien visible)
   const transform = isVisible
     ? "translateX(0)"
     : fromLeft
     ? "translateX(-70px)"
     : "translateX(70px)";
 
-  // Observer individuel — mobile uniquement
+  // OBSERVER MOBILE (Individuel)
   useEffect(() => {
-    if (isDesktop) return;
+    if (isDesktop) return; // On ne lance pas d'observer individuel sur Desktop
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisibleMobile(true);
-          observer.disconnect();
+          observer.disconnect(); // On arrête d'observer une fois apparu (perf)
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.15 } // Déclenche quand 15% de la carte est visible
     );
 
+    // Petit délai pour laisser le DOM se stabiliser
     const t = setTimeout(() => {
       if (cardRef.current) observer.observe(cardRef.current);
     }, 100);
@@ -61,11 +65,13 @@ function StepCard({
       style={{
         opacity: isVisible ? 1 : 0,
         transform,
-        transition:
-          "opacity 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+        // C'EST ICI QUE LA MAGIE OPÈRE : Ta courbe Bezier personnalisée
+        transition: "opacity 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+        // On force l'accélération matérielle
+        willChange: "opacity, transform",
       }}
     >
-      {/* ── CONTENEUR PRINCIPAL (Sans bordure, gère juste la forme et l'image) ── */}
+      {/* Container Image + Overlay */}
       <div
         className="group relative overflow-hidden rounded-lg transition-all duration-300 hover:scale-[1.02] min-h-[140px] sm:items-start"
         style={{
@@ -74,38 +80,35 @@ function StepCard({
           backgroundPosition: "center",
         }}
       >
-        {/* 1. OVERLAY DE FLOU ÉTENDU : Le -inset-2 pousse le flou hors du cadre pour cacher les bords moches */}
+        {/* Overlay Flou (Blur étendu) */}
         <div className="absolute -inset-2 bg-black/75 backdrop-blur-[3px] transition-all duration-300 group-hover:bg-black/65" />
 
-        {/* 2. VRAIE BORDURE HOMOGÈNE : Posée par-dessus le flou, au pixel près */}
+        {/* Bordure fine */}
         <div className="pointer-events-none absolute inset-0 z-20 rounded-lg border border-white/20 transition-colors duration-300 group-hover:border-white/30" />
 
-        {/* ── CONTENT ── */}
+        {/* Contenu */}
         <div className="relative z-10 flex items-start gap-4 p-6">
-
-          {/* Dot avec glow */}
+          {/* Badge Numéro */}
           <div className="relative flex flex-col items-center">
             <div
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#5A0F14] text-sm font-bold"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#5A0F14] text-sm font-bold transition-shadow duration-500"
               style={{
                 boxShadow: isVisible
                   ? "0 0 20px rgba(90,15,20,0.6), 0 0 40px rgba(90,15,20,0.3)"
                   : "none",
-                transition: "box-shadow 600ms ease-out",
-                transitionDelay: "300ms",
               }}
             >
               {step.id}
             </div>
-            {/* Ligne verticale — mobile uniquement */}
+            {/* Ligne de connexion (Mobile uniquement) */}
             {!isLast && (
               <div className="mt-2 h-[calc(100%+24px)] w-px bg-white/20 sm:hidden" />
             )}
           </div>
 
-          {/* Text */}
+          {/* Textes */}
           <div className="flex-1 pt-1">
-            <h3 className="mb-2 text-lg font-semibold sm:text-xl">
+            <h3 className="mb-2 text-lg font-semibold sm:text-xl text-white">
               {step.label}
             </h3>
             <p className="text-sm leading-relaxed text-neutral-200 sm:text-base">
@@ -118,6 +121,7 @@ function StepCard({
   );
 }
 
+// --- COMPOSANT PRINCIPAL ---
 export default function ValueProposition() {
   const [visible, setVisible] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
@@ -126,23 +130,23 @@ export default function ValueProposition() {
   );
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Détecter desktop
+  // 1. Détecter si on est sur Desktop (> 640px)
   useEffect(() => {
-    const mq = window.matchMedia("(min-width: 640px)");
-    setIsDesktop(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
+    const checkDesktop = () => setIsDesktop(window.innerWidth >= 640);
+    checkDesktop();
+    window.addEventListener("resize", checkDesktop);
+    return () => window.removeEventListener("resize", checkDesktop);
   }, []);
 
-  // Observer section — header + cascade desktop
+  // 2. Observer Global (Pour le titre + Cascade Desktop)
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setVisible(true);
-          // Desktop : cascade séquentielle propre depuis le parent
-          if (window.matchMedia("(min-width: 640px)").matches) {
+          
+          // Si on est sur Desktop, on lance la cascade automatique ici
+          if (window.innerWidth >= 640) {
             valuePropsCopy.steps.forEach((_, i) => {
               setTimeout(() => {
                 setVisibleSteps((prev) => {
@@ -150,7 +154,7 @@ export default function ValueProposition() {
                   next[i] = true;
                   return next;
                 });
-              }, 300 + i * 180);
+              }, 300 + i * 200); // 200ms entre chaque carte
             });
           }
           observer.disconnect();
@@ -158,6 +162,7 @@ export default function ValueProposition() {
       },
       { threshold: 0.1 }
     );
+
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
@@ -165,52 +170,51 @@ export default function ValueProposition() {
   return (
     <section
       ref={sectionRef}
-      className="w-full bg-black px-6 py-16 text-white"
+      className="w-full bg-black px-6 py-16 text-white lg:py-24"
     >
-      <div className="mx-auto max-w-4xl">
+      <div className="mx-auto max-w-5xl">
 
-        {/* Titre */}
+        {/* Titre & Intro */}
         <div className="mb-3 text-center">
           <h2
-            className="text-xl font-bold uppercase tracking-[0.12em] sm:text-2xl"
+            className="text-xl font-bold uppercase tracking-[0.12em] sm:text-3xl"
             style={{
               opacity: visible ? 1 : 0,
               transform: visible ? "translateY(0)" : "translateY(20px)",
-              transition: "opacity 600ms ease-out, transform 600ms ease-out",
-              transitionDelay: "0ms",
+              transition: "opacity 800ms ease-out, transform 800ms ease-out",
             }}
           >
             {valuePropsCopy.title}
           </h2>
         </div>
 
-        {/* Trust line + Underline */}
-        <div className="mb-12 flex flex-col items-center text-center">
+        {/* Ligne de confiance animée */}
+        <div className="mb-16 flex flex-col items-center text-center">
           <p
-            className="mb-2 text-sm font-semibold text-white sm:text-base"
+            className="mb-4 text-sm font-semibold text-neutral-400 sm:text-base tracking-widest uppercase"
             style={{
               opacity: visible ? 1 : 0,
               transform: visible ? "translateY(0)" : "translateY(16px)",
-              transition: "opacity 600ms ease-out, transform 600ms ease-out",
+              transition: "opacity 800ms ease-out, transform 800ms ease-out",
               transitionDelay: "100ms",
             }}
           >
             {valuePropsCopy.trustLine}
           </p>
           <div
-            className="mx-auto h-px w-24 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent shadow-[0_0_15px_rgba(138,31,36,0.8)]"
+            className="mx-auto h-px bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent shadow-[0_0_15px_rgba(138,31,36,0.8)]"
             style={{
               width: visible ? "180px" : "0px",
-              transition: "width 600ms ease-out",
+              transition: "width 800ms ease-out",
               transitionDelay: "200ms",
             }}
           />
         </div>
 
-        {/* Cards — colonne mobile / grid 2x2 desktop */}
-        <div className="relative space-y-6 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6">
-
-          {/* Ligne de connexion — mobile uniquement */}
+        {/* Grille des Cartes */}
+        <div className="relative space-y-8 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-8">
+          
+          {/* Ligne de connexion Verticale (Mobile uniquement) */}
           <div
             className="absolute left-[35px] top-10 w-px sm:hidden"
             style={{
@@ -222,7 +226,7 @@ export default function ValueProposition() {
               className="w-full bg-gradient-to-b from-[#5A0F14] to-[#5A0F14]/20"
               style={{
                 height: visible ? "100%" : "0%",
-                transition: "height 1200ms ease-out",
+                transition: "height 1500ms ease-out",
                 transitionDelay: "400ms",
               }}
             />

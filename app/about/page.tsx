@@ -6,7 +6,7 @@ import SplitCTA from "@/components/about/SplitCTA";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "About | Nevexa",
   description:
     "Nevexa was built to eliminate fraud in the African vehicle market. Learn our story, our mission, and why transparency is the foundation of everything we do.",
   openGraph: {

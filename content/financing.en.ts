@@ -10,7 +10,7 @@ export const financingHeroCopy = {
     earlyAccess: "Early Access",
     comingSoon: "Coming 2027",
   },
-  title: "Vehicle Financing Coming 2027",
+  title: "Vehicle Financing",
   subtitle:
     "Nevexa is structuring vehicle financing with banking partners in Africa. Join the priority waitlist to be informed when we launch in your country.",
   clarification:
@@ -22,7 +22,8 @@ export const financingHeroCopy = {
 // ============================================
 export const howItWorksCopy = {
   title: "How It Works",
-  subtitle: "Secure, transparent model. Nevexa facilitates, banks finance, you receive a verified vehicle.",
+  // Version plus active et fluide
+  subtitle: "A seamless triangular partnership. You select the vehicle, the bank provides the capital, and Nevexa executes the secure delivery.",
   
   actors: [
     {
@@ -30,21 +31,24 @@ export const howItWorksCopy = {
       initial: "C",
       label: "Client",
       tag: "You",
-      description: "Apply & receive your vehicle",
+      // Plus précis : on choisit, puis on applique
+      description: "Selects vehicle & applies for financing",
     },
     {
       id: "banking-partner",
       initial: "B",
       label: "Banking Partner",
       tag: "Lender",
-      description: "Provides the loan & sets terms",
+      // Insiste sur la validation financière
+      description: "Validates credit & releases funds directly",
     },
     {
       id: "nevexa",
       initial: "N",
       label: "Nevexa",
       tag: "Facilitator",
-      description: "Sources, inspects & delivers",
+      // Verbes plus forts : Sécurise, Certifie, Expédie
+      description: "Secures, certifies & ships the vehicle",
     },
   ],
 };
@@ -179,51 +183,66 @@ export const geographicAvailabilityCopy = {
     { 
       id: "nigeria", 
       name: "Nigeria", 
-      x: { mobile: "45%", desktop: "42%" },
-      y: { mobile: "41%", desktop: "41%" },
+      x: { mobile: "42%", desktop: "42%" },
+      y: { mobile: "43%", desktop: "41%" },
       year: "2027",
       labelPosition: "top-right"
     },
     { 
       id: "senegal", 
       name: "Senegal", 
-      x: { mobile: "24%", desktop: "15%" },
-      y: { mobile: "33%", desktop: "33%" },
+      x: { mobile: "15%", desktop: "18%" },
+      y: { mobile: "35%", desktop: "33%" },
       year: "2028",
-      labelPosition: "left"
+      labelPosition: "top-left"
     },
     { 
       id: "ghana", 
       name: "Ghana", 
-      x: { mobile: "36%", desktop: "31%" },
-      y: { mobile: "41%", desktop: "44%" },
+      x: { mobile: "31%", desktop: "32%" },
+      y: { mobile: "42%", desktop: "41%" },
       year: "2028",
       labelPosition: "top"
     },
     { 
       id: "ivory-coast", 
       name: "Ivory Coast", 
-      x: { mobile: "32%", desktop: "25%" },
+      x: { mobile: "25%", desktop: "27%" },
       y: { mobile: "45%", desktop: "45%" },
       year: "2028",
-      labelPosition: "bottom-left"
+      labelPosition: "bottom"
     },
     { 
-      id: "cameroun", 
-      name: "Cameroun", 
+      id: "cameroon", 
+      name: "Cameroon", 
       x: { mobile: "48%", desktop: "46%" },
       y: { mobile: "48%", desktop: "48%" },
       year: "2028",
       labelPosition: "bottom-right"
     },
- 
   ],
   
-  legend: {
-    firstMarket: "2027 — First market (Nigeria)",
-    expansion: "2028 — West Africa expansion",
-    additionalmarkets: "Additional markets: 2029 onwards"
-  },
+  // Nouvelle structure pour la Timeline Verticale
+  timeline: [
+    {
+      year: "2027",
+      badge: "First Market",
+      title: "Nigeria (Lagos HQ) Launch",
+      description: "Initial banking partnerships activated for qualified importers."
+    },
+    {
+      year: "2028",
+      badge: "Expansion",
+      title: "West Africa Expansion",
+      description: "Deployment across key hubs: Ghana, Senegal, Ivory Coast & Cameroon."
+    },
+    {
+      year: "2029+",
+      badge: "Pan-African",
+      title: "Continental Coverage",
+      description: "Continued expansion into East and Southern Africa based on market demand."
+    }
+  ],
   
   cta: {
     text: "Not listed yet? Join the waitlist to be notified when financing launches in your country.",
@@ -274,27 +293,34 @@ export const faqFinancingCopy = {
 export const waitlistFormCopy = {
   title: "Join the Waitlist",
   
+  // Labels spécifiques pour le look "Tech/Fintech"
+  stats: {
+    counterLabel: "Early Believers",
+    statusLabel: "Live Enrollment Status",
+    progressLabel: "Application Progress"
+  },
+
   fields: {
     fullName: {
       label: "Full Name",
-      placeholder: "Enter your full name",
+      placeholder: "Ex: Joshua oti",
       required: true,
     },
     email: {
-      label: "Email",
-      placeholder: "your.email@example.com",
+      label: "Digital Address",
+      placeholder: "name@gmail.com",
       required: true,
     },
     country: {
-      label: "Country of Residence",
-      placeholder: "Enter your country",
+      label: "Residence",
+      placeholder: "Enter country",
       required: true,
     },
     clientType: {
-      label: "Client Type",
+      label: "Entity Type",
       required: true,
       options: [
-        { value: "", label: "Select client type" },
+        { value: "", label: "Select entity type" },
         { value: "individual", label: "Individual (Salaried professional)" },
         { value: "corporation", label: "Corporation/Fleet" },
         { value: "ngo", label: "NGO/International organization" },
@@ -302,7 +328,7 @@ export const waitlistFormCopy = {
       ],
     },
     estimatedBudget: {
-      label: "Estimated Budget",
+      label: "Financial Scope",
       required: true,
       options: [
         { value: "", label: "Select budget range" },
@@ -314,11 +340,12 @@ export const waitlistFormCopy = {
     },
   },
   
-  submitButton: "Join Waitlist",
+  submitButton: "Apply for Access",
+  submittingText: "Processing...",
   
   successMessage: {
-    title: "You're on the Waitlist",
-    description: "We'll notify you when financing launches in your country.",
+    title: "Application Received",
+    description: "Welcome to the inner circle. We will contact you shortly.",
     cta: "Explore Vehicles"
   }
 };

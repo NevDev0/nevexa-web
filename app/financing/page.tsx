@@ -9,7 +9,7 @@ import Footer from "@/components/Footer";
 import dynamic from "next/dynamic";
 
 export const metadata: Metadata = {
-  title: "Financing",
+  title: "Financing | Nevexa",
   description:
     "Vehicle financing for Africa — launching Q1 2027 in Nigeria. Join the waitlist and be first to access Nevexa's banking partnership program.",
   openGraph: {

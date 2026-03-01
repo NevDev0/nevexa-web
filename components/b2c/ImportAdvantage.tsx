@@ -1,306 +1,157 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
+import { motion, useInView, useSpring, useTransform, animate } from "framer-motion";
 import { importAdvantageCopy } from "@/content/b2c.en";
+import { useEffect, useState } from "react";
+
+// --- Composant interne pour animer les chiffres proprement ---
+function AnimatedNumber({ from, to, visible }: { from: number; to: number; visible: boolean }) {
+  const [current, setCurrent] = useState(from);
+
+  useEffect(() => {
+    if (visible && from !== to) {
+      const controls = animate(from, to, {
+        duration: 1.5,
+        ease: "easeOut",
+        onUpdate(value) {
+          setCurrent(Math.floor(value));
+        },
+      });
+      return () => controls.stop();
+    }
+  }, [from, to, visible]);
+
+  return <span>{current}</span>;
+}
 
 export default function ImportAdvantage() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-  const [counts, setCounts] = useState<Record<string, number>>({});
-
-  // ─── CANVAS PARTICLE GRID ───
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let animId: number;
-    let dots: {
-      x: number; y: number; r: number;
-      opacity: number; speed: number; phase: number;
-    }[] = [];
-
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = canvas.parentElement?.offsetHeight || 400;
-      initDots();
-    };
-
-    const initDots = () => {
-      dots = [];
-      const spacing = 60;
-      const cols = Math.ceil(canvas.width / spacing);
-      const rows = Math.ceil(canvas.height / spacing);
-      for (let i = 0; i <= cols; i++) {
-        for (let j = 0; j <= rows; j++) {
-          dots.push({
-            x: i * spacing + (Math.random() - 0.5) * 10,
-            y: j * spacing + (Math.random() - 0.5) * 10,
-            r: Math.random() * 0.8 + 0.2,
-            opacity: Math.random() * 0.3 + 0.05,
-            speed: Math.random() * 0.003 + 0.001,
-            phase: Math.random() * Math.PI * 2,
-          });
-        }
-      }
-    };
-
-    const draw = (t: number) => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      dots.forEach((d) => {
-        const o = d.opacity * (0.5 + 0.5 * Math.sin(t * d.speed + d.phase));
-        ctx.beginPath();
-        ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${o * 0.4})`;
-        ctx.fill();
-      });
-      animId = requestAnimationFrame(draw);
-    };
-
-    resize();
-    window.addEventListener("resize", resize);
-    animId = requestAnimationFrame(draw);
-    return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener("resize", resize);
-    };
-  }, []);
-
-  // ─── INTERSECTION OBSERVER ───
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.2 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  // ─── COUNT UP ───
-  useEffect(() => {
-    if (!visible) return;
-
-    importAdvantageCopy.stats.forEach((stat, i) => {
-      const from = stat.numberFrom;
-      const to = stat.number;
-      if (from === to) {
-        setCounts((prev) => ({ ...prev, [stat.id]: to }));
-        return;
-      }
-
-      const delay = 200 + i * 150;
-      const duration = to > 50 ? 1000 : 600;
-      const steps = 30;
-      const stepTime = duration / steps;
-      let current = from;
-      const inc = (to - from) / steps;
-
-      setTimeout(() => {
-        const timer = setInterval(() => {
-          current += inc;
-          if (current >= to) {
-            setCounts((prev) => ({ ...prev, [stat.id]: to }));
-            clearInterval(timer);
-          } else {
-            setCounts((prev) => ({ ...prev, [stat.id]: Math.floor(current) }));
-          }
-        }, stepTime);
-      }, delay);
-    });
-  }, [visible]);
+  // useInView de Framer Motion remplace l'IntersectionObserver complexe
+  const isVisible = useInView(sectionRef, { once: true, amount: 0.2 });
 
   return (
     <section
       ref={sectionRef}
-      // py-20 au lieu de py-16 — plus de respiration top/bottom sur mobile
-      className="relative w-full overflow-hidden bg-black px-6 py-12 text-white"
+      className="relative w-full overflow-hidden bg-black px-6 py-20 text-white sm:py-32"
     >
-      {/* Particle canvas */}
-      <canvas
-        ref={canvasRef}
-        className="pointer-events-none absolute inset-0 h-full w-full opacity-40"
-      />
+      {/* Background Radial Light (Remplace le Canvas gourmand) */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(90,15,20,0.1)_0%,transparent_70%)]" />
 
       <div className="relative z-10 mx-auto max-w-4xl">
-
-        {/* Header — text-center explicite pour garantir centrage sur mobile */}
-        <div
-          className={`mb-3 text-center transition-all duration-700 ${
-            visible ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
-          }`}
+        
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+          className="mb-12 text-center"
         >
-          <h2 className="text-center text-xl font-bold uppercase tracking-[0.12em] sm:text-2xl">
+          <h2 className="mb-4 text-xl font-bold uppercase tracking-[0.12em] sm:text-2xl">
             {importAdvantageCopy.title}
           </h2>
-        </div>
-
-        {/* Underline */}
-        <div className="mb-12 flex justify-center">
-          <div
-            className={`mx-auto h-px w-24 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent shadow-[0_0_15px_rgba(138,31,36,0.8)] ${
-              visible ? "w-18" : "w-0"
-            }`}
+          <motion.div 
+            initial={{ width: 0 }}
+            animate={isVisible ? { width: "8rem" } : {}}
+            transition={{ duration: 1, delay: 0.3 }}
+            className="mx-auto h-px w-24 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent shadow-[0_0_15px_rgba(138,31,36,0.8)]" 
           />
-        </div>
+        </motion.div>
 
-        {/* Stats rows */}
-        <div className="flex flex-col">
+        {/* Stats List */}
+        <div className="flex flex-col gap-2">
           {importAdvantageCopy.stats.map((stat, i) => (
-            <StatRow
+            <motion.div
               key={stat.id}
-              stat={stat}
-              count={counts[stat.id] ?? stat.numberFrom}
-              visible={visible}
-              delay={i * 150}
-            />
+              initial={{ opacity: 0, x: -30 }}
+              animate={isVisible ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.8, delay: i * 0.15, ease: "easeOut" }}
+              className="group relative border-b border-white/10 py-8 transition-colors hover:bg-white/[0.02]"
+            >
+              {/* Corner accent (Liseré rouge en haut à gauche) */}
+              <motion.div
+                initial={{ opacity: 0, height: 0, width: 0 }}
+                animate={isVisible ? { opacity: 1, height: 16, width: 16 } : {}}
+                transition={{ duration: 0.3, delay: i * 0.15 + 0.5 }}
+                className="pointer-events-none absolute left-0 top-0 border-l-2 border-t-2 border-[#5A0F14]"
+              />
+
+              <div className="grid grid-cols-1 items-center gap-6 sm:grid-cols-[1fr_auto_1fr] sm:gap-12">
+                
+                {/* Number Section */}
+                <div className="flex items-baseline justify-center sm:justify-start">
+                  {stat.prefix && (
+                    <span className="text-2xl font-light text-white/50">{stat.prefix}</span>
+                  )}
+                  <span className="text-5xl font-light tracking-tight tabular-nums sm:text-6xl">
+                    <AnimatedNumber from={stat.numberFrom} to={stat.number} visible={isVisible} />
+                  </span>
+                  {stat.suffix && (
+                    <span className="ml-2 text-xl font-bold text-[#5A0F14] sm:text-2xl">{stat.suffix}</span>
+                  )}
+                </div>
+
+                {/* Dots Separator (Caché sur mobile pour la clarté) */}
+                <div className="hidden flex-col items-center gap-2 sm:flex">
+                  {[0, 1, 2].map((j) => (
+                    <motion.div
+                      key={j}
+                      animate={{ opacity: [0.3, 1, 0.3], scale: [1, 1.2, 1] }}
+                      transition={{ duration: 2, repeat: Infinity, delay: j * 0.4 }}
+                      className="h-1.5 w-1.5 rounded-full bg-[#5A0F14]"
+                    />
+                  ))}
+                </div>
+
+                {/* Label Section */}
+                <div className="text-center sm:text-right">
+                  <p className="text-[15px] font-bold tracking-wide text-white">
+                    {stat.label}
+                  </p>
+                  <div className="mt-2 text-[13px] leading-relaxed text-white/50">
+                    {stat.sublabel.split("\n").map((line, idx) => (
+                      <span key={idx} className="block">{line}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Animated Progress Bar */}
+              <div className="absolute bottom-[-1px] left-0 h-[2px] w-full bg-white/5">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={isVisible ? { width: stat.barWidth } : {}}
+                  transition={{ duration: 1.5, delay: i * 0.2 + 0.5, ease: "easeOut" }}
+                  className="h-full bg-gradient-to-r from-[#5A0F14] to-red-600"
+                />
+              </div>
+            </motion.div>
           ))}
         </div>
 
-        {/* Bottom */}
-        <div
-          className={`mt-10 flex items-center justify-between transition-all duration-700 delay-700 ${
-            visible ? "opacity-100" : "opacity-0"
-          }`}
+        {/* Footer Note */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isVisible ? { opacity: 1 } : {}}
+          transition={{ duration: 1, delay: 1 }}
+          className="mt-16 flex flex-col items-center justify-between gap-6 sm:flex-row"
         >
-          <span className="text-[10px] uppercase tracking-[0.14em] text-white/65">
-            {importAdvantageCopy.disclaimer.split("\n").map((line, i) => (
-              <span key={i} className="block">{line}</span>
-            ))}
-          </span>
-          <div className="flex items-center gap-2 rounded-full border border-white/55 px-3 py-1.5">
-            <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#5A0F14]" />
-            <span className="text-[10px] uppercase tracking-[0.10em] text-white/65">
+          <p className="text-center text-[10px] uppercase tracking-[0.2em] text-white/60 sm:text-left">
+            {importAdvantageCopy.disclaimer}
+          </p>
+          <div className="flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2">
+            <motion.div 
+              animate={{ opacity: [1, 0.5, 1] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="h-2 w-2 rounded-full bg-[#5A0F14] shadow-[0_0_8px_rgba(90,15,20,0.8)]" 
+            />
+            <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/60">
               {importAdvantageCopy.badge}
             </span>
           </div>
-        </div>
+        </motion.div>
 
       </div>
     </section>
-  );
-}
-
-// ─── STAT ROW ───
-
-interface StatRowProps {
-  stat: (typeof importAdvantageCopy.stats)[number];
-  count: number;
-  visible: boolean;
-  delay: number;
-}
-
-function StatRow({ stat, count, visible, delay }: StatRowProps) {
-  const [hovered, setHovered] = useState(false);
-
-  return (
-    <div
-      className={`group relative border-b border-white/5 py-7 transition-all duration-500 ${
-        visible ? "translate-x-0 opacity-100" : "-translate-x-5 opacity-0"
-      }`}
-      style={{ transitionDelay: `${delay + 100}ms` }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      {/* Hover flash */}
-      <div
-        className={`pointer-events-none absolute inset-0 transition-opacity duration-300 ${
-          hovered ? "opacity-100" : "opacity-0"
-        }`}
-        style={{
-          background:
-            "linear-gradient(90deg, transparent, rgba(90,15,20,0.04), transparent)",
-        }}
-      />
-
-      {/* Row content */}
-      <div className="grid grid-cols-[1fr_auto_1fr] items-center">
-
-        {/* Number */}
-        <div className="flex items-baseline gap-1">
-          {stat.prefix && (
-            <span className="text-2xl font-extralight text-white/90">
-              {stat.prefix}
-            </span>
-          )}
-          <span className="text-[clamp(36px,8vw,52px)] font-thin leading-none tracking-tight tabular-nums">
-            {count}
-          </span>
-          {stat.suffix && (
-            // Espace ajouté avant le suffix via ml-1 pour séparer "6" de "–8 wks"
-            <span className="ml-1 text-xl font-extralight text-[#5A0F14]">
-              {stat.suffix}
-            </span>
-          )}
-        </div>
-
-        {/* Center dots
-            - Animation CSS pure via className .nevexa-dot
-            - Cascade via animation shorthand complet en inline style
-            - Pas de mix shorthand/non-shorthand pour éviter l'erreur React */}
-        <div className="flex flex-col items-center gap-1 px-6 sm:px-10">
-          {[0, 1, 2].map((j) => (
-            <div
-              key={j}
-              className="nevexa-dot rounded-full bg-[#5A0F14]"
-              style={{
-                width: "5px",
-                height: "5px",
-                // Shorthand complet — pas de animationDelay séparé
-                animation: hovered
-                  ? "none"
-                  : `nevexa-dot-pulse 1.8s ease-in-out ${j * 0.4}s infinite`,
-                ...(hovered
-                  ? {
-                      opacity: 1 - j * 0.35,
-                      transform: `scale(${1.3 - j * 0.15})`,
-                      transition: `transform 300ms ease ${j * 60}ms, opacity 300ms ease ${j * 60}ms`,
-                    }
-                  : {}),
-              }}
-            />
-          ))}
-        </div>
-
-        {/* Label */}
-        <div className="text-right">
-          <p className="text-sm font-medium tracking-wide text-white/90">
-            {stat.label}
-          </p>
-          <p className="mt-1 text-[11px] leading-relaxed text-white/55 transition-colors duration-300 group-hover:text-white/50">
-            {stat.sublabel.split("\n").map((line, i) => (
-              <span key={i} className="block">{line}</span>
-            ))}
-          </p>
-        </div>
-      </div>
-
-      {/* Progress bar — fond bg-white/8 au lieu de bg-white/4 pour plus de visibilité */}
-      <div className="relative mt-3 h-px w-full overflow-hidden bg-white/8">
-        <div
-          className="absolute left-0 top-0 h-full bg-gradient-to-r from-[#5A0F14] to-[#5A0F14]/20 transition-all duration-1000"
-          style={{
-            width: visible ? stat.barWidth : "0%",
-            left: hovered ? "12px" : "0px",
-            opacity: hovered ? 0.7 : 1,
-            transitionDelay: `${delay + 400}ms`,
-          }}
-        />
-      </div>
-
-      {/* Corner accent */}
-      <div
-        className={`pointer-events-none absolute left-0 top-0 border-l-2 border-t-2 border-[#5A0F14] transition-all duration-300 ${
-          visible ? "h-4 w-4 opacity-100" : "h-0 w-0 opacity-0"
-        }`}
-        style={{ transitionDelay: `${delay + 500}ms` }}
-      />
-    </div>
   );
 }

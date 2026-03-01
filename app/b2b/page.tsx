@@ -7,7 +7,7 @@ import ContactCTAB2B from "@/components/b2b/ContactCTAB2B";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Business Solutions",
+  title: "Business Solutions | Nevexa",
   description:
     "Fleet sourcing and corporate vehicle programs for African businesses. Nevexa delivers verified Canadian vehicles at scale with full documentation.",
   openGraph: {

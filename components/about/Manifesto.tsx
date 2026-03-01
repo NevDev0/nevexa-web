@@ -2,205 +2,129 @@
 
 import { useEffect, useRef, useState } from "react";
 import { manifestoCopy } from "@/content/about.en";
+import { Globe, Crown, Target } from "lucide-react";
 
 export default function Manifesto() {
+  const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-  const [visibleCards, setVisibleCards] = useState([false, false, false]);
-  const [isDesktop, setIsDesktop] = useState(false);
 
-  // Detect breakpoint
+  // Observer pour déclencher l'animation quand on arrive sur la section
   useEffect(() => {
-    const mq = window.matchMedia("(min-width: 640px)");
-    setIsDesktop(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
-
-  useEffect(() => {
-    if (!sectionRef.current) return;
-
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting) return;
-        observer.disconnect();
-
-        if (window.matchMedia("(min-width: 640px)").matches) {
-          // Desktop: cascade séquentielle depuis le parent
-          setTimeout(() => setVisibleCards([true, false, false]), 200);
-          setTimeout(() => setVisibleCards([true, true, false]), 550);
-          setTimeout(() => setVisibleCards([true, true, true]), 900);
-        } else {
-          // Mobile: cascade plus rapide
-          setTimeout(() => setVisibleCards([true, false, false]), 150);
-          setTimeout(() => setVisibleCards([true, true, false]), 400);
-          setTimeout(() => setVisibleCards([true, true, true]), 650);
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect(); // On coupe l'écoute une fois visible (perf)
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.2 } // Déclenche quand 20% de la section est visible
     );
 
-    // setTimeout 100ms — iOS Safari garantit que l'état initial est peint
-    const t = setTimeout(() => {
-      if (sectionRef.current) observer.observe(sectionRef.current);
-    }, 100);
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
-    return () => { clearTimeout(t); observer.disconnect(); };
-  }, [isDesktop]);
+  // Helper pour les icônes (inchangé, juste propre)
+  const getIcon = (id: string, isMiddle: boolean) => {
+    const iconProps = {
+      size: 22,
+      strokeWidth: 1.25,
+      className: isMiddle ? "text-[#5A0F14]" : "text-white/40",
+    };
+
+    let IconComponent;
+    switch (id) {
+      case "our-origin": IconComponent = Globe; break;
+      case "our-standard": IconComponent = Crown; break;
+      case "what-we-are": IconComponent = Target; break;
+      default: return null;
+    }
+
+    return (
+      <div className={`mb-8 flex h-12 w-12 items-center justify-center rounded-full border ${
+        isMiddle ? "border-[#5A0F14]/30 bg-[#5A0F14]/5" : "border-white/10 bg-white/5"
+      }`}>
+        {IconComponent && <IconComponent {...iconProps} />}
+      </div>
+    );
+  };
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative w-full overflow-hidden bg-black py-16 sm:py-20"
+    <section 
+      ref={sectionRef} 
+      className="relative w-full overflow-hidden bg-black py-16 sm:py-24"
     >
-
-      {/* Background image — keyframe via style inline → dans <style jsx> */}
+      {/* 1. BACKGROUND AVEC ZOOM FLUIDE CSS */}
+      {/* On passe de scale-110 à scale-100. will-change prévient le navigateur. */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-center opacity-40 will-change-transform"
         style={{
           backgroundImage: "url('/images/aboutstructure.webp')",
-          animation: "nevexa-manifesto-zoom 25s ease-out forwards",
+          transform: isVisible ? "scale(1)" : "scale(1.08)",
+          transition: "transform 2000ms ease-out", // 2 secondes, comme ton code original
         }}
       />
+      
+      {/* Gradient Overlay (Statique) */}
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.92)_0%,rgba(0,0,0,0.88)_50%,rgba(0,0,0,0.92)_100%)]" />
 
-      {/* Overlay */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: "linear-gradient(180deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.92) 50%, rgba(0,0,0,0.88) 100%)",
-        }}
-      />
-
-      {/* Grain */}
-      <div
-        className="pointer-events-none absolute inset-0 z-[1]"
-        style={{
-          opacity: 0.025,
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-          backgroundSize: "200px 200px",
-        }}
-      />
-
-      {/* Content */}
       <div className="relative z-10 px-6">
+        
+        {/* Ligne séparatrice */}
+        <div className="mx-auto mb-14 h-px w-full max-w-6xl bg-white/[0.06] sm:mb-20" />
 
-        {/* Top separator */}
-        <div className="mx-auto mb-14 h-px w-full max-w-6xl bg-white/[0.06] sm:mb-16" />
-
-        {/* Desktop: 3 pillars */}
-        <div className="mx-auto hidden w-full max-w-6xl grid-cols-3 gap-10 sm:grid">
-          {manifestoCopy.pillars.map((pillar, index) => (
-            <div
-              key={pillar.id}
-              className="relative"
-              style={{
-                borderLeft: index === 1 ? "3px solid rgba(90,15,20,0.6)" : "3px solid rgba(255,255,255,0.12)",
-                borderRight: index === 1 ? "3px solid rgba(90,15,20,0.6)" : "3px solid rgba(255,255,255,0.12)",
-                background: index === 1
-                  ? "linear-gradient(180deg, rgba(90,15,20,0.04) 0%, rgba(0,0,0,0.5) 100%)"
-                  : "linear-gradient(180deg, rgba(255,255,255,0.01) 0%, rgba(0,0,0,0.5) 100%)",
-                padding: "48px 28px",
-                minHeight: "320px",
-                opacity: visibleCards[index] ? 1 : 0,
-                transform: visibleCards[index] ? "translateX(0)" : "translateX(-40px)",
-                transition: "opacity 700ms cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 700ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",
-              }}
-            >
-              {/* Top accent for middle pillar */}
-              {index === 1 && (
-                <div
-                  className="absolute left-1/2 top-0 h-[2px] w-[60%] -translate-x-1/2"
-                  style={{
-                    background: "linear-gradient(90deg, transparent, rgba(90,15,20,0.8), transparent)",
-                  }}
-                />
-              )}
-
-              {/* h3 → h2 : fix accessibilité heading order */}
-              <h2
-                className="mb-8 text-[15px] font-extrabold uppercase tracking-[0.1em]"
-                style={{ color: index === 1 ? "#5A0F14" : "#fff" }}
+        {/* GRILLE DES PILLIERS */}
+        <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-10">
+          {manifestoCopy.pillars.map((pillar, index) => {
+            const isMiddle = index === 1;
+            return (
+              <div
+                key={pillar.id}
+                className={`relative border-l-[3px] p-8 transition-all duration-700 ease-out sm:min-h-[380px] sm:p-10 will-change-transform ${
+                  isMiddle 
+                  ? "border-[#5A0F14] bg-[linear-gradient(180deg,rgba(90,15,20,0.08)_0%,rgba(0,0,0,0.6)_100%)] sm:border-x-[3px]" 
+                  : "border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.02)_0%,rgba(0,0,0,0.5)_100%)]"
+                }`}
+                style={{
+                  // ANIMATION CSS LOGIC :
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible ? "translateX(0)" : "translateX(-20px)",
+                  // Délai calculé (0s, 0.2s, 0.4s) pour l'effet "Stagger"
+                  transitionDelay: `${index * 500}ms`, 
+                }}
               >
-                {pillar.title}
-              </h2>
+                {/* Ligne décorative (milieu seulement) */}
+                {isMiddle && (
+                  <div className="absolute left-1/2 top-0 hidden h-[2px] w-[60%] -translate-x-1/2 bg-[linear-gradient(90deg,transparent,#5A0F14,transparent)] sm:block" />
+                )}
 
-              <div className="space-y-4">
-                {pillar.content.map((paragraph, i) => (
-                  <p key={i} className="text-[14px] leading-[1.8] text-white/85">
-                    {paragraph}
-                  </p>
-                ))}
+                {getIcon(pillar.id, isMiddle)}
+
+                <h2 className={`mb-6 text-[14px] font-extrabold uppercase tracking-[0.15em] ${isMiddle ? "text-[#5A0F14]" : "text-white"}`}>
+                  {pillar.title}
+                </h2>
+
+                <div className="space-y-4">
+                  {pillar.content.map((paragraph, i) => (
+                    <p key={i} className="text-[14px] font-light leading-[1.8] text-white/70">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
-        {/* Mobile: stack */}
-        <div className="mx-auto w-full max-w-2xl space-y-6 sm:hidden">
-          {manifestoCopy.pillars.map((pillar, index) => (
-            <div
-              key={pillar.id}
-              className="relative"
-              style={{
-                borderLeft: index === 1 ? "4px solid rgba(90,15,20,0.7)" : "4px solid rgba(255,255,255,0.15)",
-                background: index === 1
-                  ? "linear-gradient(180deg, rgba(90,15,20,0.06) 0%, rgba(0,0,0,0.4) 100%)"
-                  : "linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0.4) 100%)",
-                padding: "28px 20px",
-                opacity: visibleCards[index] ? 1 : 0,
-                transform: visibleCards[index] ? "translateX(0)" : "translateX(-30px)",
-                transition: "opacity 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",
-              }}
-            >
-              {/* h3 → h2 : fix accessibilité heading order */}
-              <h2
-                className="mb-5 text-[13px] font-extrabold uppercase tracking-[0.1em]"
-                style={{ color: index === 1 ? "#5A0F14" : "#fff" }}
-              >
-                {pillar.title}
-              </h2>
-              <div className="space-y-3">
-                {pillar.content.map((paragraph, i) => (
-                  <p key={i} className="text-[13px] leading-[1.75] text-white/65">
-                    {paragraph}
-                  </p>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Foundation base */}
-        <div className="mx-auto mt-14 w-full max-w-6xl sm:mt-16">
-          <div
-            className="relative flex h-16 items-center justify-center border-t-2"
-            style={{
-              background: "linear-gradient(180deg, rgba(90,15,20,0.12) 0%, rgba(0,0,0,0.8) 100%)",
-              borderColor: "rgba(90,15,20,0.35)",
-            }}
-          >
-            <div className="absolute left-1/3 top-0 hidden h-full w-px bg-white/[0.06] sm:block" />
-            <div className="absolute right-1/3 top-0 hidden h-full w-px bg-white/[0.06] sm:block" />
-            <span className="text-[13px] font-bold uppercase tracking-[0.18em] text-white/85">
+        {/* Bloc "Foundation" du bas */}
+        <div className="mx-auto mt-20 w-full max-w-6xl">
+          <div className="relative flex h-24 items-center justify-center border-t-2 border-[#5A0F14]/30 bg-[linear-gradient(180deg,rgba(90,15,20,0.15)_0%,rgba(0,0,0,0.8)_100%)]">
+            <span className="text-[14px] font-bold uppercase tracking-[0.25em] text-white/60">
               Foundation
             </span>
           </div>
         </div>
-
       </div>
-
-      {/*
-        RÈGLE KEYFRAMES :
-        nevexa-manifesto-zoom → appelée via style={{ animation: "nevexa-manifesto-zoom ..." }}
-        → keyframe dans <style jsx> du composant ✅ (pas dans globals.css)
-      */}
-      <style jsx>{`
-        @keyframes nevexa-manifesto-zoom {
-          from { transform: scale(1.08); }
-          to   { transform: scale(1.0); }
-        }
-      `}</style>
-
     </section>
   );
 }

@@ -109,7 +109,8 @@ body {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-  
+ 
+
   /* ========================================
      CAROUSEL SNAP SCROLL
      ======================================== */
@@ -144,6 +145,19 @@ body {
     }
   }
   
+  /* ========================================
+   B2B carousel
+   ======================================== */
+   @layer utilities {
+    /* Masque la barre de scroll pour le carousel mobile */
+    .hide-scrollbar {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none; /* Chrome, Safari and Opera */
+    }
+  }
 
   /* ========================================
    NEVEXA DOTS PULSE — ImportAdvantage section
@@ -199,6 +213,86 @@ body {
     to   { opacity: 1; transform: translateY(0); }
     
   }
+
+/* ══════════════════════════════════════
+   TRIPARTITE MODEL — Animations
+   ══════════════════════════════════════ */
+
+/* Fade Up — Cards & Header */
+.tm-fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.55s ease-out, transform 0.55s ease-out;
+}
+.tm-fade-up.tm-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Underline Reveal */
+.tm-underline {
+  width: 0;
+  transition: width 0.6s ease-out;
+}
+.tm-underline.tm-visible {
+  width: 80px;
+}
+
+/* Connecteur horizontal (desktop) */
+.tm-scale-x {
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+.tm-scale-x.tm-visible {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+/* Connecteur vertical (mobile) */
+.tm-scale-y {
+  opacity: 0;
+  height: 0;
+  transition: opacity 0.4s ease-out, height 0.4s ease-out;
+}
+.tm-scale-y.tm-visible {
+  opacity: 1;
+  height: 32px;
+}
+
+/* Scan Lines */
+@keyframes tm-scan-move {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(200%); }
+}
+.tm-scan-line {
+  position: absolute;
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(to right, transparent, rgba(90, 15, 20, 0.3), transparent);
+  opacity: 0.5;
+  animation: tm-scan-move 8s linear infinite;
+  will-change: transform;
+}
+.tm-scan-line-1 { top: 20%; animation-delay: 0s; }
+.tm-scan-line-2 { top: 60%; animation-delay: -4s; }
+
+/* Particles */
+@keyframes tm-particle-pulse {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50%       { opacity: 0.8; transform: scale(1.5); }
+}
+.tm-particle {
+  position: absolute;
+  height: 2px;
+  width: 2px;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.3);
+  animation: tm-particle-pulse 3s ease-in-out infinite;
+  will-change: opacity, transform;
+}
+  
  /* ========================================
    NEVEXA ROTATE GLOW — FinancingForEveryNeed icon ring
    Appelée via className .icon-glow
@@ -212,50 +306,7 @@ body {
   animation: rotateGlow 3s linear infinite;
 }
 
-/* ========================================
-   FINANCING CARDS — hauteur uniforme mobile
-   ======================================== */
-.financing-card-item {
-  flex: 0 0 85vw;
-  scroll-snap-align: center;
-  scroll-snap-stop: always;
-  display: flex;
-  flex-direction: column;
-}
 
-  /* ========================================
-     FINANCING CARDS CAROUSEL - MOBILE SNAP
-     ======================================== */
-     .financing-carousel {
-      display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-      gap: 1.5rem;
-      padding-bottom: 1rem;
-    }
-    
-    .financing-carousel::-webkit-scrollbar {
-      display: none;
-    }
-    
-    .financing-carousel {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-    
-    .financing-card-item {
-      flex: 0 0 85vw;
-      scroll-snap-align: center;
-      scroll-snap-stop: always;
-    }
-    
-    @media (min-width: 640px) {
-      .financing-card-item {
-        flex: 0 0 calc(50% - 0.75rem);
-      }
-    }
 
 /* ========================================
    NEVEXA CTA PULSE — GeographicAvailability
@@ -290,66 +341,31 @@ body {
     }
   }
 
-/* ========================================
-   WAITLIST FORM — toutes les keyframes
-   Appelées via className → globals.css
-   ======================================== */
+/* Animation de flottaison des particules */
 @keyframes float-up {
-  0%   { transform: translateY(0) scale(0); opacity: 0; }
-  10%  { opacity: 1; transform: translateY(-10px) scale(1); }
-  80%  { opacity: 1; }
-  100% { transform: translateY(-80vh) scale(1); opacity: 0; }
+  0% { transform: translateY(0) scale(0); opacity: 0; }
+  10% { opacity: 0.5; transform: translateY(-20px) scale(1); }
+  90% { opacity: 0.2; }
+  100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
 }
+
 .particle {
   animation: float-up linear infinite;
 }
 
-@keyframes heroButtonPulse {
-  0%, 100% { box-shadow: 0 4px 20px rgba(90, 15, 20, 0.4); }
-  50%       { box-shadow: 0 4px 35px rgba(90, 15, 20, 0.7); }
-}
-.hero-button {
-  animation: heroButtonPulse 2s ease-in-out infinite;
-}
-
-@keyframes checkmarkSlide {
-  from { opacity: 0; transform: translateX(-10px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-.checkmark-slide {
-  animation: checkmarkSlide 0.3s ease-out;
+/* On enlève les styles de boutons pulse trop 'chargés' */
+/* On garde un design très net et sec */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25%       { transform: translateX(-5px); }
-  75%       { transform: translateX(5px); }
-}
-.shake {
-  animation: shake 0.4s;
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-.spinner {
-  animation: spin 1s linear infinite;
-}
-
-@keyframes checkmarkBounce {
-  0%   { transform: scale(0); opacity: 0; }
-  50%  { transform: scale(1.1); }
-  100% { transform: scale(1); opacity: 1; }
-}
-.checkmark-bounce {
-  animation: checkmarkBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-@keyframes successFadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.success-fade-in {
-  animation: successFadeIn 0.8s ease-out 0.3s both;
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0px center;
+  background-size: 16px;
 }

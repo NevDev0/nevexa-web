@@ -7,26 +7,24 @@ export const heroCopy = {
 
 // Section 2 — Why Import from Canada (VERSION ACCORDION)
 export const whyImportCopy = {
-  title: "Why import from Canada?",
-  // Phrase intro COURTE (toujours visible, pas dans accordion)
-  intro: "Better vehicles. Better process.",
+  title: "The Canadian Strategic Advantage",
+  intro: "Superior standards. Maximum security. Built to last.",
   
-  // Accordions (3 items)
   accordions: [
     {
-      id: "recent-models",
-      title: "Recent Models (2021-2026)", // Titre visible quand fermé
-      content: "Nevexa sources exclusively 2021-2026 vehicles from official dealerships. Every vehicle meets modern safety and technology standards, with no older inventory or salvage titles.",
+      id: "inventory-quality",
+      title: "Dealership Quality vs. US Salvage",
+      content: "The US export market is flooded with 'Salvage Titles' and hidden flood damage from auctions. Nevexa sources exclusively from certified franchise dealerships with transparent, accident-free histories.",
     },
     {
-      id: "competitive-pricing",
-      title: "Competitive Pricing",
-      content: "Canadian market prices often provide better value compared to local markups, especially for recent premium models where supply is limited.",
+      id: "export-security",
+      title: "Clean Title Guarantee (No Seizures)",
+      content: "Avoid the 'stolen car' trap. While the black market exports risky vehicles, Nevexa strictly follows the CBSA protocol. We provide the official Customs-Stamped Title for every vehicle, guaranteeing it is 100% legal and immune to Interpol seizure at destination.",
     },
     {
-      id: "verified-history",
-      title: "Verified History",
-      content: "Recent vehicles mean shorter ownership history to verify. Clean titles, accurate low mileage, with CARFAX and AutoCheck reports included for transparency.",
+      id: "heavy-duty-specs",
+      title: "Extreme Climate Specs",
+      content: "Built for the toughest environments. Canadian vehicles feature heavy-duty suspension, reinforced batteries, and superior thermal insulation. These 'over-engineered' specs make them far more durable on African roads than fragile warm-climate imports.",
     },
   ],
 };
@@ -64,7 +62,7 @@ export const valuePropsCopy = {
 
 export const brandsCopy = {
   title: "Brands we source",
-  legalNote: "Pilot projects — logos shown for illustration purposes",
+  legalNote: "Access to the complete range of official dealerships",
   logos: [
     { name: "Mercedes", src: "/brands/mercedes.png", scale: 2.0 },
     { name: "BMW", src: "/brands/bmw.png", scale: 2.0 },

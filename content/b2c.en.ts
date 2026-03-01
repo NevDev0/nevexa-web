@@ -376,7 +376,48 @@ export const importAdvantageCopy = {
   disclaimer: "Delivery timelines\n vary by destination",
 };
 
-// Section 4 — FAQ
+// Section 4 — What Others Won't Tell You (B2C Edition)
+export const b2cWhatOthersWontTellYou = {
+  title: "The Industry Secrets",
+  subtitle: "Protecting your family and your life savings from a rigged market.",
+  dossierItems: [
+    {
+      num: "01",
+      title: "Auction Salvage — A Danger to Your Family",
+      problem:
+        "Many importers buy cheap, flood-damaged or severely crashed cars at North American auctions. They apply cheap cosmetic fixes and sell them as 'clean'. In a collision, a compromised chassis fails to protect your loved ones.",
+      solution:
+        "We source exclusively from official Canadian dealerships. No auctions. Every vehicle has a flawless, verified history. We never gamble with your family's safety. Ever.",
+    },
+    {
+      num: "02",
+      title: "The Mileage Rollback Epidemic",
+      problem:
+        "Odometer fraud is rampant. Unscrupulous sellers roll back the miles to artificially inflate the car's price. You end up draining your hard-earned savings on unexpected engine and transmission repairs.",
+      solution:
+        "Every Nevexa vehicle includes a certified CARFAX report upfront. Verified mileage and a complete maintenance history. If a car has a single red flag, we refuse to source it. Period.",
+    },
+    {
+      num: "03",
+      title: "The 'Port Surprise' Ransom",
+      problem:
+        "Standard industry practice: quote an unrealistically low price upfront, then hold your car hostage at the destination port with 'unexpected' clearing fees, terminal charges, and bribes.",
+      solution:
+        "Total financial transparency. Our pricing structure is crystal clear from day one. No hidden fees, no extortion at the port. You know exactly where your money goes.",
+    },
+    {
+      num: "04",
+      title: "The Disappearing Broker",
+      problem:
+        "You wire the funds for your dream car, and suddenly the broker stops answering calls. You spend weeks stressed and in the dark, wondering if your money is gone and if your car will ever arrive.",
+      solution:
+        "You get a dedicated human advisor, regular photo updates of your vehicle, and live tracking of your ocean shipment. We treat your investment with the absolute respect it deserves.",
+    },
+  ],
+};
+
+
+// Section 5 — FAQ
 export const faqCopy = {
   title: "Your Questions",
   questions: [
@@ -412,7 +453,7 @@ export const faqCopy = {
     },
   ],
 };
-// Section 5 — Referral
+// Section 6 — Referral
 export const referralCopy = {
     title: "Satisfied with Nevexa?",
     description: "Introduce a friend looking for a premium vehicle. If they complete a purchase, you receive up to 1000 USD",
