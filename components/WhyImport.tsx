@@ -49,7 +49,7 @@ export default function WhyImport() {
             <h2
               data-animate
               data-delay="200"
-              className="wi-fade-up mb-6 text-xs font-black uppercase tracking-[0.3em] text-[#8A1F24]"
+              className="wi-fade-up mb-6 text-xs font-black uppercase tracking-[0.3em] text-[#8A1F24] sm:text-sm"
             >
               {whyImportCopy.title}
             </h2>
@@ -67,7 +67,7 @@ export default function WhyImport() {
             <p
               data-animate
               data-delay="500"
-              className="wi-fade-up mt-8 text-lg font-light leading-relaxed text-neutral-400"
+              className="wi-fade-up mt-8 text-lg font-light leading-relaxed text-neutral-300"
             >
               {whyImportCopy.intro}
             </p>
@@ -100,7 +100,7 @@ export default function WhyImport() {
                       <h4 className="mb-2 text-lg font-bold uppercase tracking-wide text-white transition-colors duration-500 group-hover:text-[#8A1F24] sm:text-xl">
                         {item.title}
                       </h4>
-                      <p className="text-sm font-light leading-relaxed text-neutral-400 transition-colors duration-500 group-hover:text-neutral-300 sm:text-base">
+                      <p className="text-base font-light leading-relaxed text-neutral-400 transition-colors duration-500 group-hover:text-neutral-300 sm:text-lg">
                         {item.content}
                       </p>
                     </div>
