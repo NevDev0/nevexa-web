@@ -17,7 +17,7 @@ const COUNTRY_POSITIONS = [
   },
   {
     id: "senegal",
-    x: { mobile: "15%", desktop: "14%" },
+    x: { mobile: "15%", desktop: "15%" },
     y: { mobile: "33%", desktop: "33.5%" },
     labelClass: "bottom-full mr-2 mb-3",
   },
@@ -30,12 +30,12 @@ const COUNTRY_POSITIONS = [
   {
     id: "ivory-coast",
     x: { mobile: "26%", desktop: "26.8%" },
-    y: { mobile: "44.6%", desktop: "45.1%" },
+    y: { mobile: "44.6%", desktop: "44.5%" },
     labelClass: "top-full right-full mt-2 sm:mt-1",
   },
   {
     id: "cameroon",
-    x: { mobile: "45.5%", desktop: "45.2%" },
+    x: { mobile: "45.5%", desktop: "45.5%" },
     y: { mobile: "48.5%", desktop: "48.4%" },
     labelClass: "left-full top-full ml-1 mt-1",
   },
