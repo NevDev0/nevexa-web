@@ -259,16 +259,20 @@ body {
 }
 
 /* ══════════════════════════════════════
-   TRIPARTITE MODEL — Animations
+   TRIPARTITE MODEL — Animations Optimisées
    ══════════════════════════════════════ */
 
 /* Fade Up — Cards & Header */
 .tm-fade-up {
   opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: translateY(30px);
+  /* Le délai est géré par CSS maintenant, beaucoup plus fluide */
+  transition: opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+              transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition-delay: var(--delay, 0ms);
+  will-change: opacity, transform; /* Force l'accélération matérielle */
 }
+
 .tm-fade-up.tm-visible {
   opacity: 1;
   transform: translateY(0);
@@ -278,7 +282,10 @@ body {
 .tm-underline {
   width: 0;
   transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-delay: var(--delay, 0ms);
+  will-change: width;
 }
+
 .tm-underline.tm-visible {
   width: 80px;
 }
@@ -290,21 +297,28 @@ body {
   transform-origin: left center;
   transition: opacity 0.5s ease-out,
               transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-delay: var(--delay, 0ms);
 }
+
 .tm-scale-x.tm-visible {
   opacity: 1;
   transform: scaleX(1);
 }
 
-/* Connecteur vertical (mobile) */
+/* Connecteur vertical (mobile) - OPTIMISÉ */
 .tm-scale-y {
   opacity: 0;
-  height: 0;
-  transition: opacity 0.5s ease-out, height 0.5s ease-out;
+  height: 32px; /* Hauteur fixe, on joue sur le scale */
+  transform: scaleY(0);
+  transform-origin: top center; /* Grandit vers le bas */
+  transition: opacity 0.5s ease-out,
+              transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-delay: var(--delay, 0ms);
 }
+
 .tm-scale-y.tm-visible {
   opacity: 1;
-  height: 32px;
+  transform: scaleY(1);
 }
 
 /* Scan Lines */
@@ -312,6 +326,7 @@ body {
   from { transform: translateX(-100%); }
   to   { transform: translateX(200%); }
 }
+
 .tm-scan-line {
   position: absolute;
   height: 1px;
@@ -321,6 +336,7 @@ body {
   animation: tm-scan-move 8s linear infinite;
   will-change: transform;
 }
+
 .tm-scan-line-1 { top: 20%; animation-delay: 0s; }
 .tm-scan-line-2 { top: 60%; animation-delay: -4s; }
 
@@ -329,6 +345,7 @@ body {
   0%, 100% { opacity: 0.2; transform: scale(1); }
   50%       { opacity: 0.8; transform: scale(1.5); }
 }
+
 .tm-particle {
   position: absolute;
   height: 2px;
@@ -336,7 +353,6 @@ body {
   border-radius: 9999px;
   background-color: rgba(255, 255, 255, 0.3);
   animation: tm-particle-pulse 3s ease-in-out infinite;
-  will-change: opacity, transform;
 }
   
  /* ══════════════════════════════════════

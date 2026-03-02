@@ -22,16 +22,17 @@ export default function TripartiteModel() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const el = entry.target as HTMLElement;
-            const delay = Number(el.dataset.delay ?? "0");
-            setTimeout(() => {
-              el.classList.add("tm-visible");
-            }, delay);
-            observer.unobserve(el);
+            // Plus de setTimeout ici. On ajoute la classe directement.
+            // Le CSS gère le délai via var(--delay) -> Performance maximale.
+            entry.target.classList.add("tm-visible");
+            observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.15 }
+      { 
+        threshold: 0.1, // Déclenche un peu plus tôt
+        rootMargin: "0px 0px -50px 0px" // Petite marge de sécurité
+      }
     );
 
     animatables.forEach((el) => observer.observe(el));
@@ -64,14 +65,18 @@ export default function TripartiteModel() {
 
       <div className="relative z-10 mx-auto max-w-6xl">
         {/* HEADER */}
-        <div data-animate data-delay="0" className="tm-fade-up mb-10 text-center sm:mb-16">
+        <div 
+          data-animate 
+          className="tm-fade-up mb-10 text-center sm:mb-16"
+          style={{ "--delay": "0ms" } as React.CSSProperties}
+        >
           <h2 className="mb-4 text-2xl font-bold uppercase tracking-[0.12em] sm:text-[1.75rem]">
             {howItWorksCopy.title}
           </h2>
           <div
             data-animate
-            data-delay="200"
             className="tm-underline mx-auto mb-6 h-0.5 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent shadow-[0_0_10px_rgba(90,15,20,0.5)]"
+            style={{ "--delay": "200ms" } as React.CSSProperties}
           />
           <p className="mx-auto max-w-2xl text-sm leading-relaxed text-white/80 sm:text-[15px]">
             {howItWorksCopy.subtitle}
@@ -107,7 +112,8 @@ export default function TripartiteModel() {
               <div key={actor.id} className="relative flex-1 md:max-w-[280px]">
                 <div
                   data-animate
-                  data-delay={`${index * 150}`}
+                  // On passe le délai en variable CSS. Le JS ne fait plus rien.
+                  style={{ "--delay": `${index * 150}ms` } as React.CSSProperties}
                   className={`tm-fade-up group relative h-full overflow-hidden rounded-xl border bg-black/60 backdrop-blur-md transition-colors duration-300 ${getBorderClass()}`}
                 >
                   <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(90,15,20,0.15),transparent_70%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
@@ -147,12 +153,13 @@ export default function TripartiteModel() {
                   <>
                     <div
                       data-animate
-                      data-delay={`${index * 150 + 300}`}
+                      style={{ "--delay": `${index * 150 + 300}ms` } as React.CSSProperties}
                       className="tm-scale-x absolute left-full top-1/2 hidden h-0.5 w-8 -translate-y-1/2 bg-gradient-to-r from-white/20 to-[#5A0F14]/40 md:block lg:w-12"
                     />
                     <div
                       data-animate
-                      data-delay={`${index * 150 + 300}`}
+                      style={{ "--delay": `${index * 150 + 300}ms` } as React.CSSProperties}
+                      // La classe tm-scale-y utilise maintenant scaleY() au lieu de height
                       className="tm-scale-y relative left-1/2 -ml-[1px] block w-0.5 bg-gradient-to-b from-white/20 to-[#5A0F14]/40 md:hidden"
                     />
                   </>
