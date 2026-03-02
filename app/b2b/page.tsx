@@ -7,20 +7,8 @@ import ContactCTAB2B from "@/components/b2b/ContactCTAB2B";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Business Solutions | Nevexa",
-  description:
-    "Fleet sourcing and corporate vehicle programs for African businesses. Nevexa delivers verified Canadian vehicles at scale with full documentation.",
-  openGraph: {
-    title: "Business Solutions | Nevexa",
-    description:
-      "Fleet sourcing and corporate vehicle programs for African businesses. Nevexa delivers verified Canadian vehicles at scale with full documentation.",
-    url: "https://nevexacars.com/b2b",
-  },
-  twitter: {
-    title: "Business Solutions | Nevexa",
-    description:
-      "Fleet sourcing and corporate vehicle programs for African businesses. Nevexa delivers verified Canadian vehicles at scale with full documentation.",
-  },
+  title: "Business Solutions",
+  description: "Fleet sourcing and corporate vehicle programs for African businesses. Nevexa delivers verified Canadian vehicles at scale with full documentation.", 
 };
 
 export default function B2BPage() {

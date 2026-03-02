@@ -11,20 +11,8 @@ import Footer from "@/components/Footer";
 const SHOW_REAL_RESULTS = false;
 
 export const metadata: Metadata = {
-  title: "Buy a Vehicle | Nevexa",
-  description:
-    "Browse 2021-2026 premium vehicles sourced directly from Canadian dealerships. Mercedes-Benz, Toyota, Cadillac and more — delivered to your door in Africa.",
-  openGraph: {
-    title: "Buy a Vehicle | Nevexa",
-    description:
-      "Browse 2021-2026 premium vehicles sourced directly from Canadian dealerships. Mercedes-Benz, Toyota, Cadillac and more — delivered to your door in Africa.",
-    url: "https://nevexacars.com/b2c",
-  },
-  twitter: {
-    title: "Buy a Vehicle | Nevexa",
-    description:
-      "Browse 2021-2026 premium vehicles sourced directly from Canadian dealerships. Mercedes-Benz, Toyota, Cadillac and more — delivered to your door in Africa.",
-  },
+  title: "Buy a Vehicle", 
+  description: "Browse 2021-2026 premium vehicles sourced directly from Canadian dealerships. Mercedes-Benz, Toyota, Cadillac and more — delivered to your door in Africa.", 
 };
 
 export default function B2CPage() {

@@ -6,20 +6,8 @@ import SplitCTA from "@/components/about/SplitCTA";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "About | Nevexa",
-  description:
-    "Nevexa was built to eliminate fraud in the African vehicle market. Learn our story, our mission, and why transparency is the foundation of everything we do.",
-  openGraph: {
-    title: "About | Nevexa",
-    description:
-      "Nevexa was built to eliminate fraud in the African vehicle market. Learn our story, our mission, and why transparency is the foundation of everything we do.",
-    url: "https://nevexacars.com/about",
-  },
-  twitter: {
-    title: "About | Nevexa",
-    description:
-      "Nevexa was built to eliminate fraud in the African vehicle market. Learn our story, our mission, and why transparency is the foundation of everything we do.",
-  },
+  title: "About",
+  description: "Nevexa was built to eliminate fraud in the African vehicle market. Learn our story, our mission, and why transparency is the foundation of everything we do.",
 };
 
 export default function AboutPage() {
