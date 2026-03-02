@@ -66,7 +66,7 @@ export default function HeroAbout() {
   };
 
   return (
-    <section className="relative flex min-h-[90svh] w-full items-start justify-center overflow-hidden bg-black px-6 pb-20 pt-40 sm:min-h-[90svh] sm:pt-50">
+    <section className="relative flex min-h-[90svh] w-full items-start justify-center overflow-hidden bg-black px-6 pb-20 pt-40 sm:min-h-[80svh] sm:pt-50">
       <NavBar />
 
       {/* Background image */}
@@ -102,7 +102,7 @@ export default function HeroAbout() {
         </h1>
 
         <p
-          className="text-[24px] font-medium tracking-wide text-neutral-300 sm:text-[30px]"
+          className="text-[25px] font-medium tracking-wide text-neutral-200 sm:text-[35px]"
           style={{
             opacity: visible ? 1 : 0,
             transform: visible ? "translateY(0)" : "translateY(30px)",

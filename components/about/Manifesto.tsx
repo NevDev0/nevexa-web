@@ -103,7 +103,7 @@ export default function Manifesto() {
 
                 <div className="space-y-4">
                   {pillar.content.map((paragraph, i) => (
-                    <p key={i} className="text-[14px] font-light leading-[1.8] text-white/70">
+                    <p key={i} className="text-[15px] font-light leading-[1.8] text-white/80">
                       {paragraph}
                     </p>
                   ))}
@@ -114,9 +114,9 @@ export default function Manifesto() {
         </div>
 
         {/* Foundation */}
-        <div className="mx-auto mt-20 w-full max-w-6xl">
+        <div className="mx-auto mt-10 w-full max-w-6xl">
           <div className="relative flex h-24 items-center justify-center border-t-2 border-[#5A0F14]/30 bg-[linear-gradient(180deg,rgba(90,15,20,0.15)_0%,rgba(0,0,0,0.8)_100%)]">
-            <span className="text-[14px] font-bold uppercase tracking-[0.25em] text-white/60">
+            <span className="text-[14px] font-bold uppercase tracking-[0.25em] text-white/70">
               {foundationLabel}
             </span>
           </div>

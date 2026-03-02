@@ -5,7 +5,7 @@
 // Section 1 — Hero
 // ─────────────────────────────────────────
 export const aboutHeroCopy = {
-    statement: "Le marché de l'occasion, c'est le far west. On a choisi un autre chemin.",
+    statement: "Le marché est truqué. On ne joue pas ce jeu-là.",
     highlightWord: "truqué", 
     subline: "On a construit la sortie.",
   };
