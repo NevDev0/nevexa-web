@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { choosePathCopy } from "@/content/en";
+import { useLanguage } from "@/context/LanguageContext";
+import { choosePathCopy as choosePathCopyEn } from "@/content/en";
+import { choosePathCopy as choosePathCopyFr } from "@/content/fr";
 
-type Card = (typeof choosePathCopy.cards)[0];
+type Card = (typeof choosePathCopyEn.cards)[0];
 
 function PathCard({
   card,
@@ -26,7 +28,6 @@ function PathCard({
 
   const isVisible = isDesktop ? isVisibleFromParent : isVisibleMobile;
 
-  // Observer individuel — mobile uniquement
   useEffect(() => {
     if (isDesktop) return;
     const observer = new IntersectionObserver(
@@ -49,9 +50,9 @@ function PathCard({
 
   const getTransform = () => {
     if (isVisible) return "translate(0, 0)";
-    if (index === 0) return "translateX(-60px)";  // Individuals — gauche toujours
-    if (isDesktop) return "translateY(-60px)";     // B2B + Financing — haut sur desktop
-    return "translateX(60px)";                     // B2B + Financing — droite sur mobile
+    if (index === 0) return "translateX(-60px)";
+    if (isDesktop) return "translateY(-60px)";
+    return "translateX(60px)";
   };
 
   return (
@@ -96,6 +97,9 @@ function PathCard({
 }
 
 export default function ChoosePath() {
+  const { language } = useLanguage();
+  const choosePathCopy = language === "fr" ? choosePathCopyFr : choosePathCopyEn;
+
   const [visible, setVisible] = useState(false);
   const [underlineWidth, setUnderlineWidth] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
@@ -116,7 +120,6 @@ export default function ChoosePath() {
         if (entry.isIntersecting) {
           setVisible(true);
           setTimeout(() => setUnderlineWidth(true), 200);
-          // Desktop — cascade bien espacée depuis le parent
           if (window.matchMedia("(min-width: 768px)").matches) {
             setTimeout(() => setVisibleCards((p) => [true, p[1], p[2]]), 300);
             setTimeout(() => setVisibleCards((p) => [p[0], true, p[2]]), 750);
@@ -134,7 +137,7 @@ export default function ChoosePath() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-black px-6 pb-24 pt-16 text-white"
+      className="relative w-full bg-black px-6 pb-24 pt-20 text-white"
     >
       <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-[#F2F2F2]" />
 
@@ -165,7 +168,6 @@ export default function ChoosePath() {
         </div>
 
         <div className="flex flex-col gap-6 md:h-[500px] md:flex-row">
-
           <PathCard
             card={choosePathCopy.cards[0]}
             index={0}

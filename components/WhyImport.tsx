@@ -1,9 +1,14 @@
 "use client";
 
-import { whyImportCopy } from "@/content/en";
+import { useLanguage } from "@/context/LanguageContext";
+import { whyImportCopy as whyImportCopyEn } from "@/content/en";
+import { whyImportCopy as whyImportCopyFr } from "@/content/fr";
 import { useEffect, useRef } from "react";
 
 export default function WhyImport() {
+  const { language } = useLanguage();
+  const whyImportCopy = language === "fr" ? whyImportCopyFr : whyImportCopyEn;
+
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -54,10 +59,10 @@ export default function WhyImport() {
               data-delay="350"
               className="wi-fade-up text-4xl font-bold uppercase leading-tight tracking-tight sm:text-5xl lg:text-6xl"
             >
-              <span className="block text-white">Superior</span>
-              <span className="block text-white/40">Standards.</span>
-              <span className="block text-[#8A1F24]">Max Security.</span>
-            </h3>
+              <span className="block text-white">{whyImportCopy.headline[0]}</span>
+              <span className="block text-white/40">{whyImportCopy.headline[1]}</span>
+              <span className="block text-[#8A1F24]">{whyImportCopy.headline[2]}</span>
+              </h3>
 
             <p
               data-animate

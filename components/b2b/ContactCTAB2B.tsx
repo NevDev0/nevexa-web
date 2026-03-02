@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { contactCTAB2B } from "@/content/b2b.en";
+import { useLanguage } from "@/context/LanguageContext";
+import { contactCTAB2B as contactCTAB2BEn } from "@/content/b2b.en";
+import { contactCTAB2B as contactCTAB2BFr } from "@/content/b2b.fr";
 
 const channels = [
   {
@@ -11,8 +13,6 @@ const channels = [
         <path d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm0 2v.2l8 5 8-5V7H4Zm0 3.25V18h16v-7.75l-7.56 4.73a1 1 0 0 1-1.08 0L4 10.25Z" fill="currentColor" stroke="none" />
       </svg>
     ),
-    title: "Email",
-    tagline: "Fleet sourcing & partnerships",
     href: "mailto:contact@nevexacars.com",
   },
   {
@@ -22,13 +22,14 @@ const channels = [
         <path d="M16 3C9.383 3 4 8.383 4 15c0 2.054.551 4.022 1.6 5.77L4 29l8.434-1.566A11.84 11.84 0 0 0 16 27c6.617 0 12-5.383 12-12S22.617 3 16 3Zm0 2c5.534 0 10 4.466 10 10s-4.466 10-10 10a9.83 9.83 0 0 1-4.91-1.332l-.355-.207-4.99.926.955-4.834-.23-.373A9.77 9.77 0 0 1 6 15c0-5.534 4.466-10 10-10Zm-4.104 5.5a1.01 1.01 0 0 0-.74.356c-.192.225-.668.652-.668 1.586 0 .934.684 1.838.78 1.965.096.128 1.34 2.13 3.287 2.996 1.946.867 1.946.578 2.296.547.35-.03 1.126-.46 1.285-.905.16-.445.16-.826.114-.905-.046-.08-.178-.128-.373-.225-.195-.096-1.153-.57-1.332-.636-.178-.064-.308-.096-.437.097-.128.192-.502.635-.615.764-.113.128-.225.145-.42.048-.195-.096-.825-.304-1.572-.968-.58-.517-.97-1.155-1.083-1.35-.113-.192-.012-.296.084-.392.086-.085.195-.225.292-.337.097-.112.129-.192.194-.32.064-.128.032-.24-.017-.337-.048-.096-.426-1.03-.585-1.412-.145-.35-.29-.363-.42-.369Z" />
       </svg>
     ),
-    title: "WhatsApp",
-    tagline: "For urgent questions",
     href: "https://wa.me/14374842769",
   },
 ];
 
 export default function ContactCTAB2B() {
+  const { language } = useLanguage();
+  const contactCTAB2B = language === "fr" ? contactCTAB2BFr : contactCTAB2BEn;
+
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -46,6 +47,21 @@ export default function ContactCTAB2B() {
     return () => observer.disconnect();
   }, []);
 
+  const channelData = [
+    {
+      ...channels[0],
+      title: "Email",
+      tagline: contactCTAB2B.emailTagline,
+      cta: contactCTAB2B.ctaPrimary,
+    },
+    {
+      ...channels[1],
+      title: "WhatsApp",
+      tagline: contactCTAB2B.whatsappTagline,
+      cta: contactCTAB2B.ctaSecondary,
+    },
+  ];
+
   return (
     <section
       ref={sectionRef}
@@ -55,7 +71,7 @@ export default function ContactCTAB2B() {
 
       <div className="relative z-10 mx-auto max-w-5xl">
 
-        {/* ── HEADER ── */}
+        {/* HEADER */}
         <div
           className="mb-12 text-center sm:mb-20"
           style={{
@@ -80,9 +96,9 @@ export default function ContactCTAB2B() {
           </p>
         </div>
 
-        {/* ── CHANNELS ── */}
+        {/* CHANNELS */}
         <div className="flex flex-row gap-3 sm:grid sm:grid-cols-2 sm:gap-6">
-          {channels.map((channel, index) => (
+          {channelData.map((channel, index) => (
             <a
               key={channel.id}
               href={channel.href}
@@ -94,27 +110,22 @@ export default function ContactCTAB2B() {
                 transitionDelay: `${200 + index * 150}ms`,
               }}
             >
-              {/* Hover glow */}
               <div className="absolute inset-0 bg-gradient-to-b from-[#5A0F14]/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
-              {/* Icon */}
               <div className="relative mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-white/5 text-white transition-all duration-500 group-hover:bg-[#5A0F14] group-hover:shadow-[0_0_20px_rgba(90,15,20,0.6)] sm:mb-8 sm:h-16 sm:w-16">
                 {channel.icon}
               </div>
 
-              {/* Title */}
               <h3 className="relative text-[15px] font-bold text-white transition-colors group-hover:text-[#5A0F14] sm:mb-2 sm:text-2xl">
                 {channel.title}
               </h3>
 
-              {/* Tagline — masqué mobile */}
               <p className="relative hidden text-[14px] leading-relaxed text-white/40 sm:mb-8 sm:block">
                 {channel.tagline}
               </p>
 
-              {/* Action */}
               <div className="relative mt-2 inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-[#5A0F14] transition-all group-hover:text-white sm:mt-auto sm:text-[13px] sm:text-white/80">
-                {channel.id === "email" ? contactCTAB2B.ctaPrimary : contactCTAB2B.ctaSecondary}
+                {channel.cta}
                 <svg className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-1 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
@@ -123,7 +134,7 @@ export default function ContactCTAB2B() {
           ))}
         </div>
 
-        {/* ── NOTE ── */}
+        {/* NOTE */}
         <div
           className="mt-12 text-center sm:mt-20"
           style={{

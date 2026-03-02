@@ -6,6 +6,7 @@ export const b2cHeroCopy = {
   badge: "we import 2021-2026 Models Only",
   ctaPrimary: "Explore catalog",
   ctaSecondary: "Speak with advisor",
+  impactText: "Protecting your family and your hard-earned money. Official dealerships only. No auctions. No hidden history.",
   disclaimer: "*Cadillac Escalade ESV 2026, V8*",
 };
 

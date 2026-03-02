@@ -1,9 +1,17 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { financingProfilesCopy } from "@/content/financing.en";
+import { useLanguage } from "@/context/LanguageContext";
+import { financingProfilesCopy as financingProfilesCopyEn } from "@/content/financing.en";
+import { financingProfilesCopy as financingProfilesCopyFr } from "@/content/financing.fr";
 
 export default function FinancingForEveryNeed() {
+  const { language } = useLanguage();
+  const financingProfilesCopy = language === "fr" ? financingProfilesCopyFr : financingProfilesCopyEn;
+
+  const targetLabel = language === "fr" ? "Cible" : "Target";
+  const exampleLabel = language === "fr" ? "Exemple" : "Example";
+
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -26,10 +34,8 @@ export default function FinancingForEveryNeed() {
       ref={sectionRef}
       className="relative w-full overflow-hidden bg-[#0E0F11] py-20 sm:py-32"
     >
-      {/* ── BACKGROUND FX ── */}
       <div className="pointer-events-none absolute inset-0 z-0 opacity-20">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
-        {/* Particles background — CSS only */}
         <div className="absolute inset-0">
           {Array.from({ length: 15 }).map((_, i) => (
             <div
@@ -48,7 +54,7 @@ export default function FinancingForEveryNeed() {
 
       <div className="relative z-10 mx-auto max-w-7xl px-6">
 
-        {/* ── HEADER ── */}
+        {/* HEADER */}
         <div className="mb-16 text-center">
           <h2
             className="mb-4 text-2xl font-bold uppercase tracking-[0.12em] text-white sm:text-3xl"
@@ -80,7 +86,7 @@ export default function FinancingForEveryNeed() {
           </p>
         </div>
 
-        {/* ── CARDS ── */}
+        {/* CARDS */}
         <div className="flex w-full snap-x snap-mandatory gap-6 overflow-x-auto pb-12 scrollbar-hide sm:grid sm:grid-cols-2 sm:overflow-visible sm:pb-0 lg:grid-cols-4">
           {financingProfilesCopy.profiles.map((profile, index) => (
             <div
@@ -95,10 +101,8 @@ export default function FinancingForEveryNeed() {
             >
               <div className="group relative flex h-full flex-col overflow-hidden rounded-[20px] border border-white/10 bg-gradient-to-br from-[#1A1A20] via-[#0E0E12] to-[#050505] p-8 text-center transition-all duration-500 hover:border-[#5A0F14]/50 hover:shadow-[0_20px_60px_rgba(90,15,20,0.2),inset_0_0_40px_rgba(90,15,20,0.05)]">
 
-                {/* Internal glow */}
                 <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(90,15,20,0.15),transparent_70%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
-                {/* Card particles — CSS */}
                 <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-40">
                   {[1, 2, 3].map((i) => (
                     <div
@@ -114,7 +118,6 @@ export default function FinancingForEveryNeed() {
                   ))}
                 </div>
 
-                {/* Icon avec anneau tournant */}
                 <div className="relative mx-auto mb-6 flex h-20 w-20 items-center justify-center">
                   <div className="absolute inset-0 rounded-full border-2 border-white/5" />
                   <div className="absolute inset-0 animate-spin rounded-full border-r-2 border-t-2 border-[#5A0F14]" style={{ animationDuration: "3s" }} />
@@ -124,13 +127,12 @@ export default function FinancingForEveryNeed() {
                   />
                 </div>
 
-                {/* Content */}
                 <div className="relative z-10 flex flex-1 flex-col items-center">
                   <h3 className="mb-2 text-xl font-bold text-white transition-colors group-hover:text-white">
                     {profile.title}
                   </h3>
                   <p className="mb-4 text-xs font-bold uppercase tracking-wider text-[#5A0F14]/80">
-                    Target:{" "}
+                    {targetLabel}:{" "}
                     <span className="font-medium normal-case tracking-normal text-white/60">
                       {profile.targets}
                     </span>
@@ -138,7 +140,7 @@ export default function FinancingForEveryNeed() {
                   <div className="mx-auto mb-4 h-px w-12 bg-gradient-to-r from-transparent via-white/20 to-transparent transition-all duration-500 group-hover:via-[#5A0F14]/50" />
                   <div className="mt-auto">
                     <p className="mb-3 text-xs text-white/50">
-                      <strong className="mb-1 block text-white/80">Example:</strong>
+                      <strong className="mb-1 block text-white/80">{exampleLabel}:</strong>
                       {profile.example}
                     </p>
                     <span className="inline-block rounded-full border border-white/5 bg-white/[0.03] px-3 py-1 text-[10px] font-bold text-white/80 transition-colors group-hover:border-[#5A0F14]/30 group-hover:bg-[#5A0F14]/10">
@@ -151,7 +153,6 @@ export default function FinancingForEveryNeed() {
           ))}
         </div>
 
-        {/* Mobile swipe indicator */}
         <div className="mt-4 flex justify-center sm:hidden">
           <div className="h-1 w-16 overflow-hidden rounded-full bg-white/10">
             <div className="ffen-swipe-indicator h-full w-1/3 bg-[#5A0F14]" />

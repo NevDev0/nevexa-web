@@ -1,29 +1,31 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { b2bHeroCopy } from "@/content/b2b.en";
+import { useLanguage } from "@/context/LanguageContext";
+import { b2bHeroCopy as b2bHeroCopyEn } from "@/content/b2b.en";
+import { b2bHeroCopy as b2bHeroCopyFr } from "@/content/b2b.fr";
 import ContactChoiceModalB2B from "@/components/b2b/ContactChoiceModalB2B";
 import NavBar from "@/components/NavBar";
 
 export default function HeroB2B() {
+  const { language } = useLanguage();
+  const b2bHeroCopy = language === "fr" ? b2bHeroCopyFr : b2bHeroCopyEn;
+
   const [modalOpen, setModalOpen] = useState(false);
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    // Petit délai pour laisser le DOM se stabiliser avant de déclencher
     const t = setTimeout(() => setVisible(true), 100);
     return () => clearTimeout(t);
   }, []);
 
   return (
     <>
-      {/* ── NAVBAR ── */}
       <NavBar />
 
       <section ref={sectionRef} className="relative w-full overflow-hidden min-h-[85svh]">
 
-        {/* Background image — scale CSS au lieu de Framer */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
@@ -34,10 +36,8 @@ export default function HeroB2B() {
           }}
         />
 
-        {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/90" />
 
-        {/* ── CONTENT ── */}
         <div className="relative z-10 flex min-h-[90svh] flex-col items-center justify-center px-6 pb-20 pt-16 text-center">
           <div className="flex max-w-xl flex-col items-center">
 
@@ -132,7 +132,6 @@ export default function HeroB2B() {
         </div>
       </section>
 
-      {/* Contact Modal */}
       <ContactChoiceModalB2B
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}

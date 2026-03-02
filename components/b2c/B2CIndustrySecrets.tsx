@@ -1,9 +1,17 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { b2cWhatOthersWontTellYou } from "@/content/b2c.en";
+import { useLanguage } from "@/context/LanguageContext";
+import { b2cWhatOthersWontTellYou as b2cWhatOthersWontTellYouEn } from "@/content/b2c.en";
+import { b2cWhatOthersWontTellYou as b2cWhatOthersWontTellYouFr } from "@/content/b2c.fr";
 
 export default function B2CIndustrySecrets() {
+  const { language } = useLanguage();
+  const b2cWhatOthersWontTellYou = language === "fr" ? b2cWhatOthersWontTellYouFr : b2cWhatOthersWontTellYouEn;
+
+  const industryRealityLabel = language === "fr" ? "Réalité du marché" : "Industry Reality";
+  const nevexaGuaranteeLabel = language === "fr" ? "La Garantie Nevexa" : "The Nevexa Guarantee";
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [visible, setVisible] = useState(false);
   const [cardVisible, setCardVisible] = useState(true);
@@ -12,7 +20,6 @@ export default function B2CIndustrySecrets() {
   const touchStartX = useRef<number>(0);
   const totalItems = b2cWhatOthersWontTellYou.dossierItems.length;
 
-  // Observer global pour le fade-in
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -27,7 +34,6 @@ export default function B2CIndustrySecrets() {
     return () => observer.disconnect();
   }, []);
 
-  // Synchronisation scroll menu mobile
   useEffect(() => {
     if (mobileNavRef.current) {
       const container = mobileNavRef.current;
@@ -42,7 +48,6 @@ export default function B2CIndustrySecrets() {
     }
   }, [activeIndex]);
 
-  // Changement de carte avec transition fade
   const goTo = useCallback(
     (index: number) => {
       if (index === activeIndex) return;
@@ -55,7 +60,6 @@ export default function B2CIndustrySecrets() {
     [activeIndex]
   );
 
-  // Swipe tactile (remplace framer drag)
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
   };
@@ -73,12 +77,11 @@ export default function B2CIndustrySecrets() {
       ref={sectionRef}
       className="relative w-full overflow-hidden bg-[#0E0F11] py-20 sm:py-26"
     >
-      {/* Background */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(90,15,20,0.05)_0%,transparent_60%)]" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6">
 
-        {/* ── HEADER ── */}
+        {/* HEADER */}
         <div className="mb-8 text-center lg:mb-24">
           <h2
             className="mb-4 text-2xl font-bold uppercase tracking-[0.12em] text-white sm:text-3xl"
@@ -111,10 +114,10 @@ export default function B2CIndustrySecrets() {
           </p>
         </div>
 
-        {/* ── MASTER-DETAIL ── */}
+        {/* MASTER-DETAIL */}
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-16">
 
-          {/* ── COLONNE GAUCHE : NAVIGATION ── */}
+          {/* COLONNE GAUCHE : NAVIGATION */}
           <div
             className="lg:col-span-5"
             style={{
@@ -155,7 +158,6 @@ export default function B2CIndustrySecrets() {
                   })}
                 </div>
               </div>
-              {/* Pagination Dots */}
               <div className="mt-2 flex items-center justify-center gap-2">
                 {b2cWhatOthersWontTellYou.dossierItems.map((_, index) => (
                   <div
@@ -214,7 +216,7 @@ export default function B2CIndustrySecrets() {
             </div>
           </div>
 
-          {/* ── COLONNE DROITE : CARTE ── */}
+          {/* COLONNE DROITE : CARTE */}
           <div
             className="relative lg:col-span-7"
             style={{
@@ -227,7 +229,7 @@ export default function B2CIndustrySecrets() {
             <div
               onTouchStart={handleTouchStart}
               onTouchEnd={handleTouchEnd}
-              className="relative flex cursor-grab flex-col justify-center overflow-hidden rounded-[2rem]  border border-white/70 sm:border border-[#8A1F24]/70 bg-[#050505] p-6 shadow-2xl sm:p-12 lg:min-h-[420px]"
+              className="relative flex cursor-grab flex-col justify-center overflow-hidden rounded-[2rem] border border-white/70 sm:border border-[#8A1F24]/70 bg-[#050505] p-6 shadow-2xl sm:p-12 lg:min-h-[420px]"
               style={{
                 opacity: cardVisible ? 1 : 0,
                 transform: cardVisible ? "translateY(0) scale(1)" : "translateY(15px) scale(0.98)",
@@ -235,13 +237,12 @@ export default function B2CIndustrySecrets() {
                 transition: "opacity 250ms ease-out, transform 250ms ease-out, filter 250ms ease-out",
               }}
             >
-              {/* Numéro décoratif */}
               <div className="pointer-events-none absolute right-1 -top-6 select-none font-serif text-[150px] font-black italic leading-none text-white/[0.02] sm:-right-8 sm:-top-12 sm:text-[250px]">
                 {activeItem.num}
               </div>
 
               <div className="relative z-10 pointer-events-none">
-                {/* BLOC 1 : Industry Reality */}
+                {/* BLOC 1 */}
                 <div className="mb-10">
                   <div className="mb-4 flex items-center gap-3">
                     <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5">
@@ -250,7 +251,7 @@ export default function B2CIndustrySecrets() {
                       </svg>
                     </div>
                     <span className="text-[11px] font-bold uppercase tracking-[0.10em] text-white/70 sm:text-[13px]">
-                      Industry Reality
+                      {industryRealityLabel}
                     </span>
                   </div>
                   <p className="text-[14px] leading-relaxed text-white/60 sm:pl-10 sm:text-[15px]">
@@ -258,10 +259,9 @@ export default function B2CIndustrySecrets() {
                   </p>
                 </div>
 
-                {/* Séparateur */}
                 <div className="mb-10 h-px w-full bg-gradient-to-r from-white/10 to-transparent sm:ml-10 sm:w-[80%]" />
 
-                {/* BLOC 2 : Nevexa Guarantee */}
+                {/* BLOC 2 */}
                 <div className="relative">
                   <div className="absolute -left-4 top-0 hidden h-16 w-16 rounded-full bg-[#5A0F14]/20 blur-2xl sm:block" />
                   <div className="mb-4 flex items-center gap-3">
@@ -271,7 +271,7 @@ export default function B2CIndustrySecrets() {
                       </svg>
                     </div>
                     <span className="text-[12px] font-bold uppercase tracking-[0.10em] text-[#8A1F24] sm:text-[13px]">
-                      The Nevexa Guarantee
+                      {nevexaGuaranteeLabel}
                     </span>
                   </div>
                   <p className="text-[14px] font-medium leading-relaxed text-white sm:pl-10 sm:text-[16px]">

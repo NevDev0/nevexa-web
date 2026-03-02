@@ -10,11 +10,10 @@ export const financingHeroCopy = {
     earlyAccess: "Early Access",
     comingSoon: "Coming 2027",
   },
-  title: "Vehicle Financing",
-  subtitle:
-    "Nevexa is structuring vehicle financing with banking partners in Africa. Join the priority waitlist to be informed when we launch in your country.",
-  clarification:
-    "This service is not yet available. By joining the waitlist, you help us demonstrate market demand to banking partners and secure priority access when we launch.",
+  titleLine1: "Vehicle Financing",
+  titleLine2: "Reimagined.",
+  subtitle: "Nevexa is structuring vehicle financing with banking partners in Africa. Join the priority waitlist to be informed when we launch in your country.",
+  clarification: "This service is not yet available. By joining the waitlist, you help us demonstrate market demand to banking partners and secure priority access when we launch.",
 };
 
 // ============================================
@@ -176,78 +175,59 @@ export const financingProfilesCopy = {
 // SECTION 4 — GEOGRAPHIC AVAILABILITY
 // ============================================
 export const geographicAvailabilityCopy = {
-  title: "When & Where",
-  subtitle: "Nevexa financing will launch in Nigeria in 2027, expanding across West Africa in 2028.",
-  
+  title: "Deployment Roadmap",
+  subtitle: "A strategic rollout beginning in Nigeria, followed by a rapid expansion across key West African economic hubs.",
   countries: [
-    { 
-      id: "nigeria", 
-      name: "Nigeria", 
-      x: { mobile: "42%", desktop: "42%" },
-      y: { mobile: "43%", desktop: "41%" },
+    {
+      id: "nigeria",
+      name: "Nigeria",
       year: "2027",
-      labelClass: "left-full bottom-full -mb-1 ml-2 sm:mb-1"
     },
-    { 
-      id: "senegal", 
-      name: "Senegal", 
-      x: { mobile: "15%", desktop: "18%" },
-      y: { mobile: "35%", desktop: "33%" },
+    {
+      id: "senegal",
+      name: "Senegal",
       year: "2028",
-      labelClass: "right-full bottom-full -mr-10 mb-4 sm:mr-4"
     },
-    { 
-      id: "ghana", 
-      name: "Ghana", 
-      x: { mobile: "31%", desktop: "32%" },
-      y: { mobile: "42%", desktop: "41%" },
+    {
+      id: "ghana",
+      name: "Ghana",
       year: "2028",
-      labelClass: "bottom-full left-1/2 mb-4 -translate-x-1/2"
     },
-    { 
-      id: "ivory-coast", 
-      name: "Ivory Coast", 
-      x: { mobile: "25%", desktop: "27%" },
-      y: { mobile: "45%", desktop: "45%" },
+    {
+      id: "ivory-coast",
+      name: "Ivory Coast",
       year: "2028",
-      labelClass: "top-full mt-2 -ml-10"
     },
-    { 
-      id: "cameroon", 
-      name: "Cameroon", 
-      x: { mobile: "48%", desktop: "46%" },
-      y: { mobile: "48%", desktop: "48%" },
+    {
+      id: "cameroon",
+      name: "Cameroon",
       year: "2028",
-      labelClass: "left-full top-full -mb-2 ml-1 sm:mt-1"
     },
   ],
-  
-  // Nouvelle structure pour la Timeline Verticale
   timeline: [
     {
       year: "2027",
-      badge: "First Market",
-      title: "Nigeria (Lagos HQ) Launch",
-      description: "Initial banking partnerships activated for qualified importers."
+      badge: "Market Entry",
+      title: "Nigeria Launch (HQ)",
+      description: "Activation of initial banking partnerships for qualified importers in Lagos.",
     },
     {
       year: "2028",
-      badge: "Expansion",
-      title: "West Africa Expansion",
-      description: "Deployment across key hubs: Ghana, Senegal, Ivory Coast & Cameroon."
+      badge: "Regional Expansion",
+      title: "West Africa Growth",
+      description: "Simultaneous deployment across four major markets to establish regional dominance.",
     },
     {
       year: "2029+",
       badge: "Pan-African",
-      title: "Continental Coverage",
-      description: "Continued expansion into East and Southern Africa based on market demand."
-    }
+      title: "Continental Scale",
+      description: "Strategic expansion into East and Southern Africa driven by market demand.",
+    },
   ],
-  
   cta: {
     text: "Not listed yet? Join the waitlist to be notified when financing launches in your country.",
-    button: "Join Waitlist"
-  }
+    button: "Join Waitlist",
+  },
 };
 
 
@@ -298,6 +278,11 @@ export const waitlistFormCopy = {
     counterLabel: "Early Believers",
     statusLabel: "Live Enrollment Status",
     progressLabel: "Application Progress"
+  },
+
+  errors: {
+    required: "This field is required",
+    invalidEmail: "Please enter a valid email",
   },
 
   fields: {

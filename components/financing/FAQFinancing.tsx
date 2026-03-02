@@ -1,9 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { faqFinancingCopy } from "@/content/financing.en";
+import { useLanguage } from "@/context/LanguageContext";
+import { faqFinancingCopy as faqFinancingCopyEn } from "@/content/financing.en";
+import { faqFinancingCopy as faqFinancingCopyFr } from "@/content/financing.fr";
 
 export default function FAQFinancing() {
+  const { language } = useLanguage();
+  const faqFinancingCopy = language === "fr" ? faqFinancingCopyFr : faqFinancingCopyEn;
+
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -73,7 +78,6 @@ export default function FAQFinancing() {
                   transitionDelay: `${200 + index * 150}ms`,
                 }}
               >
-                {/* Numéro décoratif */}
                 <div
                   className="pointer-events-none absolute right-0 top-1/2 select-none text-[80px] font-bold leading-none tracking-tighter sm:text-[110px]"
                   style={{
@@ -84,7 +88,6 @@ export default function FAQFinancing() {
                   {num}
                 </div>
 
-                {/* Contenu */}
                 <div className="relative z-10">
                   <div className="mb-3 flex items-start gap-3">
                     <span className="mt-0.5 flex-shrink-0 text-[11px] font-bold uppercase tracking-widest text-[#5A0F14]">

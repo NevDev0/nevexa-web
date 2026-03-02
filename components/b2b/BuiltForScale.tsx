@@ -1,13 +1,20 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { builtForScaleCopy } from "@/content/b2b.en";
+import { useLanguage } from "@/context/LanguageContext";
+import { builtForScaleCopy as builtForScaleCopyEn } from "@/content/b2b.en";
+import { builtForScaleCopy as builtForScaleCopyFr } from "@/content/b2b.fr";
 
 export default function BuiltForScale() {
+  const { language } = useLanguage();
+  const builtForScaleCopy = language === "fr" ? builtForScaleCopyFr : builtForScaleCopyEn;
+
   const [activeTab, setActiveTab] = useState("corporate");
   const [visible, setVisible] = useState(false);
   const [cardVisible, setCardVisible] = useState(true);
   const sectionRef = useRef<HTMLElement>(null);
+
+  const typicalVolumeLabel = language === "fr" ? "Volume typique" : "Typical Volume";
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -34,11 +41,10 @@ export default function BuiltForScale() {
 
   const activeProfileData = builtForScaleCopy.profiles.find((p) => p.id === activeTab);
 
-  const CardContent = ({ profile }: { profile: (typeof builtForScaleCopy.profiles)[0]; }) => {
+  const CardContent = ({ profile }: { profile: (typeof builtForScaleCopyEn.profiles)[0] }) => {
     const isFeatured = profile.id === "corporate";
     return (
       <>
-        {/* Liseré supérieur */}
         <div className="absolute left-0 right-0 top-0 h-1 bg-[#5A0F14] opacity-100 transition-opacity duration-300 sm:opacity-0 sm:group-hover:opacity-100" />
 
         <div className="flex flex-1 flex-col p-6 sm:p-10">
@@ -63,7 +69,7 @@ export default function BuiltForScale() {
 
           <div className="mt-auto border-t border-white/5 pt-6">
             <div className="mb-2 flex items-center justify-between">
-              <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-white/40">Typical Volume</span>
+              <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-white/40">{typicalVolumeLabel}</span>
               <span className="text-[13px] font-bold tracking-wider text-white">{profile.volume.label}</span>
             </div>
             <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/5">
@@ -92,7 +98,7 @@ export default function BuiltForScale() {
 
       <div className="relative z-10 mx-auto max-w-7xl">
 
-        {/* ── HEADER ── */}
+        {/* HEADER */}
         <div className="mb-10 text-center sm:mb-12">
           <h2
             className="mb-4 text-2xl font-bold uppercase tracking-[0.15em] text-white sm:text-3xl"
@@ -125,7 +131,7 @@ export default function BuiltForScale() {
           </p>
         </div>
 
-        {/* ── DESKTOP : Grille 3 colonnes ── */}
+        {/* DESKTOP : Grille 3 colonnes */}
         <div className="hidden grid-cols-1 gap-8 sm:grid sm:grid-cols-3">
           {builtForScaleCopy.profiles.map((profile, index) => {
             const isFeatured = profile.id === "corporate";
@@ -150,9 +156,8 @@ export default function BuiltForScale() {
           })}
         </div>
 
-        {/* ── MOBILE : Tabs ── */}
+        {/* MOBILE : Tabs */}
         <div className="sm:hidden">
-          {/* Sélecteur pilule */}
           <div className="mb-6 flex w-full rounded-full border border-white/10 bg-white/5 p-1">
             {builtForScaleCopy.profiles.map((profile) => {
               const isActive = activeTab === profile.id;
@@ -162,7 +167,6 @@ export default function BuiltForScale() {
                   onClick={() => goToTab(profile.id)}
                   className="relative flex-1 py-3 text-[11px] font-bold uppercase tracking-wider outline-none"
                 >
-                  {/* Pill indicator */}
                   <div
                     className="absolute inset-0 rounded-full bg-[#5A0F14] shadow-[0_0_10px_rgba(90,15,20,0.5)] transition-opacity duration-200"
                     style={{ opacity: isActive ? 1 : 0 }}
@@ -178,7 +182,6 @@ export default function BuiltForScale() {
             })}
           </div>
 
-          {/* Carte active avec fade */}
           <div className="relative min-h-[480px]">
             {activeProfileData && (
               <div
@@ -199,7 +202,7 @@ export default function BuiltForScale() {
           </div>
         </div>
 
-        {/* ── FOOTER NOTE ── */}
+        {/* FOOTER NOTE */}
         <div
           className="mt-8 text-center sm:mt-12"
           style={{

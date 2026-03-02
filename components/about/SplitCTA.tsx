@@ -2,9 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { splitCTACopy } from "@/content/about.en";
+import { useLanguage } from "@/context/LanguageContext";
+import { splitCTACopy as splitCTACopyEn } from "@/content/about.en";
+import { splitCTACopy as splitCTACopyFr } from "@/content/about.fr";
 
 export default function SplitCTA() {
+  const { language } = useLanguage();
+  const splitCTACopy = language === "fr" ? splitCTACopyFr : splitCTACopyEn;
+
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animFrameRef = useRef<number>(0);
@@ -12,7 +17,6 @@ export default function SplitCTA() {
   const [visible, setVisible] = useState(false);
   const [animating, setAnimating] = useState(false);
 
-  // Canvas particles setup
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -48,13 +52,11 @@ export default function SplitCTA() {
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
       });
-      // Seulement si toujours animating
       if (isAnimatingRef.current) {
         animFrameRef.current = requestAnimationFrame(animate);
       }
     }
 
-    // Expose start/stop via ref
     (canvas as any)._start = () => {
       if (isAnimatingRef.current) return;
       isAnimatingRef.current = true;
@@ -72,7 +74,6 @@ export default function SplitCTA() {
     };
   }, []);
 
-  // IntersectionObserver — start/stop rAF proprement
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -104,14 +105,12 @@ export default function SplitCTA() {
         background: "radial-gradient(circle at center, rgba(90,15,20,0.08) 0%, #0E0F11 70%)",
       }}
     >
-      {/* Particles canvas */}
       <canvas
         ref={canvasRef}
         className="pointer-events-none absolute inset-0"
         style={{ width: "100%", height: "100%" }}
       />
 
-      {/* Top separator with pulsing dot */}
       <div className="pointer-events-none absolute top-0 left-0 right-0 flex items-center justify-center">
         <div className="h-px w-full bg-white/[0.06]" />
         <div
@@ -126,7 +125,6 @@ export default function SplitCTA() {
         />
       </div>
 
-      {/* Content */}
       <div className="relative z-10 mx-auto w-full max-w-4xl text-center">
 
         {/* Title */}
@@ -209,16 +207,12 @@ export default function SplitCTA() {
 
       </div>
 
-      {/*
-        nevexa-cta-pulse → animationName inline → keyframe ici ✅
-      */}
       <style jsx>{`
         @keyframes nevexa-cta-pulse {
           0%, 100% { opacity: 0.4; transform: scale(1); }
           50%       { opacity: 0.8; transform: scale(1.2); }
         }
       `}</style>
-
     </section>
   );
 }

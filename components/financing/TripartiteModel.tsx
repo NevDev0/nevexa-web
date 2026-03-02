@@ -1,10 +1,15 @@
 "use client";
 
-import { howItWorksCopy } from "@/content/financing.en";
+import { useLanguage } from "@/context/LanguageContext";
+import { howItWorksCopy as howItWorksCopyEn } from "@/content/financing.en";
+import { howItWorksCopy as howItWorksCopyFr } from "@/content/financing.fr";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
 export default function TripartiteModel() {
+  const { language } = useLanguage();
+  const howItWorksCopy = language === "fr" ? howItWorksCopyFr : howItWorksCopyEn;
+
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -38,7 +43,6 @@ export default function TripartiteModel() {
       ref={sectionRef}
       className="relative w-full overflow-hidden bg-[#0E0F11] px-6 py-16 text-white sm:py-24"
     >
-      {/* BACKGROUND FX */}
       <div className="pointer-events-none absolute inset-0 z-0">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.8)_100%)]" />
         <div className="tm-scan-line tm-scan-line-1" />
@@ -60,11 +64,7 @@ export default function TripartiteModel() {
 
       <div className="relative z-10 mx-auto max-w-6xl">
         {/* HEADER */}
-        <div
-          data-animate
-          data-delay="0"
-          className="tm-fade-up mb-10 text-center sm:mb-16"
-        >
+        <div data-animate data-delay="0" className="tm-fade-up mb-10 text-center sm:mb-16">
           <h2 className="mb-4 text-2xl font-bold uppercase tracking-[0.12em] sm:text-[1.75rem]">
             {howItWorksCopy.title}
           </h2>
@@ -105,7 +105,6 @@ export default function TripartiteModel() {
 
             return (
               <div key={actor.id} className="relative flex-1 md:max-w-[280px]">
-                {/* CARD */}
                 <div
                   data-animate
                   data-delay={`${index * 150}`}
@@ -144,7 +143,6 @@ export default function TripartiteModel() {
                   </div>
                 </div>
 
-                {/* CONNECTORS */}
                 {!isLast && (
                   <>
                     <div

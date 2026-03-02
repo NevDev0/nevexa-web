@@ -1,9 +1,14 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { faqB2B } from "@/content/b2b.en";
+import { useLanguage } from "@/context/LanguageContext";
+import { faqB2B as faqB2BEn } from "@/content/b2b.en";
+import { faqB2B as faqB2BFr } from "@/content/b2b.fr";
 
 export default function FAQB2B() {
+  const { language } = useLanguage();
+  const faqB2B = language === "fr" ? faqB2BFr : faqB2BEn;
+
   const [openId, setOpenId] = useState<number | null>(1);
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
@@ -33,7 +38,7 @@ export default function FAQB2B() {
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-8">
 
-          {/* ── COLONNE GAUCHE : Titre sticky ── */}
+          {/* COLONNE GAUCHE */}
           <div className="lg:col-span-4">
             <div
               className="sticky top-32"
@@ -60,7 +65,7 @@ export default function FAQB2B() {
             </div>
           </div>
 
-          {/* ── COLONNE DROITE : Accordéon ── */}
+          {/* COLONNE DROITE */}
           <div className="lg:col-span-8">
             <div className="border-t border-black/10">
               {faqB2B.questions.map((item, index) => {
@@ -76,7 +81,6 @@ export default function FAQB2B() {
                       transitionDelay: `${200 + index * 100}ms`,
                     }}
                   >
-                    {/* Question */}
                     <button
                       onClick={() => toggle(item.id)}
                       className="group flex w-full items-center justify-between py-6 text-left outline-none sm:py-8"
@@ -91,7 +95,6 @@ export default function FAQB2B() {
                         {item.question}
                       </span>
 
-                      {/* Icône +/- */}
                       <div className="relative flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-black/20 transition-colors duration-300 group-hover:border-[#5A0F14]">
                         <span
                           className="absolute h-[1.5px] w-3 bg-black transition-all duration-300 group-hover:bg-[#5A0F14]"
@@ -107,7 +110,6 @@ export default function FAQB2B() {
                       </div>
                     </button>
 
-                    {/* Réponse — max-height CSS */}
                     <div
                       className="overflow-hidden"
                       style={{

@@ -5,6 +5,7 @@
 // ─────────────────────────────────────────
 export const aboutHeroCopy = {
   statement: "The resale game is rigged. We're not playing it.",
+  highlightWord: "rigged",
   subline: "We built the exit.",
 };
 

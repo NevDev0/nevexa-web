@@ -2,12 +2,16 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { heroCopy } from "../content/en";
+import { useLanguage } from "@/context/LanguageContext";
+import { heroCopy as heroCopyEn } from "@/content/en";
+import { heroCopy as heroCopyFr } from "@/content/fr";
 import NavBar from "@/components/NavBar";
 
 export default function Hero() {
   const [mounted, setMounted] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const { language } = useLanguage();
+  const heroCopy = language === "fr" ? heroCopyFr : heroCopyEn;
 
   useEffect(() => {
     const raf = requestAnimationFrame(() => {
@@ -20,7 +24,6 @@ export default function Hero() {
 
     const tryPlay = () => {
       video.play().catch(() => {
-        // iOS a refusé — on attend le premier geste utilisateur
         const onTouch = () => {
           video.play().catch(() => {});
           document.removeEventListener("touchstart", onTouch);
@@ -29,7 +32,6 @@ export default function Hero() {
       });
     };
 
-    // Si la vidéo a déjà assez de données, on joue directement
     if (video.readyState >= 3) {
       tryPlay();
     } else {
@@ -95,9 +97,9 @@ export default function Hero() {
             willChange: "transform, opacity",
           }}
         >
-          {["Sourcing.", "Inspection.", "Delivery."].map((word, i) => (
+          {heroCopy.subtitle.split(" ").map((word, i) => (
             <span
-              key={word}
+              key={i}
               className="text-base font-medium tracking-wide text-neutral-200 transition-all duration-500 ease-out"
               style={{
                 textShadow: "0 2px 8px rgba(0,0,0,0.8)",
@@ -189,9 +191,9 @@ export default function Hero() {
             willChange: "transform, opacity",
           }}
         >
-          {["Sourcing.", "Inspection.", "Delivery."].map((word, i) => (
+          {heroCopy.subtitle.split(" ").map((word, i) => (
             <span
-              key={word}
+              key={i}
               className="text-xl font-medium tracking-wide text-neutral-300 transition-all duration-500 ease-out"
               style={{
                 textShadow: "0 2px 8px rgba(0,0,0,0.8)",

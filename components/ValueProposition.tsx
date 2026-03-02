@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { valuePropsCopy } from "@/content/en";
+import { useLanguage } from "@/context/LanguageContext";
+import { valuePropsCopy as valuePropsCopyEn } from "@/content/en";
+import { valuePropsCopy as valuePropsCopyFr } from "@/content/fr";
 
 // --- SOUS-COMPOSANT CARTE ---
 function StepCard({
@@ -11,7 +13,7 @@ function StepCard({
   isDesktop,
   isVisibleFromParent,
 }: {
-  step: (typeof valuePropsCopy.steps)[0];
+  step: (typeof valuePropsCopyEn.steps)[0];
   index: number;
   isLast: boolean;
   isDesktop: boolean;
@@ -64,7 +66,7 @@ function StepCard({
       }}
     >
       <div
-        className="group relative min-h-[140px] overflow-hidden rounded-lg transition-all duration-300 hover:scale-[1.02] sm:items-start"
+        className="group relative min-h-[140px] overflow-hidden rounded-lg transition-all duration-300 hover:scale-[1.02] sm:items-start sm:min-h-[180px]"
         style={{
           backgroundImage: `url(${step.image})`,
           backgroundSize: "cover",
@@ -111,14 +113,16 @@ function StepCard({
 
 // --- COMPOSANT PRINCIPAL ---
 export default function ValueProposition() {
+  const { language } = useLanguage();
+  const valuePropsCopy = language === "fr" ? valuePropsCopyFr : valuePropsCopyEn;
+
   const [visible, setVisible] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
   const [visibleSteps, setVisibleSteps] = useState<boolean[]>(
-    new Array(valuePropsCopy.steps.length).fill(false)
+    new Array(valuePropsCopyEn.steps.length).fill(false)
   );
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Détecter Desktop
   useEffect(() => {
     const checkDesktop = () => setIsDesktop(window.innerWidth >= 640);
     checkDesktop();
@@ -126,7 +130,6 @@ export default function ValueProposition() {
     return () => window.removeEventListener("resize", checkDesktop);
   }, []);
 
-  // Observer global — titre + cascade desktop
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -153,7 +156,7 @@ export default function ValueProposition() {
 
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
-  }, []);
+  }, [valuePropsCopy.steps]);
 
   return (
     <section

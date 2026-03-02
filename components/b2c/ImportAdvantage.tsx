@@ -1,28 +1,25 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { importAdvantageCopy } from "@/content/b2c.en";
+import { useLanguage } from "@/context/LanguageContext";
+import { importAdvantageCopy as importAdvantageCopyEn } from "@/content/b2c.en";
+import { importAdvantageCopy as importAdvantageCopyFr } from "@/content/b2c.fr";
 
-// --- Compteur animé sans Framer ---
 function AnimatedNumber({ from, to, visible }: { from: number; to: number; visible: boolean }) {
   const [current, setCurrent] = useState(from);
   const rafRef = useRef<number>(0);
 
   useEffect(() => {
     if (!visible || from === to) return;
-
     const startTime = performance.now();
     const duration = 1500;
-
     const tick = (now: number) => {
       const elapsed = now - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      // easeOut cubic
       const eased = 1 - Math.pow(1 - progress, 3);
       setCurrent(Math.floor(from + (to - from) * eased));
       if (progress < 1) rafRef.current = requestAnimationFrame(tick);
     };
-
     rafRef.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafRef.current);
   }, [visible, from, to]);
@@ -31,6 +28,9 @@ function AnimatedNumber({ from, to, visible }: { from: number; to: number; visib
 }
 
 export default function ImportAdvantage() {
+  const { language } = useLanguage();
+  const importAdvantageCopy = language === "fr" ? importAdvantageCopyFr : importAdvantageCopyEn;
+
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -53,12 +53,11 @@ export default function ImportAdvantage() {
       ref={sectionRef}
       className="relative w-full overflow-hidden bg-black px-6 py-20 text-white sm:py-32"
     >
-      {/* Background */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(90,15,20,0.1)_0%,transparent_70%)]" />
 
       <div className="relative z-10 mx-auto max-w-4xl">
 
-        {/* ── HEADER ── */}
+        {/* HEADER */}
         <div className="mb-12 text-center">
           <h2
             className="mb-4 text-xl font-bold uppercase tracking-[0.12em] sm:text-2xl"
@@ -80,7 +79,7 @@ export default function ImportAdvantage() {
           />
         </div>
 
-        {/* ── STATS LIST ── */}
+        {/* STATS LIST */}
         <div className="flex flex-col gap-2">
           {importAdvantageCopy.stats.map((stat, i) => (
             <div
@@ -93,7 +92,6 @@ export default function ImportAdvantage() {
                 transitionDelay: `${i * 150}ms`,
               }}
             >
-              {/* Corner accent */}
               <div
                 className="pointer-events-none absolute left-0 top-0 border-l-2 border-t-2 border-[#5A0F14]"
                 style={{
@@ -107,7 +105,6 @@ export default function ImportAdvantage() {
 
               <div className="grid grid-cols-1 items-center gap-6 sm:grid-cols-[1fr_auto_1fr] sm:gap-12">
 
-                {/* Chiffre animé */}
                 <div className="flex items-baseline justify-center sm:justify-start">
                   {stat.prefix && (
                     <span className="text-2xl font-light text-white/50">{stat.prefix}</span>
@@ -120,7 +117,6 @@ export default function ImportAdvantage() {
                   )}
                 </div>
 
-                {/* Dots séparateurs — CSS animation */}
                 <div className="hidden flex-col items-center gap-2 sm:flex">
                   {[0, 1, 2].map((j) => (
                     <div
@@ -131,7 +127,6 @@ export default function ImportAdvantage() {
                   ))}
                 </div>
 
-                {/* Label */}
                 <div className="text-center sm:text-right">
                   <p className="text-[15px] font-bold tracking-wide text-white">
                     {stat.label}
@@ -144,7 +139,6 @@ export default function ImportAdvantage() {
                 </div>
               </div>
 
-              {/* Barre de progression */}
               <div className="absolute bottom-[-1px] left-0 h-[2px] w-full bg-white/5">
                 <div
                   className="h-full bg-gradient-to-r from-[#5A0F14] to-red-600"
@@ -159,7 +153,7 @@ export default function ImportAdvantage() {
           ))}
         </div>
 
-        {/* ── FOOTER NOTE ── */}
+        {/* FOOTER NOTE */}
         <div
           className="mt-16 flex flex-col items-center justify-between gap-6 sm:flex-row"
           style={{

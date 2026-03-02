@@ -3,12 +3,14 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import ContactChoiceModal from "@/components/ContactChoiceModal";
+import { useLanguage } from "@/context/LanguageContext";
 import {
-  brandModelGallery,
+  brandModelGallery as brandModelGalleryEn,
   getModelGallery,
   getModelThumbnail,
   hasPhotos,
 } from "@/content/b2c.en";
+import { brandModelGallery as brandModelGalleryFr } from "@/content/b2c.fr";
 
 type BrandId = "land-rover" | "bmw" | "mercedes" | "lexus" | "toyota";
 
@@ -31,6 +33,9 @@ interface Model {
 }
 
 export default function BrandModelGallery() {
+  const { language } = useLanguage();
+  const brandModelGallery = language === "fr" ? brandModelGalleryFr : brandModelGalleryEn;
+
   const [activeBrand, setActiveBrand] = useState<BrandId>("land-rover");
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [selectedModel, setSelectedModel] = useState<{ brand: BrandId; model: Model } | null>(null);
@@ -47,7 +52,6 @@ export default function BrandModelGallery() {
 
   const activeModels = (brandModelGallery.models[activeBrand] || []) as Model[];
 
-  // ── SCROLL REVEAL ──
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -59,7 +63,6 @@ export default function BrandModelGallery() {
     return () => observer.disconnect();
   }, []);
 
-  // ── SLIDING TAB INDICATOR ──
   useEffect(() => {
     const idx = brandModelGallery.brands.findIndex(b => b.id === activeBrand);
     const el = tabRefs.current[idx];
@@ -72,9 +75,8 @@ export default function BrandModelGallery() {
         width: elRect.width,
       });
     }
-  }, [activeBrand, visible]);
+  }, [activeBrand, visible, brandModelGallery.brands]);
 
-  // ── WIPE TRANSITION ON BRAND CHANGE ──
   const handleBrandChange = (brandId: BrandId) => {
     if (brandId === activeBrand || isTransitioning) return;
     setIsTransitioning(true);
@@ -85,7 +87,6 @@ export default function BrandModelGallery() {
     }, 250);
   };
 
-  // ── CAROUSEL SCROLL TRACKING ──
   useEffect(() => {
     const el = carouselRef.current;
     if (!el) return;
@@ -103,12 +104,16 @@ export default function BrandModelGallery() {
     setShowContactChoice(true);
   };
 
+  const exploreLabel = language === "fr" ? "Explorer" : "Explore";
+  const requestLabel = language === "fr" ? "Demander" : "Request";
+  const comingSoonLabel = language === "fr" ? "Bientôt disponible" : "Coming Soon";
+  const comingSoonSubLabel = language === "fr" ? "Disponible début 2026" : "Available early 2026";
+
   return (
-    // ── id="catalog" ajouté — permet au CTA hero "Explore catalog" de scroller ici ──
     <section id="catalog" ref={sectionRef} className="w-full overflow-x-hidden bg-[#0E0F11] px-6 py-12 text-white">
       <div className="mx-auto max-w-7xl">
 
-        {/* ── HEADER ── */}
+        {/* HEADER */}
         <div className={`mb-3 text-center transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
           <h2 className="text-xl font-bold uppercase tracking-[0.12em] sm:text-2xl">
             {brandModelGallery.title}
@@ -119,18 +124,16 @@ export default function BrandModelGallery() {
           <div className={`mx-auto h-px w-24 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent shadow-[0_0_15px_rgba(138,31,36,0.8)] ${visible ? "w-12" : "w-0"}`} />
         </div>
 
-        {/* ── BRAND TABS WITH SLIDING INDICATOR ── */}
+        {/* BRAND TABS */}
         <div className={`relative mb-8 transition-all duration-700 delay-200 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
           <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-8 bg-gradient-to-r from-black to-transparent lg:hidden" />
           <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-8 bg-gradient-to-l from-black to-transparent lg:hidden" />
 
           <div ref={tabsRef} className="scrollbar-hide relative flex gap-3 overflow-x-auto lg:justify-center">
-            {/* Sliding burgundy background */}
             <div
               className="pointer-events-none absolute bottom-0 top-0 rounded-lg bg-[#5A0F14]/15 transition-all duration-350 ease-out"
               style={{ left: tabIndicator.left, width: tabIndicator.width }}
             />
-
             {brandModelGallery.brands.map((brand, idx) => (
               <button
                 key={brand.id}
@@ -148,7 +151,7 @@ export default function BrandModelGallery() {
           </div>
         </div>
 
-        {/* ── CARDS WITH WIPE TRANSITION ── */}
+        {/* CARDS */}
         <div
           className="transition-all duration-250 ease-in-out"
           style={{
@@ -164,8 +167,6 @@ export default function BrandModelGallery() {
                   key={model.id}
                   className="carousel-item"
                   style={{
-                    // Opacity réduite sur les cards non-actives — effet peek premium
-                    // transition smooth pour ne pas être abrupte au scroll
                     opacity: idx === carouselIndex ? 1 : 0.4,
                     transition: "opacity 300ms ease-in-out",
                   }}
@@ -175,6 +176,9 @@ export default function BrandModelGallery() {
                     activeBrand={activeBrand}
                     visible={visible}
                     index={idx}
+                    exploreLabel={exploreLabel}
+                    comingSoonLabel={comingSoonLabel}
+                    comingSoonSubLabel={comingSoonSubLabel}
                     onExplore={() => {
                       if (hasPhotos(model.exteriorCount, model.interiorCount))
                         setSelectedModel({ brand: activeBrand, model });
@@ -184,7 +188,6 @@ export default function BrandModelGallery() {
               ))}
             </div>
 
-            {/* ── PROGRESS BAR ── */}
             <div className="mb-8 px-2">
               <div className="h-px w-full overflow-hidden rounded-full bg-white/30">
                 <div
@@ -212,6 +215,9 @@ export default function BrandModelGallery() {
                 activeBrand={activeBrand}
                 visible={visible}
                 index={idx}
+                exploreLabel={exploreLabel}
+                comingSoonLabel={comingSoonLabel}
+                comingSoonSubLabel={comingSoonSubLabel}
                 onExplore={() => {
                   if (hasPhotos(model.exteriorCount, model.interiorCount))
                     setSelectedModel({ brand: activeBrand, model });
@@ -221,7 +227,7 @@ export default function BrandModelGallery() {
           </div>
         </div>
 
-        {/* ── CUSTOM SOURCING CTA ── */}
+        {/* CUSTOM SOURCING CTA */}
         <div className={`mb-8 text-center transition-all duration-700 delay-500 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
           <p className="mb-4 text-sm text-neutral-400">
             {brandModelGallery.customSourcingCta.text}
@@ -243,6 +249,8 @@ export default function BrandModelGallery() {
         <GalleryModal
           brand={selectedModel.brand}
           model={selectedModel.model}
+          language={language}
+          requestLabel={requestLabel}
           onClose={() => setSelectedModel(null)}
           onRequest={(subject) => { setSelectedModel(null); handleContactModal(subject); }}
         />
@@ -266,10 +274,13 @@ interface ModelCardProps {
   activeBrand: BrandId;
   visible: boolean;
   index: number;
+  exploreLabel: string;
+  comingSoonLabel: string;
+  comingSoonSubLabel: string;
   onExplore: () => void;
 }
 
-function ModelCard({ model, activeBrand, visible, index, onExplore }: ModelCardProps) {
+function ModelCard({ model, activeBrand, visible, index, exploreLabel, comingSoonLabel, comingSoonSubLabel, onExplore }: ModelCardProps) {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
@@ -294,7 +305,6 @@ function ModelCard({ model, activeBrand, visible, index, onExplore }: ModelCardP
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => { setIsHovered(false); setMousePos({ x: 0, y: 0 }); }}
     >
-      {/* Name */}
       <div className="mb-6 text-center">
         <h2 className="font-serif text-3xl italic tracking-wide text-white lg:text-4xl">
           {model.displayName}
@@ -306,11 +316,9 @@ function ModelCard({ model, activeBrand, visible, index, onExplore }: ModelCardP
         )}
       </div>
 
-      {/* Image with parallax */}
       <div className="relative mb-4 aspect-[16/9] w-full overflow-hidden rounded-lg border border-white/10 bg-black transition-all duration-300 group-hover:border-white/20 group-hover:shadow-xl group-hover:shadow-black/60">
         {hasPhotos(model.exteriorCount, model.interiorCount) ? (
           <Image
-            // ICI: On passe l'extension par défaut ET les exceptions
             src={getModelThumbnail(activeBrand, model.id, model.imageExtension || "webp", model.exceptions || {})}
             alt={model.name}
             fill
@@ -327,13 +335,12 @@ function ModelCard({ model, activeBrand, visible, index, onExplore }: ModelCardP
           />
         ) : (
           <div className="flex h-full w-full flex-col items-center justify-center">
-            <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-neutral-600">Coming Soon</p>
-            <p className="text-xs text-neutral-700">Available early 2026</p>
+            <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-neutral-600">{comingSoonLabel}</p>
+            <p className="text-xs text-neutral-700">{comingSoonSubLabel}</p>
           </div>
         )}
       </div>
 
-      {/* Category + Price */}
       <div className="mb-4 flex items-center justify-center gap-3">
         <span className="rounded-md border border-white/10 px-3 py-1 text-xs font-medium tracking-wide text-neutral-400">
           {model.category}
@@ -343,18 +350,16 @@ function ModelCard({ model, activeBrand, visible, index, onExplore }: ModelCardP
         </span>
       </div>
 
-      {/* Description */}
       <p className="mb-6 text-center text-sm leading-relaxed text-neutral-400 transition-colors duration-300 group-hover:text-neutral-300">
         {model.description}
       </p>
 
-      {/* CTA — w-full sur desktop pour cohérence visuelle dans la grille */}
       <div className="flex justify-center">
         <button
           disabled={!hasPhotos(model.exteriorCount, model.interiorCount)}
           className="w-full rounded-full bg-white px-8 py-3 text-sm font-semibold text-black transition-all duration-300 hover:scale-[1.03] hover:bg-neutral-100 disabled:opacity-40 disabled:hover:scale-100"
         >
-          Explore {model.displayName}
+          {exploreLabel} {model.displayName}
         </button>
       </div>
     </div>
@@ -368,20 +373,21 @@ function ModelCard({ model, activeBrand, visible, index, onExplore }: ModelCardP
 interface GalleryModalProps {
   brand: BrandId;
   model: Model;
+  language: string;
+  requestLabel: string;
   onClose: () => void;
   onRequest: (subject: string) => void;
 }
 
-function GalleryModal({ brand, model, onClose, onRequest }: GalleryModalProps) {
+function GalleryModal({ brand, model, language, requestLabel, onClose, onRequest }: GalleryModalProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  
-  // ICI: On passe l'extension par défaut ET les exceptions à la fonction getModelGallery
+
   const gallery = getModelGallery(
-    brand, 
-    model.id, 
-    model.exteriorCount, 
-    model.interiorCount, 
-    model.imageExtension || "webp", 
+    brand,
+    model.id,
+    model.exteriorCount,
+    model.interiorCount,
+    model.imageExtension || "webp",
     model.exceptions || {}
   );
 
@@ -402,6 +408,10 @@ function GalleryModal({ brand, model, onClose, onRequest }: GalleryModalProps) {
     window.addEventListener("keydown", fn);
     return () => window.removeEventListener("keydown", fn);
   }, []);
+
+  const requestSubject = language === "fr"
+    ? `Demande pour ${model.fullName}`
+    : `Request for ${model.fullName}`;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black p-4" onClick={onClose}>
@@ -432,7 +442,6 @@ function GalleryModal({ brand, model, onClose, onRequest }: GalleryModalProps) {
           </div>
         </div>
 
-        {/* Desktop specs + price */}
         <div className="mb-3 hidden items-center justify-center gap-16 md:flex">
           <div className="flex items-center gap-6 text-sm text-neutral-200">
             <div className="flex items-center gap-2">
@@ -450,7 +459,6 @@ function GalleryModal({ brand, model, onClose, onRequest }: GalleryModalProps) {
           </div>
         </div>
 
-        {/* Mobile specs */}
         <div className="mb-3 flex items-center justify-center gap-6 text-sm text-neutral-200 md:hidden">
           <div className="flex items-center gap-2">
             <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
@@ -480,10 +488,10 @@ function GalleryModal({ brand, model, onClose, onRequest }: GalleryModalProps) {
 
         <div className="text-center">
           <button
-            onClick={() => onRequest(`Request for ${model.fullName}`)}
+            onClick={() => onRequest(requestSubject)}
             className="w-full rounded-full bg-white px-8 py-3.5 text-sm font-semibold text-black transition-all duration-300 hover:scale-105 hover:bg-neutral-100 sm:w-auto"
           >
-            Request {model.displayName}
+            {requestLabel} {model.displayName}
           </button>
         </div>
       </div>

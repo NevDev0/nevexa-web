@@ -1,9 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { brandsCopy } from "@/content/en";
+import { useLanguage } from "@/context/LanguageContext";
+import { brandsCopy as brandsCopyEn } from "@/content/en";
+import { brandsCopy as brandsCopyFr } from "@/content/fr";
 
 export default function Brands() {
+  const { language } = useLanguage();
+  const brandsCopy = language === "fr" ? brandsCopyFr : brandsCopyEn;
+
   const [visible, setVisible] = useState(false);
   const [underlineWidth, setUnderlineWidth] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
@@ -26,13 +31,9 @@ export default function Brands() {
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="w-full bg-black px-6 py-6 text-white"
-    >
+    <section ref={sectionRef} className="w-full bg-black px-6 py-6 text-white">
       <div className="mx-auto max-w-6xl">
 
-        {/* Titre — A cascade */}
         <div className="mb-3 text-center">
           <h2
             className="text-xl font-bold uppercase tracking-[0.12em] sm:text-2xl"
@@ -47,7 +48,6 @@ export default function Brands() {
           </h2>
         </div>
 
-        {/* Underline animée — A */}
         <div className="mb-12 flex justify-center">
           <div
             className="mx-auto h-px w-24 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent shadow-[0_0_15px_rgba(138,31,36,0.8)]"
@@ -59,7 +59,6 @@ export default function Brands() {
           />
         </div>
 
-        {/* Marquee — B fade-in */}
         <div
           className="relative mb-6 overflow-hidden"
           style={{
@@ -68,11 +67,9 @@ export default function Brands() {
             transitionDelay: "400ms",
           }}
         >
-          {/* Fade edges */}
           <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-black to-transparent" />
           <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-black to-transparent" />
 
-          {/* Marquee Track */}
           <div className="nevexa-marquee-track gap-6">
             {loop.map((logo, idx) => (
               <div
@@ -102,7 +99,6 @@ export default function Brands() {
           </div>
         </div>
 
-        {/* Legal note */}
         <div
           className="text-center"
           style={{
@@ -111,7 +107,7 @@ export default function Brands() {
             transitionDelay: "600ms",
           }}
         >
-          <p className="text-[10px] italic tracking-wide text-neutral-600">
+          <p className="text-[10px] italic tracking-wide text-neutral-500">
             {brandsCopy.legalNote}
           </p>
         </div>

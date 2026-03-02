@@ -1,9 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { realityCopy } from "@/content/about.en";
+import { useLanguage } from "@/context/LanguageContext";
+import { realityCopy as realityCopyEn } from "@/content/about.en";
+import { realityCopy as realityCopyFr } from "@/content/about.fr";
 
 export default function TheReality() {
+  const { language } = useLanguage();
+  const realityCopy = language === "fr" ? realityCopyFr : realityCopyEn;
+
   const [visible, setVisible] = useState(false);
   const [highlighted, setHighlighted] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);

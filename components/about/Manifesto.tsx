@@ -1,10 +1,17 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { manifestoCopy } from "@/content/about.en";
+import { useLanguage } from "@/context/LanguageContext";
+import { manifestoCopy as manifestoCopyEn } from "@/content/about.en";
+import { manifestoCopy as manifestoCopyFr } from "@/content/about.fr";
 import { Globe, Crown, Target } from "lucide-react";
 
 export default function Manifesto() {
+  const { language } = useLanguage();
+  const manifestoCopy = language === "fr" ? manifestoCopyFr : manifestoCopyEn;
+
+  const foundationLabel = language === "fr" ? "Fondation" : "Foundation";
+
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -51,7 +58,6 @@ export default function Manifesto() {
       ref={sectionRef}
       className="relative w-full overflow-hidden bg-black py-16 sm:py-24"
     >
-      {/* Background zoom */}
       <div
         className="absolute inset-0 bg-cover bg-center opacity-40 will-change-transform"
         style={{
@@ -61,7 +67,6 @@ export default function Manifesto() {
         }}
       />
 
-      {/* Overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.92)_0%,rgba(0,0,0,0.88)_50%,rgba(0,0,0,0.92)_100%)]" />
 
       <div className="relative z-10 px-6">
@@ -112,7 +117,7 @@ export default function Manifesto() {
         <div className="mx-auto mt-20 w-full max-w-6xl">
           <div className="relative flex h-24 items-center justify-center border-t-2 border-[#5A0F14]/30 bg-[linear-gradient(180deg,rgba(90,15,20,0.15)_0%,rgba(0,0,0,0.8)_100%)]">
             <span className="text-[14px] font-bold uppercase tracking-[0.25em] text-white/60">
-              Foundation
+              {foundationLabel}
             </span>
           </div>
         </div>

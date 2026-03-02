@@ -1,23 +1,33 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { aboutHeroCopy } from "@/content/about.en";
+import { useLanguage } from "@/context/LanguageContext";
+import { aboutHeroCopy as aboutHeroCopyEn } from "@/content/about.en";
+import { aboutHeroCopy as aboutHeroCopyFr } from "@/content/about.fr";
 import NavBar from "@/components/NavBar";
 
 export default function HeroAbout() {
+  const { language } = useLanguage();
+  const aboutHeroCopy = language === "fr" ? aboutHeroCopyFr : aboutHeroCopyEn;
+
   const [visible, setVisible] = useState(false);
   const [rigged, setRigged] = useState(false);
 
   useEffect(() => {
     const t1 = setTimeout(() => setVisible(true), 100);
-    const t2 = setTimeout(() => setRigged(true), 900); // délai pour "rigged" après l'entrée
+    const t2 = setTimeout(() => setRigged(true), 900);
     return () => { clearTimeout(t1); clearTimeout(t2); };
   }, []);
 
+  // Le mot-clé à highlighter peut varier selon la langue
+  // EN: "rigged" / FR: à définir dans aboutHeroCopy.highlightWord
+  const highlightWord = aboutHeroCopy.highlightWord ?? "rigged";
+
   const renderStatement = () => {
-    const parts = aboutHeroCopy.statement.split(/(rigged)/gi);
+    const regex = new RegExp(`(${highlightWord})`, "gi");
+    const parts = aboutHeroCopy.statement.split(regex);
     return parts.map((part, i) =>
-      part.toLowerCase() === "rigged" ? (
+      part.toLowerCase() === highlightWord.toLowerCase() ? (
         <span
           key={i}
           className="relative inline-block px-3"
@@ -27,7 +37,6 @@ export default function HeroAbout() {
             transition: "color 1000ms ease-out, text-shadow 1000ms ease-out",
           }}
         >
-          {/* Barre gauche */}
           <span
             className="absolute left-0 top-0 w-[2px] bg-[#5A0F14]"
             style={{
@@ -39,7 +48,6 @@ export default function HeroAbout() {
             }}
           />
           {part}
-          {/* Barre droite */}
           <span
             className="absolute right-0 top-0 w-[2px] bg-[#5A0F14]"
             style={{
@@ -72,10 +80,8 @@ export default function HeroAbout() {
         }}
       />
 
-      {/* Overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(160deg,rgba(0,0,0,0.95)_0%,rgba(0,0,0,0.85)_40%,rgba(90,15,20,0.1)_60%,rgba(0,0,0,0.98)_100%)]" />
 
-      {/* Grain */}
       <div
         className="pointer-events-none absolute inset-0 z-[1] opacity-[0.03]"
         style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")` }}

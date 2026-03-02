@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const SOCIALS = [
   {
@@ -37,9 +38,16 @@ const SOCIALS = [
 ];
 
 export default function Footer() {
+  const { language } = useLanguage();
   const [visible, setVisible] = useState(false);
   const footerRef = useRef<HTMLElement>(null);
   const year = new Date().getFullYear();
+
+  const legalHref = language === "fr" ? "/mentions-legales" : "/legal-notice";
+  const legalLabel = language === "fr" ? "Mentions légales" : "Legal Notice";
+  const copyright = language === "fr"
+    ? `© ${year} Nevexa Automotive Inc. Tous droits réservés.`
+    : `© ${year} Nevexa Automotive Inc.`;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -78,7 +86,7 @@ export default function Footer() {
               draggable={false}
             />
             <p className="text-[11px] font-medium uppercase tracking-widest text-neutral-500">
-              © {year} Nevexa Automotive Inc.
+              {copyright}
             </p>
           </div>
 
@@ -101,10 +109,10 @@ export default function Footer() {
           {/* Legal */}
           <nav className="flex items-center gap-6">
             <Link
-              href="/legal-notice"
+              href={legalHref}
               className="text-[12px] font-medium tracking-wide text-neutral-500 transition-colors hover:text-white"
             >
-              Legal Notice
+              {legalLabel}
             </Link>
           </nav>
         </div>

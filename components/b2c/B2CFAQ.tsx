@@ -1,9 +1,14 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { faqCopy } from "@/content/b2c.en";
+import { useLanguage } from "@/context/LanguageContext";
+import { faqCopy as faqCopyEn } from "@/content/b2c.en";
+import { faqCopy as faqCopyFr } from "@/content/b2c.fr";
 
 export default function FAQ() {
+  const { language } = useLanguage();
+  const faqCopy = language === "fr" ? faqCopyFr : faqCopyEn;
+
   const [openId, setOpenId] = useState<number | null>(null);
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
@@ -13,7 +18,6 @@ export default function FAQ() {
     setOpenId(openId === id ? null : id);
   };
 
-  // Observer pour le header
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -35,7 +39,7 @@ export default function FAQ() {
     >
       <div className="mx-auto max-w-3xl">
 
-        {/* ── HEADER ── */}
+        {/* HEADER */}
         <div className="mb-16 text-center">
           <h2
             className="mb-4 text-2xl font-bold uppercase tracking-[0.12em] sm:text-3xl"
@@ -57,7 +61,7 @@ export default function FAQ() {
           />
         </div>
 
-        {/* ── FAQ LIST ── */}
+        {/* FAQ LIST */}
         <div className="border-t border-white/10">
           {faqCopy.questions.map((item, index) => {
             const isOpen = openId === item.id;
@@ -73,7 +77,6 @@ export default function FAQ() {
                   transitionDelay: `${index * 80}ms`,
                 }}
               >
-                {/* ── QUESTION ── */}
                 <button
                   onClick={() => toggle(item.id)}
                   className="group flex w-full items-center justify-between gap-6 py-6 text-left outline-none sm:py-8"
@@ -86,9 +89,7 @@ export default function FAQ() {
                     {item.question}
                   </span>
 
-                  {/* ── ICONE + / × ── */}
                   <div className="relative flex h-6 w-6 shrink-0 items-center justify-center">
-                    {/* Barre horizontale */}
                     <span
                       className="absolute h-[2px] w-4 transition-all duration-300"
                       style={{
@@ -96,7 +97,6 @@ export default function FAQ() {
                         transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
                       }}
                     />
-                    {/* Barre verticale */}
                     <span
                       className="absolute h-4 w-[2px] transition-all duration-300"
                       style={{
@@ -108,9 +108,8 @@ export default function FAQ() {
                   </div>
                 </button>
 
-                {/* ── RÉPONSE (hauteur animée en CSS) ── */}
                 <div
-                  className="overflow-hidden transition-all duration-400 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
+                  className="overflow-hidden"
                   style={{
                     maxHeight: isOpen
                       ? `${answerRefs.current[item.id]?.scrollHeight ?? 500}px`
@@ -124,15 +123,14 @@ export default function FAQ() {
                     ref={(el) => { answerRefs.current[item.id] = el; }}
                     className="pb-8 pr-8 sm:pr-12"
                   >
-                    <p className="text-[14px] leading-relaxed text-white/50 sm:text-[15px]">
+                    <p className="text-[14px] leading-relaxed text-white/60 sm:text-[15px]">
                       {item.answer}
                     </p>
                   </div>
                 </div>
 
-                {/* ── LIGNE ROUGE ACTIVE ── */}
                 <div
-                  className="absolute bottom-[-1px] left-0 h-[1px] w-full origin-left bg-[#5A0F14] shadow-[0_0_10px_rgba(90,15,20,0.8)] transition-transform duration-400"
+                  className="absolute bottom-[-1px] left-0 h-[1px] w-full origin-left bg-[#5A0F14] shadow-[0_0_10px_rgba(90,15,20,0.8)]"
                   style={{
                     transform: isOpen ? "scaleX(1)" : "scaleX(0)",
                     transition: "transform 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",

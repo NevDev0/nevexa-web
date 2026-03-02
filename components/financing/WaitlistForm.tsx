@@ -1,9 +1,18 @@
 "use client";
 
 import { useState, FormEvent, useEffect, useRef } from "react";
-import { waitlistFormCopy } from "@/content/financing.en";
+import { useLanguage } from "@/context/LanguageContext";
+import { waitlistFormCopy as waitlistFormCopyEn } from "@/content/financing.en";
+import { waitlistFormCopy as waitlistFormCopyFr } from "@/content/financing.fr";
 
 export default function WaitlistForm() {
+  const { language } = useLanguage();
+  const waitlistFormCopy = language === "fr" ? waitlistFormCopyFr : waitlistFormCopyEn;
+
+  const onWaitlistLabel = language === "fr" ? "sur la liste d'attente" : "on the waitlist";
+  const lastSignupLabel = language === "fr" ? "Dernière inscription il y a quelques instants" : "Last signup moments ago";
+  const joiningLabel = language === "fr" ? "INSCRIPTION..." : "JOINING...";
+
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -15,21 +24,17 @@ export default function WaitlistForm() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
-
   const [displayCount, setDisplayCount] = useState(0);
-  const [realCount, setRealCount] = useState(0);
 
-  // Refs pour navigation Enter
   const emailRef = useRef<HTMLInputElement>(null);
   const countryRef = useRef<HTMLInputElement>(null);
   const clientTypeRef = useRef<HTMLSelectElement>(null);
 
   useEffect(() => {
-    fetch('/api/waitlist')
-      .then(res => res.json())
-      .then(data => {
+    fetch("/api/waitlist")
+      .then((res) => res.json())
+      .then((data) => {
         const count = data.count + 78;
-        setRealCount(count);
         let current = 0;
         const increment = count / (2000 / 16);
         const timer = setInterval(() => {
@@ -39,44 +44,39 @@ export default function WaitlistForm() {
         }, 16);
         return () => clearInterval(timer);
       })
-      .catch(err => console.error('Error fetching count:', err));
+      .catch((err) => console.error("Error fetching count:", err));
   }, []);
 
   const validateEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   const calculateProgress = () => {
     const fields = Object.values(formData);
-    return (fields.filter(f => f !== "").length / fields.length) * 100;
+    return (fields.filter((f) => f !== "").length / fields.length) * 100;
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    if (errors[name]) setErrors(prev => ({ ...prev, [name]: "" }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
-  // Enter key navigation entre champs texte
-  const focusNext = (ref: React.RefObject<any>) => {
+  const focusNext = (ref: React.RefObject<HTMLInputElement | HTMLSelectElement | null>) => {
     ref.current?.focus();
   };
 
   const handleKeyDownEmail = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      // Valide email avant de passer au suivant
       if (formData.email && !validateEmail(formData.email)) {
-        setErrors(prev => ({ ...prev, email: "Please enter a valid email" }));
+        setErrors((prev) => ({ ...prev, email: waitlistFormCopy.errors?.invalidEmail ?? "Please enter a valid email" }));
       } else {
-        setErrors(prev => ({ ...prev, email: "" }));
+        setErrors((prev) => ({ ...prev, email: "" }));
       }
       focusNext(countryRef);
     }
   };
 
-  const handleKeyDown = (
-    e: React.KeyboardEvent<HTMLInputElement>,
-    next?: React.RefObject<any>
-  ) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, next?: React.RefObject<HTMLInputElement | HTMLSelectElement | null>) => {
     if (e.key === "Enter") {
       e.preventDefault();
       if (next) focusNext(next);
@@ -86,28 +86,28 @@ export default function WaitlistForm() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const newErrors: Record<string, string> = {};
-    if (!formData.fullName) newErrors.fullName = "Name is required";
-    if (!formData.email) newErrors.email = "Email is required";
-    else if (!validateEmail(formData.email)) newErrors.email = "Please enter a valid email";
-    if (!formData.country) newErrors.country = "Country is required";
-    if (!formData.clientType) newErrors.clientType = "Client type is required";
-    if (!formData.estimatedBudget) newErrors.estimatedBudget = "Budget is required";
+    if (!formData.fullName) newErrors.fullName = waitlistFormCopy.errors?.required ?? "Required";
+    if (!formData.email) newErrors.email = waitlistFormCopy.errors?.required ?? "Required";
+    else if (!validateEmail(formData.email)) newErrors.email = waitlistFormCopy.errors?.invalidEmail ?? "Please enter a valid email";
+    if (!formData.country) newErrors.country = waitlistFormCopy.errors?.required ?? "Required";
+    if (!formData.clientType) newErrors.clientType = waitlistFormCopy.errors?.required ?? "Required";
+    if (!formData.estimatedBudget) newErrors.estimatedBudget = waitlistFormCopy.errors?.required ?? "Required";
 
     if (Object.keys(newErrors).length > 0) { setErrors(newErrors); return; }
 
     setLoading(true);
     try {
-      const response = await fetch('/api/waitlist', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+      const response = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
       const result = await response.json();
       if (result.success) setSubmitted(true);
-      else alert('Error saving data. Please try again.');
+      else alert("Error saving data. Please try again.");
     } catch (error) {
-      console.error('Error:', error);
-      alert('Error saving data. Please try again.');
+      console.error("Error:", error);
+      alert("Error saving data. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -121,8 +121,11 @@ export default function WaitlistForm() {
       <section className="relative w-full overflow-hidden bg-black px-6 py-20 text-white">
         <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
           {[15, 30, 50, 70, 85].map((left, i) => (
-            <div key={i} className="particle absolute h-3 w-3 rounded-full bg-[#8A1F24]"
-              style={{ left: `${left}%`, bottom: "0", animationDelay: `${i * 0.5}s`, animationDuration: `${4 + i * 0.3}s` }} />
+            <div
+              key={i}
+              className="particle absolute h-3 w-3 rounded-full bg-[#8A1F24]"
+              style={{ left: `${left}%`, bottom: "0", animationDelay: `${i * 0.5}s`, animationDuration: `${4 + i * 0.3}s` }}
+            />
           ))}
         </div>
         <div className="relative z-10 mx-auto max-w-2xl text-center">
@@ -137,7 +140,10 @@ export default function WaitlistForm() {
             <h3 className="mb-4 text-3xl font-bold uppercase tracking-wide">{waitlistFormCopy.successMessage.title}</h3>
             <div className="mx-auto mb-8 h-px w-16 bg-[#5A0F14]" />
             <p className="mb-10 text-lg text-white/70">{waitlistFormCopy.successMessage.description}</p>
-            <a href="/b2c" className="inline-block rounded-lg border border-white/10 bg-gradient-to-br from-[#5A0F14] to-[#8A1F24] px-10 py-4 font-semibold uppercase tracking-wider shadow-[0_4px_20px_rgba(90,15,20,0.5)] transition-all hover:-translate-y-1 hover:shadow-[0_8px_35px_rgba(90,15,20,0.7)]">
+            <a
+              href="/b2c"
+              className="inline-block rounded-lg border border-white/10 bg-gradient-to-br from-[#5A0F14] to-[#8A1F24] px-10 py-4 font-semibold uppercase tracking-wider shadow-[0_4px_20px_rgba(90,15,20,0.5)] transition-all hover:-translate-y-1 hover:shadow-[0_8px_35px_rgba(90,15,20,0.7)]"
+            >
               {waitlistFormCopy.successMessage.cta}
             </a>
           </div>
@@ -149,12 +155,10 @@ export default function WaitlistForm() {
   // FORM STATE
   return (
     <section id="waitlist" className="relative w-full overflow-hidden bg-black px-6 pb-20 pt-16 text-white">
-      {/* Background glow */}
       <div className="pointer-events-none absolute inset-0 z-0">
         <div className="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#5A0F14] opacity-5 blur-3xl" />
       </div>
 
-      {/* Particles */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
         {[
           { left: "10%", delay: "0s", dur: "5s", size: "h-2 w-2" },
@@ -164,15 +168,20 @@ export default function WaitlistForm() {
           { left: "75%", delay: "3s", dur: "6.5s", size: "h-2 w-2" },
           { left: "90%", delay: "1.5s", dur: "5s", size: "h-3 w-3" },
         ].map((p, i) => (
-          <div key={i} className={`particle absolute rounded-full bg-[#5A0F14] ${p.size}`}
-            style={{ left: p.left, bottom: "0", animationDelay: p.delay, animationDuration: p.dur }} />
+          <div
+            key={i}
+            className={`particle absolute rounded-full bg-[#5A0F14] ${p.size}`}
+            style={{ left: p.left, bottom: "0", animationDelay: p.delay, animationDuration: p.dur }}
+          />
         ))}
       </div>
 
       <div className="relative z-10 mx-auto max-w-2xl">
         {/* Title */}
         <div className="mb-10 text-center">
-          <h2 className="mb-6 text-4xl font-black uppercase tracking-[-0.05em] italic sm:text-5xl">{waitlistFormCopy.title}</h2>
+          <h2 className="mb-6 text-4xl font-black uppercase tracking-[-0.05em] italic sm:text-5xl">
+            {waitlistFormCopy.title}
+          </h2>
           <div className="mx-auto h-0.5 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent shadow-[0_0_10px_rgba(90,15,20,0.5)]" />
         </div>
 
@@ -185,23 +194,25 @@ export default function WaitlistForm() {
                 <div className="absolute inset-0 h-2 w-2 animate-ping rounded-full bg-[#5A0F14] opacity-75" />
               </div>
               <span className="text-xl font-bold tabular-nums text-white/90 sm:text-2xl">{displayCount.toLocaleString()}</span>
-              <span className="text-sm text-white/80">on the waitlist</span>
+              <span className="text-sm text-white/80">{onWaitlistLabel}</span>
             </div>
-            <p className="text-xs text-white/50">Last signup moments ago</p>
+            <p className="text-xs text-white/50">{lastSignupLabel}</p>
           </div>
         )}
 
         {/* Progress bar */}
         <div className="mb-8 h-1 w-full overflow-hidden rounded-full bg-white/5">
-          <div className="h-full bg-gradient-to-r from-[#5A0F14] to-[#8A1F24] transition-all duration-500 ease-out" style={{ width: `${progress}%` }} />
+          <div
+            className="h-full bg-gradient-to-r from-[#5A0F14] to-[#8A1F24] transition-all duration-500 ease-out"
+            style={{ width: `${progress}%` }}
+          />
         </div>
 
-        {/* Form — 2 colonnes desktop */}
+        {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
 
           {/* Row 1 : Full Name + Email */}
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            {/* Full Name */}
             <div>
               <label className="mb-2 block text-sm font-medium">
                 {waitlistFormCopy.fields.fullName.label}<span className="text-[#5A0F14]"> *</span>
@@ -221,7 +232,6 @@ export default function WaitlistForm() {
               {formData.fullName && !errors.fullName && <div className="checkmark-slide mt-2 text-[#5A0F14]">✓</div>}
             </div>
 
-            {/* Email */}
             <div>
               <label className="mb-2 block text-sm font-medium">
                 {waitlistFormCopy.fields.email.label}<span className="text-[#5A0F14]"> *</span>
@@ -244,7 +254,6 @@ export default function WaitlistForm() {
 
           {/* Row 2 : Country + Client Type */}
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            {/* Country */}
             <div>
               <label className="mb-2 block text-sm font-medium">
                 {waitlistFormCopy.fields.country.label}<span className="text-[#5A0F14]"> *</span>
@@ -264,7 +273,6 @@ export default function WaitlistForm() {
               {formData.country && !errors.country && <div className="checkmark-slide mt-2 text-[#5A0F14]">✓</div>}
             </div>
 
-            {/* Client Type */}
             <div>
               <label htmlFor="clientType" className="mb-2 block text-sm font-medium">
                 {waitlistFormCopy.fields.clientType.label}<span className="text-[#5A0F14]"> *</span>
@@ -287,7 +295,7 @@ export default function WaitlistForm() {
             </div>
           </div>
 
-          {/* Row 3 : Budget — pleine largeur */}
+          {/* Row 3 : Budget */}
           <div>
             <label htmlFor="estimatedBudget" className="mb-2 block text-sm font-medium">
               {waitlistFormCopy.fields.estimatedBudget.label}<span className="text-[#5A0F14]"> *</span>
@@ -309,7 +317,7 @@ export default function WaitlistForm() {
             {formData.estimatedBudget && !errors.estimatedBudget && <div className="checkmark-slide mt-2 text-[#5A0F14]">✓</div>}
           </div>
 
-          {/* Submit — toujours visible */}
+          {/* Submit */}
           <div className="pt-4">
             <button
               type="submit"
@@ -322,7 +330,7 @@ export default function WaitlistForm() {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                   </svg>
-                  JOINING...
+                  {joiningLabel}
                 </span>
               ) : waitlistFormCopy.submitButton}
             </button>

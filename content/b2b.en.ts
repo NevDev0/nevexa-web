@@ -204,4 +204,6 @@ export const contactCTAB2B = {
   ctaPrimary: "Email us",
   ctaSecondary: "WhatsApp",
   note: "Response within 24 hours on business days",
+  emailTagline: "Fleet sourcing & partnerships",
+  whatsappTagline: "For urgent questions",
 };

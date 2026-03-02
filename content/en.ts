@@ -9,7 +9,7 @@ export const heroCopy = {
 export const whyImportCopy = {
   title: "The Canadian Strategic Advantage",
   intro: "Superior standards. Maximum security. Built to last.",
-  
+  headline: ["Superior", "Standards.", "Max Security."], 
   accordions: [
     {
       id: "inventory-quality",
@@ -42,7 +42,7 @@ export const valuePropsCopy = {
     {
       id: 2,
       label: "Inspection",
-      description: "Complete pre-delivery inspection with CARFAX and AutoCheck reports",
+      description: "Complete pre-delivery inspection with CARFAX and report",
       image: "/process/step-2-inspection.webp",
     },
     {

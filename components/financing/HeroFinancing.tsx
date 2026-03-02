@@ -2,10 +2,15 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { financingHeroCopy } from "@/content/financing.en";
+import { useLanguage } from "@/context/LanguageContext";
+import { financingHeroCopy as financingHeroCopyEn } from "@/content/financing.en";
+import { financingHeroCopy as financingHeroCopyFr } from "@/content/financing.fr";
 import NavBar from "@/components/NavBar";
 
 export default function HeroFinancing() {
+  const { language } = useLanguage();
+  const financingHeroCopy = language === "fr" ? financingHeroCopyFr : financingHeroCopyEn;
+
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -18,14 +23,16 @@ export default function HeroFinancing() {
     if (formElement) formElement.scrollIntoView({ behavior: "smooth" });
   };
 
+  const scrollLabel = language === "fr" ? "Défiler pour explorer" : "Scroll to explore";
+  const waitlistLabel = language === "fr" ? "Rejoindre la liste d'attente" : "Join Priority Waitlist";
+  const noticeLabel = language === "fr" ? "Notice" : "Notice";
+
   return (
     <section className="relative flex min-h-[90svh] w-full flex-col items-center justify-start overflow-hidden bg-[#0A0A0A] pb-12 pt-20">
-      {/* ── NAVBAR ── */}
       <NavBar />
 
-      {/* ── BACKGROUND ── */}
+      {/* BACKGROUND */}
       <div className="absolute inset-0 z-0">
-        {/* Image de fond */}
         <Image
           src="/hero/financing-bg.webp"
           alt="Luxury vehicle financing silhouette"
@@ -33,14 +40,8 @@ export default function HeroFinancing() {
           className="object-cover object-center opacity-100 mix-blend-luminosity"
           priority
         />
-
-        {/* Grille fintech */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-30" />
-
-        {/* Dégradés */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A] via-[#0A0A0A]/80 to-[#0A0A0A]" />
-
-        {/* Lueur rouge — fade in CSS */}
         <div
           className="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#5A0F14]/5 blur-[120px]"
           style={{
@@ -50,7 +51,7 @@ export default function HeroFinancing() {
         />
       </div>
 
-      {/* ── CONTENT ── */}
+      {/* CONTENT */}
       <div className="relative z-10 mx-auto mt-12 flex w-full max-w-5xl flex-col items-center px-6 text-center sm:mt-18">
 
         {/* Badges */}
@@ -85,9 +86,9 @@ export default function HeroFinancing() {
             transitionDelay: "200ms",
           }}
         >
-          Vehicle Financing <br />
+          {financingHeroCopy.titleLine1} <br />
           <span className="bg-gradient-to-b from-neutral-200 to-neutral-600 bg-clip-text text-transparent">
-            Reimagined.
+            {financingHeroCopy.titleLine2}
           </span>
         </h1>
 
@@ -118,7 +119,7 @@ export default function HeroFinancing() {
             onClick={scrollToForm}
             className="group relative flex h-14 items-center justify-center overflow-hidden rounded-full bg-white px-10 text-[13px] font-bold uppercase tracking-widest text-black transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_30px_rgba(255,255,255,0.15)]"
           >
-            <span className="relative z-10">Join Priority Waitlist</span>
+            <span className="relative z-10">{waitlistLabel}</span>
             <div className="absolute inset-0 bg-neutral-200 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           </button>
         </div>
@@ -134,7 +135,7 @@ export default function HeroFinancing() {
           }}
         >
           <p className="text-[11px] leading-relaxed tracking-wide text-neutral-500">
-            <span className="mr-2 font-bold uppercase text-[#5A0F14]">Notice</span>
+            <span className="mr-2 font-bold uppercase text-[#5A0F14]">{noticeLabel}</span>
             {financingHeroCopy.clarification}
           </p>
         </div>
@@ -148,7 +149,7 @@ export default function HeroFinancing() {
             transitionDelay: "1500ms",
           }}
         >
-          <span className="text-[9px] uppercase tracking-[0.2em] text-white/30">Scroll to explore</span>
+          <span className="text-[9px] uppercase tracking-[0.2em] text-white/30">{scrollLabel}</span>
           <div className="h-10 w-[1px] bg-gradient-to-b from-white/20 to-transparent">
             <div className="hf-scan h-1/2 w-full bg-white/60" />
           </div>
