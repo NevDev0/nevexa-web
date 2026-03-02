@@ -19,7 +19,7 @@ const COUNTRY_POSITIONS = [
     id: "senegal",
     x: { mobile: "15%", desktop: "14%" },
     y: { mobile: "33%", desktop: "33.5%" },
-    labelClass: "right-1/2 bottom-full mr-2 mb-3",
+    labelClass: "bottom-full mr-2 mb-3",
   },
   {
     id: "ghana",
@@ -31,7 +31,7 @@ const COUNTRY_POSITIONS = [
     id: "ivory-coast",
     x: { mobile: "26%", desktop: "26.8%" },
     y: { mobile: "44.6%", desktop: "45.1%" },
-    labelClass: "top-full right-full mr-6 mt-2 sm:mt-1",
+    labelClass: "top-full right-full mt-2 sm:mt-1",
   },
   {
     id: "cameroon",
@@ -232,7 +232,7 @@ export default function GeographicAvailability() {
                          /* Nigeria : Plus gros sur mobile (h-4) et grand sur desktop (md:h-6) */
                         ? "h-4 w-4 bg-[#8A1F24] md:h-6 md:w-6"
                          /* Autres pays : Moyen sur mobile (h-2) et correct sur desktop (md:h-3) */
-                         : "h-2 w-2 bg-neutral-500 md:h-4 md:w-4"
+                         : "h-2 w-2 bg-neutral-500 md:h-3 md:w-3"
                          }`}
                           />
 
@@ -243,7 +243,7 @@ export default function GeographicAvailability() {
                         }}
                       >
                         {/* Mobile */}
-                        <div className="flex flex-col items-start rounded border border-white/20 bg-white/5 px-3 py-2 shadow-lg backdrop-blur-md md:hidden">
+                        <div className="flex flex-col items-start rounded border border-white/20 bg-white/5 px-2 py-2 shadow-lg backdrop-blur-md md:hidden">
                           <span className="text-xs font-bold uppercase tracking-wide text-white leading-tight">
                             {countryText.name}
                           </span>
