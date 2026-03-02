@@ -46,7 +46,7 @@ export default function Footer() {
   const legalHref = language === "fr" ? "/mentions-legales" : "/legal-notice";
   const legalLabel = language === "fr" ? "Mentions légales" : "Legal Notice";
   const copyright = language === "fr"
-    ? `© ${year} Nevexa Automotive Inc. Tous droits réservés.`
+    ? `© ${year} Nevexa Automotive Inc.`
     : `© ${year} Nevexa Automotive Inc.`;
 
   useEffect(() => {
