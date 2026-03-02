@@ -5,8 +5,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/api/", "/legal-notice"],
+      disallow: ["/api/"], // On cache juste l'API, tout le reste est visible
     },
-    sitemap: "https://nevexacars.com/sitemap.xml",
+    sitemap: "https://www.nevexacars.com/sitemap.xml",
   };
 }
