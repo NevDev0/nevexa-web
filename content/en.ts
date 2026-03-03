@@ -1,30 +1,32 @@
+// HOMEPAGE CONTENT — ENGLISH VERSION (Corrected)
+
 export const heroCopy = {
-  title: "Premium vehicles, from Canada to Africa.",
+  title: "Premium Sourcing. From Canada to Africa.",
   subtitle: "Sourcing. Inspection. Delivery.",
   ctaIndividuals: "Individuals",
   ctaProfessionals: "Professionals",
 };
 
-// Section 2 — Why Import from Canada (VERSION ACCORDION)
+// Section 2 — Why Import from Canada
 export const whyImportCopy = {
-  title: "The Canadian Strategic Advantage",
+  title: "The Canadian Advantage", // Plus court que "Strategic Advantage"
   intro: "Superior standards. Maximum security. Built to last.",
   headline: ["Superior", "Standards.", "Max Security."], 
   accordions: [
     {
       id: "inventory-quality",
       title: "Dealership Quality vs. US Salvage",
-      content: "The US export market is flooded with 'Salvage Titles' and hidden flood damage from auctions. Nevexa sources exclusively from certified franchise dealerships with transparent, accident-free histories.",
+      content: "The US export market is flooded with 'Salvage Titles' and hidden flood damage. Nevexa sources exclusively from certified franchise dealerships: transparent history, zero compromise.",
     },
     {
       id: "export-security",
       title: "Clean Title Guarantee (No Seizures)",
-      content: "Avoid the 'stolen car' trap. While the black market exports risky vehicles, Nevexa strictly follows the CBSA protocol. We provide the official Customs-Stamped Title for every vehicle, guaranteeing it is 100% legal and immune to Interpol seizure at destination.",
+      content: "A seized vehicle is a lost investment. While the grey market exports risky assets, Nevexa strictly follows CBSA protocol. You receive the official Customs-Stamped Title for every unit: 100% legal and immune to Interpol seizures.",
     },
     {
       id: "heavy-duty-specs",
       title: "Extreme Climate Specs",
-      content: "Built for the toughest environments. Canadian vehicles feature heavy-duty suspension, reinforced batteries, and superior thermal insulation. These 'over-engineered' specs make them far more durable on African roads than fragile warm-climate imports.",
+      content: "Built for the toughest environments. Canadian vehicles feature heavy-duty suspension, high-capacity batteries, and superior thermal insulation. These specs make them far more durable on African roads than fragile warm-climate imports.",
     },
   ],
 };
@@ -36,25 +38,25 @@ export const valuePropsCopy = {
     {
       id: 1,
       label: "Sourcing",
-      description: "Find and secure 2021-2026 vehicles from verified North American dealerships",
+      description: "Identification and securing of 2021-2026 units from verified North American dealerships.",
       image: "/process/step-1-sourcing.webp",
     },
     {
       id: 2,
       label: "Inspection",
-      description: "Complete pre-delivery inspection with CARFAX and report",
+      description: "Comprehensive pre-purchase inspection including full mechanical report and CARFAX history.",
       image: "/process/step-2-inspection.webp",
     },
     {
       id: 3,
       label: "Logistics",
-      description: "Professional shipping coordination from Canada to African ports",
+      description: "End-to-end shipping coordination from Canada to your destination port.",
       image: "/process/step-3-logistics.webp",
     },
     {
       id: 4,
       label: "Customs",
-      description: "Full documentation and customs clearance assistance",
+      description: "Complete export documentation and technical assistance for your local clearing agent.",
       image: "/process/step-4-customs.webp",
     },
   ],
@@ -79,9 +81,9 @@ export const brandsCopy = {
   ],
 };
 
-// Section 4 — Choose Your Path (AVEC IMAGES)
+// Section 4 — Choose Your Path
 export const choosePathCopy = {
-  label: "Choose your path",
+  label: "Select your profile",
   cards: [
     {
       id: "b2c",
@@ -95,7 +97,7 @@ export const choosePathCopy = {
       id: "b2b",
       title: "Professionals",
       badge: null,
-      ctaLabel: "Discover our offer",
+      ctaLabel: "View B2B offer",
       href: "/b2b",
       image: "/paths/professionals.webp",
     },
@@ -114,28 +116,27 @@ export const choosePathCopy = {
 export const deliveryOptionsCopy = {
   label: "Delivery options",
   intro:
-    "Two ways to receive your vehicle. Choose the setup that matches how you handle arrival on the ground.",
+    "Choose the service level that matches your local logistics setup.",
   options: [
     {
       id: "port-to-port",
       title: "Port-to-Port",
       description:
-        "We ship your vehicle from Canada to the main port in your country. You or your local agent handle customs and pickup.",
+        "We ship to your preferred port (Lagos, Tema, Abidjan, etc.). You receive flawless documentation via DHL before arrival. Your local agent handles clearance with zero friction.",
     },
     {
       id: "port-to-door",
       title: "Port-to-Door",
       description:
-        "We coordinate shipping, port handling and last-mile delivery to your address with vetted local partners, where available.",
+        "Full customs clearance and doorstep delivery. Currently available for Nigeria. (Other destinations: upon request and subject to partner availability).",
     },
   ],
 };
 
-// Section 6 — Real Results (meta texte, les items restent dans results.json)
+// Section 6 — Real Results
 export const realResultsCopy = {
-  label: "Real results",
-  intro: "A few real operations we've already handled between Canada and Africa.",
-  // Les images + légendes viennent de src/data/results.json
+  label: "Track Record",
+  intro: "Selected operations recently completed between Canada and Africa.",
 };
 
 // Section 7 — Final CTA (Contact)
@@ -143,14 +144,12 @@ export const finalCtaCopy = {
   label: "Contact",
   title: "Speak with a Nevexa advisor",
   subtitle:
-    "No forms. No waiting. Choose how you want to connect and we'll take it from there.",
+    "No forms. No waiting. Direct contact via WhatsApp or Email. We handle the rest.",
   ctaLabel: "Get in touch",
   email: "contact@nevexacars.com",
   emailSubject: "New inquiry — Nevexa website",
   whatsappNumber: "+14374842769",
 };
-
-
 
 // Section 9 — Footer
 export const footerCopy = {

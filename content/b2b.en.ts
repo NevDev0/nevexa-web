@@ -4,12 +4,12 @@ import { Subtitles } from "lucide-react";
 
 // Section 1 — Hero
 export const b2bHeroCopy = {
-  title: "Built for business. Scaled for growth.",
-  badge: "B2B Sourcing",
-  subtitle: "Dealership-sourced vehicles for resellers, NGOs, and corporate fleets.",
-  ctaPrimary: "Discuss your needs",
+  title: "Built to Scale.",
+  badge: "PROFESSIONAL CHANNEL",
+  subtitle: "Direct dealership sourcing. For resellers, NGOs and fleets.",
+  ctaPrimary: "Speak to an Expert",
   ctaSecondary: "View capabilities",
-  disclaimer: "Minimum order volumes and payment terms vary by client type and destination.",
+  disclaimer: "Payment terms and volumes negotiable based on history.",
 };
 
 export const contactModalB2BCopy = {
@@ -34,12 +34,12 @@ export const builtForScaleCopy = {
   profiles: [
     {
       id: "resellers",
-      name: "Resellers",
-      subtitle: "Source 5–15 vehicles/month for local resale",
+      name: "Auto Resellers",
+      subtitle: "High rotation: 5–15 vehicles / month",
       capabilities: [
         {
-          title: "Volume pricing",
-          description: "on recurring orders — no minimum, same standards at any scale",
+          title: "Net Export Pricing",
+          description: "- Direct access to dealership pricing. Maximize your margin from the very first unit.",
         },
         {
           title: "WhatsApp coordination",
@@ -166,9 +166,9 @@ export const faqB2B = {
   questions: [
     {
       id: 1,
-      question: "What are your minimum order volumes?",
+      question: "What is the minimum order volume?",
       answer:
-        "We don't enforce strict minimums. Resellers typically start with 5–10 vehicles per order. NGOs and corporate clients often place larger, less frequent orders. Volume pricing kicks in at 10+ vehicles per quarter.",
+        "No strict minimum. Whether you order 1 or 10 vehicles, you get full access to our logistics infrastructure and priority sourcing. We are here to support your growth, at your own pace.",
     },
     {
       id: 2,

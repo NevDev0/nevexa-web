@@ -20,53 +20,68 @@ export default function HeroAbout() {
   }, []);
 
   // Le mot-clé à highlighter peut varier selon la langue
-  // EN: "rigged" / FR: à définir dans aboutHeroCopy.highlightWord
   const highlightWord = aboutHeroCopy.highlightWord ?? "rigged";
 
+  // Fonction combinée : Gère les lignes (|) ET la couleur (highlightWord)
   const renderStatement = () => {
-    const regex = new RegExp(`(${highlightWord})`, "gi");
-    const parts = aboutHeroCopy.statement.split(regex);
-    return parts.map((part, i) =>
-      part.toLowerCase() === highlightWord.toLowerCase() ? (
-        <span
-          key={i}
-          className="relative inline-block px-3"
-          style={{
-            color: rigged ? "#5A0F14" : "rgba(255,255,255,1)",
-            textShadow: rigged ? "0 0 40px rgba(90,15,20,0.9), 0 0 15px rgba(90,15,20,0.6)" : "none",
-            transition: "color 1000ms ease-out, text-shadow 1000ms ease-out",
-          }}
-        >
-          <span
-            className="absolute left-0 top-0 w-[2px] bg-[#5A0F14]"
-            style={{
-              height: rigged ? "100%" : "0%",
-              opacity: rigged ? 1 : 0,
-              boxShadow: "0 0 10px rgba(90,15,20,0.8)",
-              transition: "height 800ms ease-out, opacity 800ms ease-out",
-              transitionDelay: "300ms",
-            }}
-          />
-          {part}
-          <span
-            className="absolute right-0 top-0 w-[2px] bg-[#5A0F14]"
-            style={{
-              height: rigged ? "100%" : "0%",
-              opacity: rigged ? 1 : 0,
-              boxShadow: "0 0 10px rgba(90,15,20,0.8)",
-              transition: "height 800ms ease-out, opacity 800ms ease-out",
-              transitionDelay: "300ms",
-            }}
-          />
+    // 1. On coupe d'abord par lignes (le symbole |)
+    const lines = aboutHeroCopy.statement.split('|');
+
+    return lines.map((line, lineIndex) => {
+      // 2. Pour chaque ligne, on cherche le mot clé à colorier
+      const regex = new RegExp(`(${highlightWord})`, "gi");
+      const parts = line.split(regex);
+
+      return (
+        // "block" force le retour à la ligne pour chaque segment coupé par |
+        <span key={lineIndex} className="block">
+          {parts.map((part, i) =>
+            part.toLowerCase() === highlightWord.toLowerCase() ? (
+              // Le mot clé en ROUGE avec effet néon
+              <span
+                key={i}
+                className="relative inline-block px-3"
+                style={{
+                  color: rigged ? "#5A0F14" : "rgba(255,255,255,1)",
+                  textShadow: rigged ? "0 0 40px rgba(90,15,20,0.9), 0 0 15px rgba(90,15,20,0.6)" : "none",
+                  transition: "color 1000ms ease-out, text-shadow 1000ms ease-out",
+                }}
+              >
+                {/* Barres verticales décoratives du mot clé */}
+                <span
+                  className="absolute left-0 top-0 w-[2px] bg-[#5A0F14]"
+                  style={{
+                    height: rigged ? "100%" : "0%",
+                    opacity: rigged ? 1 : 0,
+                    boxShadow: "0 0 10px rgba(90,15,20,0.8)",
+                    transition: "height 800ms ease-out, opacity 800ms ease-out",
+                    transitionDelay: "300ms",
+                  }}
+                />
+                {part}
+                <span
+                  className="absolute right-0 top-0 w-[2px] bg-[#5A0F14]"
+                  style={{
+                    height: rigged ? "100%" : "0%",
+                    opacity: rigged ? 1 : 0,
+                    boxShadow: "0 0 10px rgba(90,15,20,0.8)",
+                    transition: "height 800ms ease-out, opacity 800ms ease-out",
+                    transitionDelay: "300ms",
+                  }}
+                />
+              </span>
+            ) : (
+              // Le texte normal
+              <span key={i}>{part}</span>
+            )
+          )}
         </span>
-      ) : (
-        <span key={i}>{part}</span>
-      )
-    );
+      );
+    });
   };
 
   return (
-    <section className="relative flex min-h-[90svh] w-full items-start justify-center overflow-hidden bg-black px-6 pb-20 pt-40 sm:min-h-[80svh] sm:pt-50">
+    <section className="relative flex min-h-[90svh] w-full items-start justify-center overflow-hidden bg-black px-6 pb-20 pt-40 sm:min-h-[85svh] sm:pt-50">
       <NavBar />
 
       {/* Background image */}

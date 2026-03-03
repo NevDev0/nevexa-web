@@ -2,22 +2,22 @@
 
 // Section 1 — Hero
 export const b2cHeroCopy = {
-  title: "Your vehicle. No surprises.",
+  title: "Verified History. Total Transparency.",
   badge: "we import 2021-2026 Models Only",
   ctaPrimary: "Explore catalog",
   ctaSecondary: "Speak with advisor",
-  impactText: "Protecting your family and your hard-earned money. Official dealerships only. No auctions. No hidden history.",
+  impactText: "Official dealerships only. No auctions. No doubts.",
   disclaimer: "*Cadillac Escalade ESV 2026, V8*",
 };
 
 // Section 2 — Brand Model Gallery (Porsche-style)
 export const brandModelGallery = {
-  title: "INSPIRATIONAL CATALOG",
-  badge: "2021-2026 MODELS ONLY",
-  disclaimer: "Sample configurations shown. Availability and pricing vary by destination and model.",
+  title: "CURATED INSPIRATION",
+  badge: "UNLIMITED ACCESS",
+  disclaimer: "Vehicles shown for illustration purposes to demonstrate our quality standards. We source any make or model based on your exact specifications.",
   customSourcingCta: {
-    text: "Don't see the brand or model you're looking for?",
-    buttonLabel: "Request custom sourcing",
+    text: "Looking for a different make or model?",
+    buttonLabel: "Start custom sourcing",
   },
   brands: [
     { id: "land-rover", name: "Land Rover" },
@@ -380,7 +380,7 @@ export const importAdvantageCopy = {
 // Section 4 — What Others Won't Tell You (B2C Edition)
 export const b2cWhatOthersWontTellYou = {
   title: "The Industry Secrets",
-  subtitle: "Protecting your family and your life savings from a rigged market.",
+  subtitle: "Your safety is not optional. Neither is your investment.",
   dossierItems: [
     {
       num: "01",
@@ -400,11 +400,11 @@ export const b2cWhatOthersWontTellYou = {
     },
     {
       num: "03",
-      title: "The 'Port Surprise' Ransom",
+      title: "The 'Port Ransom' (Hidden Fees)",
       problem:
-        "Standard industry practice: quote an unrealistically low price upfront, then hold your car hostage at the destination port with 'unexpected' clearing fees, terminal charges, and bribes.",
+        "Standard industry practice: quote a low price upfront, then hold your export documents hostage demanding extra 'processing fees'. Without these docs, your car is stuck accruing fines.",
       solution:
-        "Total financial transparency. Our pricing structure is crystal clear from day one. No hidden fees, no extortion at the port. You know exactly where your money goes.",
+        "Our Landed-at-Port (CIF) price is final and binding. No hidden charges from Nevexa. You receive your original documents (Bill of Lading) via DHL before the ship arrives, empowering your agent to clear customs immediately.",
     },
     {
       num: "04",
@@ -438,13 +438,13 @@ export const faqCopy = {
       id: 3,
       question: "Do you deliver to my country?",
       answer:
-        "We currently ship to West African countries including Nigeria, Ivory Coast, Senegal, Benin, Togo, and Ghana. Contact us to confirm availability for your specific destination and discuss delivery options.",
+        "We specialize in West Africa (Nigeria, Côte d'Ivoire, Senegal, Benin, Togo, Ghana), but our logistics allow us to export worldwide. Contact us for any global destination.",
     },
     {
       id: 4,
       question: "What is the actual delivery timeline?",
       answer:
-        "Typical delivery takes 6–8 weeks from order confirmation to port arrival. This includes vehicle sourcing, inspection, export documentation, and ocean freight. Door-to-door delivery adds 1–2 weeks depending on your location.",
+        "Typical delivery takes 6–8 weeks from order confirmation to port arrival. This includes vehicle sourcing, inspection, export documentation, and ocean freight. For the Turnkey option (where available), add 1–2 weeks for customs clearance.",
     },
     {
       id: 5,

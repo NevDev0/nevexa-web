@@ -130,7 +130,7 @@ export default function GeographicAvailability() {
         {/* HEADER */}
         <div className="mb-2 text-center lg:mb-12">
           <h2
-            className="mb-6 text-3xl font-bold uppercase tracking-[0.2em] text-white md:text-5xl"
+            className="mb-6 text-3xl font-bold uppercase tracking-[0.1em] text-white md:text-5xl"
             style={{
               opacity: visible ? 1 : 0,
               transform: visible ? "translateY(0)" : "translateY(20px)",

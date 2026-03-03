@@ -110,11 +110,16 @@ export default function BrandModelGallery() {
   const comingSoonSubLabel = language === "fr" ? "Disponible début 2026" : "Available early 2026";
 
   return (
-    <section id="catalog" ref={sectionRef} className="w-full overflow-x-hidden bg-[#0E0F11] px-6 py-12 text-white">
+    <section id="catalog" ref={sectionRef} className="w-full overflow-x-hidden bg-[#0E0F11] px-6 py-16 text-white">
       <div className="mx-auto max-w-7xl">
 
         {/* HEADER */}
         <div className={`mb-3 text-center transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+        {brandModelGallery.badge && (
+            <span className="mb-4 inline-block rounded-full border border-[#5A0F14] bg-[#5A0F14]/10 px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-[#FF4D4D] backdrop-blur-sm sm:text-xs">
+              {brandModelGallery.badge}
+            </span>
+          )}
           <h2 className="text-xl font-bold uppercase tracking-[0.12em] sm:text-2xl">
             {brandModelGallery.title}
           </h2>

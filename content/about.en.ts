@@ -1,44 +1,42 @@
-// ABOUT PAGE CONTENT — ENGLISH VERSION
+// ABOUT PAGE CONTENT — ENGLISH VERSION (Optimized)
+// Tone: Bold, Guardian, Truth-teller.
 
 // ─────────────────────────────────────────
 // Section 1 — Hero
 // ─────────────────────────────────────────
 export const aboutHeroCopy = {
-  statement: "The resale game is rigged. We're not playing it.",
+  statement: "The resale game is rigged. | We stopped playing.",
   highlightWord: "rigged",
-  subline: "We built the exit.",
+  subline: "We built the exit strategy.",
 };
 
 // ─────────────────────────────────────────
-// Section 2 — Manifesto (3 Pillars)
-// Territory: WHO Nevexa is — origin, method, identity
-// No overlap with TheReality (market critique lives there)
+// Section 2 — Manifesto
 // ─────────────────────────────────────────
 export const manifestoCopy = {
   pillars: [
     {
       id: "our-origin",
-      title: "Our Origin",
+      title: "The Origin",
       content: [
-        "Nevexa was founded after observing two markets side by side — Canada's regulated automotive industry, and West Africa's unstructured resale landscape. The contrast was impossible to ignore.", 
-        "So we built the bridge.",
+        "Nevexa was born from a stark contrast. In Canada: a regulated, transparent automotive market. In West Africa: a dumping ground for hidden wrecks.", 
+        "We couldn't ignore it. So we built a secure bridge between the two.",
       ],
     },
     {
       id: "our-standard",
-      title: "Our Standard",
+      title: "The Standard",
       content: [
-        "We source exclusively from regulated Canadian dealerships. No auctions, no salvage, no gray market. Every vehicle is independently inspected.",
-        "Full documentation history, condition report, everything is accessible to the client before any commitment is made.",
+        "We source exclusively from regulated Canadian dealerships. No auctions, no salvage. Every vehicle's background is audited before it's even proposed to you.",
+        "Full history, real condition reports. You see exactly what we see. No blind spots.",
       ],
     },
     {
       id: "what-we-are",
-      title: "What We Are",
+      title: "The Identity",
       content: [
-        "We're not a marketplace. Not a broker. We don't hold inventory and we don't push stock.", 
-        "Every vehicle we move is sourced on demand, for one client, with one goal.",
-        "Getting the right vehicle, without compromise.",
+        "Not a marketplace. Not a broker pushing old stock. We don't hold inventory.", 
+        "We act as your eyes in Canada. We hunt down the specific vehicle you need, with one non-negotiable rule: zero compromise on quality.",
       ],
     },
   ],
@@ -46,28 +44,25 @@ export const manifestoCopy = {
 
 // ─────────────────────────────────────────
 // Section 3 — The Reality
-// Territory: WHAT'S BROKEN in the market
-// 3 distinct hits: hidden damage → price abuse → conclusion
 // ─────────────────────────────────────────
 export const realityCopy = {
   paragraphs: [
     {
-      text: "Every year, thousands of West African buyers pay premium prices for vehicles declared total losses on the other side of the ocean. Clean title on paper. Structural damage underneath.",
-      highlights: ["total losses", "Structural damage underneath"],
+      text: "Every year, thousands of buyers unknowingly pay premium prices for vehicles declared 'total loss' across the ocean. Shiny paint, broken structure.",
+      highlights: ["total loss", "broken structure"],
     },
     {
-      text: "When the vehicle arrives, local resellers add their own margin on top — prices already inflated, now marked up again. The buyer pays twice for a product that was compromised from the start.",
-      highlights: ["pays twice"],
+      text: "By the time it reaches you, the price is inflated by middlemen, while the quality is compromised. You pay double for a ticking time bomb.",
+      highlights: ["pay double"],
     },
     {
-      text: "The resale system is built on that silence. Nevexa was built to end it.",
-      highlights: ["end it"],
+      text: "The system relies on your silence. Nevexa exists to break it.",
+      highlights: ["break it"],
     },
   ],
   founder: {
-    header: "A Word from our Founder",
-    // Nouveau wording : Focus sur la protection et la vérité, pas sur le processus technique.
-    quote: "In an industry where silence is profit, transparency is our only currency. I've watched too many people invest their life savings into vehicles that were never safe to begin with. Nevexa wasn't created to be another dealership; it was created to be a guardian. We are here to ensure that your ambition is never compromised by someone else's dishonesty. You aren't just buying a vehicle—you are buying the security that your investment is protected by the truth.",
+    header: "Founder's Note",
+    quote: "In an industry where silence is profit, transparency is our only currency. I've watched too many people invest life savings into vehicles that were never safe to begin with. Nevexa isn't just another dealership; it's a guardian. We are here to ensure your ambition is never compromised by someone else's dishonesty. You aren't just buying a vehicle—you are buying the security that your investment is protected by the truth.",
     signature: "Ozioma",
     role: "Founder, Nevexa Automotive Inc.",
   }
@@ -80,14 +75,14 @@ export const splitCTACopy = {
   title: "Choose your path.",
   buttons: [
     {
-      label: "Individual buyers",
-      buttonText: "I'm an individual",
+      label: "Personal Use",
+      buttonText: "I am an Individual",
       href: "/b2c",
       variant: "outline" as const,
     },
     {
-      label: "Businesses & Dealerships",
-      buttonText: "I represent a business",
+      label: "Business Use",
+      buttonText: "I am a Business / NGO",
       href: "/b2b",
       variant: "solid" as const,
     },

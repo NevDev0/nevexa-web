@@ -75,7 +75,7 @@ export default function FinancingForEveryNeed() {
             }}
           />
           <p
-            className="mx-auto max-w-2xl text-[15px] font-medium leading-relaxed text-white/60 sm:text-[16px]"
+            className="mx-auto max-w-2xl text-[15px] font-medium leading-relaxed text-white/80 sm:text-[17px]"
             style={{
               opacity: visible ? 1 : 0,
               transition: "opacity 800ms ease-out",

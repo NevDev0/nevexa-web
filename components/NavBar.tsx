@@ -82,7 +82,7 @@ export default function NavBar() {
   return (
     <>
       {/* ── NAVBAR ── */}
-      <div className="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-black/75 to-transparent">
+      <div className="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-black/90 to-transparent">
         <div className="relative flex h-20 items-center justify-between px-6 sm:h-[88px] sm:px-10">
 
           {/* LEFT: Hamburger */}

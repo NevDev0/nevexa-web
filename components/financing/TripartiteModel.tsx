@@ -78,7 +78,7 @@ export default function TripartiteModel() {
             className="tm-underline mx-auto mb-6 h-0.5 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent shadow-[0_0_10px_rgba(90,15,20,0.5)]"
             style={{ "--delay": "200ms" } as React.CSSProperties}
           />
-          <p className="mx-auto max-w-2xl text-sm leading-relaxed text-white/80 sm:text-[15px]">
+          <p className="mx-auto max-w-2xl text-sm leading-relaxed text-white/80 sm:text-[16px]">
             {howItWorksCopy.subtitle}
           </p>
         </div>

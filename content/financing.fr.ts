@@ -1,48 +1,47 @@
-// FINANCING PAGE CONTENT — VERSION FRANÇAISE
-// Ton : Fintech premium, crédible, accessible. Pas de jargon bancaire opaque.
+// FINANCING PAGE CONTENT — VERSION FRANÇAISE (Optimisée)
 
 // ============================================
 // SECTION 1 — HERO FINANCING
 // ============================================
 export const financingHeroCopy = {
   badges: {
-    earlyAccess: "Accès Anticipé",
-    comingSoon: "Disponible en 2027",
+    earlyAccess: "Accès Prioritaire", // Mieux que "Accès Anticipé"
+    comingSoon: "Lancement Pilote 2027", // Plus exclusif
   },
   titleLine1: "Le Financement Auto",
   titleLine2: "Réinventé.",
-  subtitle: "Nevexa structure un service de financement véhicule avec des partenaires bancaires en Afrique. Rejoignez la liste prioritaire pour être informé du lancement dans votre pays.",
-  clarification: "Ce service n'est pas encore disponible. En rejoignant la liste d'attente, vous nous aidez à démontrer la demande du marché à nos partenaires bancaires et à obtenir un accès prioritaire au lancement.",
+  subtitle: "Nevexa structure la première solution de leasing transfrontalier avec les grandes banques africaines. Rejoignez la liste d'attente pour sécuriser votre place.",
+  clarification: "Service en cours de structuration bancaire. Votre inscription sur la liste d'attente est sans engagement mais vous garantit un accès prioritaire au lancement.",
 };
   
   // ============================================
   // SECTION 2 — HOW IT WORKS
   // ============================================
   export const howItWorksCopy = {
-    title: "Comment ça fonctionne",
-    subtitle: "Un partenariat triangulaire fluide. Vous choisissez le véhicule, la banque apporte les fonds, Nevexa assure la livraison sécurisée.",
+    title: "Le Modèle Triangulaire", // Plus technique/pro
+    subtitle: "Une sécurité totale pour toutes les parties. La banque finance, Nevexa sécurise l'actif, vous conduisez.",
   
     actors: [
       {
         id: "client",
         initial: "C",
-        label: "Client",
-        tag: "Vous",
-        description: "Choisit le véhicule et fait sa demande de financement",
+        label: "Client (Vous)",
+        tag: "Emprunteur",
+        description: "Sélectionne le véhicule et dépose son dossier",
       },
       {
         id: "banking-partner",
         initial: "B",
-        label: "Partenaire Bancaire",
-        tag: "Prêteur",
-        description: "Valide le dossier et débloque les fonds directement",
+        label: "Banque Partenaire",
+        tag: "Financeur",
+        description: "Valide la solvabilité et règle le véhicule directement",
       },
       {
         id: "nevexa",
         initial: "N",
         label: "Nevexa",
-        tag: "Facilitateur",
-        description: "Sécurise, certifie et expédie le véhicule",
+        tag: "Tiers de Confiance", // Mieux que "Facilitateur"
+        description: "Certifie la valeur, inspecte et livre le véhicule",
       },
     ],
   };
@@ -51,17 +50,18 @@ export const financingHeroCopy = {
   // SECTION 3 — FINANCING FOR EVERY NEED
   // ============================================
   export const financingProfilesCopy = {
-    title: "Un Financement pour Chaque Besoin",
-    intro: "Que vous constituiez une flotte, upgradiez votre véhicule personnel ou équipiez votre organisation — on structure un financement qui fonctionne pour vous.",
+    title: "Solutions Adaptées",
+    intro: "Du particulier au gestionnaire de flotte, nous créons les ponts bancaires nécessaires.",
   
     profiles: [
       {
         id: "business",
-        title: "Développez Votre Activité",
-        targets: "Gestionnaires de flotte, acheteurs corporate, sociétés de transport",
-        example: "Financement de 5+ véhicules vers plusieurs destinations",
-        range: "Commandes multi-véhicules 100 000 $+",
-        icon: `<svg class="h-12 w-12" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 8px rgba(90, 15, 20, 0.5));">
+        title: "Flottes d'Entreprise", // Plus clair
+        targets: "PME, Grandes Entreprises, Logistique",
+        example: "Renouvellement de parc (5+ unités)",
+        range: "Commandes > 100 000 $",
+        // ... (Garde ton icône SVG ici) ...
+         icon: `<svg class="h-12 w-12" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 8px rgba(90, 15, 20, 0.5));">
           <path d="M 8 52 L 8 56 L 56 56 L 56 52" stroke="#5A0F14" stroke-width="2"/>
           <path d="M 8 56 L 8 8" stroke="#5A0F14" stroke-width="2"/>
           <rect x="14" y="44" width="6" height="12" fill="#5A0F14" class="bar-1" style="transform-origin: 17px 56px"/>
@@ -85,11 +85,12 @@ export const financingHeroCopy = {
       },
       {
         id: "personal",
-        title: "Votre Upgrade Personnel",
-        targets: "Professionnels, entrepreneurs et salariés en Afrique",
-        example: "SUV ou berline premium 2021-2026",
-        range: "Véhicules 30 000 $ – 80 000 $",
-        icon: `<svg class="h-12 w-12" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 8px rgba(90, 15, 20, 0.5));">
+        title: "Particuliers Premium", // Plus chic que "Upgrade Personnel"
+        targets: "Cadres, Professions Libérales",
+        example: "SUV personnel (2021-2026)",
+        range: "Véhicules 30k $ – 80k $",
+        // ... (Garde ton icône SVG ici) ...
+         icon: `<svg class="h-12 w-12" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 8px rgba(90, 15, 20, 0.5));">
           <circle cx="20" cy="32" r="8" fill="none" stroke="#5A0F14" stroke-width="3"/>
           <circle cx="20" cy="32" r="3" fill="#5A0F14"/>
           <line x1="28" y1="32" x2="48" y2="32" stroke="#5A0F14" stroke-width="3"/>
@@ -114,11 +115,12 @@ export const financingHeroCopy = {
       },
       {
         id: "ngo",
-        title: "Au Service des Communautés",
-        targets: "ONG, organisations internationales, secteur santé/éducation",
-        example: "Véhicules utilitaires 4x4 financés par des bailleurs",
-        range: "Véhicules dédiés 50 000 $+",
-        icon: `<svg class="h-12 w-12" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 8px rgba(90, 15, 20, 0.5));">
+        title: "ONG & Institutions",
+        targets: "Organisations Internationales, Bailleurs",
+        example: "Flotte terrain sur budget bailleur",
+        range: "Véhicules dédiés (Ambulances, Pickups)",
+        // ... (Garde ton icône SVG ici) ...
+         icon: `<svg class="h-12 w-12" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 8px rgba(90, 15, 20, 0.5));">
           <rect class="cross-pulse" x="26" y="16" width="12" height="32" fill="#5A0F14" rx="2"/>
           <rect class="cross-pulse" x="16" y="26" width="32" height="12" fill="#5A0F14" rx="2"/>
           <style>
@@ -134,11 +136,12 @@ export const financingHeroCopy = {
       },
       {
         id: "diaspora",
-        title: "Investir depuis l'Étranger",
-        targets: "Diaspora, expatriés, revenus en devises étrangères",
-        example: "Financement sur revenus en USD/EUR",
-        range: "Véhicules 40 000 $ – 100 000 $",
-        icon: `<svg class="h-12 w-12" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 8px rgba(90, 15, 20, 0.5));">
+        title: "Diaspora (Crédit Devise)",
+        targets: "Expatriés, Revenus en Euros/USD",
+        example: "Financement basé sur revenus étrangers",
+        range: "Véhicules 40k $ – 100k $",
+        // ... (Garde ton icône SVG ici) ...
+         icon: `<svg class="h-12 w-12" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 8px rgba(90, 15, 20, 0.5));">
           <circle cx="32" cy="32" r="20" fill="none" stroke="#5A0F14" stroke-width="3"/>
           <ellipse class="globe-rotate" cx="32" cy="32" rx="8" ry="20" fill="none" stroke="#5A0F14" stroke-width="2"/>
           <line x1="12" y1="32" x2="52" y2="32" stroke="#5A0F14" stroke-width="2"/>
@@ -163,60 +166,39 @@ export const financingHeroCopy = {
 // SECTION 4 — GEOGRAPHIC AVAILABILITY
 // ============================================
 export const geographicAvailabilityCopy = {
-  title: "Calendrier de Déploiement",
-  subtitle: "Une stratégie d'expansion ciblée, débutant par le Nigéria pour s'étendre aux principaux hubs économiques d'Afrique de l'Ouest.",
+  title: "Roadmap Bancaire", // Plus pro que "Calendrier"
+  subtitle: "Une expansion progressive dictée par la maturité des systèmes bancaires locaux.",
   countries: [
-    {
-      id: "nigeria",
-      name: "Nigeria",
-      year: "2027",
-    },
-    {
-      id: "senegal",
-      name: "Sénégal",
-      year: "2028",
-    },
-    {
-      id: "ghana",
-      name: "Ghana",
-      year: "2028",
-    },
-    {
-      id: "ivory-coast",
-      name: "Côte d'Ivoire",
-      year: "2028",
-    },
-    {
-      id: "cameroon",
-      name: "Cameroun",
-      year: "2028",
-    },
+    { id: "nigeria", name: "Nigeria", year: "2027" },
+    { id: "senegal", name: "Sénégal", year: "2028" },
+    { id: "ghana", name: "Ghana", year: "2028" },
+    { id: "ivory-coast", name: "Côte d'Ivoire", year: "2028" },
+    { id: "cameroon", name: "Cameroun", year: "2028" },
   ],
   timeline: [
     {
       year: "2027",
-      badge: "Premier Marché",
-      title: "Lancement au Nigéria (QG)",
-      description: "Activation des premiers partenariats bancaires et ouverture aux importateurs qualifiés.",
+      badge: "Marché Pilote",
+      title: "Lancement Nigeria",
+      description: "Ouverture des crédits pour les entreprises immatriculées à Lagos et Abuja.",
     },
     {
       year: "2028",
-      badge: "Expansion",
-      title: "Extension Afrique de l'Ouest",
-      // On insiste sur la consolidation plutôt que de re-citer la liste
-      description: "Déploiement simultané sur quatre marchés clés pour consolider notre présence régionale.",
+      badge: "Zone UEMOA",
+      title: "Expansion Francophone",
+      description: "Ouverture simultanée au Sénégal et en Côte d'Ivoire via nos partenaires régionaux.",
     },
     {
       year: "2029+",
-      badge: "Panafricain",
+      badge: "Pan-Africain",
       title: "Couverture Continentale",
-      description: "Ouverture progressive vers l'Afrique de l'Est et australe en fonction de la maturité des marchés.",
+      description: "Extension vers l'Afrique de l'Est (Kenya, Rwanda).",
       },
     ],
   
     cta: {
-      text: "Votre pays n'est pas encore listé ? Rejoignez la liste d'attente pour être notifié au lancement.",
-      button: "Rejoindre la liste",
+      text: "Votre pays n'est pas listé ? Inscrivez-vous pour accélérer son ouverture.",
+      button: "Voter pour mon pays",
     },
   };
   
@@ -224,32 +206,32 @@ export const geographicAvailabilityCopy = {
   // SECTION 5 — FAQ FINANCING
   // ============================================
   export const faqFinancingCopy = {
-    title: "Vos Questions",
+    title: "FAQ Investisseur",
   
     questions: [
       {
         id: 1,
-        question: "Est-ce que Nevexa prête de l'argent ?",
+        question: "Nevexa est-elle une banque ?",
         answer:
-          "Non. Nevexa n'accorde pas de prêts. Le financement sera assuré par des établissements bancaires agréés dans votre pays. Nevexa prend en charge le sourcing et la livraison du véhicule.",
+          "Non. Nevexa est une société de sourcing et de logistique. Nous agissons comme 'Tiers de Confiance' pour sécuriser l'actif (la voiture) pour le compte de la banque qui prête l'argent.",
       },
       {
         id: 2,
-        question: "Rejoindre la liste garantit-il une approbation de financement ?",
+        question: "Pourquoi s'inscrire maintenant pour 2027 ?",
         answer:
-          "Non. La liste d'attente nous permet d'évaluer l'intérêt du marché et de prioriser les régions de lancement. L'approbation finale du prêt sera décidée par nos partenaires bancaires sur la base d'une évaluation individuelle du dossier.",
+          "Les places seront limitées au lancement (Quota 'Early Adopters'). En vous inscrivant aujourd'hui, vous sécurisez votre priorité dans la file d'attente d'analyse de dossier.",
       },
       {
         id: 3,
-        question: "Quand le financement sera-t-il disponible dans mon pays ?",
+        question: "Quels seront les taux d'intérêt ?",
         answer:
-          "Nous lançons d'abord au Nigeria (T1 2027), suivi de l'Afrique de l'Ouest (2027-2028). Rejoignez la liste d'attente pour être informé dès que nous arrivons dans votre région.",
+          "Les taux seront définis par nos banques partenaires selon votre profil de risque et votre pays. Notre rôle est de négocier des taux préférentiels grâce au volume d'affaires que nous apportons.",
       },
       {
         id: 4,
-        question: "Que devient mon dossier ?",
+        question: "Acceptez-vous la diaspora ?",
         answer:
-          "Vos données sont utilisées uniquement pour informer nos partenaires bancaires de la demande du marché et pour vous notifier à l'ouverture du service. Nous ne partageons pas vos informations avec des tiers sans votre consentement.",
+          "Oui. C'est même une cible prioritaire. Si vous résidez en Europe/USA mais souhaitez financer un véhicule pour votre famille ou vos affaires au pays, nous aurons des solutions dédiées.",
       },
     ],
   };
@@ -258,17 +240,17 @@ export const geographicAvailabilityCopy = {
   // SECTION 6 — WAITLIST FORM
   // ============================================
   export const waitlistFormCopy = {
-    title: "Rejoindre la Liste d'Attente",
+    title: "Candidature Accès Prioritaire",
   
     stats: {
-      counterLabel: "Inscrits Prioritaires",
-      statusLabel: "Statut d'Inscription en Direct",
-      progressLabel: "Progression du Dossier",
+      counterLabel: "Liste d'Attente",
+      statusLabel: "Statut",
+      progressLabel: "Votre Position",
     },
   
     errors: {
-      required: "Ce champ est obligatoire",
-      invalidEmail: "Veuillez entrer un email valide",
+      required: "Requis",
+      invalidEmail: "Email invalide",
     },
     
     fields: {
@@ -278,45 +260,45 @@ export const geographicAvailabilityCopy = {
         required: true,
       },
       email: {
-        label: "Adresse email",
-        placeholder: "nom@gmail.com",
+        label: "Email professionnel",
+        placeholder: "contact@entreprise.com",
         required: true,
       },
       country: {
         label: "Pays de résidence",
-        placeholder: "Entrez votre pays",
+        placeholder: "Sélectionner",
         required: true,
       },
       clientType: {
-        label: "Type de profil",
+        label: "Profil",
         required: true,
         options: [
-          { value: "", label: "Sélectionnez votre profil" },
-          { value: "individual", label: "Particulier (salarié ou profession libérale)" },
-          { value: "corporation", label: "Entreprise / Flotte" },
-          { value: "ngo", label: "ONG / Organisation internationale" },
-          { value: "diaspora", label: "Diaspora / Expatrié" },
+          { value: "", label: "Choisir..." },
+          { value: "individual", label: "Particulier" },
+          { value: "corporation", label: "Entreprise" },
+          { value: "ngo", label: "ONG" },
+          { value: "diaspora", label: "Diaspora" },
         ],
       },
       estimatedBudget: {
-        label: "Enveloppe budgétaire",
+        label: "Budget estimé",
         required: true,
         options: [
-          { value: "", label: "Sélectionnez une fourchette" },
-          { value: "under-30k", label: "Moins de 30 000 $" },
-          { value: "30k-50k", label: "30 000 $ – 50 000 $" },
-          { value: "50k-80k", label: "50 000 $ – 80 000 $" },
-          { value: "80k-plus", label: "80 000 $ et plus" },
+          { value: "", label: "Choisir..." },
+          { value: "under-30k", label: "< 30 000 $" },
+          { value: "30k-50k", label: "30k $ – 50k $" },
+          { value: "50k-80k", label: "50k $ – 80k $" },
+          { value: "80k-plus", label: "> 80 000 $" },
         ],
       },
     },
   
-    submitButton: "Demander un accès",
-    submittingText: "Traitement en cours...",
+    submitButton: "Réserver ma place",
+    submittingText: "Validation...",
   
     successMessage: {
-      title: "Dossier reçu",
-      description: "Bienvenue dans le cercle des premiers. Nous vous contacterons prochainement.",
-      cta: "Explorer les véhicules",
+      title: "Candidature Enregistrée",
+      description: "Vous êtes désormais sur la liste prioritaire. Vous recevrez un email dès l'ouverture des quotas.",
+      cta: "Retour au site",
     },
   };

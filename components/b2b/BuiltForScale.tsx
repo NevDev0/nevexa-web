@@ -211,7 +211,7 @@ export default function BuiltForScale() {
             transitionDelay: "800ms",
           }}
         >
-          <p className="inline-block rounded-full border border-white/10 bg-white/5 px-6 py-2 text-[12px] font-medium tracking-[0.08em] text-white/60">
+          <p className="inline-block rounded-full border border-white/10 bg-white/5 px-6 py-2 text-[12px] font-medium tracking-[0.08em] text-white/70 sm:text-[13px]">
             {builtForScaleCopy.footerNote}
           </p>
         </div>

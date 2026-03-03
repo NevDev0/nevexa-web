@@ -3,12 +3,12 @@
 
 // Section 1 — Hero
 export const b2bHeroCopy = {
-    title: "Fait pour les pros. Conçu pour scaler.",
-    badge: "Sourcing B2B",
-    subtitle: "Véhicules issus de concessionnaires officiels pour revendeurs, ONG et flottes d'entreprise.",
-    ctaPrimary: "Discuter de vos besoins",
+    title: "Sourcing Grande Échelle.",
+    badge: "CANAL PROFESSIONNEL",
+    subtitle: "Accès direct aux stocks concessionnaires. Pour revendeurs, ONG et flottes.",
+    ctaPrimary: "Parler à un expert",
     ctaSecondary: "Voir nos capacités",
-    disclaimer: "Volumes minimum et conditions de paiement varient selon le type de client et la destination.",
+    disclaimer: "Conditions et volumes négociables selon historique.",
   };
   
   export const contactModalB2BCopy = {
@@ -33,12 +33,12 @@ export const b2bHeroCopy = {
     profiles: [
       {
         id: "resellers",
-        name: "Revendeurs",
-        subtitle: "Sourcez 5 à 15 véhicules par mois pour la revente locale",
+        name: "Revendeurs Auto",
+        subtitle: "Rotation rapide : 5 à 15 véhicules / mois",
         capabilities: [
           {
-            title: "Tarifs dégressifs",
-            description: "sur commandes récurrentes — sans minimum imposé, mêmes standards à toute échelle",
+            title: "Tarification Nette",
+            description: "— Accès direct aux prix concessionnaires. Optimisez votre marge dès le premier véhicule.",
           },
           {
             title: "Coordination WhatsApp",
@@ -164,9 +164,9 @@ export const b2bHeroCopy = {
     questions: [
       {
         id: 1,
-        question: "Quels sont vos volumes minimum ?",
+        question: "Quel est le volume minimum pour commander ?",
         answer:
-          "Nous n'imposons pas de minimum strict. Les revendeurs démarrent généralement avec 5 à 10 véhicules par commande. Les ONG et les entreprises passent souvent des commandes plus importantes, moins fréquentes. Les tarifs dégressifs s'appliquent à partir de 10 véhicules par trimestre.",
+          "Aucun minimum imposé. Que vous commandiez 1 ou 10 véhicules, vous bénéficiez de notre infrastructure logistique complète et de notre sourcing prioritaire. Nous sommes là pour accompagner votre croissance.",
       },
       {
         id: 2,

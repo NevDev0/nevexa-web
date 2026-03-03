@@ -3,22 +3,22 @@
 
 // Section 1 — Hero
 export const b2cHeroCopy = {
-    title: "Votre véhicule. Sans mauvaises surprises.",
+    title: "Historique Vérifié. Transparence Totale.",
     badge: "Modèles 2021-2026 uniquement",
     ctaPrimary: "Explorer le catalogue",
     ctaSecondary: "Parler à un conseiller",
-    impactText: "Protégez votre famille et votre argent. Concessionnaires officiels uniquement. Zéro enchères. Zéro historique caché.",
+    impactText: "Concessionnaires officiels uniquement. Zéro enchères. Zéro doute.",
     disclaimer: "*Cadillac Escalade ESV 2026, V8*",
   };
   
   // Section 2 — Brand Model Gallery
   export const brandModelGallery = {
-    title: "CATALOGUE INSPIRATIONNEL",
-    badge: "MODÈLES 2021-2026 UNIQUEMENT",
-    disclaimer: "Configurations à titre indicatif. Disponibilité et tarifs varient selon la destination et le modèle.",
+    title: "INSPIRATIONS & TENDANCES",
+    badge: "SOURCING SUR MESURE",
+    disclaimer: "Ces véhicules sont présentés à titre d'exemple pour illustrer nos standards de qualité. Nous sourçons n'importe quelle marque ou modèle selon vos critères exacts.",
     customSourcingCta: {
-      text: "Vous ne trouvez pas la marque ou le modèle recherché ?",
-      buttonLabel: "Demander un sourcing personnalisé",
+      text: "Vous cherchez un autre modèle ou une autre marque ?",
+      buttonLabel: "Lancer une recherche personnalisée",
     },
     brands: [
       { id: "land-rover", name: "Land Rover" },
@@ -357,7 +357,7 @@ export const b2cHeroCopy = {
   // Section 4 — What Others Won't Tell You
   export const b2cWhatOthersWontTellYou = {
     title: "Ce que les autres ne vous diront pas",
-    subtitle: "Protéger votre famille et vos économies d'un marché qui ne joue pas franc jeu.",
+    subtitle: "Votre sécurité n'est pas une option. Votre investissement non plus.",
     dossierItems: [
       {
         num: "01",
@@ -377,11 +377,11 @@ export const b2cHeroCopy = {
       },
       {
         num: "03",
-        title: "La Mauvaise Surprise au Port",
+        title: "L'Extorsion au Port (Frais Cachés)",
         problem:
-          "C'est une pratique courante : un prix d'appel alléchant au départ, puis votre véhicule est bloqué au port avec des frais 'imprévus', des charges portuaires non annoncées, voire des dessous-de-table.",
+          "La technique classique : un prix bas pour vous appâter, puis le vendeur retient vos documents d'exportation contre des frais de 'dernière minute'. Sans documents, vous ne pouvez pas sortir le véhicule.",
         solution:
-          "Transparence totale sur les prix, dès le premier échange. Pas de frais cachés, pas de prise en otage au port. Vous savez exactement où va votre argent, à chaque étape.",
+          "Notre prix rendu port (CIF) est définitif et écrit noir sur blanc. Aucun frais caché de notre part. Vous recevez vos documents originaux (Bill of Lading) par DHL avant l'arrivée du navire. Votre transitaire a les mains libres.",
       },
       {
         num: "04",
@@ -414,13 +414,13 @@ export const b2cHeroCopy = {
         id: 3,
         question: "Livrez-vous dans mon pays ?",
         answer:
-          "Nous expédions actuellement vers les pays d'Afrique de l'Ouest : Nigeria, Côte d'Ivoire, Sénégal, Bénin, Togo et Ghana. Contactez-nous pour confirmer la disponibilité vers votre destination et discuter des options de livraison.",
+          "Nous sommes spécialisés sur l'Afrique de l'Ouest (Nigeria, Côte d'Ivoire, Sénégal, Bénin, Togo, Ghana), mais notre logistique nous permet d'exporter partout dans le monde. Contactez-nous pour une destination hors zone.",
       },
       {
         id: 4,
         question: "Quel est le vrai délai de livraison ?",
         answer:
-          "En général, comptez 6 à 8 semaines entre la confirmation de commande et l'arrivée au port. Cela inclut le sourcing, l'inspection, la documentation export et le fret maritime. La livraison porte-à-porte ajoute 1 à 2 semaines selon votre localisation.",
+          "En général, comptez 6 à 8 semaines entre la confirmation de commande et l'arrivée au port. Cela inclut le sourcing, l'inspection, la documentation export et le fret maritime. Pour l'option Clé en Main (là où disponible), ajoutez 1 à 2 semaines pour le dédouanement.",
       },
       {
         id: 5,

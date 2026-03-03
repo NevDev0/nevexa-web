@@ -119,7 +119,7 @@ export default function B2CHero() {
 
             {/* Texte d'impact */}
             <p
-              className="mt-[clamp(1rem,2vh,1.5rem)] max-w-xl text-center text-[clamp(0.875rem,1.5vw,1rem)] leading-relaxed text-neutral-800"
+              className="mt-[clamp(1rem,2vh,1.5rem)] max-w-xl text-center text-[clamp(1rem,2vw,1.2rem)] leading-relaxed text-neutral-800"
               style={{
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateY(0)" : "translateY(10px)",

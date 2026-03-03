@@ -131,7 +131,7 @@ export default function ImportAdvantage() {
                   <p className="text-[15px] font-bold tracking-wide text-white">
                     {stat.label}
                   </p>
-                  <div className="mt-2 text-[13px] leading-relaxed text-white/50">
+                  <div className="mt-2 text-[13px] leading-relaxed text-white/65">
                     {stat.sublabel.split("\n").map((line, idx) => (
                       <span key={idx} className="block">{line}</span>
                     ))}
@@ -162,12 +162,12 @@ export default function ImportAdvantage() {
             transitionDelay: "1000ms",
           }}
         >
-          <p className="text-center text-[10px] uppercase tracking-[0.2em] text-white/60 sm:text-left">
+          <p className="text-center text-[10px] uppercase tracking-[0.2em] text-white/65 sm:text-left">
             {importAdvantageCopy.disclaimer}
           </p>
           <div className="flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2">
             <div className="ia-pulse h-2 w-2 rounded-full bg-[#5A0F14] shadow-[0_0_8px_rgba(90,15,20,0.8)]" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/60">
+            <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/65">
               {importAdvantageCopy.badge}
             </span>
           </div>

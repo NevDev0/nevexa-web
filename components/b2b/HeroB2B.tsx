@@ -72,7 +72,7 @@ export default function HeroB2B() {
 
             {/* Subtitle */}
             <p
-              className="mb-10 text-[15px] leading-relaxed text-white/80 sm:text-[18px]"
+              className="mb-10 text-[15px] leading-relaxed text-white/85 sm:text-[18px]"
               style={{
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateY(0)" : "translateY(20px)",
