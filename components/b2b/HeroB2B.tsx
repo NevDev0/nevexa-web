@@ -24,7 +24,7 @@ export default function HeroB2B() {
     <>
       <NavBar />
 
-      <section ref={sectionRef} className="relative w-full overflow-hidden min-h-[85svh]">
+      <section ref={sectionRef} className="relative w-full overflow-hidden min-h-[90svh]">
 
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
