@@ -3,7 +3,7 @@
 
 // Section 1 — Hero
 export const b2bHeroCopy = {
-    title: "Sourcing Grande Échelle.",
+    title: "Sourcing Volume.",
     badge: "CANAL PROFESSIONNEL",
     subtitle: "Accès direct aux stocks concessionnaires. Pour revendeurs, ONG et flottes.",
     ctaPrimary: "Parler à un expert",
