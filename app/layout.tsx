@@ -24,12 +24,6 @@ export const metadata: Metadata = {
     "Luxury Cars West Africa", "Vehicle Import Nigeria", "Off-market Cars",
     "Import voiture Canada", "Mandataire auto Canada Afrique", "Export véhicule Sénégal"
   ],
-  
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/apple-icon.png", 
-  },
 
   openGraph: {
     title: "Nevexa — Premium vehicles, from Canada to Africa",

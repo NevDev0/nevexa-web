@@ -116,7 +116,7 @@ export default function BrandModelGallery() {
         {/* HEADER */}
         <div className={`mb-3 text-center transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
         {brandModelGallery.badge && (
-            <span className="mb-4 inline-block rounded-full border border-[#5A0F14] bg-[#5A0F14]/10 px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-[#FF4D4D] backdrop-blur-sm sm:text-xs">
+            <span className="mb-6 inline-block rounded-full border border-[#5A0F14] bg-[#5A0F14]/10 px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-[#FF4D4D] backdrop-blur-sm sm:text-xs">
               {brandModelGallery.badge}
             </span>
           )}
@@ -125,7 +125,7 @@ export default function BrandModelGallery() {
           </h2>
         </div>
 
-        <div className="mb-12 flex justify-center">
+        <div className="mb-8 flex justify-center">
           <div className={`mx-auto h-px w-24 bg-gradient-to-r from-transparent via-[#5A0F14] to-transparent shadow-[0_0_15px_rgba(138,31,36,0.8)] ${visible ? "w-12" : "w-0"}`} />
         </div>
 
