@@ -68,16 +68,16 @@ export const brandsCopy = {
   logos: [
     { name: "Mercedes", src: "/brands/mercedes.png", scale: 2.0 },
     { name: "BMW", src: "/brands/bmw.png", scale: 2.0 },
-    { name: "Lexus", src: "/brands/lexus.png", scale: 1.6 },
+    { name: "Audi", src: "/brands/audi.png", scale: 1.5 },  
     { name: "Porsche", src: "/brands/porsche.png", scale: 1.9 },
-    { name: "Tesla", src: "/brands/tesla.png", scale: 2.1 },
-    { name: "Audi", src: "/brands/audi.png", scale: 1.5 },
+    { name: "Land Rover", src: "/brands/land-rover.png", scale: 1.6 },   
+    { name: "Cadillac", src: "/brands/cadillac.png", scale: 1.4 },   
+    { name: "Dodge", src: "/brands/dodge.png", scale: 2.1 },    
+    { name: "Lexus", src: "/brands/lexus.png", scale: 1.6 },
     { name: "Toyota", src: "/brands/toyota.png", scale: 1.5 },
-    { name: "Land Rover", src: "/brands/land-rover.png", scale: 1.6 },
-    { name: "Cadillac", src: "/brands/cadillac.png", scale: 1.4 },
-    { name: "Hyundai", src: "/brands/hyundai.png", scale: 1.5 },
     { name: "Honda", src: "/brands/honda.png", scale: 1.65 },
-    { name: "Dodge", src: "/brands/dodge.png", scale: 2.1 },
+    { name: "Tesla", src: "/brands/tesla.png", scale: 2.1 },
+    { name: "Hyundai", src: "/brands/hyundai.png", scale: 1.5 },
   ],
 };
 
