@@ -45,6 +45,10 @@ export default function Footer() {
 
   const legalHref = language === "fr" ? "/mentions-legales" : "/legal-notice";
   const legalLabel = language === "fr" ? "Mentions légales" : "Legal Notice";
+  
+  // Texte pour les cookies selon la langue
+  const cookieLabel = language === "fr" ? "Gérer les cookies" : "Cookies Settings";
+
   const copyright = language === "fr"
     ? `© ${year} Nevexa Automotive Inc.`
     : `© ${year} Nevexa Automotive Inc.`;
@@ -114,6 +118,14 @@ export default function Footer() {
             >
               {legalLabel}
             </Link>
+            
+            {/* Lien pour rouvrir les cookies Axeptio */}
+            <a
+              href="javascript:openAxeptioCookies()"
+              className="text-[12px] font-medium tracking-wide text-neutral-500 transition-colors hover:text-white cursor-pointer"
+            >
+              {cookieLabel}
+            </a>
           </nav>
         </div>
 

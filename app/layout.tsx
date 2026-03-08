@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { GoogleAnalytics } from "@next/third-parties/google"; // ✅ L'import est là
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { LanguageProvider } from "@/context/LanguageContext";
+import Script from "next/script"; // ✅ Importé pour une gestion propre des scripts
 import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -65,6 +66,33 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="bg-black">
+      <head>
+        {/* ✅ Configuration Axeptio & Google Consent Mode v2 */}
+        <Script id="axeptio-configuration" strategy="beforeInteractive">
+          {`
+            window.axeptioSettings = {
+              clientId: "69ab17bdf4bf9ade2cea6b5a",
+              cookiesVersion: "a35680c5-eb69-4243-810a-4a6a8abf202f",
+              googleConsentMode: {
+                default: {
+                  analytics_storage: "denied",
+                  ad_storage: "denied",
+                  ad_user_data: "denied",
+                  ad_personalization: "denied",
+                  wait_for_update: 500
+                }
+              }
+            };
+          `}
+        </Script>
+        
+        {/* ✅ Chargement du SDK Axeptio */}
+        <Script 
+          id="axeptio-sdk"
+          src="//static.axept.io/sdk.js" 
+          strategy="afterInteractive" 
+        />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <LanguageProvider>
           <main>{children}</main>
@@ -72,7 +100,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Analytics />
         <SpeedInsights />
         
-        {/* ✅ Ton Analytics est configuré ici avec le bon ID */}
+        {/* ✅ Google Analytics 4 */}
         <GoogleAnalytics gaId="G-HPHS5FN0SK" /> 
       </body>
     </html>

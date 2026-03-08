@@ -97,8 +97,7 @@ export const brandModelGallery = {
         interiorCount: 5,
         description: "Electric luxury meets M performance",
         exceptions: {
-          "exte-2": "jpg",
-          "inte-1": "jpg"
+
         }
       },
       {
@@ -130,7 +129,6 @@ export const brandModelGallery = {
         exteriorCount: 4,
         interiorCount: 3,
         description: "Electric executive sedan redefined",
-        imageExtension: "jpg",
       },
     ],
 

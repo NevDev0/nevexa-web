@@ -91,8 +91,7 @@ export const b2cHeroCopy = {
           interiorCount: 5,
           description: "Luxe électrique, puissance M",
           exceptions: {
-            "exte-2": "jpg",
-            "inte-1": "jpg",
+
           },
         },
         {
@@ -124,7 +123,6 @@ export const b2cHeroCopy = {
           exteriorCount: 4,
           interiorCount: 3,
           description: "La berline executive électrique réinventée",
-          imageExtension: "jpg",
         },
       ],
       mercedes: [
