@@ -4,6 +4,7 @@ import { useState, FormEvent, useEffect, useRef } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { waitlistFormCopy as waitlistFormCopyEn } from "@/content/financing.en";
 import { waitlistFormCopy as waitlistFormCopyFr } from "@/content/financing.fr";
+import { trackEvent } from "@/lib/analytics";
 
 export default function WaitlistForm() {
   const { language } = useLanguage();
@@ -103,7 +104,10 @@ export default function WaitlistForm() {
         body: JSON.stringify(formData),
       });
       const result = await response.json();
-      if (result.success) setSubmitted(true);
+      if (result.success) {
+        trackEvent("waitlist_submit", { client_type: formData.clientType, country: formData.country });
+        setSubmitted(true);
+      }
       else alert("Error saving data. Please try again.");
     } catch (error) {
       console.error("Error:", error);

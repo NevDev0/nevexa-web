@@ -3,6 +3,7 @@
 import { MouseEvent } from "react";
 import Link from "next/link";
 import { contactModalB2BCopy } from "@/content/b2b.en";
+import { trackEvent } from "@/lib/analytics";
 
 const EMAIL = "contact@nevexacars.com";
 const WHATSAPP_URL = "https://wa.me/14374842769";
@@ -61,7 +62,7 @@ export default function ContactChoiceModalB2B({
           <Link
             href={`mailto:${EMAIL}?subject=${encodeURIComponent(subject)}`}
             className="group flex items-center gap-4 rounded-xl border border-[#5A0F14]/60 bg-[#5A0F14]/8 px-5 py-4 text-sm text-white transition-all duration-300 hover:border-[#5A0F14] hover:bg-[#5A0F14]/15"
-            onClick={onClose}
+            onClick={() => { trackEvent("email_click", { source: "contact_modal_b2b" }); onClose(); }}
           >
             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#5A0F14]/60 bg-[#5A0F14]/10 transition-colors group-hover:border-[#5A0F14]">
               <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 text-neutral-200">
@@ -86,7 +87,7 @@ export default function ContactChoiceModalB2B({
             target="_blank"
             rel="noopener noreferrer"
             className="group flex items-center gap-4 rounded-xl border border-[#5A0F14]/60 bg-[#5A0F14]/8 px-5 py-4 text-sm text-white transition-all duration-300 hover:border-[#5A0F14] hover:bg-[#5A0F14]/15"
-            onClick={onClose}
+            onClick={() => { trackEvent("whatsapp_click", { source: "contact_modal_b2b" }); onClose(); }}
           >
             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#5A0F14]/60 bg-[#5A0F14]/10 transition-colors group-hover:border-[#5A0F14]">
               <svg aria-hidden="true" viewBox="0 0 32 32" className="h-4 w-4 text-neutral-200">

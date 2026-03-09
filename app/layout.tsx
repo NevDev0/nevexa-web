@@ -75,7 +75,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               cookiesVersion: "a35680c5-eb69-4243-810a-4a6a8abf202f",
               googleConsentMode: {
                 default: {
-                  analytics_storage: "denied",
+                  analytics_storage: "granted",
                   ad_storage: "denied",
                   ad_user_data: "denied",
                   ad_personalization: "denied",

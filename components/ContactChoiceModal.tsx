@@ -2,6 +2,7 @@
 
 import { MouseEvent } from "react";
 import Link from "next/link";
+import { trackEvent } from "@/lib/analytics";
 
 const EMAIL = "contact@nevexacars.com";
 const WHATSAPP_URL = "https://wa.me/14374842769";
@@ -55,7 +56,7 @@ export default function ContactChoiceModal({
           <Link
             href={`mailto:${EMAIL}?subject=${encodeURIComponent(subject)}`}
             className="flex flex-1 items-center gap-3 rounded-xl border border-[#5A0F14] bg-white/5 px-4 py-3 text-sm text-white transition-colors hover:bg-white/10"
-            onClick={onClose}
+            onClick={() => { trackEvent("email_click", { source: "contact_modal" }); onClose(); }}
           >
             <span className="flex h-9 w-9 items-center justify-center rounded-full border border-[#5A0F14]">
               <svg
@@ -83,7 +84,7 @@ export default function ContactChoiceModal({
             target="_blank"
             rel="noopener noreferrer"
             className="flex flex-1 items-center gap-3 rounded-xl border border-[#145A0F] bg-white/5 px-4 py-3 text-sm text-white transition-colors hover:bg-white/10"
-            onClick={onClose}
+            onClick={() => { trackEvent("whatsapp_click", { source: "contact_modal" }); onClose(); }}
           >
             <span className="flex h-9 w-9 items-center justify-center rounded-full border border-[#145A0F]">
               <svg
