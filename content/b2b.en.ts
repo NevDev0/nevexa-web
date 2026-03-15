@@ -4,7 +4,7 @@ import { Subtitles } from "lucide-react";
 
 // Section 1 — Hero
 export const b2bHeroCopy = {
-  title: "Built to Scale.",
+  title: "Built to Scale",
   badge: "PROFESSIONAL CHANNEL",
   subtitle: "Direct dealership sourcing. For resellers, NGOs and fleets.",
   ctaPrimary: "Speak to an Expert",

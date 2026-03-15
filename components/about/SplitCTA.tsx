@@ -171,7 +171,7 @@ export default function SplitCTA() {
                     button.variant === "solid" ? "bg-[#5A0F14]" : "bg-white/40"
                   }`}
                 />
-                <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-white/50">
+                <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-white/70">
                   {button.label}
                 </span>
               </div>
@@ -180,7 +180,7 @@ export default function SplitCTA() {
                 href={button.href}
                 className={`group relative flex h-14 items-center justify-center gap-3 overflow-hidden rounded-full text-[15px] font-semibold sm:h-16 sm:text-[16px] ${
                   button.variant === "outline"
-                    ? "border-2 border-white/30 bg-transparent text-white hover:border-white/50 hover:bg-white/[0.05] hover:-translate-y-1"
+                    ? "border-2 border-white/30 bg-[#FFFFFF]/90 text-black hover:border-black/50 hover:bg-white hover:-translate-y-1"
                     : "border-2 border-[#5A0F14] bg-[#5A0F14] text-white hover:bg-[#6A1F24] hover:-translate-y-1"
                 }`}
                 style={{

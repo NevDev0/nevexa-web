@@ -51,7 +51,7 @@ export default function ImportAdvantage() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full overflow-hidden bg-black px-6 py-20 text-white sm:py-32"
+      className="relative w-full overflow-hidden bg-[#FFFFFF]/90 px-6 py-20 text-black sm:py-32"
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(90,15,20,0.1)_0%,transparent_70%)]" />
 
@@ -60,7 +60,7 @@ export default function ImportAdvantage() {
         {/* HEADER */}
         <div className="mb-12 text-center">
           <h2
-            className="mb-4 text-xl font-bold uppercase tracking-[0.12em] sm:text-2xl"
+            className="mb-4 text-2xl font-bold uppercase tracking-tight sm:text-3xl"
             style={{
               opacity: visible ? 1 : 0,
               transform: visible ? "translateY(0)" : "translateY(20px)",
@@ -84,7 +84,7 @@ export default function ImportAdvantage() {
           {importAdvantageCopy.stats.map((stat, i) => (
             <div
               key={stat.id}
-              className="group relative border-b border-white/10 py-8 transition-colors hover:bg-white/[0.02]"
+              className="group relative border-b border-black/20 py-8 transition-colors hover:bg-black/[0.02]"
               style={{
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateX(0)" : "translateX(-30px)",
@@ -107,7 +107,7 @@ export default function ImportAdvantage() {
 
                 <div className="flex items-baseline justify-center sm:justify-start">
                   {stat.prefix && (
-                    <span className="text-2xl font-light text-white/50">{stat.prefix}</span>
+                    <span className="text-2xl font-light text-black/50">{stat.prefix}</span>
                   )}
                   <span className="text-5xl font-light tracking-tight tabular-nums sm:text-6xl">
                     <AnimatedNumber from={stat.numberFrom} to={stat.number} visible={visible} />
@@ -128,10 +128,10 @@ export default function ImportAdvantage() {
                 </div>
 
                 <div className="text-center sm:text-right">
-                  <p className="text-[15px] font-bold tracking-wide text-white">
+                  <p className="text-[15px] font-bold tracking-wide text-black">
                     {stat.label}
                   </p>
-                  <div className="mt-2 text-[13px] leading-relaxed text-white/65">
+                  <div className="mt-2 text-[13px] leading-relaxed text-black/70">
                     {stat.sublabel.split("\n").map((line, idx) => (
                       <span key={idx} className="block">{line}</span>
                     ))}
@@ -139,7 +139,7 @@ export default function ImportAdvantage() {
                 </div>
               </div>
 
-              <div className="absolute bottom-[-1px] left-0 h-[2px] w-full bg-white/5">
+              <div className="absolute bottom-[-1px] left-0 h-[2px] w-full bg-black/30">
                 <div
                   className="h-full bg-gradient-to-r from-[#5A0F14] to-red-600"
                   style={{
@@ -162,12 +162,12 @@ export default function ImportAdvantage() {
             transitionDelay: "1000ms",
           }}
         >
-          <p className="text-center text-[10px] uppercase tracking-[0.2em] text-white/65 sm:text-left">
+          <p className="text-center text-[10px] uppercase tracking-[0.2em] text-black/85 sm:text-left">
             {importAdvantageCopy.disclaimer}
           </p>
-          <div className="flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2">
+          <div className="flex items-center gap-3 rounded-full border border-black/10 bg-black/65 px-4 py-2">
             <div className="ia-pulse h-2 w-2 rounded-full bg-[#5A0F14] shadow-[0_0_8px_rgba(90,15,20,0.8)]" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/65">
+            <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/80">
               {importAdvantageCopy.badge}
             </span>
           </div>

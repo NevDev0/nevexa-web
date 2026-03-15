@@ -29,7 +29,7 @@ export default function FAQFinancing() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-[#F3EFEA]/90 px-6 py-12 text-black sm:py-16"
+      className="relative w-full bg-[#FFFFFF]/90 px-6 py-12 text-black sm:py-16"
     >
       <div className="mx-auto max-w-3xl">
 
@@ -97,7 +97,7 @@ export default function FAQFinancing() {
                       {item.question}
                     </h3>
                   </div>
-                  <p className="pl-7 text-[13px] font-light leading-relaxed tracking-wide text-black/60">
+                  <p className="pl-7 text-[13px] font-light leading-relaxed tracking-wide text-black/80">
                     {item.answer}
                   </p>
                 </div>

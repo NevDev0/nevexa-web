@@ -59,7 +59,7 @@ export default function HeroB2B() {
 
             {/* H1 */}
             <h1
-              className="mb-6 text-4xl font-bold leading-tight tracking-tight text-white drop-shadow-2xl sm:text-5xl md:text-6xl"
+              className="mb-6 text-3xl font-bold uppercase tracking-tight text-white drop-shadow-2xl sm:text-5xl md:text-6xl"
               style={{
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateY(0)" : "translateY(20px)",

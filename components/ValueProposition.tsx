@@ -74,10 +74,10 @@ function StepCard({
         }}
       >
         {/* Overlay */}
-        <div className="absolute -inset-2 bg-black/75 backdrop-blur-[3px] transition-all duration-300 group-hover:bg-black/65" />
+        <div className="absolute -inset-2 bg-black/50 backdrop-blur-[3px] transition-all duration-300 group-hover:bg-black/35" />
 
         {/* Bordure */}
-        <div className="pointer-events-none absolute inset-0 z-20 rounded-lg border border-white/20 transition-colors duration-300 group-hover:border-white/30" />
+        <div className="pointer-events-none absolute inset-0 z-20 rounded-lg border border-black/20 transition-colors duration-300 group-hover:border-black/40" />
 
         {/* Contenu */}
         <div className="relative z-10 flex items-start gap-4 p-6">
@@ -101,7 +101,7 @@ function StepCard({
             <h3 className="mb-2 text-lg font-semibold text-white sm:text-xl">
               {step.label}
             </h3>
-            <p className="text-sm leading-relaxed text-neutral-200 sm:text-base">
+            <p className="text-sm leading-relaxed text-white/90 sm:text-base">
               {step.description}
             </p>
           </div>
@@ -161,14 +161,14 @@ export default function ValueProposition() {
   return (
     <section
       ref={sectionRef}
-      className="w-full bg-black px-6 py-16 text-white lg:py-24"
+      className="w-full bg-[#FFFFFF]/90 px-6 py-16 text-white lg:py-24"
     >
       <div className="mx-auto max-w-5xl">
 
         {/* ── HEADER ── */}
-        <div className="mb-12 text-center sm:mb-20">
+        <div className="mb-8 text-center sm:mb-20">
           <p
-            className="mb-4 text-sm font-black uppercase tracking-[0.3em] text-[#8A1F24]"
+            className="mb-6 text-xs font-black uppercase tracking-[0.14em] text-[#8A1F24] sm:text-sm"
             style={{
               opacity: visible ? 1 : 0,
               transform: visible ? "translateY(0)" : "translateY(20px)",
@@ -178,7 +178,7 @@ export default function ValueProposition() {
             {valuePropsCopy.trustLine}
           </p>
           <h2
-            className="text-3xl font-bold uppercase tracking-widest sm:text-4xl"
+            className="text-2xl font-bold uppercase tracking-tight text-black sm:text-4xl"
             style={{
               opacity: visible ? 1 : 0,
               transform: visible ? "translateY(0)" : "translateY(20px)",

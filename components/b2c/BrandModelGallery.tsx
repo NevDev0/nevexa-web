@@ -120,7 +120,7 @@ export default function BrandModelGallery() {
               {brandModelGallery.badge}
             </span>
           )}
-          <h2 className="text-xl font-bold uppercase tracking-[0.12em] sm:text-2xl">
+          <h2 className="text-xl font-bold uppercase tracking-[0.10em] sm:text-2xl">
             {brandModelGallery.title}
           </h2>
         </div>

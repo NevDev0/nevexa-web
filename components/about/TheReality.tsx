@@ -71,7 +71,7 @@ export default function TheReality() {
   return (
     <section
       ref={sectionRef}
-      className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-black px-6 py-16 sm:py-22"
+      className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-[#FFFFFF]/90 px-6 py-16 sm:py-22"
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(90,15,20,0.08)_0%,transparent_70%)]" />
 
@@ -81,9 +81,9 @@ export default function TheReality() {
         {realityCopy.paragraphs.map((para, index) => (
           <p
             key={index}
-            className={`mb-12 leading-[1.8] text-white/80 last:mb-0 ${
+            className={`mb-12 leading-[1.8] text-black last:mb-0 ${
               index === 2
-                ? "text-[22px] font-bold text-white sm:text-[32px]"
+                ? "text-[22px] font-bold text-black sm:text-[32px]"
                 : "text-[18px] sm:text-[24px]"
             }`}
             style={{
@@ -99,7 +99,7 @@ export default function TheReality() {
 
         {/* Founder */}
         <div
-          className="mt-20 border-t border-white/10 pt-20"
+          className="mt-20 border-t border-black/30 pt-20"
           style={{
             opacity: visible ? 1 : 0,
             transform: visible ? "translateY(0)" : "translateY(20px)",
@@ -110,15 +110,15 @@ export default function TheReality() {
           <span className="mb-8 block text-[14px] font-bold uppercase tracking-[0.3em] text-[#5A0F14] sm:text-[20px]">
             {realityCopy.founder.header}
           </span>
-          <blockquote className="mb-12 text-[20px] font-medium italic leading-[1.6] text-white/90 sm:text-[26px]">
+          <blockquote className="mb-12 text-[20px] font-medium italic leading-[1.6] text-black/90 sm:text-[26px]">
             "{realityCopy.founder.quote}"
           </blockquote>
           <div className="flex flex-col items-center gap-2">
             <div className="mb-2 h-px w-8 bg-[#5A0F14]" />
-            <span className="text-[16px] font-bold uppercase tracking-wider text-white">
+            <span className="text-[16px] font-bold uppercase tracking-wider text-black">
               {realityCopy.founder.signature}
             </span>
-            <span className="text-[11px] uppercase tracking-[0.2em] text-neutral-500">
+            <span className="text-[11px] uppercase tracking-[0.2em] text-neutral-900">
               {realityCopy.founder.role}
             </span>
           </div>

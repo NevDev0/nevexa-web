@@ -40,7 +40,7 @@ export default function Manifesto() {
     switch (id) {
       case "our-origin":   IconComponent = Globe;  break;
       case "our-standard": IconComponent = Crown;  break;
-      case "what-we-are":  IconComponent = Target; break;
+      case "what-we-are":  IconComponent = Target; break; 
       default: return null;
     }
 
@@ -56,7 +56,7 @@ export default function Manifesto() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full overflow-hidden bg-black py-16 sm:py-24"
+      className="relative w-full overflow-hidden bg-[#FFFFFF]/50 py-16 sm:py-24"
     >
       <div
         className="absolute inset-0 bg-cover bg-center opacity-40 will-change-transform"

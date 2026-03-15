@@ -33,7 +33,7 @@ export default function FAQB2B() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-[#F3EFEA] px-6 py-16 text-black sm:py-28"
+      className="relative w-full bg-[#FFFFFF]/90 px-6 py-16 text-black sm:py-28"
     >
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-8">

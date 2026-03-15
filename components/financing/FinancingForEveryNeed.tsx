@@ -32,7 +32,7 @@ export default function FinancingForEveryNeed() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full overflow-hidden bg-[#0E0F11] py-20 sm:py-32"
+      className="relative w-full overflow-hidden bg-[#FFFFFF]/90 py-20 sm:py-32"
     >
       <div className="pointer-events-none absolute inset-0 z-0 opacity-20">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
@@ -55,9 +55,9 @@ export default function FinancingForEveryNeed() {
       <div className="relative z-10 mx-auto max-w-7xl px-6">
 
         {/* HEADER */}
-        <div className="mb-16 text-center">
+        <div className="mb-12 text-center">
           <h2
-            className="mb-4 text-2xl font-bold uppercase tracking-[0.12em] text-white sm:text-3xl"
+            className="mb-4 text-2xl font-bold uppercase tracking-tight text-black sm:text-3xl"
             style={{
               opacity: visible ? 1 : 0,
               transform: visible ? "translateY(0)" : "translateY(20px)",
@@ -75,7 +75,7 @@ export default function FinancingForEveryNeed() {
             }}
           />
           <p
-            className="mx-auto max-w-2xl text-[15px] font-medium leading-relaxed text-white/80 sm:text-[17px]"
+            className="mx-auto max-w-2xl text-[15px] font-medium leading-relaxed text-black/80 sm:text-[17px]"
             style={{
               opacity: visible ? 1 : 0,
               transition: "opacity 800ms ease-out",
@@ -99,7 +99,7 @@ export default function FinancingForEveryNeed() {
                 transitionDelay: `${index * 100}ms`,
               }}
             >
-              <div className="group relative flex h-full flex-col overflow-hidden rounded-[20px] border border-white/10 bg-gradient-to-br from-[#1A1A20] via-[#0E0E12] to-[#050505] p-8 text-center transition-all duration-500 hover:border-[#5A0F14]/50 hover:shadow-[0_20px_60px_rgba(90,15,20,0.2),inset_0_0_40px_rgba(90,15,20,0.05)]">
+              <div className="group relative flex h-full flex-col overflow-hidden rounded-[20px] border border-black/10 bg-gradient-to-br from-[#1A1A20] via-[#0E0E12] to-[#050505] p-8 text-center transition-all duration-500 hover:border-[#5A0F14] hover:shadow-[0_20px_60px_rgba(90,15,20,0.2),inset_0_0_40px_rgba(90,15,20,0.05)]">
 
                 <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(90,15,20,0.15),transparent_70%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
@@ -119,7 +119,7 @@ export default function FinancingForEveryNeed() {
                 </div>
 
                 <div className="relative mx-auto mb-6 flex h-20 w-20 items-center justify-center">
-                  <div className="absolute inset-0 rounded-full border-2 border-white/5" />
+                  <div className="absolute inset-0 rounded-full border-2 border-white/15" />
                   <div className="absolute inset-0 animate-spin rounded-full border-r-2 border-t-2 border-[#5A0F14]" style={{ animationDuration: "3s" }} />
                   <div
                     className="relative z-10 flex items-center justify-center text-white transition-transform duration-300 group-hover:scale-110 group-hover:text-[#5A0F14]"
@@ -131,19 +131,19 @@ export default function FinancingForEveryNeed() {
                   <h3 className="mb-2 text-xl font-bold text-white transition-colors group-hover:text-white">
                     {profile.title}
                   </h3>
-                  <p className="mb-4 text-xs font-bold uppercase tracking-wider text-[#5A0F14]/80">
+                  <p className="mb-4 text-xs font-bold uppercase tracking-wider text-[#8A1F24]">
                     {targetLabel}:{" "}
-                    <span className="font-medium normal-case tracking-normal text-white/60">
+                    <span className="font-medium normal-case tracking-normal text-white/80">
                       {profile.targets}
                     </span>
                   </p>
-                  <div className="mx-auto mb-4 h-px w-12 bg-gradient-to-r from-transparent via-white/20 to-transparent transition-all duration-500 group-hover:via-[#5A0F14]/50" />
+                  <div className="mx-auto mb-4 h-px w-12 bg-gradient-to-r from-transparent via-white/20 to-transparent transition-all duration-500 group-hover:via-[#5A0F14]" />
                   <div className="mt-auto">
-                    <p className="mb-3 text-xs text-white/50">
+                    <p className="mb-3 text-xs text-white/70">
                       <strong className="mb-1 block text-white/80">{exampleLabel}:</strong>
                       {profile.example}
                     </p>
-                    <span className="inline-block rounded-full border border-white/5 bg-white/[0.03] px-3 py-1 text-[10px] font-bold text-white/80 transition-colors group-hover:border-[#5A0F14]/30 group-hover:bg-[#5A0F14]/10">
+                    <span className="inline-block rounded-full border border-black/5 bg-black/[0.03] px-3 py-1 text-[10px] font-bold text-white/80 transition-colors group-hover:border-[#5A0F14]/80 group-hover:bg-[#5A0F14]/30">
                       {profile.range}
                     </span>
                   </div>
@@ -154,7 +154,7 @@ export default function FinancingForEveryNeed() {
         </div>
 
         <div className="mt-4 flex justify-center sm:hidden">
-          <div className="h-1 w-16 overflow-hidden rounded-full bg-white/10">
+          <div className="h-1 w-16 overflow-hidden rounded-full bg-black/40">
             <div className="ffen-swipe-indicator h-full w-1/3 bg-[#5A0F14]" />
           </div>
         </div>

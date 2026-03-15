@@ -92,7 +92,7 @@ export default function BuiltForScale() {
     <section
       ref={sectionRef}
       id="capabilities"
-      className="relative w-full overflow-hidden bg-[#0E0F11] px-6 py-16 sm:py-16"
+      className="relative w-full overflow-hidden bg-[#FFFFFF]/90 px-6 py-16 sm:py-16"
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(90,15,20,0.05)_0%,transparent_60%)]" />
 
@@ -101,7 +101,7 @@ export default function BuiltForScale() {
         {/* HEADER */}
         <div className="mb-10 text-center sm:mb-12">
           <h2
-            className="mb-4 text-2xl font-bold uppercase tracking-[0.15em] text-white sm:text-3xl"
+            className="mb-4 text-3xl font-bold uppercase tracking-tight text-black sm:text-4xl"
             style={{
               opacity: visible ? 1 : 0,
               transform: visible ? "translateY(0)" : "translateY(20px)",
@@ -119,7 +119,7 @@ export default function BuiltForScale() {
             }}
           />
           <p
-            className="text-[18px] font-medium tracking-wide text-white/70 sm:text-[20px]"
+            className="text-[18px]font-bold uppercase tracking-tight text-black sm:text-[20px]"
             style={{
               opacity: visible ? 1 : 0,
               transform: visible ? "translateY(0)" : "translateY(20px)",
@@ -158,7 +158,7 @@ export default function BuiltForScale() {
 
         {/* MOBILE : Tabs */}
         <div className="sm:hidden">
-          <div className="mb-6 flex w-full rounded-full border border-white/10 bg-white/5 p-1">
+          <div className="mb-6 flex w-full rounded-full border border-black/50 bg-black/85 p-1">
             {builtForScaleCopy.profiles.map((profile) => {
               const isActive = activeTab === profile.id;
               return (
@@ -211,7 +211,7 @@ export default function BuiltForScale() {
             transitionDelay: "800ms",
           }}
         >
-          <p className="inline-block rounded-full border border-white/10 bg-white/5 px-6 py-2 text-[12px] font-medium tracking-[0.08em] text-white/70 sm:text-[13px]">
+          <p className="inline-block rounded-full border border-black/50 bg-black/80 px-6 py-2 text-[12px] font-medium tracking-[0.08em] text-white/80 sm:text-[13px]">
             {builtForScaleCopy.footerNote}
           </p>
         </div>

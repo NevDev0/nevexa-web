@@ -84,7 +84,7 @@ export default function B2CIndustrySecrets() {
         {/* HEADER */}
         <div className="mb-8 text-center lg:mb-24">
           <h2
-            className="mb-4 text-2xl font-bold uppercase tracking-[0.12em] text-white sm:text-3xl"
+            className="mb-4 text-2xl font-bold uppercase tracking-tight text-white sm:text-3xl"
             style={{
               opacity: visible ? 1 : 0,
               transform: visible ? "translateY(0)" : "translateY(30px)",
