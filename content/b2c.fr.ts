@@ -4,7 +4,7 @@
 // Section 1 — Hero
 export const b2cHeroCopy = {
     title: "Historique Vérifié. Transparence Totale.",
-    badge: "Modèles 2021-2026 uniquement",
+    badge: "Modèles 2021+ uniquement",
     ctaPrimary: "Explorer le catalogue",
     ctaSecondary: "Parler à un conseiller",
     impactText: "Concessionnaires officiels uniquement. Zéro enchères. Zéro doute.",
