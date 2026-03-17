@@ -26,7 +26,7 @@ export const b2bHeroCopy = {
   
   // Section 2 — Built for Scale
   export const builtForScaleCopy = {
-    title: "Conçu pour scaler",
+    title: "NOS CLIENTS",
     subtitle: "Trois secteurs. Un seul standard.",
     footerNote: "Tous les profils bénéficient d'un sourcing exclusif en concessionnaire, de rapports d'inspection complets et d'une documentation prête pour la douane.",
   
@@ -198,7 +198,7 @@ export const b2bHeroCopy = {
   // Section 5 — Contact CTA
   export const contactCTAB2B = {
     title: "Prêt à développer votre activité ?",
-    subtitle: "Parlons de vos besoins en sourcing",
+    subtitle: "Parlons de vos besoins",
     ctaPrimary: "Nous écrire",
     ctaSecondary: "WhatsApp",
     note: "Réponse sous 24h les jours ouvrables",

@@ -91,7 +91,7 @@ export default function ContactCTAB2B() {
               transitionDelay: "150ms",
             }}
           />
-          <p className="mx-auto max-w-2xl text-[15px] leading-relaxed text-white/60 sm:text-[18px]">
+          <p className="mx-auto max-w-2xl text-[16px] leading-relaxed text-white/70 sm:text-[18px]">
             {contactCTAB2B.subtitle}
           </p>
         </div>

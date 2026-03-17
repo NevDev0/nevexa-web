@@ -27,7 +27,7 @@ export const contactModalB2BCopy = {
 
 // Section 2 — Built for Scale (NEW - replaces B2BCapabilities + UseCases)
 export const builtForScaleCopy = {
-  title: "Built for Scale",
+  title: "OUR CLIENTS",
   subtitle: "Three industries. One standard.",
   footerNote: "All profiles benefit from dealership-only sourcing, full inspection reports, and customs-ready documentation.",
   

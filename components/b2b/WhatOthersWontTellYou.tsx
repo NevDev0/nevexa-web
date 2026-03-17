@@ -79,7 +79,7 @@ export default function WhatOthersWontTellYou() {
             transition: "opacity 800ms ease-out, transform 800ms ease-out",
           }}
         >
-          <h2 className="mb-4 text-2xl font-bold uppercase tracking-[0.15em] text-white sm:text-3xl">
+          <h2 className="mb-4 text-3xl font-bold uppercase tracking-tight text-white sm:text-4xl">
             {whatOthersWontTellYou.title}
           </h2>
           <div
@@ -90,7 +90,7 @@ export default function WhatOthersWontTellYou() {
               transitionDelay: "200ms",
             }}
           />
-          <p className="text-[16px] font-medium tracking-wide text-white/60 sm:text-[18px]">
+          <p className="text-[16px] font-medium tracking-tight text-white/70 sm:text-[18px]">
             {whatOthersWontTellYou.subtitle}
           </p>
         </div>
