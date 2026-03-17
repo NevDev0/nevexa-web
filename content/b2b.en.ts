@@ -178,9 +178,9 @@ export const faqB2B = {
     },
     {
       id: 3,
-      question: "Can you source vehicles outside the 2021–2026 range?",
+      question: "Can you source vehicles from before 2021?",
       answer:
-        "We focus exclusively on 2021–2026 models to ensure quality and resale value. Older vehicles carry higher risk of mechanical issues and lower market appeal. If you need specific older models, we can discuss exceptions on a case-by-case basis.",
+        "We focus exclusively on 2021+ models to ensure quality and resale value. Older vehicles carry higher risk of mechanical issues and lower market appeal. If you need specific older models, we can discuss exceptions on a case-by-case basis.",
     },
     {
       id: 4,

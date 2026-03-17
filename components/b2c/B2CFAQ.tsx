@@ -12,7 +12,6 @@ export default function FAQ() {
   const [openId, setOpenId] = useState<number | null>(null);
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-  const answerRefs = useRef<Record<number, HTMLDivElement | null>>({});
 
   const toggle = (id: number) => {
     setOpenId(openId === id ? null : id);
@@ -108,24 +107,20 @@ export default function FAQ() {
                   </div>
                 </button>
 
+                {/* GRID ANIMATION — no reflow, no scrollHeight */}
                 <div
-                  className="overflow-hidden"
+                  className="grid transition-[grid-template-rows,opacity] duration-400 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
                   style={{
-                    maxHeight: isOpen
-                      ? `${answerRefs.current[item.id]?.scrollHeight ?? 500}px`
-                      : "0px",
+                    gridTemplateRows: isOpen ? "1fr" : "0fr",
                     opacity: isOpen ? 1 : 0,
-                    transition:
-                      "max-height 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 300ms ease-out",
                   }}
                 >
-                  <div
-                    ref={(el) => { answerRefs.current[item.id] = el; }}
-                    className="pb-8 pr-8 sm:pr-12"
-                  >
-                    <p className="text-[14px] leading-relaxed text-white/60 sm:text-[15px]">
-                      {item.answer}
-                    </p>
+                  <div className="overflow-hidden">
+                    <div className="pb-8 pr-8 sm:pr-12">
+                      <p className="text-[14px] leading-relaxed text-white/60 sm:text-[15px]">
+                        {item.answer}
+                      </p>
+                    </div>
                   </div>
                 </div>
 

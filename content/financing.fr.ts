@@ -87,7 +87,7 @@ export const financingHeroCopy = {
         id: "personal",
         title: "Particuliers Premium", // Plus chic que "Upgrade Personnel"
         targets: "Cadres, Professions Libérales",
-        example: "SUV personnel (2021-2026)",
+        example: "SUV personnel (2021+)",
         range: "Véhicules 30k $ – 80k $",
         // ... (Garde ton icône SVG ici) ...
          icon: `<svg class="h-12 w-12" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 8px rgba(90, 15, 20, 0.5));">

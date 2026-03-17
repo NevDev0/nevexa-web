@@ -93,7 +93,7 @@ export const financingProfilesCopy = {
       id: "personal",
       title: "Premium Personal",
       targets: "Executives, Professionals",
-      example: "Personal SUV (2021-2026)",
+      example: "Personal SUV (2021+)",
       range: "Vehicles $30k – $80k",
       // ... (Keep SVG) ...
        icon: `<svg class="h-12 w-12" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 8px rgba(90, 15, 20, 0.5));">

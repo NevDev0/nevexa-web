@@ -424,7 +424,7 @@ export const faqCopy = {
       id: 1,
       question: "Can I request a specific model not shown here?",
       answer:
-        "Yes. The catalog shows sample configurations, but we can source any 2021–2026 model from official Canadian dealerships. Contact us with your requirements and we'll provide a custom quote within 48 hours.",
+        "Yes. The catalog shows sample configurations, but we can source any 2021+ model from official Canadian dealerships. Contact us with your requirements and we'll provide a custom quote within 48 hours.",
     },
     {
       id: 2,
@@ -448,7 +448,7 @@ export const faqCopy = {
       id: 5,
       question: "Why import instead of buying locally?",
       answer:
-        "Importing from Canada gives you access to recent 2021–2026 models with verified history and competitive pricing. Local markets often have limited recent inventory with inflated prices, especially for premium vehicles.",
+        "Importing from Canada gives you access to recent models with verified history and competitive pricing. Local markets often have limited recent inventory with inflated prices, especially for premium vehicles.",
     },
   ],
 };

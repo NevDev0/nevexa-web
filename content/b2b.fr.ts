@@ -176,9 +176,9 @@ export const b2bHeroCopy = {
       },
       {
         id: 3,
-        question: "Pouvez-vous sourcer des véhicules hors de la plage 2021-2026 ?",
+        question: "Pouvez-vous sourcer des véhicules hors de la plage 2021+ ?",
         answer:
-          "Nous nous concentrons exclusivement sur les modèles 2021-2026 pour garantir qualité et valeur à la revente. Les véhicules plus anciens présentent un risque mécanique plus élevé et une attractivité marché moindre. Pour des besoins spécifiques, nous pouvons étudier des exceptions au cas par cas.",
+          "Nous nous concentrons exclusivement sur les modèles de 2021 et au-delà pour garantir qualité et valeur à la revente. Les véhicules plus anciens présentent un risque mécanique plus élevé et une attractivité marché moindre. Pour des besoins spécifiques, nous pouvons étudier des exceptions au cas par cas.",
       },
       {
         id: 4,

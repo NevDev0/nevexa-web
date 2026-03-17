@@ -400,7 +400,7 @@ export const b2cHeroCopy = {
         id: 1,
         question: "Puis-je demander un modèle qui n'est pas dans le catalogue ?",
         answer:
-          "Oui. Le catalogue présente des configurations indicatives, mais nous pouvons sourcer n'importe quel modèle 2021-2026 auprès de concessionnaires canadiens officiels. Contactez-nous avec vos critères et nous vous fournirons un devis personnalisé sous 48 heures.",
+          "Oui. Le catalogue présente des configurations indicatives, mais nous pouvons sourcer n'importe quel modèle récent (2021+) auprès de concessionnaires canadiens officiels. Contactez-nous avec vos critères et nous vous fournirons un devis personnalisé sous 48 heures.",
       },
       {
         id: 2,
@@ -424,7 +424,7 @@ export const b2cHeroCopy = {
         id: 5,
         question: "Pourquoi importer plutôt qu'acheter localement ?",
         answer:
-          "Importer depuis le Canada vous donne accès à des modèles récents 2021-2026 avec historique vérifié et des tarifs compétitifs. Les marchés locaux proposent souvent un stock limité de véhicules récents, avec des prix majorés — surtout sur les véhicules premium.",
+          "Importer depuis le Canada vous donne accès à des modèles récents avec historique vérifié et des tarifs compétitifs. Les marchés locaux proposent souvent un stock limité de véhicules récents, avec des prix majorés — surtout sur les véhicules premium.",
       },
     ],
   };
