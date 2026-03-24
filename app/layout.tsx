@@ -18,12 +18,15 @@ export const metadata: Metadata = {
     template: "%s | Nevexa", 
   },
 
-  description: "Nevexa sources 2021-2026 premium vehicles from official Canadian dealerships for African markets. Sourcing, inspection, delivery.",
+  description: "Nevexa sources 2021+ premium vehicles from official Canadian dealerships for African markets. Sourcing, inspection, delivery.",
   
   keywords: [
     "Nevexa", "Premium Vehicles", "Car Export Canada", "North America Car Sourcing", 
     "Luxury Cars West Africa", "Vehicle Import Nigeria", "Off-market Cars",
     "Import voiture Canada", "Mandataire auto Canada Afrique", "Export véhicule Sénégal"
+    , "Car Export Ghana", "Car Export Nigeria", "Export véhicule Sénégal"
+    , "Export véhicule Côte D'ivoire", "Export véhicule Togo", "Car Nigeria"
+    
   ],
 
   openGraph: {
@@ -46,7 +49,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Nevexa — Premium vehicles, from Canada to Africa",
-    description: "Sourcing and delivering 2021-2026 premium vehicles from Canada to African markets.",
+    description: "Sourcing and delivering 2021+ premium vehicles from Canada to African markets.",
     images: ["/opengraph-image.jpg"], 
   },
   
