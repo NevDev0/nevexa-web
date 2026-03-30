@@ -6,7 +6,7 @@ export const headerContent = {
       { label: "Particuliers", href: "/b2c" },
       { label: "Professionnels", href: "/b2b" },
       { label: "Financement", href: "/financing" },
-      { label: "À propos", href: "/about" },
+      { label: "Nous", href: "/about" },
     ],
     cta: {
       label: "Nous contacter",

@@ -6,8 +6,11 @@ import SplitCTA from "@/components/about/SplitCTA";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "About",
-  description: "Nevexa was built to eliminate fraud in the African vehicle market. Learn our story, our mission, and why transparency is the foundation of everything we do.",
+  title: "About Nevexa — Canadian Vehicle Importer to West Africa",
+  description: "Nevexa is a Toronto-based vehicle importer connecting West African buyers to certified Canadian dealerships. Premium vehicles, transparent process, direct delivery.",
+  alternates: {
+    canonical: "https://www.nevexacars.com/about",
+  },
 };
 
 export default function AboutPage() {

@@ -8,8 +8,11 @@ import WaitlistForm from "@/components/financing/WaitlistForm";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Financing",
-  description: "Vehicle financing for Africa — launching Q1 2027 in Nigeria. Join the waitlist and be first to access Nevexa's banking partnership program.",
+  title: "How to Finance Your Canadian Vehicle Import to West Africa | Nevexa",
+  description: "Understand the full cost of importing a Canadian vehicle to Nigeria or Côte d'Ivoire. Deposit structure, payment process, banking options — Nevexa guides you through it.",
+  alternates: {
+    canonical: "https://www.nevexacars.com/financing",
+  },
 };
 
 export default function FinancingPage() {

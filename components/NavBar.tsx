@@ -9,6 +9,8 @@ import { headerContent as headerEn } from "@/content/header.en";
 import { headerContent as headerFr } from "@/content/header.fr";
 import ContactChoiceModal from "@/components/ContactChoiceModal";
 
+const WHATSAPP_NUMBER = "1XXXXXXXXXX"; // ← remplace par ton numéro sans +
+
 const SOCIALS = [
   {
     id: "x",
@@ -83,12 +85,13 @@ export default function NavBar() {
     <>
       {/* ── NAVBAR ── */}
       <div className="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-black/90 to-transparent">
-        <div className="relative flex h-20 items-center justify-between px-6 sm:h-[88px] sm:px-10">
+        {/* Layout linéaire gauche → droite : logo | nav | spacer | pill */}
+        <div className="relative flex items-center h-20 lg:h-[88px] px-6 lg:px-10 gap-10">
 
-          {/* LEFT: Hamburger */}
+          {/* Hamburger mobile — à gauche, visible < lg uniquement */}
           <button
             onClick={() => setDrawerOpen(true)}
-            className="group flex flex-col justify-center items-start gap-[4px] w-10 h-10 -ml-1 z-10"
+            className="group flex lg:hidden flex-col justify-center items-start gap-[4px] w-10 h-10 -ml-1 shrink-0"
             aria-label={headerContent.drawer.openLabel}
             aria-expanded={drawerOpen}
           >
@@ -96,18 +99,20 @@ export default function NavBar() {
             <span className="block h-px w-3 bg-white transition-all duration-300 group-hover:w-6" />
           </button>
 
-          {/* CENTER: Logo */}
+          {/* Logo :
+              - Mobile : centré via absolute (comportement original)
+              - Desktop : dans le flux normal, tout à gauche */}
           <Link
             href="/"
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
             aria-label="Nevexa — Home"
+            className="absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0 shrink-0"
           >
             <Image
               src={headerContent.logo.mobile}
               alt={headerContent.logo.alt}
               width={36}
               height={36}
-              className="block sm:hidden h-9 w-auto object-contain"
+              className="block lg:hidden h-9 w-auto object-contain"
               priority
             />
             <Image
@@ -115,37 +120,54 @@ export default function NavBar() {
               alt={headerContent.logo.alt}
               width={180}
               height={67}
-              className="hidden sm:block h-7 w-auto object-contain"
+              className="hidden lg:block h-6 w-auto object-contain"
               priority
             />
           </Link>
 
-          {/* RIGHT: Lang + CTA */}
-          <div className="flex items-center gap-6 z-10">
-
-            {/* Lang Switcher Desktop */}
-            <div className="hidden sm:flex items-center gap-2">
-              <button
-                onClick={() => setLanguage("en")}
-                className={`text-[11px] tracking-wider transition-colors duration-200 ${language === "en" ? "text-white font-bold" : "text-white/50 font-medium hover:text-white/80"}`}
-                aria-pressed={language === "en"}
+          {/* Nav links desktop — suit le logo */}
+          <nav className="hidden lg:flex items-center gap-8" aria-label="Navigation principale">
+            {headerContent.nav.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={[
+                  "relative text-[13px] font-medium tracking-widest uppercase transition-colors duration-200",
+                  "after:absolute after:-bottom-0.5 after:left-0 after:h-px after:bg-[#941A22] after:transition-all after:duration-300",
+                  isActive(item.href)
+                    ? "text-white after:w-full"
+                    : "text-white/50 hover:text-white after:w-0 hover:after:w-full",
+                ].join(" ")}
               >
-                EN
-              </button>
-              <div className="h-2.5 w-px bg-white/20" />
-              <button
-                onClick={() => setLanguage("fr")}
-                className={`text-[11px] tracking-wider transition-colors duration-200 ${language === "fr" ? "text-white font-bold" : "text-white/50 font-medium hover:text-white/80"}`}
-                aria-pressed={language === "fr"}
-              >
-                FR
-              </button>
-            </div>
+                {item.label}
+              </Link>
+            ))}
+          </nav>
 
-            {/* Bouton Contact */}
+          {/* Spacer — pousse la pill vers la droite */}
+          <div className="hidden lg:block flex-1" />
+
+          {/* Pill fusionnée EN/FR + CTA — desktop uniquement */}
+          <div className="hidden lg:flex items-center rounded-full border border-[#5A0F14] overflow-hidden shrink-0">
+            <button
+              onClick={() => setLanguage("en")}
+              className={`px-3 py-1.5 text-[11px] tracking-wider transition-colors duration-200 ${language === "en" ? "text-white font-bold" : "text-white/40 font-medium hover:text-white/70"}`}
+              aria-pressed={language === "en"}
+            >
+              EN
+            </button>
+            <div className="self-stretch w-px bg-[#5A0F14]" />
+            <button
+              onClick={() => setLanguage("fr")}
+              className={`px-3 py-1.5 text-[11px] tracking-wider transition-colors duration-200 ${language === "fr" ? "text-white font-bold" : "text-white/40 font-medium hover:text-white/70"}`}
+              aria-pressed={language === "fr"}
+            >
+              FR
+            </button>
+            <div className="self-stretch w-px bg-[#5A0F14]" />
             <button
               onClick={handleContactClick}
-              className="hidden sm:inline-flex items-center gap-2 rounded-full border border-[#5A0F14] bg-[#5A0F14] px-5 py-1.5 text-[12px] font-semibold tracking-wide text-white transition-all duration-300 hover:bg-[#7a141b] hover:border-[#7a141b] hover:scale-[1.03]"
+              className="flex items-center gap-2 bg-[#5A0F14] px-5 py-1.5 text-[12px] font-semibold tracking-wide text-white transition-colors duration-300 hover:bg-[#7a141b]"
             >
               {headerContent.cta.label}
               <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -153,8 +175,30 @@ export default function NavBar() {
               </svg>
             </button>
           </div>
+
+          {/* Mobile uniquement : placeholder symétrique au hamburger pour que le logo absolu soit visuellement centré */}
+          <div className="lg:hidden w-10 ml-auto shrink-0" aria-hidden="true" />
+
         </div>
       </div>
+
+      {/* ── WHATSAPP WIDGET FLOTTANT ── */}
+      {!modalOpen && (
+        <a
+          href={`https://wa.me/${WHATSAPP_NUMBER}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Nous contacter sur WhatsApp"
+          className="fixed bottom-6 left-6 z-50 flex items-center justify-center w-14 h-14 rounded-full bg-[#25D366] shadow-lg shadow-black/30 transition-transform duration-300 hover:scale-110"
+        >
+          {/* Pulse ring */}
+          <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-30" />
+          {/* WhatsApp icon */}
+          <svg viewBox="0 0 24 24" className="relative h-7 w-7 text-white" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+          </svg>
+        </a>
+      )}
 
       {/* OVERLAY */}
       {drawerOpen && (
@@ -165,7 +209,7 @@ export default function NavBar() {
         />
       )}
 
-      {/* DRAWER */}
+      {/* DRAWER (mobile only) */}
       <div
         ref={drawerRef}
         className={[

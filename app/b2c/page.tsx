@@ -11,8 +11,11 @@ import Footer from "@/components/Footer";
 const SHOW_REAL_RESULTS = false;
 
 export const metadata: Metadata = {
-  title: "Buy a Vehicle", 
-  description: "Browse 2021+ premium vehicles sourced directly from Canadian dealerships. Mercedes-Benz, Toyota, Cadillac and more — delivered to your door in Africa.", 
+  title: "Buy a Car from Canada, Delivered to Nigeria | Nevexa",
+  description: "Choose your vehicle, we source it from certified Canadian dealerships, handle shipping and customs, and deliver it to you. 100% on-demand, 0 inventory.",
+  alternates: {
+    canonical: "https://www.nevexacars.com/b2c",
+  },
 };
 
 export default function B2CPage() {

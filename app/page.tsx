@@ -11,6 +11,14 @@ import Footer from "@/components/Footer";
 
 const SHOW_REAL_RESULTS = false;
 
+export const metadata: Metadata = {
+  title: "Buy Canadian Cars, Delivered to Nigeria | Nevexa",
+  description: "Nevexa sources any 2021–2026 vehicle from certified Canadian dealerships and ships it directly to Nigeria or Côte d'Ivoire. On-demand. Verified. Premium.",
+  alternates: {
+    canonical: "https://www.nevexacars.com",
+  },
+};
+
 export default function HomePage() {
   return (
     <main className="min-h-screen w-full overflow-x-hidden bg-black text-white">

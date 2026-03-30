@@ -1,3 +1,13 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Legal Notice | Nevexa",
+  robots: {
+    index: false,
+    follow: true,
+  },
+};
+
 import Link from "next/link";
 
 export default function LegalNotice() {

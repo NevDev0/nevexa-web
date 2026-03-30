@@ -7,8 +7,11 @@ import ContactCTAB2B from "@/components/b2b/ContactCTAB2B";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Business Solutions",
-  description: "Fleet sourcing and corporate vehicle programs for African businesses. Nevexa delivers verified Canadian vehicles at scale with full documentation.", 
+  title: "Fleet Sourcing from Canada for African Businesses | Nevexa",
+  description: "Nevexa sources business fleets directly from Canadian dealerships. Competitive pricing, volume orders, shipping to Nigeria and Côte d'Ivoire.",
+  alternates: {
+    canonical: "https://www.nevexacars.com/b2b",
+  },
 };
 
 export default function B2BPage() {

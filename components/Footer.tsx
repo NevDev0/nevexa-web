@@ -45,13 +45,8 @@ export default function Footer() {
 
   const legalHref = language === "fr" ? "/mentions-legales" : "/legal-notice";
   const legalLabel = language === "fr" ? "Mentions légales" : "Legal Notice";
-  
-  // Texte pour les cookies selon la langue
   const cookieLabel = language === "fr" ? "Gérer les cookies" : "Cookies Settings";
-
-  const copyright = language === "fr"
-    ? `© ${year} Nevexa Automotive Inc.`
-    : `© ${year} Nevexa Automotive Inc.`;
+  const copyright = `© ${year} Nevexa Automotive Inc.`;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -79,7 +74,7 @@ export default function Footer() {
       >
         <div className="mb-12 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-        <div className="flex w-full flex-col items-center justify-between gap-10 md:flex-row">
+        <div className="flex w-full flex-col items-center justify-between gap-10 md:flex-row md:items-center">
 
           {/* Logo & copyright */}
           <div className="flex flex-col items-center gap-4 md:items-start">
@@ -110,6 +105,22 @@ export default function Footer() {
             ))}
           </div>
 
+          {/* Adresse & téléphone */}
+          <div className="flex flex-col items-center gap-1.5">
+            <p className="text-[11px] font-medium uppercase tracking-widest text-neutral-400">
+              Toronto, Canada
+            </p>
+            <p className="text-[11px] text-neutral-400">
+              100 King St W, Suite 5700
+            </p>
+            <a
+              href="tel:+14374842769"
+              className="text-[11px] text-neutral-400 transition-colors hover:text-white"
+            >
+              +1 437 484 2769
+            </a>
+          </div>
+
           {/* Legal */}
           <nav className="flex items-center gap-6">
             <Link
@@ -118,11 +129,9 @@ export default function Footer() {
             >
               {legalLabel}
             </Link>
-            
-            {/* Lien pour rouvrir les cookies Axeptio */}
             <a
               href="javascript:openAxeptioCookies()"
-              className="text-[12px] font-medium tracking-wide text-neutral-500 transition-colors hover:text-white cursor-pointer"
+              className="cursor-pointer text-[12px] font-medium tracking-wide text-neutral-500 transition-colors hover:text-white"
             >
               {cookieLabel}
             </a>

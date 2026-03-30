@@ -4,7 +4,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { LanguageProvider } from "@/context/LanguageContext";
-import Script from "next/script"; // ✅ Importé pour une gestion propre des scripts
+import Script from "next/script";
 import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -12,23 +12,18 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.nevexacars.com"),
-  
   title: {
     default: "Nevexa — Premium vehicles, from Canada to Africa",
-    template: "%s | Nevexa", 
+    template: "%s | Nevexa",
   },
-
   description: "Nevexa sources 2021+ premium vehicles from official Canadian dealerships for African markets. Sourcing, inspection, delivery.",
-  
   keywords: [
-    "Nevexa", "Premium Vehicles", "Car Export Canada", "North America Car Sourcing", 
+    "Nevexa", "Premium Vehicles", "Car Export Canada", "North America Car Sourcing",
     "Luxury Cars West Africa", "Vehicle Import Nigeria", "Off-market Cars",
-    "Import voiture Canada", "Mandataire auto Canada Afrique", "Export véhicule Sénégal"
-    , "Car Export Ghana", "Car Export Nigeria", "Export véhicule Sénégal"
-    , "Export véhicule Côte D'ivoire", "Export véhicule Togo", "Car Nigeria"
-    
+    "Import voiture Canada", "Mandataire auto Canada Afrique", "Export véhicule Sénégal",
+    "Car Export Ghana", "Car Export Nigeria", "Export véhicule Côte D'ivoire",
+    "Export véhicule Togo", "Car Nigeria"
   ],
-
   openGraph: {
     title: "Nevexa — Premium vehicles, from Canada to Africa",
     description: "Sourcing and delivering 2021-2026 premium vehicles from Canada to African markets.",
@@ -36,7 +31,7 @@ export const metadata: Metadata = {
     siteName: "Nevexa",
     images: [
       {
-        url: "/opengraph-image.jpg", 
+        url: "/opengraph-image.jpg",
         width: 1200,
         height: 630,
         alt: "Nevexa Premium Cars Import",
@@ -45,14 +40,12 @@ export const metadata: Metadata = {
     locale: "en_US",
     type: "website",
   },
-
   twitter: {
     card: "summary_large_image",
     title: "Nevexa — Premium vehicles, from Canada to Africa",
     description: "Sourcing and delivering 2021+ premium vehicles from Canada to African markets.",
-    images: ["/opengraph-image.jpg"], 
+    images: ["/opengraph-image.jpg"],
   },
-  
   robots: {
     index: true,
     follow: true,
@@ -70,6 +63,27 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" className="bg-black">
       <head>
+        {/* ✅ Schema.org Organization */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "Nevexa",
+              "url": "https://www.nevexacars.com",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "100 King St W, Suite 5700",
+                "addressLocality": "Toronto",
+                "addressRegion": "ON",
+                "addressCountry": "CA"
+              },
+              "areaServed": ["Nigeria", "Côte d'Ivoire"]
+            })
+          }}
+        />
+
         {/* ✅ Configuration Axeptio & Google Consent Mode v2 */}
         <Script id="axeptio-configuration" strategy="beforeInteractive">
           {`
@@ -88,12 +102,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             };
           `}
         </Script>
-        
+
         {/* ✅ Chargement du SDK Axeptio */}
-        <Script 
+        <Script
           id="axeptio-sdk"
-          src="//static.axept.io/sdk.js" 
-          strategy="afterInteractive" 
+          src="//static.axept.io/sdk.js"
+          strategy="afterInteractive"
         />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
@@ -102,9 +116,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         </LanguageProvider>
         <Analytics />
         <SpeedInsights />
-        
         {/* ✅ Google Analytics 4 */}
-        <GoogleAnalytics gaId="G-HPHS5FN0SK" /> 
+        <GoogleAnalytics gaId="G-HPHS5FN0SK" />
       </body>
     </html>
   );
